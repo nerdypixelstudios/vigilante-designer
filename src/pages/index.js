@@ -14,34 +14,34 @@ export default function Home() {
           <div className="divide-y divide-ink-100 border-t border-ink-100">
 
             <div className="py-8">
-              <p className="font-cabinet text-ink-950 text-7xl font-extrabold leading-none">
+              <p className="font-cabinet text-ink-950 text-h1 font-extrabold leading-none">
                 H1 — Cabinet Grotesk, Extra Bold, 72px
               </p>
             </div>
 
             <div className="py-8">
-              <p className="font-cabinet text-ink-950 text-5xl font-extrabold leading-none">
+              <p className="font-cabinet text-ink-950 text-h2 font-extrabold leading-none">
                 H2 — Cabinet Grotesk, Extra Bold, 48px
               </p>
             </div>
 
             <div className="py-6">
-              <p className="font-dm text-ink-950 text-2xl font-extrabold">
+              <p className="font-dm text-ink-950 text-h3 font-extrabold">
                 H3 — DM Sans, Extra Bold, 26px
               </p>
             </div>
 
             <div className="py-6">
-              <p className="font-dm text-ink-950 text-xl font-extrabold">
+              <p className="font-dm text-ink-950 text-h4 font-extrabold">
                 H4 — DM Sans, Extra Bold, 20px
               </p>
             </div>
 
             <div className="py-6">
-              <p className="font-dm text-ink-950 text-xl font-extrabold mb-3">
+              <p className="font-dm text-ink-950 text-body font-extrabold mb-3">
                 Body Text — DM Sans, Regular, 20px
               </p>
-              <p className="font-dm text-ink-950 text-xl font-normal leading-relaxed">
+              <p className="font-dm text-ink-950 text-body font-normal leading-relaxed">
                 {lorem}
               </p>
             </div>
@@ -56,7 +56,7 @@ export default function Home() {
           <div className="divide-y divide-fun-ink-900 border-t border-fun-ink-900">
 
             <div className="py-8">
-              <p className="font-rock-salt text-fun-ink-50 text-7xl leading-rock-salt">
+              <p className="font-rock-salt text-fun-ink-50 text-fun-h1 leading-rock-salt">
                 H1 — Rock Salt, Regular, 65px
               </p>
             </div>
@@ -68,22 +68,22 @@ export default function Home() {
             </div>
 
             <div className="py-6">
-              <p className="font-caveat text-fun-ink-50 text-3xl font-bold">
+              <p className="font-caveat text-fun-ink-50 text-fun-h3 font-bold">
                 H3 — Caveat, Bold, 30px
               </p>
             </div>
 
             <div className="py-6">
-              <p className="font-caveat text-fun-ink-50 text-2xl font-bold">
+              <p className="font-caveat text-fun-ink-50 text-fun-h4 font-bold">
                 H4 — Caveat, Bold, 26px
               </p>
             </div>
 
             <div className="py-6">
-              <p className="font-dm text-fun-ink-50 text-xl font-extrabold mb-3">
+              <p className="font-dm text-fun-ink-50 text-body font-extrabold mb-3">
                 Body Text — DM Sans, Regular, 20px
               </p>
-              <p className="font-dm text-fun-ink-50 text-xl font-normal leading-relaxed">
+              <p className="font-dm text-fun-ink-50 text-body font-normal leading-relaxed">
                 {lorem}
               </p>
             </div>
