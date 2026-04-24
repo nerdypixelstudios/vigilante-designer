@@ -63,3 +63,14 @@ body {
   color: var(--color-ink-950);
   background-color: var(--color-surface-white);
 }
+
+@layer utilities {
+  /*
+   * leading-rock-salt — explicit utility so Tailwind's --tw-leading
+   * variable is set correctly. @theme alone does not set --tw-leading.
+   */
+  .leading-rock-salt {
+    --tw-leading: var(--leading-rock-salt);
+    line-height: var(--leading-rock-salt);
+  }
+}

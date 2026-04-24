@@ -176,17 +176,17 @@ export default function Home() {
 function Swatch({ bg, label, dark, border }) {
   return (
     <div className="flex flex-col items-center gap-1">
-      <div className={`w-12 h-12 rounded ${bg} ${border ? "border border-ink-200" : ""}`} />
+      <div className={`w-12 h-12 rounded ${bg} ${border ? "border border-ink-300" : ""}`} />
       <span className={`font-dm text-xs ${dark ? "text-ink-500" : "text-fun-ink-500"}`}>{label}</span>
     </div>
   );
 }
 
-function SwatchFun({ bg, label, dark, border }) {
+function SwatchFun({ bg, label, border }) {
   return (
     <div className="flex flex-col items-center gap-1">
       <div className={`w-12 h-12 rounded ${bg} ${border ? "border border-fun-ink-700" : ""}`} />
-      <span className={`font-dm text-xs ${dark ? "text-ink-500" : "text-fun-ink-500"}`}>{label}</span>
+      <span className="font-dm text-fun-ink-500 text-xs">{label}</span>
     </div>
   );
 }
