@@ -1,78 +1,221 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export default function Home() {
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
-    >
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the index.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-surface-white p-8 md:p-16">
+
+      <h1 className="font-dm text-ink-800 mb-2 text-base font-normal">
+        Lohith Savala — Portfolio
+      </h1>
+      <p className="font-dm text-ink-500 mb-16 text-sm">
+        Phase 0 proof: four fonts + all color tokens rendering correctly.
+      </p>
+
+      {/* ── Four fonts ─────────────────────────────────────────── */}
+      <section className="mb-16">
+        <p className="font-dm text-ink-500 mb-6 text-xs uppercase tracking-widest">
+          Four fonts
+        </p>
+        <div className="space-y-6">
+          <div>
+            <p className="font-dm text-ink-300 mb-1 text-xs">Cabinet Grotesk — normal mode H1 / H2</p>
+            <p className="font-cabinet text-ink-950 text-4xl md:text-5xl font-extrabold">
+              Work That Speaks!!
+            </p>
+          </div>
+          <div>
+            <p className="font-dm text-ink-300 mb-1 text-xs">DM Sans — normal mode H3 / H4 / body</p>
+            <p className="font-dm text-ink-950 text-4xl md:text-5xl font-extrabold">
+              Skills that I bring to table!
+            </p>
+          </div>
+          <div className="bg-fun-surface-dark p-6 rounded-lg">
+            <p className="font-dm text-fun-ink-500 mb-1 text-xs">Rock Salt — fun mode H1 / H2</p>
+            <p className="font-rock-salt text-fun-ink-50 text-3xl md:text-4xl">
+              Echoes of Impact!!
+            </p>
+          </div>
+          <div className="bg-fun-surface-dark p-6 rounded-lg">
+            <p className="font-dm text-fun-ink-500 mb-1 text-xs">Caveat Bold — fun mode H3 / H4</p>
+            <p className="font-caveat text-fun-ink-50 text-4xl md:text-5xl font-bold">
+              My guys are ready!!
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs/pages/getting-started?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* ── Normal mode palette ────────────────────────────────── */}
+      <section className="mb-16">
+        <p className="font-dm text-ink-500 mb-6 text-xs uppercase tracking-widest">
+          Normal mode palette
+        </p>
+
+        <p className="font-dm text-ink-700 mb-3 text-xs">Accent</p>
+        <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-accent-yellow rounded" />
+            <span className="font-dm text-ink-500 text-xs">yellow</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-accent-green rounded" />
+            <span className="font-dm text-ink-500 text-xs">green</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-accent-orange rounded" />
+            <span className="font-dm text-ink-500 text-xs">orange</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-accent-lavender rounded" />
+            <span className="font-dm text-ink-500 text-xs">lavender</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-accent-sky rounded" />
+            <span className="font-dm text-ink-500 text-xs">sky</span>
+          </div>
         </div>
-      </main>
-    </div>
+
+        <p className="font-dm text-ink-700 mb-3 text-xs">Surface</p>
+        <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-surface-light rounded border border-ink-100" />
+            <span className="font-dm text-ink-500 text-xs">light</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-surface-mint rounded" />
+            <span className="font-dm text-ink-500 text-xs">mint</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-surface-peach rounded" />
+            <span className="font-dm text-ink-500 text-xs">peach</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-surface-lilac rounded" />
+            <span className="font-dm text-ink-500 text-xs">lilac</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-surface-ice rounded" />
+            <span className="font-dm text-ink-500 text-xs">ice</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-surface-white rounded border border-ink-100" />
+            <span className="font-dm text-ink-500 text-xs">white</span>
+          </div>
+        </div>
+
+        <p className="font-dm text-ink-700 mb-3 text-xs">Ink (text scale)</p>
+        <div className="flex flex-wrap gap-3">
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-ink-950 rounded" />
+            <span className="font-dm text-ink-500 text-xs">950</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-ink-800 rounded" />
+            <span className="font-dm text-ink-500 text-xs">800</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-ink-700 rounded" />
+            <span className="font-dm text-ink-500 text-xs">700</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-ink-500 rounded" />
+            <span className="font-dm text-ink-500 text-xs">500</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-ink-300 rounded" />
+            <span className="font-dm text-ink-500 text-xs">300</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-ink-100 rounded border border-ink-300" />
+            <span className="font-dm text-ink-500 text-xs">100</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Fun mode palette ───────────────────────────────────── */}
+      <section className="bg-fun-surface-dark p-8 rounded-lg">
+        <p className="font-dm text-fun-ink-500 mb-6 text-xs uppercase tracking-widest">
+          Fun mode palette
+        </p>
+
+        <p className="font-dm text-fun-ink-300 mb-3 text-xs">Accent</p>
+        <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-accent-yellow rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">yellow</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-accent-forest rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">forest</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-accent-red rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">red</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-accent-pink rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">pink</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-accent-blue rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">blue</span>
+          </div>
+        </div>
+
+        <p className="font-dm text-fun-ink-300 mb-3 text-xs">Surface</p>
+        <div className="flex flex-wrap gap-3 mb-6">
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-surface-black rounded border border-fun-ink-900" />
+            <span className="font-dm text-fun-ink-500 text-xs">black</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-surface-dark rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">dark</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-surface-orange rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">orange</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-surface-red rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">red</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-surface-royal rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">royal</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-surface-white rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">white</span>
+          </div>
+        </div>
+
+        <p className="font-dm text-fun-ink-300 mb-3 text-xs">Ink (text scale)</p>
+        <div className="flex flex-wrap gap-3">
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-ink-50 rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">50</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-ink-100 rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">100</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-ink-300 rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">300</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-ink-500 rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">500</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-ink-700 rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">700</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-14 h-14 bg-fun-ink-900 rounded" />
+            <span className="font-dm text-fun-ink-500 text-xs">900</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
   );
 }
