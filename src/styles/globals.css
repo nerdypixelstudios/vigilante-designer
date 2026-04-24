@@ -3,9 +3,13 @@
 @theme {
   /* ── Fonts ─────────────────────────────────────────────────────── */
   --font-cabinet: 'Cabinet Grotesk', sans-serif;
-  --font-dm: var(--font-dm-src);
-  --font-rock-salt: var(--font-rock-salt-src);
-  --font-caveat: var(--font-caveat-src);
+  --font-dm: 'DM Sans', sans-serif;
+  --font-rock-salt: 'Rock Salt', cursive;
+  --font-caveat: 'Caveat', cursive;
+
+  /* ── Type scale — spec sizes with no standard Tailwind token ────── */
+  --text-fun-h2: 2.5rem;     /* 40px — Rock Salt H2 */
+  --leading-rock-salt: 1.7;  /* Rock Salt needs extra line height — letters overlap at 1 */
 
   /* ── Normal mode — Accent ───────────────────────────────────────── */
   --color-accent-yellow: #FBE200;

@@ -1,221 +1,192 @@
+const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sodales arcu at tempus pretium. Suspendisse magna lorem, iaculis sit amet convallis id, fringilla in dui. Phasellus eget fringilla nisi. Nulla facilisi. Vivamus semper elit at sapien imperdiet, eu dictum est placerat. In ullamcorper posuere sapien. Vivamus ut gravida est. Etiam dignissim ipsum eget diam venenatis lacinia. Donec eget scelerisque tortor. Phasellus mattis tellus vestibulum, fermentum ligula sed, faucibus lacus. Praesent in dolor quam.";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-surface-white p-8 md:p-16">
+    <main className="min-h-screen">
 
-      <h1 className="font-dm text-ink-800 mb-2 text-base font-normal">
-        Lohith Savala — Portfolio
-      </h1>
-      <p className="font-dm text-ink-500 mb-16 text-sm">
-        Phase 0 proof: four fonts + all color tokens rendering correctly.
-      </p>
+      {/* ── Typography hierarchy ─────────────────────────────────── */}
+      <div className="grid md:grid-cols-2">
 
-      {/* ── Four fonts ─────────────────────────────────────────── */}
-      <section className="mb-16">
-        <p className="font-dm text-ink-500 mb-6 text-xs uppercase tracking-widest">
-          Four fonts
-        </p>
-        <div className="space-y-6">
+        {/* Normal mode */}
+        <div className="bg-surface-white p-10 border-r border-ink-100">
+          <p className="font-dm text-ink-800 font-extrabold text-base mb-8">Normal Mode</p>
+
+          <div className="divide-y divide-ink-100 border-t border-ink-100">
+
+            <div className="py-8">
+              <p className="font-cabinet text-ink-950 text-7xl font-extrabold leading-none">
+                H1 — Cabinet Grotesk, Extra Bold, 72px
+              </p>
+            </div>
+
+            <div className="py-8">
+              <p className="font-cabinet text-ink-950 text-5xl font-extrabold leading-none">
+                H2 — Cabinet Grotesk, Extra Bold, 48px
+              </p>
+            </div>
+
+            <div className="py-6">
+              <p className="font-dm text-ink-950 text-2xl font-extrabold">
+                H3 — DM Sans, Extra Bold, 26px
+              </p>
+            </div>
+
+            <div className="py-6">
+              <p className="font-dm text-ink-950 text-xl font-extrabold">
+                H4 — DM Sans, Extra Bold, 20px
+              </p>
+            </div>
+
+            <div className="py-6">
+              <p className="font-dm text-ink-950 text-xl font-extrabold mb-3">
+                Body Text — DM Sans, Regular, 20px
+              </p>
+              <p className="font-dm text-ink-950 text-xl font-normal leading-relaxed">
+                {lorem}
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Fun mode */}
+        <div className="bg-fun-surface-black p-10">
+          <p className="font-dm text-fun-ink-50 font-extrabold text-base mb-8">Fun Mode</p>
+
+          <div className="divide-y divide-fun-ink-900 border-t border-fun-ink-900">
+
+            <div className="py-8">
+              <p className="font-rock-salt text-fun-ink-50 text-7xl leading-rock-salt">
+                H1 — Rock Salt, Regular, 65px
+              </p>
+            </div>
+
+            <div className="py-8">
+              <p className="font-rock-salt text-fun-ink-50 text-fun-h2 leading-rock-salt">
+                H2 — Rock Salt, Regular, 40px
+              </p>
+            </div>
+
+            <div className="py-6">
+              <p className="font-caveat text-fun-ink-50 text-3xl font-bold">
+                H3 — Caveat, Bold, 30px
+              </p>
+            </div>
+
+            <div className="py-6">
+              <p className="font-caveat text-fun-ink-50 text-2xl font-bold">
+                H4 — Caveat, Bold, 26px
+              </p>
+            </div>
+
+            <div className="py-6">
+              <p className="font-dm text-fun-ink-50 text-xl font-extrabold mb-3">
+                Body Text — DM Sans, Regular, 20px
+              </p>
+              <p className="font-dm text-fun-ink-50 text-xl font-normal leading-relaxed">
+                {lorem}
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* ── Color tokens ─────────────────────────────────────────── */}
+      <div className="bg-surface-light p-10">
+        <p className="font-dm text-ink-700 font-extrabold text-base mb-10">Color Tokens</p>
+
+        <div className="grid md:grid-cols-2 gap-12">
+
+          {/* Normal mode palette */}
           <div>
-            <p className="font-dm text-ink-300 mb-1 text-xs">Cabinet Grotesk — normal mode H1 / H2</p>
-            <p className="font-cabinet text-ink-950 text-4xl md:text-5xl font-extrabold">
-              Work That Speaks!!
-            </p>
+            <p className="font-dm text-ink-500 text-xs uppercase tracking-widest mb-6">Normal Mode</p>
+
+            <p className="font-dm text-ink-700 text-xs mb-3">Accent</p>
+            <div className="flex gap-3 mb-6">
+              <Swatch bg="bg-accent-yellow" label="yellow" dark />
+              <Swatch bg="bg-accent-green" label="green" dark />
+              <Swatch bg="bg-accent-orange" label="orange" dark />
+              <Swatch bg="bg-accent-lavender" label="lavender" dark />
+              <Swatch bg="bg-accent-sky" label="sky" dark />
+            </div>
+
+            <p className="font-dm text-ink-700 text-xs mb-3">Surface</p>
+            <div className="flex gap-3 mb-6">
+              <Swatch bg="bg-surface-light" label="light" dark border />
+              <Swatch bg="bg-surface-mint" label="mint" dark />
+              <Swatch bg="bg-surface-peach" label="peach" dark />
+              <Swatch bg="bg-surface-lilac" label="lilac" dark />
+              <Swatch bg="bg-surface-ice" label="ice" dark />
+              <Swatch bg="bg-surface-white" label="white" dark border />
+            </div>
+
+            <p className="font-dm text-ink-700 text-xs mb-3">Ink</p>
+            <div className="flex gap-3">
+              <Swatch bg="bg-ink-950" label="950" />
+              <Swatch bg="bg-ink-800" label="800" />
+              <Swatch bg="bg-ink-700" label="700" />
+              <Swatch bg="bg-ink-500" label="500" />
+              <Swatch bg="bg-ink-300" label="300" />
+              <Swatch bg="bg-ink-100" label="100" dark border />
+            </div>
           </div>
-          <div>
-            <p className="font-dm text-ink-300 mb-1 text-xs">DM Sans — normal mode H3 / H4 / body</p>
-            <p className="font-dm text-ink-950 text-4xl md:text-5xl font-extrabold">
-              Skills that I bring to table!
-            </p>
+
+          {/* Fun mode palette */}
+          <div className="bg-fun-surface-dark p-8 rounded-lg">
+            <p className="font-dm text-fun-ink-500 text-xs uppercase tracking-widest mb-6">Fun Mode</p>
+
+            <p className="font-dm text-fun-ink-300 text-xs mb-3">Accent</p>
+            <div className="flex gap-3 mb-6">
+              <SwatchFun bg="bg-fun-accent-yellow" label="yellow" />
+              <SwatchFun bg="bg-fun-accent-forest" label="forest" />
+              <SwatchFun bg="bg-fun-accent-red" label="red" />
+              <SwatchFun bg="bg-fun-accent-pink" label="pink" />
+              <SwatchFun bg="bg-fun-accent-blue" label="blue" />
+            </div>
+
+            <p className="font-dm text-fun-ink-300 text-xs mb-3">Surface</p>
+            <div className="flex gap-3 mb-6">
+              <SwatchFun bg="bg-fun-surface-black" label="black" border />
+              <SwatchFun bg="bg-fun-surface-dark" label="dark" border />
+              <SwatchFun bg="bg-fun-surface-orange" label="orange" />
+              <SwatchFun bg="bg-fun-surface-red" label="red" />
+              <SwatchFun bg="bg-fun-surface-royal" label="royal" />
+              <SwatchFun bg="bg-fun-surface-white" label="white" dark />
+            </div>
+
+            <p className="font-dm text-fun-ink-300 text-xs mb-3">Ink</p>
+            <div className="flex gap-3">
+              <SwatchFun bg="bg-fun-ink-50" label="50" dark />
+              <SwatchFun bg="bg-fun-ink-100" label="100" dark />
+              <SwatchFun bg="bg-fun-ink-300" label="300" dark />
+              <SwatchFun bg="bg-fun-ink-500" label="500" />
+              <SwatchFun bg="bg-fun-ink-700" label="700" />
+              <SwatchFun bg="bg-fun-ink-900" label="900" />
+            </div>
           </div>
-          <div className="bg-fun-surface-dark p-6 rounded-lg">
-            <p className="font-dm text-fun-ink-500 mb-1 text-xs">Rock Salt — fun mode H1 / H2</p>
-            <p className="font-rock-salt text-fun-ink-50 text-3xl md:text-4xl">
-              Echoes of Impact!!
-            </p>
-          </div>
-          <div className="bg-fun-surface-dark p-6 rounded-lg">
-            <p className="font-dm text-fun-ink-500 mb-1 text-xs">Caveat Bold — fun mode H3 / H4</p>
-            <p className="font-caveat text-fun-ink-50 text-4xl md:text-5xl font-bold">
-              My guys are ready!!
-            </p>
-          </div>
+
         </div>
-      </section>
-
-      {/* ── Normal mode palette ────────────────────────────────── */}
-      <section className="mb-16">
-        <p className="font-dm text-ink-500 mb-6 text-xs uppercase tracking-widest">
-          Normal mode palette
-        </p>
-
-        <p className="font-dm text-ink-700 mb-3 text-xs">Accent</p>
-        <div className="flex flex-wrap gap-3 mb-6">
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-accent-yellow rounded" />
-            <span className="font-dm text-ink-500 text-xs">yellow</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-accent-green rounded" />
-            <span className="font-dm text-ink-500 text-xs">green</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-accent-orange rounded" />
-            <span className="font-dm text-ink-500 text-xs">orange</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-accent-lavender rounded" />
-            <span className="font-dm text-ink-500 text-xs">lavender</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-accent-sky rounded" />
-            <span className="font-dm text-ink-500 text-xs">sky</span>
-          </div>
-        </div>
-
-        <p className="font-dm text-ink-700 mb-3 text-xs">Surface</p>
-        <div className="flex flex-wrap gap-3 mb-6">
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-surface-light rounded border border-ink-100" />
-            <span className="font-dm text-ink-500 text-xs">light</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-surface-mint rounded" />
-            <span className="font-dm text-ink-500 text-xs">mint</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-surface-peach rounded" />
-            <span className="font-dm text-ink-500 text-xs">peach</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-surface-lilac rounded" />
-            <span className="font-dm text-ink-500 text-xs">lilac</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-surface-ice rounded" />
-            <span className="font-dm text-ink-500 text-xs">ice</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-surface-white rounded border border-ink-100" />
-            <span className="font-dm text-ink-500 text-xs">white</span>
-          </div>
-        </div>
-
-        <p className="font-dm text-ink-700 mb-3 text-xs">Ink (text scale)</p>
-        <div className="flex flex-wrap gap-3">
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-ink-950 rounded" />
-            <span className="font-dm text-ink-500 text-xs">950</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-ink-800 rounded" />
-            <span className="font-dm text-ink-500 text-xs">800</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-ink-700 rounded" />
-            <span className="font-dm text-ink-500 text-xs">700</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-ink-500 rounded" />
-            <span className="font-dm text-ink-500 text-xs">500</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-ink-300 rounded" />
-            <span className="font-dm text-ink-500 text-xs">300</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-ink-100 rounded border border-ink-300" />
-            <span className="font-dm text-ink-500 text-xs">100</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Fun mode palette ───────────────────────────────────── */}
-      <section className="bg-fun-surface-dark p-8 rounded-lg">
-        <p className="font-dm text-fun-ink-500 mb-6 text-xs uppercase tracking-widest">
-          Fun mode palette
-        </p>
-
-        <p className="font-dm text-fun-ink-300 mb-3 text-xs">Accent</p>
-        <div className="flex flex-wrap gap-3 mb-6">
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-accent-yellow rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">yellow</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-accent-forest rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">forest</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-accent-red rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">red</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-accent-pink rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">pink</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-accent-blue rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">blue</span>
-          </div>
-        </div>
-
-        <p className="font-dm text-fun-ink-300 mb-3 text-xs">Surface</p>
-        <div className="flex flex-wrap gap-3 mb-6">
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-surface-black rounded border border-fun-ink-900" />
-            <span className="font-dm text-fun-ink-500 text-xs">black</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-surface-dark rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">dark</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-surface-orange rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">orange</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-surface-red rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">red</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-surface-royal rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">royal</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-surface-white rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">white</span>
-          </div>
-        </div>
-
-        <p className="font-dm text-fun-ink-300 mb-3 text-xs">Ink (text scale)</p>
-        <div className="flex flex-wrap gap-3">
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-ink-50 rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">50</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-ink-100 rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">100</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-ink-300 rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">300</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-ink-500 rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">500</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-ink-700 rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">700</span>
-          </div>
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-14 h-14 bg-fun-ink-900 rounded" />
-            <span className="font-dm text-fun-ink-500 text-xs">900</span>
-          </div>
-        </div>
-      </section>
+      </div>
 
     </main>
+  );
+}
+
+function Swatch({ bg, label, dark, border }) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div className={`w-12 h-12 rounded ${bg} ${border ? "border border-ink-200" : ""}`} />
+      <span className={`font-dm text-xs ${dark ? "text-ink-500" : "text-fun-ink-500"}`}>{label}</span>
+    </div>
+  );
+}
+
+function SwatchFun({ bg, label, dark, border }) {
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div className={`w-12 h-12 rounded ${bg} ${border ? "border border-fun-ink-700" : ""}`} />
+      <span className={`font-dm text-xs ${dark ? "text-ink-500" : "text-fun-ink-500"}`}>{label}</span>
+    </div>
   );
 }
