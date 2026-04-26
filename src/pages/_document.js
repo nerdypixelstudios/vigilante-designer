@@ -4,6 +4,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* Favicon — static fallbacks; active favicon managed by MetaTags.jsx */}
+        <link rel="shortcut icon" href="/favicons/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-normal-32.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/favicon-normal-180.png" />
+
         {/* Google Fonts — DM Sans, Rock Salt, Caveat */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
