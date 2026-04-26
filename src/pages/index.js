@@ -1,3 +1,4 @@
+import MetaTags from '../components/shared/MetaTags';
 import Navigation from '../components/sections/Navigation/Navigation';
 import Hero from '../components/sections/Hero/Hero';
 import FeaturedProjects from '../components/sections/FeaturedProjects/FeaturedProjects';
@@ -10,6 +11,7 @@ import Footer from '../components/sections/Footer/Footer';
 export default function Home() {
   return (
     <>
+      <MetaTags />
       <Navigation />
       <main>
         <Hero />

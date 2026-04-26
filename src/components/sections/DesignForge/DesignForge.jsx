@@ -34,9 +34,9 @@ export default function DesignForge() {
         {/* ── Zone 1: Framing ── */}
         <div className={styles.framing}>
           <div className={styles.framingText}>
-            {isFunMode && (
-              <p className="font-caveat text-fun-accent-yellow text-xl mb-1">The Babel Protocol</p>
-            )}
+            <p className={`font-caveat font-bold ${isFunMode ? 'text-fun-accent-yellow' : 'text-fun-accent-red'} text-xl mb-1`}>
+              {isFunMode ? 'The Babel Protocol' : 'The method behind the speed.'}
+            </p>
             <h2 className={isFunMode
               ? `font-rock-salt ${headlineColor} leading-rock-salt ${styles.h2Fun}`
               : `font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`
@@ -50,7 +50,7 @@ export default function DesignForge() {
               Most AI-assisted builds start fast and end slow — the speed gains get eaten by rework. DesignForge is how I prevent that. A 6-phase spec-to-ship framework: gap analysis upfront, three distinct design directions per component, and a deviation rule that makes every meaningful drift from spec a formal decision. AI generates. I curate. Nothing gets delegated silently.
             </p>
           </div>
-          <div className={`${styles.metricCard} ${cardBg} border ${cardBorder}`}>
+          <div className={`${styles.metricCard} ${cardBg}`}>
             <p className={`font-dm text-xs font-extrabold uppercase tracking-widest ${labelColor} mb-2`}>
               Delivery time
             </p>
@@ -72,7 +72,7 @@ export default function DesignForge() {
           <div className={styles.phaseFlow}>
             {phases.map((phase, i) => (
               <div key={phase.num} className={styles.phaseWrap}>
-                <div className={`${styles.phaseCard} ${cardBg} border ${cardBorder}`}>
+                <div className={`${styles.phaseCard} ${cardBg}`}>
                   <span className={`font-cabinet font-extrabold ${styles.phaseNum} ${isFunMode ? 'text-fun-accent-yellow' : 'text-accent-orange'}`}>
                     {phase.num}
                   </span>
@@ -93,7 +93,7 @@ export default function DesignForge() {
 
         {/* ── Zone 3: Two rules ── */}
         <div className={styles.rulesGrid}>
-          <div className={`${styles.ruleCard} ${cardBg} border ${cardBorder}`}>
+          <div className={`${styles.ruleCard} ${cardBg}`}>
             <p className={`font-cabinet font-extrabold text-h3 ${isFunMode ? 'text-fun-accent-yellow' : 'text-accent-orange'} leading-none`}>
               3-option
             </p>
@@ -115,7 +115,7 @@ export default function DesignForge() {
             </div>
           </div>
 
-          <div className={`${styles.ruleCard} ${cardBg} border ${cardBorder}`}>
+          <div className={`${styles.ruleCard} ${cardBg}`}>
             <p className={`font-cabinet font-extrabold text-h3 ${isFunMode ? 'text-fun-accent-yellow' : 'text-accent-lavender'} leading-none`}>
               ±20%
             </p>
@@ -144,7 +144,7 @@ export default function DesignForge() {
           </p>
           <div className={styles.proofGrid}>
             {proofApps.map(app => (
-              <div key={app.name} className={`${styles.proofCard} ${cardBg} border ${cardBorder}`}>
+              <div key={app.name} className={`${styles.proofCard} ${cardBg}`}>
                 <div className={`${styles.proofThumb} ${isFunMode ? 'bg-fun-surface-dark' : 'bg-surface-light'}`} />
                 <p className={`font-dm font-extrabold text-sm ${headlineColor} mt-2`}>{app.name}</p>
                 <p className={`font-dm font-normal text-xs ${isFunMode ? 'text-fun-accent-yellow' : 'text-accent-green'} mt-0.5 leading-snug`}>

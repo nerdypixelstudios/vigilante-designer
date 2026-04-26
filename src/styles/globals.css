@@ -8,8 +8,8 @@
   --font-caveat: 'Caveat', cursive;
 
   /* ── Type scale — all spec-defined sizes as named tokens ───────── */
-  --text-h1: 4.5rem;         /* 72px — Cabinet Grotesk H1 (normal mode) */
-  --text-h2: 3rem;           /* 48px — Cabinet Grotesk H2 (normal mode) */
+  --text-h1: 5.5rem;         /* 88px — Cabinet Grotesk H1 (normal mode) */
+  --text-h2: 4.5rem;         /* 72px — Cabinet Grotesk H2 section headline (normal mode) */
   --text-h3: 1.625rem;       /* 26px — DM Sans H3 (normal mode) */
   --text-h4: 1.25rem;        /* 20px — DM Sans H4 (normal mode) */
   --text-body: 1.25rem;      /* 20px — DM Sans body (both modes) */
@@ -17,6 +17,7 @@
   --text-fun-h2: 2.5rem;     /* 40px — Rock Salt H2 (fun mode) */
   --text-fun-h3: 1.875rem;   /* 30px — Caveat H3 (fun mode) */
   --text-fun-h4: 1.625rem;   /* 26px — Caveat H4 (fun mode) */
+  --text-humongous: 14rem;   /* 224px — Cabinet Grotesk extrabold hero display title */
 
   /* ── Line height overrides ──────────────────────────────────────── */
   --leading-rock-salt: 1.7;  /* Rock Salt needs extra line height — letters overlap at 1 */

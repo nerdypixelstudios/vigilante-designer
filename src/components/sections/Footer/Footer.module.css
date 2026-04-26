@@ -19,8 +19,8 @@
 /* ── Headline ── */
 
 .h2Normal {
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.15;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   white-space: pre-line;
 }

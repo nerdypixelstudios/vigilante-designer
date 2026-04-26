@@ -333,7 +333,7 @@ export default function Skills() {
                 Precision and Creativity
               </p>
               <h2 className={`font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`}>
-                Skills that I bring to table
+                The Full Toolkit!
               </h2>
             </>
           )}

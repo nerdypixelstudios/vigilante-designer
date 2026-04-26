@@ -67,17 +67,15 @@ export default function MoreFromDesk() {
       <div className={styles.inner}>
 
         <div className={styles.headline}>
+          <p className={`font-caveat font-bold ${isFunMode ? 'text-fun-accent-yellow' : 'text-fun-accent-red'} text-xl`}>
+            {isFunMode ? 'Every mission has a story.' : 'Beyond the headline work.'}
+          </p>
           <h2 className={isFunMode
             ? `font-rock-salt ${headlineColor} leading-rock-salt ${styles.h2Fun}`
             : `font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`
           }>
-            {isFunMode ? 'The Full Dossier!' : 'More from the Desk!'}
+            {isFunMode ? 'The Full Dossier!' : 'The Full Range!'}
           </h2>
-          <p className={`font-dm font-normal ${descColor} text-body mt-2`}>
-            {isFunMode
-              ? 'Every mission has a story. Here are the breadcrumbs.'
-              : 'A look at the range — not just the highlights.'}
-          </p>
         </div>
 
         <div className={styles.grid}>
@@ -88,8 +86,6 @@ export default function MoreFromDesk() {
                 ${styles.tile}
                 ${cat.priority === 'lower' ? styles.tileLower : ''}
                 ${isFunMode ? cat.funAccentBg : cat.accentBg}
-                ${isFunMode ? cat.funBorderColor : cat.borderColor}
-                border-2
               `}
             >
               <div className={styles.tileContent}>
