@@ -1,0 +1,189 @@
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ── Zone 1: Framing ── */
+
+.framing {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+}
+
+.framingText {
+  max-width: 640px;
+}
+
+.h2Normal {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.h2Fun {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+.lead {
+  max-width: 540px;
+}
+
+.metricCard {
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.metric {
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+/* ── Zone 2: Phase flow ── */
+
+.phaseFlow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.phaseWrap {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.phaseCard {
+  width: 160px;
+  padding: 1rem;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.phaseNum {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.phaseArrow {
+  font-size: 1.25rem;
+  padding: 0 0.5rem;
+  flex-shrink: 0;
+  margin-top: -1.5rem;
+}
+
+/* ── Zone 3: Rules ── */
+
+.rulesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.ruleCard {
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.ruleIllustration {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.ruleThumb {
+  width: 64px;
+  height: 80px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tokenIllustration {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.tokenBox {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.tokenBand {
+  flex: 1;
+  height: 8px;
+  background-color: rgba(0,0,0,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bandFill {
+  height: 100%;
+  width: 60%;
+  border-radius: 999px;
+}
+
+/* ── Zone 4: Proof ── */
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.proofCard {
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.proofThumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 767px) {
+  .section {
+    padding: 3rem 1.5rem;
+  }
+
+  .framing {
+    grid-template-columns: 1fr;
+  }
+
+  .metricCard {
+    width: fit-content;
+  }
+
+  .rulesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .proofGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .proofGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

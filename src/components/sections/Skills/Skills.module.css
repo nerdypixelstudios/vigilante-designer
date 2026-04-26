@@ -1,0 +1,311 @@
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ── Headline ── */
+
+.h2Normal {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.h2Fun {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+/* ══════════════════════════════════════════════
+   NORMAL MODE — Mind map
+══════════════════════════════════════════════ */
+
+.mindMap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  border-radius: 12px;
+  background-color: rgba(243,243,243,0.5);
+}
+
+.clusterGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.clusterBubble {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.toolPills {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* ── Tool pill ── */
+
+.toolPill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #d2d2d2;
+  border-radius: 999px;
+  padding: 0.375rem 0.75rem;
+}
+
+.toolDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Headline ── */
+
+.headline {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Legend ── */
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #d2d2d2;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.legendKeys {
+  display: flex;
+  gap: 1.5rem;
+}
+
+/* ══════════════════════════════════════════════
+   FUN MODE — Hat selector
+══════════════════════════════════════════════ */
+
+.hatSelector {
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ── Hat list ── */
+
+.hatList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.hatItem {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 1rem 1rem 1rem 0;
+  border-bottom: 1px solid #2a2a2a;
+  transition: opacity 0.15s ease;
+  width: 100%;
+}
+
+.hatItem:last-child {
+  border-bottom: none;
+}
+
+.hatItemActive {
+  border-bottom-color: #FF5F00;
+}
+
+.hatItemInactive {
+  opacity: 0.5;
+}
+
+.hatItemInactive:hover {
+  opacity: 0.8;
+}
+
+/* ── Character placeholder ── */
+
+.hatCharacter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+.sprayGlowFun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,98,0,0.4) 0%, rgba(255,98,0,0.1) 50%, transparent 75%);
+  pointer-events: none;
+}
+
+.characterPlaceholder {
+  position: relative;
+  z-index: 1;
+  width: 200px;
+  height: 300px;
+  background-color: #1C1D1E;
+  border: 2px dashed #464646;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* ── Hat description ── */
+
+.hatDesc {
+  padding: 2rem 0;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 767px) {
+  .section {
+    padding: 3rem 1.5rem;
+  }
+
+  .mindMap {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  .clusterGroup {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .clusterBubble {
+    width: 80px;
+    height: 80px;
+    font-size: 0.6875rem;
+    flex-shrink: 0;
+  }
+
+  .hatSelector {
+    grid-template-columns: 1fr;
+  }
+
+  .hatCharacter {
+    min-height: 240px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .mindMap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hatSelector {
+    grid-template-columns: 180px 1fr;
+  }
+
+  .hatCharacter {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   ARC EXPANSION
+══════════════════════════════════════════════ */
+
+.arcExpansion {
+  padding: 2.5rem 0;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.arcPullQuote {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  max-width: 720px;
+}
+
+.arcSections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.arcSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.arcBody {
+  max-width: 680px;
+}
+
+.arcPanel {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(128,128,128,0.2);
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+.closeBtn {
+  align-self: flex-start;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: transparent;
+  transition: color 0.15s ease;
+}
+
+@media (max-width: 767px) {
+  .arcExpansion {
+    padding: 2rem 0;
+  }
+}

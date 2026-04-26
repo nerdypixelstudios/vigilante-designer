@@ -1,0 +1,129 @@
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* ── Headline ── */
+
+.headline {
+  margin-bottom: 0.5rem;
+}
+
+.headlineLine {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.h2Normal {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.h2Fun {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.paperPlane {
+  flex-shrink: 0;
+}
+
+/* ── 2×2 grid ── */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ── Card ── */
+
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Media zone ── */
+
+.cardMedia {
+  position: relative;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mediaFrame {
+  position: absolute;
+  inset: 1rem;
+  border: 2px dashed #a6a6a6;
+  border-radius: 4px;
+}
+
+.playIcon {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Fun sticker ── */
+
+.funSticker {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background-color: #FF0A00;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  transform: rotate(2deg);
+  z-index: 2;
+}
+
+/* ── Info zone ── */
+
+.cardInfo {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+.viewLink {
+  text-decoration: none;
+  align-self: flex-start;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 767px) {
+  .section {
+    padding: 3rem 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

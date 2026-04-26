@@ -1,0 +1,100 @@
+.section {
+  padding: 5rem 1.5rem;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* ── Headline ── */
+
+.h2Normal {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.h2Fun {
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+}
+
+/* ── Grid ── */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  gap: 1.5rem;
+}
+
+/* ── Tile base ── */
+
+.tile {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tile-tall {
+  /* Taller tiles in the top row */
+}
+
+.tile-medium {
+  /* Standard tiles */
+}
+
+.tileContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
+}
+
+.tileHeader {
+  flex-shrink: 0;
+}
+
+/* ── Thumb grids ── */
+
+.thumbGrid {
+  flex: 1;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.thumbGrid3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.thumbGrid4 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.thumb {
+  border-radius: 4px;
+  aspect-ratio: 4/3;
+}
+
+/* ── Tile link ── */
+
+.tileLink {
+  text-decoration: none;
+  align-self: flex-end;
+  display: inline-block;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 767px) {
+  .section {
+    padding: 3rem 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,245 @@
+.hero {
+  min-height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.heroInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 3rem 3rem 2rem;
+  min-height: calc(100vh - 64px);
+  gap: 2rem;
+}
+
+/* ── Left zone ── */
+
+.zoneLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.h1Normal {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.h1FunWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.h1FunSmall {
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.h1Fun {
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  line-height: 1.7;
+}
+
+.subPitch {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  max-width: 280px;
+}
+
+.subPitchFun {
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.squiggle {
+  margin-top: 0.5rem;
+  transform: rotate(-10deg);
+}
+
+/* ── Centre zone ── */
+
+.zoneCentre {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+}
+
+/* Normal mode portrait */
+
+.portraitNormal {
+  position: relative;
+  width: 280px;
+  height: 360px;
+}
+
+.gridBacker {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  width: 220px;
+  height: 280px;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-radius: 2px;
+}
+
+.maskingTape {
+  position: absolute;
+  top: 16px;
+  left: 32px;
+  z-index: 2;
+  transform: rotate(-5deg);
+}
+
+.portraitPlaceholder {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 320px;
+  background-color: #e0e0e0;
+  border: 2px dashed #a6a6a6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Fun mode portrait */
+
+.portraitFun {
+  position: relative;
+  width: 280px;
+  height: 360px;
+}
+
+.sprayGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,98,0,0.45) 0%, rgba(255,98,0,0.15) 50%, transparent 75%);
+  pointer-events: none;
+}
+
+.maskingTapeFun {
+  position: absolute;
+  top: 16px;
+  left: 32px;
+  z-index: 2;
+  transform: rotate(-5deg);
+}
+
+.portraitSilhouette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 320px;
+  background-color: #1C1D1E;
+  border: 2px dashed #464646;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* ── Right zone ── */
+
+.zoneRight {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.roleList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.roleItem {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.roleArrow {
+  margin-left: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 767px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+    min-height: auto;
+  }
+
+  .zoneLeft {
+    order: 1;
+  }
+
+  .zoneCentre {
+    order: 2;
+    justify-content: center;
+  }
+
+  .zoneRight {
+    order: 3;
+    justify-content: flex-start;
+  }
+
+  .portraitNormal,
+  .portraitFun {
+    width: 220px;
+    height: 280px;
+  }
+
+  .portraitPlaceholder,
+  .portraitSilhouette {
+    height: 250px;
+  }
+
+  .gridBacker {
+    width: 180px;
+    height: 220px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .heroInner {
+    padding: 2.5rem 2rem;
+    gap: 1.5rem;
+  }
+
+  .portraitNormal,
+  .portraitFun {
+    width: 240px;
+    height: 300px;
+  }
+
+  .portraitPlaceholder,
+  .portraitSilhouette {
+    height: 280px;
+  }
+}

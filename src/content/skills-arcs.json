@@ -1,0 +1,112 @@
+{
+  "instructional-ops": {
+    "pullQuote": "The students didn't need more information. They needed something to do with it.",
+    "sections": [
+      {
+        "heading": "The Prose Was a Locked Room",
+        "sectionPullQuote": "Breaking things apart is its own kind of design.",
+        "body": "The SMEs handed over scripts the way you'd hand someone a dictionary and say: go learn the language. The information was all there. The experience of absorbing it was not. My first job — before I wrote a single line of Storyline logic — was just to read what they'd written and ask: where does the student stop? Where do they get lost? Where are they being told something they should be discovering themselves? Breaking prose into blocks isn't formatting. It's deciding where understanding lives, and what it needs to be handed to a student in a way that sticks."
+      },
+      {
+        "heading": "Nobody Asked for the Apps",
+        "sectionPullQuote": "I did it because I knew the difference between reading and doing.",
+        "body": "Some GMAT concepts are procedural. There's a method. There are steps. And you can write those steps out beautifully — clear, sequenced, illustrated — and a student can read them twice and still fumble the first time they see it in a problem. The Units Digit method is like that. LCM and GCD are like that. Reading the method isn't the same as running through it. So I built tools that made students run through it — click by click, decision by decision — inside Articulate Storyline. I taught myself enough JavaScript to push Storyline past what its default variables could handle. No one asked. I built them because the gap between \"explained\" and \"learned\" was obvious, and closing it was the job — whether or not it was in the job description."
+      },
+      {
+        "heading": "What the Numbers Confirmed",
+        "sectionPullQuote": "The dashboard told me what I'd already felt watching the flows go out.",
+        "body": "Course completions on the revamped modules rose from below 80% to 90+%. Average learning scores on the same modules hit 90+%. Those numbers showed up on the dashboards. I didn't need to run the analysis — the shift was visible. What mattered beyond the numbers: e-GMAT had always been known as the strong Verbal choice. After the Quant revamp, that changed. I wasn't the only one who drove that — the SMEs and the course team did the heavy lifting on content depth. But turning their content into something students could actually learn from was my contribution, and the completions proved it landed."
+      }
+    ],
+    "tools": ["Articulate Storyline", "Rise 360", "JavaScript (basics)"],
+    "projects": ["GMAT Quant Course revamp", "Units Digit mini-app", "LCM / GCD mini-app"]
+  },
+  "visual-arsonist": {
+    "pullQuote": "Every wall I hit was just a door I hadn't learned to open yet.",
+    "sections": [
+      {
+        "heading": "The Workflow Was the Problem",
+        "sectionPullQuote": "The bottleneck wasn't the designer. It was the distance between idea and live.",
+        "body": "When I arrived, shipping a landing page meant four people touching the same file across a chain that could take days. Design in Photoshop. Hand off to dev. QA across browsers. Wait. Then wait some more. The output of that chain was 10–12 pages over a long stretch of time. The chain wasn't broken — it was just expensive for what we were trying to do. I wanted a shorter distance between decision and live. So I went looking for one."
+      },
+      {
+        "heading": "Four Walls, Four Breaks",
+        "sectionPullQuote": "I didn't learn Webflow because it was on the roadmap. I learned it because Unbounce ran out of room.",
+        "body": "Unbounce was the first door. It had a Photoshop-like interface I could move fast in, and it cut dev out of the loop entirely. I could design a page, publish it, and iterate the same afternoon. Then I hit Unbounce's ceiling — I wanted interactions it couldn't give me, responsive control it couldn't offer, pages that talked to the main site rather than standing alone beside it. So I moved to Webflow. Then I hit the point where static pages weren't the right tool for what I was imagining, and I taught myself SVG animations and Lottie to put motion into pages without tipping into gimmick. Then I hit Webflow's edge cases and started writing custom HTML, CSS, and JavaScript directly. Four shifts, all unprompted. Each one happened because I cared more about the output than about staying inside the tool I already knew."
+      },
+      {
+        "heading": "The System Nobody Asked For",
+        "sectionPullQuote": "Anyone can make a great single piece. The hard part is making sure the hundredth piece looks like the first.",
+        "body": "While the landing pages were scaling — 10–12 to 150+ — I noticed something wearing away at the edges. Different teams were producing customer-facing content: marketing, the SMEs making learning material, internal sales. Nobody shared a visual reference. Colour choices drifted. Type choices drifted. Iconography went wherever the person making the file happened to land that day. I had seen the same inconsistency in the product, and I recognised it the same way. The fix was the same too: a defined system that people could internalise, not a checklist they had to consult. I wrote the brand guidelines — colour, type, iconography, spacing, how each rule applied across collateral types — and then I enforced them across teams. The guidelines outlasted the campaigns. The visual identity they codified kept working for the company long after I moved on."
+      }
+    ],
+    "tools": ["Photoshop", "Illustrator", "Premiere Pro", "Camtasia", "Unbounce", "Webflow", "Lottie animations", "SVG / HTML / CSS"],
+    "projects": ["Brand Guidelines & Visual Design Language", "150+ Marketing Landing Pages", "Social & Video Collateral"]
+  },
+  "interface-oracle": {
+    "pullQuote": "This is the chapter where I stopped handing off designs and started owning outcomes.",
+    "sections": [
+      {
+        "heading": "Design Language",
+        "sectionPullQuote": "I didn't start with rules — I created them.",
+        "body": "There was no design system to inherit. No brand guidelines file sitting in a shared folder. No external agency leaving behind a component library. Just two mismatched platforms built by two different teams in two different eras, and a company that had decided an internal team should make something coherent out of nothing.\n\nSo I made the rules myself.\n\nThe Scholaranium revamp was the proof of concept. Before I could redesign a single screen, I had to decide: what does a button look like at rest, on hover, when disabled? What is the spacing unit? What does the type scale look like when the same hierarchy has to hold across a dense analytics surface and a clean onboarding flow? Every decision I made became the rule. Not because a style guide said so — because the product needed it to cohere, and I was the one deciding.\n\nBy the time Scholaranium shipped, there was a type system, a colour variable structure, spacing standards, auto-layout conventions, and a reusable component library that a team of four could work inside simultaneously without stepping on each other."
+      },
+      {
+        "heading": "Building for the Web",
+        "sectionPullQuote": "If I can imagine it, I can build it — and I can ship it.",
+        "body": "The Personalised Study Planner was the first time I wrote Selenium and Python. Nobody asked me to. There was no QA function. The product had to be tested — dozens of input permutations, every edge case in the planner's logic — and if I didn't write the automation, it wouldn't get written.\n\nSo I taught myself both.\n\nBy SIGma-X, the automation was deeper. A mock test platform has to replicate a specific scoring algorithm correctly across every possible score path. We wrote Selenium scripts that played through mocks end to end. The other half of building for the web was documentation. I wrote handover documents that told the tech team exactly what every spacing value was, what every colour code was, how every component behaved at different states. The documentation wasn't a courtesy — it was the mechanism. This is the chapter where \"design and handoff\" became \"design, document, and test.\""
+      },
+      {
+        "heading": "UI/UX Design",
+        "sectionPullQuote": "Three products. Each one added a layer the previous one didn't have.",
+        "body": "<strong>Personalised Study Planner</strong> established the thinking. No long form with a single submit button — instead, grouped input clusters, milestone feedback at the halfway points, save-and-resume for students who needed to pause and find data before continuing. Intentional friction only once: on delete, the user had to type the word \"delete\" before the action completed. Not as a trap. As a signal that what they were about to discard had weight.\n\n<strong>SIGma-X</strong> established the process. Market research before wireframes. UI-tooling research before UI. Four iterations of low-fidelity wireframes across six user categories before anyone looked at a screen at full fidelity. SIGma-X is still the only GMAT mock platform that replicates the actual testing and scoring algorithm. Five years on.\n\n<strong>Scholaranium</strong> established the compounding effect. The most complex thing the company had built internally — 5× more complex than the previous two products combined — shipped in half the time. That product is still the primary enrollment driver at e-GMAT today."
+      }
+    ],
+    "tools": ["Adobe XD", "Figma", "PowerPoint", "Photoshop", "Python + Selenium"],
+    "projects": ["Personalised Study Planner v1", "SIGma-X", "Scholaranium"]
+  },
+  "command-tower": {
+    "pullQuote": "Every great thing I built in this chapter — I built it so the team could keep building without me.",
+    "sections": [
+      {
+        "heading": "Building the System",
+        "sectionPullQuote": "Three people. The output of eight. Not through heroics — through pre-built answers.",
+        "body": "The team did not exist when I stepped into the role. I hired three designers who came in as complete beginners and spent the next two years turning each of them into a versatile resource who could handle marketing collateral, video, landing pages, and product-adjacent design — without a separate specialist for any of it. Breadth was the point. Specialists would have created bottlenecks; generalists compounded.\n\nBut training people was only half the problem. Three trained designers working without a shared system still produce three different versions of the same thing. I had seen that failure mode before.\n\nSo I built the system before the scale arrived. The Webflow style guide defined pre-written classes for every element in the design language. A designer adding space around a text block applied a class. They did not decide how. That decision had already been made and was the same across every page, every designer, every breakpoint. The asset repository meant nothing got re-sourced twice. The Camtasia animation libraries did the same thing for video production."
+      },
+      {
+        "heading": "When AI Arrived",
+        "sectionPullQuote": "ChatGPT arrived at the end of 2022. Within two years, the team had stopped being a design team.",
+        "body": "The first thing we did with ChatGPT was remove the tech-team dependencies that designers had been blocked on for years — small feature launches, event tracking, and most importantly, interactive mini-apps embedded directly in blog articles. We built a mini study planner, a GRE-vs-GMAT advisor, a score converter, a GMAT ROI calculator. The design team built all of it. Without meaningful tech-team involvement.\n\nThen Lovable and Replit arrived. A designer could now design a feature, prototype it as a working product, get stakeholder feedback on a real thing, and refine it — without a single engineering cycle being spent. We went to a weekly feature cadence.\n\nThe biggest single thing we built was the Prism feedback system. Students who finished the cementing phase were getting \"you passed\" or \"you failed\" — and nothing else. Prism bucketed each quiz attempt by what the behavioural signals actually suggested. Each bucket came with prescriptive feedback. The entire front-end of Prism was built by me in Replit, without engineering involvement."
+      },
+      {
+        "heading": "The Observation That Changed Everything",
+        "sectionPullQuote": "Once building became easy, delight stopped being the scarce thing. What stayed scarce was trust.",
+        "body": "For most of this chapter, the goal was the same one that ran through every chapter before it: make the product delightful to use. Delight was the differentiator because delight was scarce. Most products did not feel good to use.\n\nThen building became easy. Anyone could ship a product that looked good. The tools closed that gap for everyone.\n\nWhat that changed: delight stopped being the differentiator. It became the floor. What stayed scarce was trust — that the product works, that the decisions inside it are intentional and right, that the thing guiding the student is actually guiding them well and not just confidently pointing in a direction.\n\nI noticed this shift at the end of the chapter. It is the observation the next chapter is built on. The Architect chapter, the DesignForge methodology, the systematic curation approach — they exist because of this observation. Delight is now table stakes. Trust is the work."
+      }
+    ],
+    "tools": ["ChatGPT", "Lovable", "Replit", "Figma", "Webflow", "Camtasia", "Viva Engage"],
+    "projects": ["Prism Feedback System", "Personalised Study Planner v2", "Free Trial Revamp", "Public Website Redesign", "Blog Rebuild", "Blog Mini-Apps"]
+  },
+  "the-architect": {
+    "pullQuote": "Every hat before this one was preparation. This is the chapter where I stopped waiting to be handed the tools — and started being the one who builds what the tools run on.",
+    "sections": [
+      {
+        "heading": "The Stack",
+        "sectionPullQuote": "Claude Code and Figma. That's the whole stack. That's also the whole loop.",
+        "body": "Design and build no longer live in separate rooms with a handoff door between them. In this chapter, the loop is closed inside a single working session — design decision to shipped code, same person, same sitting. Figma for anything that benefits from a canvas: components, layout logic, the design system that keeps the product coherent. Claude Code for the build: the HTML, the CSS, the React, the API wiring, the database edits. The two tools pass work to each other so fast the seam disappears.\n\nThe technical footing that makes this real: HTML and CSS, strong. React basics. API integration understanding. SQL for editing databases and inserting data when it's needed. JavaScript at a working level. This is not a designer pretending to code. It's enough technical command to operate the full stack end to end — with Claude Code doing the heavy lifting and me making every decision about what gets built and why.\n\nFour production apps in six months. Build time compressed from months to weeks."
+      },
+      {
+        "heading": "Why DesignForge Exists",
+        "sectionPullQuote": "AI tools are fast. Fast without structure is a different kind of slow.",
+        "body": "AI moves quickly. That is the promise and the problem. Without a governing structure, an AI-assisted build produces a lot of output that doesn't cohere — decisions that drift from the original intent, components that don't fit each other, a gap between what was specified and what shipped. And then you spend the time you saved fixing the drift.\n\nDesignForge exists to prevent that. Three rules are the load-bearing structure:\n\n<strong>Gap analysis, front-loaded.</strong> Before Claude Code writes a line of code, the spec is audited against what already exists, what it integrates with, and what the open questions are. The most expensive drift is the kind that shows up after the build is partway done.\n\n<strong>Three directions per component.</strong> For every component of any significance, the methodology forces three genuinely distinct design directions — not three variations on the same idea. The AI generates the options. I choose between them. The choosing is the curation.\n\n<strong>The ±20% deviation rule.</strong> When the AI's output diverges from the spec by more than 20% of the expected scope, the divergence triggers a formal override report. No change gets absorbed silently."
+      },
+      {
+        "heading": "What Trust Actually Means",
+        "sectionPullQuote": "When building became easy, delight stopped being scarce. What stayed scarce was trust.",
+        "body": "For most of the arc — the mini-apps, the study planner, the Scholaranium revamp — delight was the selling point. A product students loved using was a product they'd finish, return to, and recommend. Delight was hard to build, so it was worth chasing.\n\nAI changed the scarcity. Now anyone can build something that looks good. The hard thing is not delight anymore. The hard thing is trust — that the product works, that the decisions inside it are intentional, that the thing guiding the student is actually right and not just the nearest plausible output.\n\nDesignForge is the infrastructure of that trust. The gap analysis, the three-direction discipline, the ±20% rule, the decision checkpoints between phases — these are not process for its own sake. They are the reason a student using Neuron can rely on the interaction model. They are the reason a content team using SPARK can rely on the system to shape their output well without waiting for a design review.\n\nEarlier chapters were about delight. This chapter is about trust. The Architect doesn't just build the product. The Architect builds the system that makes the product trustworthy."
+      }
+    ],
+    "tools": ["Claude Code", "Claude.ai", "Figma", "Figma AI", "HTML/CSS", "React", "SQL", "Prompt Engineering"],
+    "projects": ["Neuron", "PACE", "SPARK", "Website v3", "DesignForge Methodology"]
+  }
+}

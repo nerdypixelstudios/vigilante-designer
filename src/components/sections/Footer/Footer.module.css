@@ -1,0 +1,224 @@
+.footer {
+  padding: 5rem 1.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Headline ── */
+
+.h2Normal {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  white-space: pre-line;
+}
+
+.h2Fun {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  white-space: pre-line;
+}
+
+/* ── Actions ── */
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.actionBtn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.actionIcon {
+  flex-shrink: 0;
+}
+
+/* ── Socials ── */
+
+.socials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.socialIcon:hover {
+  opacity: 0.6;
+}
+
+/* ── Copyright ── */
+
+.copyright {
+  margin-top: 1rem;
+}
+
+/* ── Gotham skyline (fun mode) ── */
+
+.gothamSky {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+}
+
+.skyline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  background-color: #0a0a0a;
+  /* CSS-drawn building silhouettes via clip-path */
+  clip-path: polygon(
+    0% 100%,
+    0% 70%,
+    3% 70%,
+    3% 50%,
+    5% 50%,
+    5% 55%,
+    7% 55%,
+    7% 40%,
+    9% 40%,
+    9% 35%,
+    11% 35%,
+    11% 50%,
+    13% 50%,
+    13% 45%,
+    15% 45%,
+    15% 60%,
+    17% 60%,
+    17% 30%,
+    18% 30%,
+    18% 20%,
+    19% 20%,
+    19% 30%,
+    21% 30%,
+    21% 55%,
+    23% 55%,
+    23% 40%,
+    25% 40%,
+    25% 35%,
+    27% 35%,
+    27% 45%,
+    29% 45%,
+    29% 60%,
+    33% 60%,
+    33% 25%,
+    34% 25%,
+    34% 15%,
+    35% 15%,
+    35% 25%,
+    37% 25%,
+    37% 45%,
+    41% 45%,
+    41% 50%,
+    44% 50%,
+    44% 30%,
+    46% 30%,
+    46% 55%,
+    50% 55%,
+    50% 35%,
+    52% 35%,
+    52% 20%,
+    53% 20%,
+    53% 10%,
+    54% 10%,
+    54% 20%,
+    55% 20%,
+    55% 35%,
+    59% 35%,
+    59% 50%,
+    62% 50%,
+    62% 40%,
+    65% 40%,
+    65% 55%,
+    68% 55%,
+    68% 35%,
+    70% 35%,
+    70% 45%,
+    73% 45%,
+    73% 30%,
+    75% 30%,
+    75% 25%,
+    76% 25%,
+    76% 18%,
+    77% 18%,
+    77% 25%,
+    79% 25%,
+    79% 40%,
+    82% 40%,
+    82% 55%,
+    85% 55%,
+    85% 45%,
+    88% 45%,
+    88% 35%,
+    91% 35%,
+    91% 50%,
+    94% 50%,
+    94% 60%,
+    97% 60%,
+    97% 70%,
+    100% 70%,
+    100% 100%
+  );
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 767px) {
+  .footer {
+    padding: 3rem 1.5rem 2rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actionBtn {
+    justify-content: center;
+  }
+}
