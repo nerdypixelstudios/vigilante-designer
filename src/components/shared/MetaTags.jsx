@@ -49,21 +49,6 @@ export default function MetaTags() {
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
-
-      {/* Open Graph — used by LinkedIn, iMessage, Slack, WhatsApp */}
-      <meta property="og:title" content="Lohith Savala — AI-Enabled Product Designer" />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://vigilante-designer.nerdypixelstudios.ca" />
-      <meta property="og:image" content="https://vigilante-designer.nerdypixelstudios.ca/images/global/og-image-normal.webp" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-
-      {/* Twitter/X card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Lohith Savala — AI-Enabled Product Designer" />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content="https://vigilante-designer.nerdypixelstudios.ca/images/global/og-image-normal.webp" />
     </Head>
   );
 }
