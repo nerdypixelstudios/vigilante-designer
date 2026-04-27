@@ -22,6 +22,11 @@
   /* ── Line height overrides ──────────────────────────────────────── */
   --leading-rock-salt: 1.7;  /* Rock Salt needs extra line height — letters overlap at 1 */
 
+  /* ── Brand mark — cap-specific colours (used only by NavBrandNormal) ─ */
+  --color-brand-cap-shadow: #2E2C1B;
+  --color-brand-cap-base: #F7E006;
+  --color-brand-cap-highlight: #FFF279;
+
   /* ── Normal mode — Accent ───────────────────────────────────────── */
   --color-accent-yellow: #FBE200;
   --color-accent-green: #2AE881;

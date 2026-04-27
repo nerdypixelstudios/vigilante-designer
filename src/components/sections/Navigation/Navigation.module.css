@@ -1,36 +1,134 @@
-.nav {
-  width: 100%;
+/* ── Outer wrapper — floats over content, takes no document height ── */
+
+.navOuter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 1.5rem 0;
+  pointer-events: none;
 }
+
+/* ── Floating island ──
+   Vendor-prefixed backdrop-filter only. translateZ/isolation removed —
+   they were creating a stacking context that prevented Chrome from
+   sampling the underlying page composite. */
+
+.island {
+  pointer-events: auto;
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  max-width: 1080px;
+  width: 100%;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.islandNormal {
+  background-color: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.islandFun {
+  background-color: rgba(40, 0, 0, 0.4);
+  border: 1px solid rgba(255, 10, 0, 0.3);
+  box-shadow:
+    0 8px 32px rgba(255, 10, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ── Inner layout ── */
 
 .navInner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
-  height: 64px;
-  max-width: 1440px;
-  margin: 0 auto;
+  padding: 0.625rem 1rem 0.625rem 1.25rem;
   gap: 1rem;
 }
 
-.logo {
+/* ── Brand ── */
+
+.brand {
   display: flex;
   align-items: center;
   text-decoration: none;
   flex-shrink: 0;
 }
 
-/* ── Toggle pill ── */
+/* ── Desktop links ── */
 
-.togglePill {
+.desktopLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.navLink {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.375rem 1rem 0.375rem 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navLinkNormal {
+  color: var(--color-ink-950);
+  font-family: var(--font-dm), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.navLinkNormal:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.navLinkFun {
+  color: var(--color-fun-ink-50);
+  font-family: var(--font-caveat), cursive;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.navLinkFun:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Right group (toggle) ── */
+
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+/* ── Toggle — no container bg, just text + knob ── */
+
+.togglePill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
   border-radius: 999px;
   border: none;
+  background: none;
   cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.1s ease;
+  transition: transform 0.1s ease;
   flex-shrink: 0;
 }
 
@@ -38,12 +136,9 @@
   transform: scale(0.96);
 }
 
-.togglePillNormal {
-  background-color: #ffffff;
-}
-
-.togglePillFun {
-  background-color: #FF0A00;
+.toggleLabel {
+  font-weight: 400;
+  font-size: 0.95rem;
 }
 
 /* ── Toggle knob ── */
@@ -53,7 +148,6 @@
   width: 40px;
   height: 22px;
   border-radius: 999px;
-  background-color: #d2d2d2;
   position: relative;
   flex-shrink: 0;
   transition: background-color 0.25s ease;
@@ -65,28 +159,148 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: #ffffff;
   position: absolute;
   top: 3px;
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, left 0.25s ease;
+}
+
+.toggleKnobOff {
+  background-color: var(--color-ink-950);
 }
 
 .toggleKnobOff::after {
   left: 3px;
-  background-color: #464646;
+  background-color: var(--color-surface-white);
 }
 
 .toggleKnobOn {
-  background-color: #ffffff;
+  background-color: var(--color-fun-accent-red);
 }
 
 .toggleKnobOn::after {
   left: calc(100% - 19px);
-  background-color: #FF0A00;
+  background-color: var(--color-surface-white);
 }
 
-.desktopLinks {
+/* ── Custom tooltip — replaces native title ── */
+
+.tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  padding: 0.5rem 0.875rem;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  z-index: 60;
+}
+
+.tooltip::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: 18px;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  background: inherit;
+}
+
+.tooltipNormal {
+  background-color: var(--color-ink-950);
+  color: var(--color-surface-white);
+  font-family: var(--font-dm), sans-serif;
+  font-weight: 500;
+}
+
+.tooltipFun {
+  background-color: var(--color-fun-accent-red);
+  color: var(--color-fun-ink-50);
+  font-family: var(--font-caveat), cursive;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.togglePill:hover .tooltip,
+.togglePill:focus-visible .tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Hamburger ── */
+
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* ── Mobile menu ── */
+
+.mobileMenu {
   list-style: none;
-  padding: 0;
+  padding: 0.25rem 0.75rem 0.75rem;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.mobileLinkNormal {
+  color: var(--color-ink-950);
+  font-family: var(--font-dm), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.mobileLinkNormal:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.mobileLinkFun {
+  color: var(--color-fun-ink-50);
+  font-family: var(--font-caveat), cursive;
+  font-size: 1.375rem;
+  font-weight: 400;
+}
+
+.mobileLinkFun:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Mobile: island becomes rounded rect, hide toggle text ── */
+
+@media (max-width: 767px) {
+  .navOuter {
+    padding: 0.5rem 0.75rem 0;
+  }
+
+  .island {
+    border-radius: 24px;
+  }
+
+  .toggleLabel {
+    display: none;
+  }
+
+  .tooltip {
+    display: none;
+  }
 }

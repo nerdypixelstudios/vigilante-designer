@@ -1,4 +1,6 @@
 import MetaTags from '../components/shared/MetaTags';
+import StoryBanner from '../components/shared/StoryBanner';
+import BatReveal from '../components/shared/BatReveal';
 import Navigation from '../components/sections/Navigation/Navigation';
 import Hero from '../components/sections/Hero/Hero';
 import FeaturedProjects from '../components/sections/FeaturedProjects/FeaturedProjects';
@@ -13,6 +15,8 @@ export default function Home() {
     <>
       <MetaTags />
       <Navigation />
+      <BatReveal />
+      <StoryBanner />
       <main>
         <Hero />
         <FeaturedProjects />

@@ -1,0 +1,100 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Black wash that covers the entire viewport — including the navbar.
+   Drives the cinematic reveal: page is hidden behind black during the
+   swarm peak, then black fades to expose the new (fun-mode) page. */
+.blackout {
+  position: absolute;
+  inset: 0;
+  background-color: #000000;
+  will-change: opacity;
+}
+
+/* Red wash centred on the swarm origin. Brightest at the source,
+   fades out across the screen. Layers behind the bats so they read as
+   black silhouettes against a glowing field. */
+.glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 88% 4%,
+      rgba(255, 10, 0, 0.6) 0%,
+      rgba(255, 10, 0, 0.38) 22%,
+      rgba(255, 10, 0, 0.18) 50%,
+      rgba(255, 10, 0, 0.08) 75%,
+      transparent 100%
+    );
+  mix-blend-mode: screen;
+  will-change: opacity;
+}
+
+/* Swarm origin sits near where the toggle pill lives in the navbar.
+   Bats animate their x/y from this anchor outward. */
+.swarmOrigin {
+  position: absolute;
+  top: 1.75rem;
+  right: 6rem;
+  width: 1px;
+  height: 1px;
+}
+
+.batWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  color: #000000;
+  will-change: transform, opacity;
+}
+
+.flap {
+  display: inline-flex;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@media (max-width: 1023px) {
+  .swarmOrigin {
+    top: 1.5rem;
+    right: 4rem;
+  }
+
+  .glow {
+    background:
+      radial-gradient(
+        circle at 90% 4%,
+        rgba(255, 10, 0, 0.55) 0%,
+        rgba(255, 10, 0, 0.32) 22%,
+        rgba(255, 10, 0, 0.12) 45%,
+        transparent 70%
+      );
+  }
+}
+
+@media (max-width: 767px) {
+  .swarmOrigin {
+    top: 1.25rem;
+    right: 3rem;
+  }
+
+  .glow {
+    background:
+      radial-gradient(
+        circle at 92% 4%,
+        rgba(255, 10, 0, 0.5) 0%,
+        rgba(255, 10, 0, 0.28) 28%,
+        rgba(255, 10, 0, 0.1) 55%,
+        transparent 80%
+      );
+  }
+}
