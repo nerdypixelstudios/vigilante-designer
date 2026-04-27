@@ -19,8 +19,21 @@
   --text-fun-h4: 1.625rem;   /* 26px — Caveat H4 (fun mode) */
   --text-humongous: 14rem;   /* 224px — Cabinet Grotesk extrabold hero display title */
 
+  /* ── Hero typography (responsive clamps + one-off settings) ─────── */
+  --text-hero-display: clamp(4rem, 17.5vw, 14rem);          /* Hero H1 normal */
+  --text-hero-fun-display: clamp(2rem, 4.5vw, 3.75rem);     /* Hero H1 fun */
+  --text-hero-fun-small: 1rem;                              /* Hero H1 fun (small "by Day,") */
+  --text-hero-subpitch-fun: 1.375rem;                       /* Hero sub-pitch fun */
+
   /* ── Line height overrides ──────────────────────────────────────── */
   --leading-rock-salt: 1.7;  /* Rock Salt needs extra line height — letters overlap at 1 */
+  --leading-hero-display: 0.95;     /* Hero H1 (Cabinet Grotesk, tight) */
+  --leading-subpitch: 1.5;          /* Hero sub-pitch normal */
+  --leading-subpitch-fun: 1.4;      /* Hero sub-pitch fun (Caveat) */
+
+  /* ── Letter spacing tokens ──────────────────────────────────────── */
+  --tracking-hero-display: -0.03em;  /* Hero H1 normal */
+  --tracking-hero-fun-small: 0.01em; /* Hero H1 fun small line */
 
   /* ── Brand mark — cap-specific colours (used only by NavBrandNormal) ─ */
   --color-brand-cap-shadow: #2E2C1B;

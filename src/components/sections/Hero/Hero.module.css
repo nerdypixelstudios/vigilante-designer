@@ -6,35 +6,63 @@
 .heroInner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 6rem 3rem 0;
+  padding: 8rem 3rem 0;
   min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 2rem;
+  position: relative;
+  z-index: 0;
 }
 
-/* ── H1 row ── */
+/* ── H1 row (z-index 2: above grid+tape, below portrait) ── */
 
 .h1Row {
-  text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .h1Normal {
-  font-size: clamp(4rem, 17.5vw, 14rem);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-size: var(--text-hero-display);
+  line-height: var(--leading-hero-display);
+  letter-spacing: var(--tracking-hero-display);
 }
 
 .h1FunSmall {
-  font-size: 1rem;
-  letter-spacing: 0.01em;
+  font-size: var(--text-hero-fun-small);
+  letter-spacing: var(--tracking-hero-fun-small);
   margin-bottom: 0.25rem;
 }
 
 .h1Fun {
-  font-size: clamp(2rem, 4.5vw, 3.75rem);
+  font-size: var(--text-hero-fun-display);
   line-height: 1.7;
+}
+
+/* Sub-headline above H1 (normal mode only) — role descriptor kicker */
+.subHeadline {
+  text-align: left;
+  max-width: 36rem;
+  margin: 0 0 0.75rem 0;
+  font-size: var(--text-h4);
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.subHeadlineBold {
+  font-weight: 800;
+}
+
+/* Experience sticker — top-right corner, overlaps the H1 "!" */
+.experienceSticker {
+  position: absolute;
+  top: 0.5rem;
+  right: -20px;
+  width: 148px;
+  height: auto;
+  z-index: 4;
+  display: block;
 }
 
 /* ── Mid row ── */
@@ -45,115 +73,187 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: stretch;
   gap: 2rem;
+  position: relative;
 }
 
-/* ── Left zone ── */
+/* ── Left zone — sub-pitch + swirly arrow ── */
 
 .zoneLeft {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   align-items: flex-start;
+  position: relative;
+  z-index: 4;
 }
 
-.swirlyArrow {
-  transform: rotate(-10deg);
-  flex-shrink: 0;
+/* Proof claim — replaces normal-mode sub-pitch in zoneLeft */
+.proofClaim {
+  font-size: var(--text-h4);
+  line-height: var(--leading-subpitch);
+  font-weight: 500;
+  max-width: 360px;
 }
 
-.subPitch {
-  font-size: 1.125rem;
-  line-height: 1.5;
-  max-width: 280px;
+.proofClaimLead {
+  font-weight: 800;
+}
+
+/* DesignForge link — must read as a clear call-to-action */
+.designForgeLink {
+  font-weight: 800;
+  color: var(--color-ink-950);
+  text-underline-offset: 4px;
+  white-space: nowrap;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background-color: rgb(255 255 255 / 70%);
+  border: 1px solid rgb(0 0 0 / 8%);
+}
+
+.designForgeLink:hover {
+  color: var(--color-accent-orange);
+  text-decoration-color: var(--color-accent-orange);
+}
+
+.designForgeArrow {
+  display: inline-block;
+  margin-left: 0.15em;
+  font-weight: 800;
 }
 
 .subPitchFun {
-  font-size: 1.375rem;
-  line-height: 1.4;
-  max-width: 300px;
+  font-size: var(--text-fun-h3);
+  line-height: var(--leading-subpitch-fun);
+  max-width: 360px;
 }
 
-/* ── Centre zone ── */
+/* Swirly arrow — sits right after sub-pitch, points down-right toward portrait */
+.swirlyArrow {
+  width: 180px;
+  height: auto;
+  align-self: flex-end;
+  margin-right: -2.5rem;
+  margin-top: 0.5rem;
+  transform: rotate(20deg);
+  flex-shrink: 0;
+  display: block;
+}
+
+.swirlyArrow path {
+  fill: var(--swirly-arrow-color);
+}
+
+/* ── Centre zone — portrait composition ── */
 
 .zoneCentre {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  position: relative;
+  margin-top: -12rem;
 }
 
 .portraitWrap {
   position: relative;
-  width: 380px;
-  height: 100%;
-  min-height: 380px;
+  width: 600px;
+  height: 600px;
   flex-shrink: 0;
 }
 
-/* Grid paper — behind portrait, offset top-left */
+/* Grid paper — top-aligned, centred horizontally, behind H1 */
 .gridPaperWrap {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 .gridPaper {
-  width: 290px;
+  width: 500px;
   height: auto;
   border-radius: 2px;
   display: block;
+  max-width: unset;
 }
 
-/* Masking tape — across the top of the composition */
+/* Masking tape — at top-right of grid paper, off-centre to avoid the head */
 .tapeWrap {
   position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-4deg);
-  z-index: 3;
+  top: 160px;
+  left: 0px;
+  z-index: 1;
+  transform: rotate(-4deg);
 }
 
 .tape {
-  width: 110px;
+  width: 145px;
   height: auto;
   display: block;
 }
 
-/* Portrait cutout — front layer, bottom-aligned */
+/* Portrait cutout — bottom-aligned, in front of H1 (z-index 3) */
 .portraitImgWrap {
   position: absolute;
   bottom: 0;
-  left: 0;
-  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
 }
 
 .portraitImg {
-  width: 350px;
+  width: 600px;
   height: auto;
   display: block;
+  max-width: unset;
 }
 
 /* Fun mode glow */
 .sprayGlow {
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 340px;
-  height: 340px;
+  width: 480px;
+  height: 480px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,98,0,0.45) 0%, rgba(255,98,0,0.15) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(255,10,0,0.45) 0%, rgba(255,10,0,0.18) 50%, transparent 75%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* ── Right zone ── */
+/* ── Right zone — role list (no dividers, hover snap) ── */
 
 .zoneRight {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 4;
+}
+
+/* Wraps the "Recent Work" label + chip list, anchored to right edge of zoneRight */
+.workBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Section label above chips — small white pill, uppercase */
+.recentWorkLabel {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  background: var(--color-surface-white);
+  color: var(--color-ink-950);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
 .roleList {
@@ -162,70 +262,187 @@
   margin: 0;
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   width: 100%;
-  border-bottom: 1.5px solid var(--color-ink-950);
 }
 
 .roleItem {
+  display: block;
+}
+
+.roleLink {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  padding: 0.625rem 0;
-  border-top: 1.5px solid var(--color-ink-950);
+  padding: 0.5rem 0;
+  text-decoration: none;
+  transition: none;
 }
 
-.roleNameGroup {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-
-.roleArrow {
+.roleNumber {
   flex-shrink: 0;
+  font-size: 0.875rem;
 }
 
-/* ── Scrapbook entrance animations — abrupt, thump-on-landing ── */
+.roleLabel {
+  display: inline-block;
+}
+
+/* Column wrapper — stacks label + sub */
+.roleLabelGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+/* Muted descriptor under each chip label */
+.roleSub {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.roleArrowWrap {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.roleArrow circle {
+  fill: var(--role-arrow-bg);
+}
+
+.roleArrow path {
+  fill: var(--role-arrow-fg);
+}
+
+/* Hover state — snap, no easing. Label group shifts; arrow inverts. */
+.roleLink:hover .roleLabelGroup {
+  transform: translateX(8px);
+}
+
+.roleLink:hover .roleArrow circle {
+  fill: var(--role-arrow-fg);
+}
+
+.roleLink:hover .roleArrow path {
+  fill: var(--role-arrow-bg);
+}
+
+/* ── Stop-motion entrance — discrete jumps, no interpolation ── */
+
+.h1Row {
+  animation: heroSnapDown 0.6s steps(5, end) both;
+}
+
+.subHeadline {
+  animation: heroSnapDown 0.5s steps(4, end) both;
+  animation-delay: 0.35s;
+}
+
+.proofClaim,
+.subPitchFun {
+  animation: heroSnapLeft 0.5s steps(4, end) both;
+  animation-delay: 0.5s;
+}
+
+.swirlyArrow {
+  animation: heroSnapPop 0.45s steps(4, end) both;
+  animation-delay: 0.75s;
+}
 
 .gridPaperWrap {
-  animation: scrapbookGrid 0.32s ease-in both;
+  animation: scrapbookGrid 0.7s steps(5, end) both;
 }
 
 .tapeWrap {
-  animation: scrapbookTape 0.26s ease-in both;
-  animation-delay: 0.18s;
+  animation: scrapbookTape 0.55s steps(4, end) both;
+  animation-delay: 0.25s;
 }
 
 .portraitImgWrap {
-  animation: scrapbookPortrait 0.38s ease-in both;
-  animation-delay: 0.3s;
+  animation: scrapbookPortrait 0.7s steps(5, end) both;
+  animation-delay: 0.4s;
+}
+
+.roleItem:nth-child(1) {
+  animation: heroSnapRight 0.45s steps(4, end) both;
+  animation-delay: 0.6s;
+}
+
+.roleItem:nth-child(2) {
+  animation: heroSnapRight 0.45s steps(4, end) both;
+  animation-delay: 0.78s;
+}
+
+.roleItem:nth-child(3) {
+  animation: heroSnapRight 0.45s steps(4, end) both;
+  animation-delay: 0.96s;
+}
+
+.roleItem:nth-child(4) {
+  animation: heroSnapRight 0.45s steps(4, end) both;
+  animation-delay: 1.14s;
+}
+
+.experienceSticker {
+  animation: stickerPop 0.5s steps(5, end) both;
+  animation-delay: 0.85s;
+}
+
+@keyframes stickerPop {
+  0%   { opacity: 0; transform: scale(0.4); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heroSnapDown {
+  0%   { opacity: 0; transform: translateY(-40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroSnapLeft {
+  0%   { opacity: 0; transform: translateX(-40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes heroSnapRight {
+  0%   { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes heroSnapPop {
+  0%   { opacity: 0; transform: rotate(20deg) scale(0.5); }
+  100% { opacity: 1; transform: rotate(20deg) scale(1); }
 }
 
 @keyframes scrapbookGrid {
-  0%   { opacity: 0; transform: translateY(-70px) rotate(-8deg); }
-  68%  { opacity: 1; transform: translateY(10px) rotate(2deg); }
-  84%  { transform: translateY(-4px) rotate(-1deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+  0%   { opacity: 0; transform: translateX(-50%) translateY(-80px) rotate(-10deg); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0) rotate(0deg); }
 }
 
 @keyframes scrapbookTape {
-  0%   { opacity: 0; transform: translateX(-50%) translateY(-60px) rotate(-18deg); }
-  65%  { opacity: 1; transform: translateX(-50%) translateY(8px) rotate(0deg); }
-  84%  { transform: translateX(-50%) translateY(-2px) rotate(-6deg); }
-  100% { transform: translateX(-50%) rotate(-4deg); }
+  0%   { opacity: 0; transform: translateY(-60px) rotate(-25deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(-4deg); }
 }
 
 @keyframes scrapbookPortrait {
-  0%   { opacity: 0; transform: translateY(130px); }
-  65%  { opacity: 1; transform: translateY(-16px); }
-  82%  { transform: translateY(7px); }
-  100% { transform: translateY(0); }
+  0%   { opacity: 0; transform: translateX(-50%) translateY(140px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .h1Row,
+  .subHeadline,
+  .experienceSticker,
+  .proofClaim,
+  .subPitchFun,
+  .swirlyArrow,
   .gridPaperWrap,
   .tapeWrap,
-  .portraitImgWrap {
+  .portraitImgWrap,
+  .roleItem {
     animation: none;
   }
 }
@@ -243,6 +460,19 @@
     text-align: left;
   }
 
+  .subHeadline {
+    max-width: 100%;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  .experienceSticker {
+    width: 80px;
+    top: -0.25rem;
+    right: 0;
+  }
+
   .midRow {
     flex: none;
     grid-template-columns: 1fr;
@@ -258,6 +488,7 @@
   .zoneCentre {
     order: 2;
     justify-content: center;
+    margin-top: 0;
   }
 
   .zoneRight {
@@ -265,22 +496,31 @@
     justify-content: flex-start;
   }
 
+  .swirlyArrow {
+    width: 120px;
+    margin-right: 0;
+    align-self: flex-start;
+  }
+
   .portraitWrap {
-    width: 240px;
-    height: 280px;
-    min-height: 0;
+    width: 280px;
+    height: 320px;
   }
 
   .gridPaper {
-    width: 190px;
+    width: 220px;
   }
 
   .tape {
-    width: 80px;
+    width: 90px;
+  }
+
+  .tapeWrap {
+    right: 30px;
   }
 
   .portraitImg {
-    width: 210px;
+    width: 260px;
   }
 
   .roleList {
@@ -293,16 +533,33 @@
     padding: 5.5rem 2rem 0;
   }
 
+  .zoneCentre {
+    margin-top: -7rem;
+  }
+
   .portraitWrap {
-    width: 300px;
-    min-height: 320px;
+    width: 460px;
+    height: 460px;
   }
 
   .gridPaper {
-    width: 230px;
+    width: 380px;
+  }
+
+  .tape {
+    width: 120px;
   }
 
   .portraitImg {
-    width: 270px;
+    width: 460px;
+  }
+
+  .swirlyArrow {
+    width: 140px;
+    margin-right: -1.5rem;
+  }
+
+  .experienceSticker {
+    width: 110px;
   }
 }

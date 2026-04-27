@@ -1,31 +1,44 @@
 import Image from 'next/image';
 import { useTheme } from '../../shared/ThemeContext';
-import { WhiteSwirlyArrow, HandDrawnCircleArrow } from '../../icons/icons';
+import { WhiteSwirlyArrow, HandDrawnCircleArrow, ExperienceSticker } from '../../icons/icons';
 import styles from './Hero.module.css';
 
-const normalRoles = [
-  { num: '01', label: 'Product Design', href: '#more-from-desk' },
-  { num: '02', label: 'Web & AI Build', href: '#more-from-desk' },
-  { num: '03', label: 'Instructional & Branding', href: '#more-from-desk' },
+const normalProjects = [
+  { num: '01', label: 'e-GMAT Website',  sub: 'Public marketing site',         href: '#' },
+  { num: '02', label: 'NEURON',          sub: 'GMAT practice platform',        href: '/case-studies/neuron' },
+  { num: '03', label: 'SPARK Presenter', sub: 'Scalable learning content stack', href: '#' },
+  { num: '04', label: 'SAT LMS',         sub: 'Adaptive learning app',         href: '#' },
 ];
 
-const funRoles = [
-  { num: '01', label: 'Experience Recon', href: '#more-from-desk' },
-  { num: '02', label: 'AI Build Ops', href: '#more-from-desk' },
-  { num: '03', label: 'Signal Corps', href: '#more-from-desk' },
+const funProjects = [
+  { num: '01', label: 'e-GMAT Website',  sub: 'Public marketing site',         href: '#' },
+  { num: '02', label: 'NEURON',          sub: 'GMAT practice platform',        href: '/case-studies/neuron' },
+  { num: '03', label: 'SPARK Presenter', sub: 'Scalable learning content stack', href: '#' },
+  { num: '04', label: 'SAT LMS',         sub: 'Adaptive learning app',         href: '#' },
 ];
 
 export default function Hero() {
   const { isFunMode } = useTheme();
 
   const bg = isFunMode ? 'bg-fun-surface-black' : 'bg-accent-yellow';
-  const roles = isFunMode ? funRoles : normalRoles;
-  const roleArrowBg = isFunMode ? '#FFCE2E' : '#000000';
-  const roleArrowFg = isFunMode ? '#000000' : '#ffffff';
-  const arrowColor = isFunMode ? '#FF5F00' : '#000000';
+  const projects = isFunMode ? funProjects : normalProjects;
+
+  // Icon colors driven by CSS custom properties — tokens, not hex.
+  // Fun mode: red across the board (no yellow mixed in).
+  const iconVars = isFunMode
+    ? {
+        '--swirly-arrow-color': 'var(--color-fun-accent-red)',
+        '--role-arrow-bg': 'var(--color-fun-accent-red)',
+        '--role-arrow-fg': 'var(--color-fun-ink-50)',
+      }
+    : {
+        '--swirly-arrow-color': 'var(--color-surface-white)',
+        '--role-arrow-bg': 'var(--color-ink-950)',
+        '--role-arrow-fg': 'var(--color-surface-white)',
+      };
 
   return (
-    <section id="hero" className={`${bg} ${styles.hero}`}>
+    <section id="hero" className={`${bg} ${styles.hero}`} style={iconVars}>
       <div className={styles.heroInner}>
 
         {/* ── Full-width headline row ── */}
@@ -40,16 +53,23 @@ export default function Hero() {
               </h1>
             </>
           ) : (
-            <h1 className={`font-cabinet font-extrabold text-ink-950 ${styles.h1Normal}`}>
-              Hi, I am Lohith!
-            </h1>
+            <>
+              <p className={`font-dm text-ink-800 ${styles.subHeadline}`}>
+                A <strong className={styles.subHeadlineBold}>Product Designer</strong> seasoned in{' '}
+                <strong className={styles.subHeadlineBold}>end-to-end web design.</strong>
+              </p>
+              <h1 className={`font-cabinet font-extrabold text-ink-950 ${styles.h1Normal}`}>
+                Hi, I am Lohith!
+              </h1>
+              <ExperienceSticker className={styles.experienceSticker} />
+            </>
           )}
         </div>
 
         {/* ── Mid row: left / portrait / right ── */}
         <div className={styles.midRow}>
 
-          {/* ── Left zone — sub-pitch + swirly arrow ── */}
+          {/* ── Left zone — proof claim + swirly arrow ── */}
           <div className={styles.zoneLeft}>
             {isFunMode ? (
               <p className={`font-caveat text-fun-ink-300 ${styles.subPitchFun}`}>
@@ -57,22 +77,24 @@ export default function Hero() {
                 Builds in the dark, ships before sunrise.
               </p>
             ) : (
-              <p className={`font-dm font-extrabold text-ink-800 ${styles.subPitch}`}>
-                A Product Designer seasoned in<br />
-                end-to-end web design — from spec to shipped.
+              <p className={`font-dm text-ink-800 ${styles.proofClaim}`}>
+                <strong className={styles.proofClaimLead}>Shipped 4 products in 6 months</strong>
+                {' '}— ~3× my pre-AI pace.<br /><br />
+                Built with{' '}
+                <a href="/case-studies/designforge" className={styles.designForgeLink}>
+                  DesignForge<span className={styles.designForgeArrow} aria-hidden="true">↗</span>
+                </a>
+                {' '}— a 6-phase AI + human methodology.
               </p>
             )}
-            <WhiteSwirlyArrow
-              className={styles.swirlyArrow}
-              color={arrowColor}
-            />
+            <WhiteSwirlyArrow className={styles.swirlyArrow} />
           </div>
 
           {/* ── Centre zone — portrait composition ── */}
           <div className={styles.zoneCentre}>
             <div className={styles.portraitWrap}>
 
-              {/* Grid paper — separate element for animation */}
+              {/* Grid paper — backdrop, behind H1 */}
               <div className={styles.gridPaperWrap}>
                 <Image
                   src="/images/hero/hero-grid-paper.webp"
@@ -83,7 +105,7 @@ export default function Hero() {
                 />
               </div>
 
-              {/* Masking tape — separate element for animation */}
+              {/* Masking tape — at top edge of grid paper, off-center to avoid the head */}
               <div className={styles.tapeWrap}>
                 <Image
                   src="/images/hero/hero-tape.webp"
@@ -94,7 +116,7 @@ export default function Hero() {
                 />
               </div>
 
-              {/* Portrait cutout — separate element for animation */}
+              {/* Portrait cutout — front layer, overlaps H1 */}
               <div className={styles.portraitImgWrap}>
                 <Image
                   src="/images/hero/hero-portrait-normal.webp"
@@ -112,36 +134,44 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── Right zone — role list ── */}
+          {/* ── Right zone — project chips ── */}
           <div className={styles.zoneRight}>
-            <ul className={styles.roleList}>
-              {roles.map(role => (
-                <li key={role.num} className={styles.roleItem}>
-                  <div className={styles.roleNameGroup}>
-                    <span className={isFunMode
-                      ? 'font-caveat text-fun-accent-yellow text-base'
-                      : 'font-dm font-extrabold text-ink-500 text-sm'
-                    }>
-                      {role.num}.
+            <div className={styles.workBlock}>
+              <span className={`font-dm font-extrabold ${styles.recentWorkLabel}`}>
+                {isFunMode ? 'Recent Cases' : 'Recent Work'}
+              </span>
+              <ul className={styles.roleList}>
+                {projects.map(project => (
+                <li key={project.num} className={styles.roleItem}>
+                  <a href={project.href} className={styles.roleLink}>
+                    <span className={`${styles.roleNumber} ${isFunMode
+                      ? 'font-caveat text-fun-accent-red'
+                      : 'font-dm font-extrabold text-surface-white'
+                    }`}>
+                      {project.num}.
                     </span>
-                    <a
-                      href={role.href}
-                      className={isFunMode
-                        ? 'font-caveat font-bold text-fun-ink-50 text-fun-h4 hover:opacity-70'
-                        : 'font-dm font-extrabold text-ink-950 text-h4 hover:opacity-70'
-                      }
-                    >
-                      {role.label}
-                    </a>
-                  </div>
-                  <HandDrawnCircleArrow
-                    className={styles.roleArrow}
-                    bgColor={roleArrowBg}
-                    arrowColor={roleArrowFg}
-                  />
+                    <span className={styles.roleLabelGroup}>
+                      <span className={`${styles.roleLabel} ${isFunMode
+                        ? 'font-caveat font-bold text-fun-ink-50 text-fun-h4'
+                        : 'font-dm font-extrabold text-ink-950 text-h4'
+                      }`}>
+                        {project.label}
+                      </span>
+                      <span className={`${styles.roleSub} ${isFunMode
+                        ? 'font-caveat text-fun-ink-300'
+                        : 'font-dm text-ink-700'
+                      }`}>
+                        {project.sub}
+                      </span>
+                    </span>
+                    <span className={styles.roleArrowWrap}>
+                      <HandDrawnCircleArrow className={styles.roleArrow} />
+                    </span>
+                  </a>
                 </li>
-              ))}
-            </ul>
+                ))}
+              </ul>
+            </div>
           </div>
 
         </div>
