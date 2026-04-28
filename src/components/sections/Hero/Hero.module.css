@@ -40,25 +40,43 @@
   line-height: 1.7;
 }
 
-/* Sub-headline above H1 (normal mode only) — role descriptor kicker */
-.subHeadline {
+/* Kicker above H1 (normal mode only) — name intro, DM Sans */
+.kicker {
   text-align: left;
   max-width: 36rem;
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
   font-size: var(--text-h4);
   line-height: 1.35;
   font-weight: 500;
 }
 
-.subHeadlineBold {
+.kickerBold {
+  font-weight: 800;
+}
+
+/* Role-extension strip — editorial white patch, right-aligned, slight overlap with H1 */
+.roleStrip {
+  display: block;
+  width: fit-content;
+  margin: -1rem 0 0 auto;
+  padding: 0.4rem 0.85rem;
+  background: var(--color-surface-white);
+  font-size: var(--text-h4);
+  font-weight: 500;
+  line-height: 1.2;
+  position: relative;
+  z-index: 3;
+}
+
+.roleStripBold {
   font-weight: 800;
 }
 
 /* Experience sticker — top-right corner, overlaps the H1 "!" */
 .experienceSticker {
   position: absolute;
-  top: 0.5rem;
-  right: -20px;
+  top: -2rem;
+  right: -50px;
   width: 148px;
   height: auto;
   z-index: 4;
@@ -243,7 +261,7 @@
   max-width: 360px;
 }
 
-/* Section label above chips — small white pill, uppercase */
+/* Section label above chips — small white pill, uppercase (fun mode) */
 .recentWorkLabel {
   align-self: flex-start;
   display: inline-block;
@@ -254,6 +272,31 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
+}
+
+/* Tilted "Recent work" + small arrow (normal mode) — replaces the white pill */
+.recentWorkTilted {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  transform: rotate(-6deg);
+  transform-origin: left center;
+  font-size: var(--text-small);
+  letter-spacing: 0.01em;
+  padding-left: 0.25rem;
+}
+
+.recentWorkArrow {
+  width: 18px;
+  height: auto;
+  display: block;
+  margin-top: 0.4rem;
+  transform: rotate(8deg);
+}
+
+.recentWorkArrow path {
+  fill: var(--color-ink-950);
 }
 
 .roleList {
@@ -337,9 +380,14 @@
   animation: heroSnapDown 0.6s steps(5, end) both;
 }
 
-.subHeadline {
+.kicker {
   animation: heroSnapDown 0.5s steps(4, end) both;
   animation-delay: 0.35s;
+}
+
+.roleStrip {
+  animation: heroSnapDown 0.5s steps(4, end) both;
+  animation-delay: 0.55s;
 }
 
 .proofClaim,
@@ -434,7 +482,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .h1Row,
-  .subHeadline,
+  .kicker,
+  .roleStrip,
   .experienceSticker,
   .proofClaim,
   .subPitchFun,
@@ -460,11 +509,17 @@
     text-align: left;
   }
 
-  .subHeadline {
+  .kicker {
     max-width: 100%;
     margin: 0 0 0.5rem 0;
     font-size: 1.125rem;
     line-height: 1.4;
+  }
+
+  .roleStrip {
+    margin: 0.5rem 0 0 0;
+    font-size: 1rem;
+    padding: 0.35rem 0.65rem;
   }
 
   .experienceSticker {

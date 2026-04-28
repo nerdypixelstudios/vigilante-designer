@@ -13,6 +13,7 @@
   --text-h3: 1.625rem;       /* 26px — DM Sans H3 (normal mode) */
   --text-h4: 1.25rem;        /* 20px — DM Sans H4 (normal mode) */
   --text-body: 1.25rem;      /* 20px — DM Sans body (both modes) */
+  --text-small: 1rem;        /* 16px — DM Sans small meta/decorative labels (both modes) */
   --text-fun-h1: 4.0625rem;  /* 65px — Rock Salt H1 (fun mode) */
   --text-fun-h2: 2.5rem;     /* 40px — Rock Salt H2 (fun mode) */
   --text-fun-h3: 1.875rem;   /* 30px — Caveat H3 (fun mode) */
@@ -20,7 +21,7 @@
   --text-humongous: 14rem;   /* 224px — Cabinet Grotesk extrabold hero display title */
 
   /* ── Hero typography (responsive clamps + one-off settings) ─────── */
-  --text-hero-display: clamp(4rem, 17.5vw, 14rem);          /* Hero H1 normal */
+  --text-hero-display: clamp(2.75rem, 14.125vw, 11.3rem);   /* Hero H1 normal — reaches 11.3rem at 1280px+, scales down with viewport */
   --text-hero-fun-display: clamp(2rem, 4.5vw, 3.75rem);     /* Hero H1 fun */
   --text-hero-fun-small: 1rem;                              /* Hero H1 fun (small "by Day,") */
   --text-hero-subpitch-fun: 1.375rem;                       /* Hero sub-pitch fun */

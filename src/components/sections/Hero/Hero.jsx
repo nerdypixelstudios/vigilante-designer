@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useTheme } from '../../shared/ThemeContext';
-import { WhiteSwirlyArrow, HandDrawnCircleArrow, ExperienceSticker } from '../../icons/icons';
+import { WhiteSwirlyArrow, HandDrawnCircleArrow, ExperienceSticker, SmallArrow } from '../../icons/icons';
 import styles from './Hero.module.css';
 
 const normalProjects = [
@@ -54,13 +54,15 @@ export default function Hero() {
             </>
           ) : (
             <>
-              <p className={`font-dm text-ink-800 ${styles.subHeadline}`}>
-                A <strong className={styles.subHeadlineBold}>Product Designer</strong> seasoned in{' '}
-                <strong className={styles.subHeadlineBold}>end-to-end web design.</strong>
+              <p className={`font-dm text-ink-800 ${styles.kicker}`}>
+                Hi, I am <strong className={styles.kickerBold}>Lohith!</strong>
               </p>
               <h1 className={`font-cabinet font-extrabold text-ink-950 ${styles.h1Normal}`}>
-                Hi, I am Lohith!
+                Product Designer
               </h1>
+              <p className={`font-dm text-ink-950 ${styles.roleStrip}`}>
+                seasoned in <strong className={styles.roleStripBold}>end-to-end web design.</strong>
+              </p>
               <ExperienceSticker className={styles.experienceSticker} />
             </>
           )}
@@ -137,9 +139,16 @@ export default function Hero() {
           {/* ── Right zone — project chips ── */}
           <div className={styles.zoneRight}>
             <div className={styles.workBlock}>
-              <span className={`font-dm font-extrabold ${styles.recentWorkLabel}`}>
-                {isFunMode ? 'Recent Cases' : 'Recent Work'}
-              </span>
+              {isFunMode ? (
+                <span className={`font-dm font-extrabold ${styles.recentWorkLabel}`}>
+                  Recent Cases
+                </span>
+              ) : (
+                <span className={`font-dm font-bold text-ink-950 ${styles.recentWorkTilted}`}>
+                  Recent work
+                  <SmallArrow className={styles.recentWorkArrow} />
+                </span>
+              )}
               <ul className={styles.roleList}>
                 {projects.map(project => (
                 <li key={project.num} className={styles.roleItem}>
