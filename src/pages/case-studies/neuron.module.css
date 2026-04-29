@@ -1,0 +1,99 @@
+/* ── Scroll-reveal fade-in ─────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.revealVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Marquee strip ────────────────────────────────────────── */
+.marqueeTrack {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: marqueeScroll 40s linear infinite;
+}
+.marqueeTrack:hover {
+  animation-play-state: paused;
+}
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Case study floating pill nav ─────────────────────────── */
+.caseNav {
+  position: fixed;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-ink-100);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+.caseNavLink {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-ink-500);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.caseNavLink:hover {
+  color: var(--color-ink-950);
+  background: var(--color-surface-light);
+}
+.caseNavBack {
+  composes: caseNavLink;
+  color: var(--color-ink-950);
+}
+
+/* ── Hero image composition ───────────────────────────────── */
+.heroImage {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+}
+
+/* ── Insight card with hover lift ─────────────────────────── */
+.insightCard {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.insightCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+/* ── Principle tag ────────────────────────────────────────── */
+.principleTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-ink-100);
+  background: var(--color-surface-white);
+  transition: border-color 0.15s;
+}
+.principleTag:hover {
+  border-color: var(--color-ink-500);
+}
+
+/* ── Full-bleed image section ─────────────────────────────── */
+.fullBleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
