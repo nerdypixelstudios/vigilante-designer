@@ -123,6 +123,200 @@ export function Bat({ className = '', size = 56 }) {
 
 // ── Animated nav icons ───────────────────────────────────────────────────────
 
+export function SatLmsConfusedStudent({ className = '' }) {
+  return (
+    <svg
+      width="220"
+      height="190"
+      viewBox="0 0 220 190"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <text x="36" y="46" fill="currentColor" fontSize="30" fontWeight="800">?</text>
+      <text x="166" y="46" fill="currentColor" fontSize="36" fontWeight="800">?</text>
+      <path d="M62 74c-15 16-24 38-16 54" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M70 148c11 18 75 19 90 0" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <circle cx="110" cy="88" r="48" fill="var(--color-surface-white)" stroke="currentColor" strokeWidth="8" />
+      <path d="M66 80c8-34 38-52 70-44 24 6 38 23 42 44-22-13-44-8-60-27-12 20-30 23-52 27Z" fill="currentColor" />
+      <path d="M91 91v3M130 91v3" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M91 122c11-10 27-10 38 0" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
+      <path d="M160 122c15 7 23 19 25 37" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M50 60c10-8 22-8 31 1M145 52c10-9 24-9 33 1" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeDasharray="1 12" />
+    </svg>
+  );
+}
+
+export function SatLmsPathGraphic({ className = '' }) {
+  return (
+    <svg
+      width="260"
+      height="190"
+      viewBox="0 0 260 190"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M48 130c46-60 107 18 164-46" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeDasharray="1 15" />
+      <circle cx="48" cy="130" r="20" fill="var(--color-surface-white)" stroke="currentColor" strokeWidth="7" />
+      <circle cx="130" cy="94" r="24" fill="var(--color-accent-yellow)" stroke="currentColor" strokeWidth="7" />
+      <circle cx="212" cy="84" r="20" fill="var(--color-surface-white)" stroke="currentColor" strokeWidth="7" />
+      <path d="M121 94h18M130 85v18" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+      <path d="M204 83l7 8 13-18" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="27" y="165" fill="currentColor" fontSize="16" fontWeight="800">FOUNDATION</text>
+      <text x="106" y="55" fill="currentColor" fontSize="20" fontWeight="900">PACE</text>
+      <text x="187" y="126" fill="currentColor" fontSize="16" fontWeight="800">NEXT</text>
+      <path d="M24 52c40-22 80-22 120 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M24 70c26-12 52-12 78 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M158 140c20 10 43 10 68 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function SatLmsClearStudent({ className = '' }) {
+  return (
+    <svg
+      width="220"
+      height="190"
+      viewBox="0 0 220 190"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M70 150c11 18 75 19 90 0" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <circle cx="110" cy="88" r="48" fill="var(--color-surface-white)" stroke="currentColor" strokeWidth="8" />
+      <path d="M70 80c8-34 38-52 70-44 24 6 38 23 42 44-26 0-45-8-56-28-13 17-31 25-56 28Z" fill="currentColor" />
+      <path d="M91 92v3M130 92v3" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M92 119c14 14 39 14 54 0" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
+      <path d="M163 54l11 12 24-34" stroke="var(--color-accent-green)" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M44 158c4-18 13-30 26-36M160 122c15 7 23 19 25 37" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function StudentStateLost({ className = '' }) {
+  return (
+    <svg
+      width="210"
+      height="180"
+      viewBox="0 0 210 180"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M78 30c37-22 87 6 92 51 5 44-28 77-74 70-42-6-64-37-58-70 3-19 19-39 40-51Z" fill="var(--color-accent-yellow)" />
+      <path d="M82 31c37-22 87 6 92 51 5 44-28 77-74 70-42-6-64-37-58-70 3-19 19-39 40-51Z" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M70 66c16-9 31-9 45 0M132 64c15-8 28-7 39 2" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M86 84c8 6 17 6 25 0M136 84c8 6 17 6 25 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M95 119c14-12 32-12 45 0" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+      <text x="28" y="55" fill="currentColor" fontSize="32" fontWeight="900">?</text>
+      <text x="166" y="42" fill="currentColor" fontSize="38" fontWeight="900">?</text>
+      <path d="M42 106c-8-8-12-18-9-30M48 47c7-13 20-21 37-24M174 115c11-7 15-17 12-30" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 11" />
+    </svg>
+  );
+}
+
+export function StudentStateStuck({ className = '' }) {
+  return (
+    <svg
+      width="210"
+      height="180"
+      viewBox="0 0 210 180"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M54 48h98c23 0 39 17 39 39v17c0 28-23 50-51 50H75c-32 0-58-26-58-58 0-26 16-48 37-48Z" fill="var(--color-surface-ice)" />
+      <path d="M56 48h96c23 0 39 17 39 39v17c0 28-23 50-51 50H75c-32 0-58-26-58-58 0-26 16-48 39-48Z" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M72 80c13-5 27-5 40 0M134 80c13-5 25-5 37 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M88 96h26M140 96h26" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+      <path d="M83 125h56" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
+      <path d="M48 25h118M48 25v16M95 25v16M166 25v16" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M61 146c19 13 59 18 103 3" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 10" />
+    </svg>
+  );
+}
+
+export function StudentStateUnclear({ className = '' }) {
+  return (
+    <svg
+      width="210"
+      height="180"
+      viewBox="0 0 210 180"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M104 28c13 19 28 22 50 13 1 25 10 39 32 48-21 14-25 30-17 54-25-2-40 7-55 28-15-20-32-25-56-17 3-25-6-40-28-53 22-10 33-25 31-50 21 5 33-1 43-23Z" fill="var(--color-accent-lavender)" />
+      <path d="M104 28c13 19 28 22 50 13 1 25 10 39 32 48-21 14-25 30-17 54-25-2-40 7-55 28-15-20-32-25-56-17 3-25-6-40-28-53 22-10 33-25 31-50 21 5 33-1 43-23Z" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M78 74c12-11 26-13 41-5M132 69c13-5 25-2 36 8" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M85 91c9 8 19 8 28 0M137 91c9 8 18 8 27 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M99 124c10-9 25-9 35 1" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+      <path d="M38 39c15 9 26 18 34 29M172 38c-15 8-26 17-34 28M38 142c15-7 27-15 36-27M176 144c-14-7-26-15-36-27" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 12" />
+    </svg>
+  );
+}
+
+export function StudentStateConfident({ className = '' }) {
+  return (
+    <svg
+      width="230"
+      height="190"
+      viewBox="0 0 230 190"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M79 36c38-23 90 4 95 49 6 48-32 82-82 74-42-7-66-39-59-75 4-20 22-39 46-48Z" fill="var(--color-surface-mint)" />
+      <path d="M81 36c38-23 90 4 95 49 6 48-32 82-82 74-42-7-66-39-59-75 4-20 22-39 46-48Z" stroke="currentColor" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M69 73c16-8 31-8 45 1M132 74c16-8 31-8 45 1" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M88 91c8 5 17 5 25 0M140 91c8 5 17 5 25 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M88 119c21 20 50 20 72 0" stroke="currentColor" strokeWidth="7" strokeLinecap="round" />
+      <path d="M158 48l13 13 28-38" stroke="var(--color-accent-green)" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M47 143c24 18 73 26 126 4" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 11" />
+    </svg>
+  );
+}
+
+export function LmsTransformationCore({ className = '' }) {
+  return (
+    <svg
+      width="460"
+      height="300"
+      viewBox="0 0 460 300"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M88 74c43-61 166-67 238-30 69 35 94 120 53 180-40 58-152 70-231 44-82-28-107-128-60-194Z" fill="var(--color-surface-white)" />
+      <path d="M88 74c43-61 166-67 238-30 69 35 94 120 53 180-40 58-152 70-231 44-82-28-107-128-60-194Z" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="100" y="69" width="134" height="40" rx="20" fill="var(--color-accent-yellow)" stroke="currentColor" strokeWidth="4" />
+      <text x="122" y="94" fill="currentColor" fontSize="15" fontWeight="900">Foundation-first</text>
+      <rect x="252" y="69" width="125" height="40" rx="20" fill="var(--color-surface-mint)" stroke="currentColor" strokeWidth="4" />
+      <text x="277" y="94" fill="currentColor" fontSize="15" fontWeight="900">Diagnostic-led</text>
+      <rect x="76" y="130" width="120" height="40" rx="20" fill="var(--color-surface-ice)" stroke="currentColor" strokeWidth="4" />
+      <text x="105" y="155" fill="currentColor" fontSize="15" fontWeight="900">Personalized</text>
+      <rect x="214" y="130" width="116" height="40" rx="20" fill="var(--color-surface-lilac)" stroke="currentColor" strokeWidth="4" />
+      <text x="239" y="155" fill="currentColor" fontSize="15" fontWeight="900">Next step</text>
+      <rect x="108" y="193" width="132" height="40" rx="20" fill="var(--color-surface-peach)" stroke="currentColor" strokeWidth="4" />
+      <text x="132" y="218" fill="currentColor" fontSize="15" fontWeight="900">Skip known work</text>
+      <rect x="258" y="193" width="132" height="40" rx="20" fill="var(--color-accent-sky)" stroke="currentColor" strokeWidth="4" />
+      <text x="282" y="218" fill="currentColor" fontSize="15" fontWeight="900">Progress visible</text>
+      <path d="M48 154c11-6 23-6 34 0M385 154c12-6 24-6 36 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M51 176c11 7 22 7 33 0M384 176c12 7 24 7 36 0" stroke="currentColor" strokeWidth="5" strokeLinecap="round" />
+      <path d="M62 39c15-12 39-19 71-20M353 258c21-7 37-19 49-35" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 12" />
+    </svg>
+  );
+}
+
 export const NavIconWork = forwardRef(function NavIconWork(
   { className = '', size = 20, duration = 1, isAnimated = true, ...props },
   ref,

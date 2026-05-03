@@ -1,0 +1,59 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.panel {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.75rem);
+  z-index: 60;
+  width: max-content;
+  max-width: 20rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.625rem;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 0.25rem);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.18);
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.3125rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 0.125rem;
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.panelNormal {
+  background-color: var(--color-ink-950);
+  color: var(--color-surface-white);
+  font-family: var(--font-dm), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.panelFun {
+  background-color: var(--color-fun-accent-red);
+  color: var(--color-fun-ink-50);
+  font-family: var(--font-caveat), cursive;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.wrapper:hover .panel,
+.wrapper:focus-visible .panel {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}

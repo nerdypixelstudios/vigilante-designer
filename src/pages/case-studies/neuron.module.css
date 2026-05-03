@@ -62,10 +62,39 @@
 }
 
 /* ── Hero image composition ───────────────────────────────── */
+.heroGrid {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-surface-white);
+}
+
+.heroGrid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/images/case-studies/sat-lms/box-grid.svg');
+  background-position: top center;
+  background-repeat: repeat;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 32%, black 56%, black 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, transparent 32%, black 56%, black 78%, transparent 100%);
+  pointer-events: none;
+}
+
+.heroGrid > * {
+  position: relative;
+  z-index: 1;
+}
+
 .heroImage {
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+}
+
+.metricTooltipPanel {
+  max-width: 22rem;
 }
 
 /* ── Insight card with hover lift ─────────────────────────── */

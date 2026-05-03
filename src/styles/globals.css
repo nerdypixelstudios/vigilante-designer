@@ -29,7 +29,9 @@
   --text-fun-h4: 1.625rem;
   /* 26px — Caveat H4 (fun mode) */
   --text-humongous: 14rem;
-  /* 224px — Cabinet Grotesk extrabold hero display title */
+  /* 224px - Cabinet Grotesk extrabold hero display title */
+  --text-case-study-statement: 2.5rem;
+  /* 40px - Cabinet Grotesk case study narrative statement */
 
   /* ── Hero typography (responsive clamps + one-off settings) ─────── */
   --text-hero-display: clamp(2.75rem, 14.125vw, 11.3rem);

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
+import Tooltip from '../../shared/Tooltip';
 import { useTheme } from '../../shared/ThemeContext';
 import {
   NavBrandNormal,
@@ -11,6 +12,7 @@ import {
   NavIconPing,
   HamburgerIcon,
   CloseIcon,
+  ChevronLeft,
 } from '../../icons/icons';
 import styles from './Navigation.module.css';
 
@@ -26,12 +28,17 @@ const funLinks = [
   { label: 'Ping the Vigilante', href: '#footer', Icon: NavIconPing },
 ];
 
-export default function Navigation() {
+export default function Navigation({
+  links,
+  showToggle = true,
+  backHref,
+  backLabel = 'Back',
+}) {
   const { isFunMode, toggleMode, toggleStage } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const iconRefs = useRef({});
 
-  const links = isFunMode ? funLinks : normalLinks;
+  const activeLinks = links ?? (isFunMode ? funLinks : normalLinks);
 
   const triggerIcon = (href, action) => {
     const ref = iconRefs.current[href];
@@ -56,7 +63,7 @@ export default function Navigation() {
 
           {/* ── Desktop nav links (centred) ── */}
           <ul className={`${styles.desktopLinks} hidden md:flex`}>
-            {links.map(link => (
+            {activeLinks.map(link => (
               <li key={link.href}>
                 <a
                   href={link.href}
@@ -66,10 +73,12 @@ export default function Navigation() {
                   onFocus={() => triggerIcon(link.href, 'startAnimation')}
                   onBlur={() => triggerIcon(link.href, 'stopAnimation')}
                 >
-                  <link.Icon
-                    size={20}
-                    ref={(el) => { iconRefs.current[link.href] = el; }}
-                  />
+                  {link.Icon && (
+                    <link.Icon
+                      size={20}
+                      ref={(el) => { iconRefs.current[link.href] = el; }}
+                    />
+                  )}
                   {link.label}
                 </a>
               </li>
@@ -78,24 +87,51 @@ export default function Navigation() {
 
           {/* ── Right side: toggle (text then knob) + hamburger ── */}
           <div className={styles.rightGroup}>
-            <button
-              onClick={toggleMode}
-              className={styles.togglePill}
-              aria-label={isFunMode ? 'Switch to normal mode' : 'Switch to fun mode'}
-            >
-              <span className={`${styles.toggleLabel} ${isFunMode
-                ? 'font-caveat text-fun-ink-50'
-                : 'font-dm text-ink-950'
-              }`}>
-                {toggleText}
-              </span>
-              <span className={`${styles.toggleKnob} ${isFunMode ? styles.toggleKnobOn : styles.toggleKnobOff}`} />
-              {tooltipText && (
-                <span className={`${styles.tooltip} ${isFunMode ? styles.tooltipFun : styles.tooltipNormal}`} role="tooltip">
-                  {tooltipText}
-                </span>
-              )}
-            </button>
+            {backHref && (
+              <Link
+                href={backHref}
+                className={`${styles.navLink} ${isFunMode ? styles.navLinkFun : styles.navLinkNormal}`}
+              >
+                <ChevronLeft color={isFunMode ? 'var(--color-fun-ink-50)' : 'var(--color-ink-950)'} />
+                {backLabel}
+              </Link>
+            )}
+
+            {showToggle && (
+              <button
+                onClick={toggleMode}
+                className={styles.togglePill}
+                aria-label={isFunMode ? 'Switch to normal mode' : 'Switch to fun mode'}
+              >
+                {tooltipText ? (
+                  <Tooltip
+                    content={tooltipText}
+                    variant={isFunMode ? 'fun' : 'normal'}
+                    focusable={false}
+                    className={styles.toggleTooltip}
+                    panelClassName={styles.toggleTooltipPanel}
+                  >
+                    <span className={`${styles.toggleLabel} ${isFunMode
+                      ? 'font-caveat text-fun-ink-50'
+                      : 'font-dm text-ink-950'
+                    }`}>
+                      {toggleText}
+                    </span>
+                    <span className={`${styles.toggleKnob} ${isFunMode ? styles.toggleKnobOn : styles.toggleKnobOff}`} />
+                  </Tooltip>
+                ) : (
+                  <>
+                    <span className={`${styles.toggleLabel} ${isFunMode
+                      ? 'font-caveat text-fun-ink-50'
+                      : 'font-dm text-ink-950'
+                    }`}>
+                      {toggleText}
+                    </span>
+                    <span className={`${styles.toggleKnob} ${isFunMode ? styles.toggleKnobOn : styles.toggleKnobOff}`} />
+                  </>
+                )}
+              </button>
+            )}
 
             {/* Mobile hamburger */}
             <button
@@ -114,14 +150,14 @@ export default function Navigation() {
         {/* ── Mobile dropdown ── */}
         {menuOpen && (
           <ul className={styles.mobileMenu}>
-            {links.map(link => (
+            {activeLinks.map(link => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
                   className={`${styles.mobileLink} ${isFunMode ? styles.mobileLinkFun : styles.mobileLinkNormal}`}
                 >
-                  <link.Icon size={20} />
+                  {link.Icon && <link.Icon size={20} />}
                   {link.label}
                 </a>
               </li>

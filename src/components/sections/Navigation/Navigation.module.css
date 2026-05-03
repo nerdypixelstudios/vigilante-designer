@@ -141,6 +141,10 @@
   font-size: 0.95rem;
 }
 
+.toggleTooltip {
+  gap: 0.5rem;
+}
+
 /* ── Toggle knob ── */
 
 .toggleKnob {
