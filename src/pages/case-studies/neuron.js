@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { ExternalArrowIcon, RedditIcon } from '../../components/icons/icons';
 import Navigation from '../../components/sections/Navigation/Navigation';
 import Tooltip from '../../components/shared/Tooltip';
 import styles from './neuron.module.css';
@@ -15,6 +16,9 @@ const metrics = [
   {
     label: 'Next-step continuation',
     value: '89%',
+    startValue: 32,
+    endValue: 89,
+    suffix: '%',
     detail: 'up from 32%',
     tooltip: [
       'Measures how often students start the next recommended activity immediately after completing one.',
@@ -24,6 +28,9 @@ const metrics = [
   {
     label: 'Progress depth',
     value: '72%',
+    startValue: 52,
+    endValue: 72,
+    suffix: '%',
     detail: 'up from 52%',
     tooltip: [
       'Measures how much of the system-recommended path a student completes before dropping off.',
@@ -33,6 +40,9 @@ const metrics = [
   {
     label: 'Time to first meaningful action',
     value: '45 sec',
+    startValue: 112,
+    endValue: 45,
+    suffix: ' sec',
     detail: 'down from 1 min 52 sec',
     tooltip: [
       'Measures how long it takes for a student to start their first learning activity after opening the app.',
@@ -43,47 +53,32 @@ const metrics = [
 
 const redditCards = [
   {
-    quote: "I don't feel like I'm learning anything useful... my score dropped.",
-    source: 'r/digitalSATs',
-    meta: 'reactive prep frustration',
+    subreddit: 'r/digitalSATs',
+    title: 'Practice was not turning into learning',
+    quote: "I don’t feel like I’m learning anything useful…",
+    interpretation: 'Practice was happening, but it was not reliably translating into understanding or progress.',
     href: 'https://www.reddit.com/r/digitalSATs/comments/1gh5y4p',
   },
   {
-    quote: "The explanations... don't teach the concepts involved.",
-    source: 'r/Sat',
-    meta: 'explanations without teaching',
+    subreddit: 'r/SAT',
+    title: 'Explanations answered questions, not concepts',
+    quote: 'The explanations… don’t teach the concepts involved.',
+    interpretation: 'Students could review answers, but not always learn the underlying concept well enough to transfer.',
     href: 'https://www.reddit.com/r/Sat/comments/14lpzv9',
   },
   {
-    quote: 'I fundamentally do not know... never learned how to set up equations.',
-    source: 'r/Sat',
-    meta: 'foundation gap',
+    subreddit: 'r/SAT',
+    title: 'Foundational gaps stayed hidden',
+    quote: 'I fundamentally don’t know…',
+    interpretation: 'Many students were not just making mistakes — they were missing buried foundations the system failed to surface.',
     href: 'https://www.reddit.com/r/Sat/comments/1sd5pgn/review_course_was_a_bust/',
   },
   {
-    quote: 'I need a path that tells me exactly what to fix.',
-    source: 'r/satprep',
-    meta: 'path uncertainty',
+    subreddit: 'r/satprep',
+    title: 'Resources became a content dump',
+    quote: 'Here’s 800 pages… weak spots get two problems.',
+    interpretation: 'The market had enough material, but not enough intelligence to decide what deserved attention for each student.',
     href: 'https://www.reddit.com/r/satprep/comments/1lqvbql',
-  },
-];
-
-const gapItems = [
-  {
-    title: 'Reactive learning',
-    text: 'A missed question creates a search task. The student has to decide which lesson, explanation, or practice set should come next.',
-  },
-  {
-    title: 'Bulk structure',
-    text: 'Long courses make advanced students repeat known material and make newer students hunt for the first missing foundation.',
-  },
-  {
-    title: 'Foundation gaps',
-    text: 'Some prep material starts too high. Students who need the basics feel lost before the course has really begun.',
-  },
-  {
-    title: 'Explanation gaps',
-    text: 'Answer explanations often clarify a question, but they do not always teach the underlying concept or process skill.',
   },
 ];
 
@@ -241,6 +236,125 @@ function Reveal({ children, className = '' }) {
   );
 }
 
+function useInViewOnce({ threshold = 0.15, rootMargin = '0px 0px -60px 0px' } = {}) {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      setIsVisible(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold, rootMargin }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [rootMargin, threshold]);
+
+  return { ref, isVisible };
+}
+
+function StaggeredText({ as: Tag = 'h2', segments, text, id, className = '' }) {
+  const { ref, isVisible } = useInViewOnce();
+  const textSegments = segments || [{ text }];
+  let wordIndex = 0;
+  const ariaLabel = textSegments.map((segment) => segment.text).join(' ');
+
+  return (
+    <Tag
+      ref={ref}
+      id={id}
+      aria-label={ariaLabel}
+      className={`${className} ${styles.staggerText} ${isVisible ? styles.staggerTextVisible : ''}`}
+    >
+      {textSegments.map((segment, segmentIndex) => {
+        const words = segment.text.split(' ');
+
+        return (
+          <span key={`${segment.text}-${segmentIndex}`} className={segment.className || ''} aria-hidden="true">
+            {words.map((word, index) => {
+              const currentIndex = wordIndex;
+              wordIndex += 1;
+
+              return (
+                <span
+                  key={`${word}-${currentIndex}`}
+                  className={styles.staggerWord}
+                  style={{ '--word-index': currentIndex }}
+                >
+                  {word}
+                </span>
+              );
+            })}
+            {segment.breakAfter ? <br /> : segmentIndex < textSegments.length - 1 ? ' ' : null}
+          </span>
+        );
+      })}
+    </Tag>
+  );
+}
+
+function AnimatedMetricValue({ metric }) {
+  const { ref, isVisible } = useInViewOnce();
+  const [displayValue, setDisplayValue] = useState(metric.startValue);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      setDisplayValue(metric.endValue);
+      return undefined;
+    }
+
+    if (!isVisible) {
+      return undefined;
+    }
+
+    let animationFrame;
+    let startTime;
+
+    const animate = (timestamp) => {
+      if (!startTime) {
+        startTime = timestamp;
+      }
+
+      const progress = Math.min((timestamp - startTime) / 1400, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const nextValue = Math.round(metric.startValue + ((metric.endValue - metric.startValue) * easedProgress));
+
+      setDisplayValue(nextValue);
+
+      if (progress < 1) {
+        animationFrame = window.requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = window.requestAnimationFrame(animate);
+
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [isVisible, metric.endValue, metric.startValue]);
+
+  return (
+    <p ref={ref} className="font-cabinet text-6xl font-extrabold leading-none text-accent-green md:text-7xl">
+      {displayValue}{metric.suffix}
+    </p>
+  );
+}
+
 function HeroVideo() {
   const videoRef = useRef(null);
 
@@ -276,6 +390,23 @@ function BrowserChrome() {
 }
 
 export default function SatLmsCaseStudy() {
+  const [activeSignalIndex, setActiveSignalIndex] = useState(0);
+  const [isSignalStackPaused, setIsSignalStackPaused] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion || isSignalStackPaused) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveSignalIndex((currentIndex) => (currentIndex + 1) % redditCards.length);
+    }, 5600);
+
+    return () => window.clearInterval(timer);
+  }, [isSignalStackPaused]);
+
   return (
     <div className="min-h-screen bg-surface-white text-ink-950">
       <Navigation
@@ -302,7 +433,7 @@ export default function SatLmsCaseStudy() {
                 It diagnoses each student's strengths and gaps, curates only the concepts they need, and turns the course into ready action items instead of another library to browse.
               </p>
 
-              <div className="mb-16 flex flex-wrap justify-center gap-4 font-dm text-sm text-ink-700">
+              <div className="mb-3 flex flex-wrap justify-center gap-4 font-dm text-sm text-ink-700">
                 <span className="rounded-full border border-ink-100 bg-surface-light px-4 py-2">Principal Product Designer & Frontend Developer</span>
                 <span className="rounded-full border border-ink-100 bg-surface-light px-4 py-2">Dec 2025 - Mar 2026</span>
                 <a
@@ -321,6 +452,9 @@ export default function SatLmsCaseStudy() {
                   <span>e-gmat.com</span>
                 </a>
               </div>
+              <p className="mb-16 font-dm text-xs italic leading-relaxed text-ink-500">
+                Logos are properties of their respective companies.
+              </p>
 
               <div className={`${styles.heroImage} shadow-2xl`}>
                 <BrowserChrome />
@@ -334,9 +468,13 @@ export default function SatLmsCaseStudy() {
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <p className="mb-5 font-dm text-xs font-extrabold uppercase tracking-[0.2em] text-ink-500">TL;DR</p>
-              <h2 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950">
-                <span className="box-decoration-clone bg-accent-green px-1 text-ink-950">I redesigned the LMS experience</span> as a behavior-driven system, replacing user-led navigation with guided progression and removing decision points across the learning flow.
-              </h2>
+              <StaggeredText
+                className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950"
+                segments={[
+                  { text: 'I redesigned the LMS experience', className: 'box-decoration-clone bg-accent-green px-1 text-ink-950' },
+                  { text: 'as a behavior-driven system, replacing user-led navigation with guided progression and removing decision points across the learning flow.' },
+                ]}
+              />
 
               <div className="mx-auto mt-12 max-w-5xl">
                 <Image
@@ -357,7 +495,7 @@ export default function SatLmsCaseStudy() {
                 <div className="mx-auto mt-14 grid max-w-5xl gap-8 text-center md:grid-cols-3">
                   {metrics.map((metric) => (
                     <div key={metric.label}>
-                      <p className="font-cabinet text-6xl font-extrabold leading-none text-accent-green md:text-7xl">{metric.value}</p>
+                      <AnimatedMetricValue metric={metric} />
                       <p className="mt-5 inline-flex items-center justify-center gap-2 font-dm text-base font-extrabold leading-relaxed text-ink-700">
                         <span>{metric.label}</span>
                         <Tooltip
@@ -375,7 +513,7 @@ export default function SatLmsCaseStudy() {
                           </span>
                         </Tooltip>
                       </p>
-                      <p className="mt-2 font-dm text-base leading-relaxed text-ink-700">{metric.detail}</p>
+                      <p className="font-dm text-base leading-relaxed text-ink-700">{metric.detail}</p>
                     </div>
                   ))}
                 </div>
@@ -384,103 +522,83 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="problem" className="bg-ink-950 px-6 py-20 text-surface-white md:py-28">
+        <section id="problem" aria-labelledby="problem-heading" className={`${styles.problemSection} px-6 py-20 md:py-28`}>
           <div className="mx-auto max-w-5xl">
-            <p className="mb-4 text-center font-dm text-xs font-extrabold uppercase tracking-widest text-ink-300">The Problem</p>
-            <h2 className="mx-auto max-w-4xl text-center font-cabinet text-4xl font-extrabold leading-tight text-surface-white md:text-6xl">
-              The practice is official. The learning path is not.
-            </h2>
+            <Reveal>
+              <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
+                <div>
+                  <p className="mb-6 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">THE PROBLEM</p>
+                  <StaggeredText
+                    id="problem-heading"
+                    className="font-cabinet text-5xl font-extrabold leading-tight text-ink-950 md:text-6xl"
+                    segments={[
+                      { text: 'SAT prep had enough content.', breakAfter: true },
+                      { text: 'What students lacked was a path built for them.', className: 'box-decoration-clone bg-surface-white px-1 text-ink-950' },
+                    ]}
+                  />
+                  <p className="mt-10 max-w-xl font-dm text-body leading-relaxed text-ink-800">
+                    Before designing the LMS, I looked at student conversations outside the product. The problem was not missing content. It was missing direction: students had practice and explanations, but still did not know which gap to fix next.
+                  </p>
+                </div>
 
-            <div className="mt-16 grid gap-6 lg:grid-cols-3 lg:items-center">
-              <div className="space-y-6">
-                {redditCards.slice(0, 2).map((card) => (
-                  <a
-                    key={card.href}
-                    href={card.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block border border-ink-800 bg-fun-surface-dark p-6 text-surface-white no-underline hover:border-accent-orange"
+                <div>
+                  <p className="mb-6 text-center font-dm text-sm font-normal italic leading-relaxed text-ink-500">
+                    Student signals · hover on a card to pause
+                  </p>
+                  <div
+                    className={styles.problemEvidenceStack}
+                    onMouseEnter={() => setIsSignalStackPaused(true)}
+                    onMouseLeave={() => setIsSignalStackPaused(false)}
+                    onFocus={() => setIsSignalStackPaused(true)}
+                    onBlur={(event) => {
+                      if (!event.relatedTarget || !event.currentTarget.contains(event.relatedTarget)) {
+                        setIsSignalStackPaused(false);
+                      }
+                    }}
                   >
-                    <div className="mb-4 flex items-center justify-between font-dm text-xs font-extrabold uppercase tracking-widest text-ink-300">
-                      <span>{card.source}</span>
-                      <span>{card.meta}</span>
-                    </div>
-                    <p className="font-cabinet text-2xl font-extrabold leading-tight">"{card.quote}"</p>
-                  </a>
-                ))}
-              </div>
+                    {redditCards.map((card, index) => {
+                      const position = (index - activeSignalIndex + redditCards.length) % redditCards.length;
 
-              <div className="border-4 border-accent-yellow bg-surface-white p-8 text-ink-950 md:p-10">
-                <p className="font-cabinet text-3xl font-extrabold leading-tight md:text-4xl">
-                  The student has to do the one thing the product should be doing:
-                </p>
-                <p className="mt-5 font-cabinet text-4xl font-extrabold leading-tight text-accent-orange md:text-5xl">
-                  convert the mistake into the right learning path.
-                </p>
-                <p className="mt-8 font-dm text-xl leading-relaxed text-ink-700">
-                  Bluebook gives official full-length practice tests, scored results, review, and targeted next-practice options. But the surrounding learning system still has to turn a miss into a concept lesson, a process-skill file, reinforcement, and the next required action.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                {redditCards.slice(2).map((card) => (
-                  <a
-                    key={card.href}
-                    href={card.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block border border-ink-800 bg-fun-surface-dark p-6 text-surface-white no-underline hover:border-accent-orange"
-                  >
-                    <div className="mb-4 flex items-center justify-between font-dm text-xs font-extrabold uppercase tracking-widest text-ink-300">
-                      <span>{card.source}</span>
-                      <span>{card.meta}</span>
-                    </div>
-                    <p className="font-cabinet text-2xl font-extrabold leading-tight">"{card.quote}"</p>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="gap" className="px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <p className="mb-4 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Market Gap</p>
-                <h2 className="font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
-                  More SAT content does not mean a better SAT path.
-                </h2>
-                <p className="mt-8 font-dm text-xl leading-relaxed text-ink-700">
-                  The gap was not only course length. It was structure, foundations, complete explanations, and personalization working together.
-                </p>
-              </div>
-              <div className="grid gap-5 md:grid-cols-2 lg:col-span-7">
-                {gapItems.map((gap) => (
-                  <div key={gap.title} className="border border-ink-100 bg-surface-light p-6">
-                    <h3 className="font-cabinet text-2xl font-extrabold text-ink-950">{gap.title}</h3>
-                    <p className="mt-4 font-dm text-lg leading-relaxed text-ink-700">{gap.text}</p>
+                      return (
+                        <a
+                          key={card.title}
+                          href={card.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          tabIndex={position === 0 ? 0 : -1}
+                          aria-label={`${card.subreddit} student signal: ${card.title}`}
+                          className={`${styles.problemEvidenceCard} ${styles[`problemEvidenceCard${position}`]}`}
+                        >
+                          <div className="mb-6 flex items-center gap-3">
+                            <RedditIcon className="h-7 w-7 shrink-0" />
+                            <span className="font-dm text-sm font-extrabold text-ink-800">{card.subreddit}</span>
+                            <span className="rounded-full bg-surface-light px-3 py-1 font-dm text-xs font-bold text-ink-500">Student voice</span>
+                            <ExternalArrowIcon className="ml-auto h-5 w-5 shrink-0 text-ink-950" />
+                          </div>
+                          <h3 className="font-cabinet text-3xl font-extrabold leading-tight text-ink-950">{card.title}</h3>
+                          <p className="mt-5 font-dm text-lg font-bold italic leading-relaxed text-ink-700">
+                            <span className="mr-2 text-ink-300">“</span>
+                            {card.quote}
+                            <span className="ml-2 text-ink-300">”</span>
+                          </p>
+                          <div className="my-6 border-t border-ink-100"></div>
+                          <p className="font-dm text-base leading-relaxed text-ink-700">{card.interpretation}</p>
+                        </a>
+                      );
+                    })}
                   </div>
-                ))}
+                  <p className="mt-6 text-center font-dm text-xs italic leading-relaxed text-ink-500">
+                    Logos are properties of their respective companies.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="mt-16 grid gap-6 md:grid-cols-2">
-              <div className="bg-surface-mint p-8">
-                <p className="mb-3 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">50th percentile student</p>
-                <h3 className="font-cabinet text-3xl font-extrabold text-ink-950">Needs foundations first.</h3>
-                <p className="mt-5 font-dm text-lg leading-relaxed text-ink-700">
-                  The system should not pretend this student needs only practice. It should rebuild the basics, then teach the concept, then teach the process skill.
+              <div className="mt-20 border-t border-ink-100 pt-10 md:mt-24 md:pt-12">
+                <p className="font-cabinet text-3xl font-extrabold leading-tight text-ink-950 md:text-case-study-statement">
+                  Students didn’t need another content dump. They needed a system that <span className="box-decoration-clone bg-accent-yellow px-1">diagnoses</span>, <span className="box-decoration-clone bg-accent-yellow px-1">prioritizes</span>, and <span className="box-decoration-clone bg-accent-yellow px-1">prescribes</span> what to learn - an intelligent tutor!
                 </p>
               </div>
-              <div className="bg-surface-ice p-8">
-                <p className="mb-3 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">80th percentile student</p>
-                <h3 className="font-cabinet text-3xl font-extrabold text-ink-950">Needs precision, not repetition.</h3>
-                <p className="mt-5 font-dm text-lg leading-relaxed text-ink-700">
-                  The system should let this student skip known foundations and spend time on process gaps that move them toward the 90th percentile.
-                </p>
-              </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 

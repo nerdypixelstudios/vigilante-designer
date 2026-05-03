@@ -107,9 +107,9 @@ export default function Navigation({
                   <Tooltip
                     content={tooltipText}
                     variant={isFunMode ? 'fun' : 'normal'}
+                    position="bottom"
                     focusable={false}
                     className={styles.toggleTooltip}
-                    panelClassName={styles.toggleTooltipPanel}
                   >
                     <span className={`${styles.toggleLabel} ${isFunMode
                       ? 'font-caveat text-fun-ink-50'

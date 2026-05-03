@@ -97,6 +97,152 @@
   max-width: 22rem;
 }
 
+/* Staggered section headline reveal */
+.staggerText {
+  display: block;
+}
+
+.staggerWord {
+  display: inline-block;
+  margin-inline-end: var(--spacing-stagger-word-gap);
+  opacity: 0;
+  transform: translateY(var(--spacing-stagger-word-y));
+  transition: opacity var(--duration-stagger-word) var(--ease-stagger-word), transform var(--duration-stagger-word) var(--ease-stagger-word);
+  transition-delay: calc(var(--word-index) * var(--duration-stagger-delay));
+}
+
+.staggerTextVisible .staggerWord {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Problem section evidence stack */
+.problemSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-surface-white);
+}
+
+.problemSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/images/case-studies/sat-lms/box-grid.svg');
+  background-position: top center;
+  background-repeat: repeat;
+  opacity: var(--opacity-problem-grid);
+  pointer-events: none;
+}
+
+.problemSection > * {
+  position: relative;
+  z-index: 1;
+}
+
+.problemRule {
+  width: var(--spacing-problem-rule-width);
+  height: var(--spacing-problem-rule-height);
+  margin-block: var(--spacing-problem-rule-margin);
+  border-radius: var(--radius-problem-card);
+  background: var(--color-ink-950);
+  transform: rotate(var(--rotate-problem-rule));
+}
+
+.problemEvidenceStack {
+  position: relative;
+  min-height: var(--spacing-problem-stack-height);
+  max-width: var(--spacing-problem-stack-width);
+  margin-inline: auto;
+}
+
+.problemEvidenceCard {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  display: block;
+  width: 100%;
+  padding: var(--spacing-problem-card-padding);
+  border: 1px solid var(--color-ink-100);
+  border-radius: var(--radius-problem-card);
+  background: var(--color-surface-white);
+  box-shadow: var(--shadow-problem-card);
+  color: var(--color-ink-950);
+  text-decoration: none;
+  overflow: hidden;
+  transform-origin: top center;
+  transition: transform var(--duration-problem-stack) var(--ease-problem-stack), opacity var(--duration-problem-stack) var(--ease-problem-stack), box-shadow var(--duration-problem-hover) var(--ease-problem-hover), border-color var(--duration-problem-hover) var(--ease-problem-hover);
+  will-change: transform;
+}
+
+.problemEvidenceCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-surface-white);
+  opacity: var(--opacity-problem-card-overlay-active);
+  pointer-events: none;
+  transition: opacity var(--duration-problem-stack) var(--ease-problem-stack);
+}
+
+.problemEvidenceCard:hover,
+.problemEvidenceCard:focus-visible {
+  border-color: var(--color-ink-500);
+  outline: none;
+}
+
+.problemEvidenceCard0 {
+  z-index: 4;
+  opacity: var(--opacity-problem-stack-0);
+  transform: translate(-50%, 0) scale(var(--scale-problem-stack-0));
+  box-shadow: var(--shadow-problem-card-front);
+}
+
+.problemEvidenceCard1 {
+  z-index: 3;
+  opacity: var(--opacity-problem-stack-1);
+  box-shadow: var(--shadow-problem-card-secondary);
+  pointer-events: none;
+  transform: translate(calc(-50% + var(--spacing-problem-card-offset-x-1)), var(--spacing-problem-card-offset-y-1)) scale(var(--scale-problem-stack-1));
+}
+
+.problemEvidenceCard1::after {
+  opacity: var(--opacity-problem-card-overlay);
+}
+
+.problemEvidenceCard2 {
+  z-index: 2;
+  opacity: var(--opacity-problem-stack-2);
+  box-shadow: var(--shadow-problem-card-secondary);
+  pointer-events: none;
+  transform: translate(calc(-50% + var(--spacing-problem-card-offset-x-2)), var(--spacing-problem-card-offset-y-2)) scale(var(--scale-problem-stack-2));
+}
+
+.problemEvidenceCard2::after {
+  opacity: var(--opacity-problem-card-overlay);
+}
+
+.problemEvidenceCard3 {
+  z-index: 0;
+  opacity: var(--opacity-problem-stack-3);
+  pointer-events: none;
+  transform: translate(calc(-50% + var(--spacing-problem-card-offset-x-3)), var(--spacing-problem-card-offset-y-3)) scale(var(--scale-problem-stack-3));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .staggerWord {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .problemEvidenceCard {
+    transition: none;
+  }
+}
+
 /* ── Insight card with hover lift ─────────────────────────── */
 .insightCard {
   transition: transform 0.25s ease, box-shadow 0.25s ease;

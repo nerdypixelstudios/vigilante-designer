@@ -33,6 +33,45 @@
   --text-case-study-statement: 2.5rem;
   /* 40px - Cabinet Grotesk case study narrative statement */
 
+  /* Case study problem section composition */
+  --spacing-stagger-word-y: 0.6em;
+  --spacing-stagger-word-gap: 0.16em;
+  --spacing-problem-rule-width: 7.5rem;
+  --spacing-problem-rule-height: 0.125rem;
+  --spacing-problem-rule-margin: 3rem;
+  --spacing-problem-stack-width: 30rem;
+  --spacing-problem-stack-height: clamp(30rem, 52vw, 39rem);
+  --spacing-problem-card-padding: clamp(1.5rem, 2vw, 2rem);
+  --spacing-problem-card-offset-x-1: 0rem;
+  --spacing-problem-card-offset-x-2: 0rem;
+  --spacing-problem-card-offset-x-3: 0rem;
+  --spacing-problem-card-offset-y-1: clamp(6.75rem, 11vw, 7.75rem);
+  --spacing-problem-card-offset-y-2: clamp(13rem, 21vw, 15.5rem);
+  --spacing-problem-card-offset-y-3: clamp(13rem, 21vw, 15.5rem);
+  --radius-problem-card: 1.25rem;
+  --scale-problem-stack-0: 1;
+  --scale-problem-stack-1: 0.965;
+  --scale-problem-stack-2: 0.93;
+  --scale-problem-stack-3: 0.895;
+  --opacity-problem-stack-0: 1;
+  --opacity-problem-stack-1: 1;
+  --opacity-problem-stack-2: 1;
+  --opacity-problem-stack-3: 0;
+  --opacity-problem-card-overlay-active: 0;
+  --opacity-problem-card-overlay: 0.68;
+  --opacity-problem-grid: 0.22;
+  --rotate-problem-rule: -1deg;
+  --duration-stagger-word: 0.55s;
+  --duration-stagger-delay: 0.045s;
+  --duration-problem-stack: 0.95s;
+  --duration-problem-hover: 0.2s;
+  --ease-stagger-word: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-problem-stack: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-problem-hover: ease;
+  --shadow-problem-card: 0 1.25rem 3.5rem color-mix(in srgb, var(--color-ink-950) 14%, transparent);
+  --shadow-problem-card-front: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 18%, transparent);
+  --shadow-problem-card-secondary: 0 0.75rem 2rem color-mix(in srgb, var(--color-ink-950) 7%, transparent);
+
   /* ── Hero typography (responsive clamps + one-off settings) ─────── */
   --text-hero-display: clamp(2.75rem, 14.125vw, 11.3rem);
   /* Hero H1 normal — reaches 11.3rem at 1280px+, scales down with viewport */
