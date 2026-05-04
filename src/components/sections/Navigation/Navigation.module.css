@@ -46,9 +46,9 @@
 /* ── Inner layout ── */
 
 .navInner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
   padding: 0.625rem 1rem 0.625rem 1.25rem;
   gap: 1rem;
 }
@@ -58,6 +58,7 @@
 .brand {
   display: flex;
   align-items: center;
+  justify-self: start;
   text-decoration: none;
   flex-shrink: 0;
 }
@@ -70,6 +71,7 @@
   margin: 0;
   display: flex;
   align-items: center;
+  justify-self: center;
   gap: 0.375rem;
 }
 
@@ -112,7 +114,9 @@
 .rightGroup {
   display: flex;
   align-items: center;
+  justify-self: end;
   gap: 0.5rem;
+  min-width: 0;
   flex-shrink: 0;
 }
 

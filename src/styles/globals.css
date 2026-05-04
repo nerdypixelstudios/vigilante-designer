@@ -32,6 +32,8 @@
   /* 224px - Cabinet Grotesk extrabold hero display title */
   --text-case-study-statement: 2.5rem;
   /* 40px - Cabinet Grotesk case study narrative statement */
+  --text-decision-micro: 0.8125rem;
+  /* 13px - compact case study decision labels */
 
   /* Case study problem section composition */
   --spacing-stagger-word-y: 0.6em;
@@ -71,6 +73,65 @@
   --shadow-problem-card: 0 1.25rem 3.5rem color-mix(in srgb, var(--color-ink-950) 14%, transparent);
   --shadow-problem-card-front: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 18%, transparent);
   --shadow-problem-card-secondary: 0 0.75rem 2rem color-mix(in srgb, var(--color-ink-950) 7%, transparent);
+
+  /* Case study tutor decisions section */
+  --text-approach-wordplay: clamp(2.25rem, 3.2vw, var(--text-case-study-statement));
+  --spacing-approach-copy-column-max-width: 50%;
+  --spacing-approach-sticky-padding-block: clamp(1rem, 2vw, 2rem);
+  --spacing-approach-layout-gap: clamp(1.75rem, 3.5vw, 3rem);
+  --spacing-approach-wordplay-margin-top: clamp(2rem, 4vw, 3.25rem);
+  --spacing-approach-arrow-width: clamp(8rem, 18vw, 15rem);
+  --spacing-approach-arrow-height: clamp(3.5rem, 7vw, 5.5rem);
+  --spacing-approach-arrow-line: 0.125rem;
+  --spacing-approach-arrow-inline-end: 18%;
+  --spacing-approach-arrow-block-end: calc(var(--spacing-approach-arrow-height) * -0.82);
+  --spacing-answer-row-gap: clamp(2rem, 5vw, 4rem);
+  --spacing-answer-frame-gap: clamp(1.5rem, 4vw, 3rem);
+  --spacing-answer-video-height: clamp(9rem, 14vw, 12rem);
+  --spacing-answer-copy-margin-top: clamp(1.5rem, 4vw, 3rem);
+  --spacing-answer-icon-size: clamp(4rem, 7vw, 5.5rem);
+  --spacing-answer-label-padding-inline: var(--spacing-answer-icon-size);
+  --spacing-answer-icon-offset-inline: 0rem;
+  --spacing-answer-icon-offset-block: 0rem;
+  --spacing-answer-noise-dot-size: 0.08rem;
+  --spacing-wordplay-strike-height: 0.08em;
+  --leading-approach-wordplay: 1.05;
+  --leading-answer-static: 1.1;
+  --rotate-approach-arrow: -8deg;
+  --duration-approach-intro: 0.4s;
+  --duration-wordplay-tone: 0.45s;
+  --duration-wordplay-strike: 0.85s;
+  --delay-wordplay-tone: 0.8s;
+  --delay-wordplay-strike: 1.05s;
+  --ease-approach-motion: cubic-bezier(0.22, 1, 0.36, 1);
+  --opacity-answer-noise: 0.22;
+  --radius-answer-video: 1.5rem;
+  --shadow-answer-video: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 10%, transparent);
+  --spacing-approach-pill-padding-y: 0.875rem;
+  --spacing-approach-pill-padding-x: 1.5rem;
+  --spacing-decision-visual-min-height: clamp(20rem, 42vw, 31rem);
+  --spacing-decision-browser-min-height: clamp(17rem, 36vw, 27rem);
+  --spacing-decision-visual-padding: clamp(1rem, 2vw, 1.5rem);
+  --spacing-decision-placeholder-gap: 1rem;
+  --spacing-decision-placeholder-hero: clamp(4.5rem, 9vw, 7.5rem);
+  --spacing-decision-placeholder-card: clamp(4rem, 8vw, 6rem);
+  --spacing-decision-inset-width: clamp(13.5rem, 26vw, 19rem);
+  --spacing-decision-inset-offset: clamp(1rem, 2vw, 1.5rem);
+  --spacing-decision-annotation-gap: 1rem;
+  --spacing-decision-annotation-line: 2.25rem;
+  --spacing-decision-annotation-stroke: 0.125rem;
+  --spacing-decision-annotation-width: 11rem;
+  --spacing-decision-placeholder-border: 0.125rem;
+  --spacing-tutor-decision-padding-top: clamp(2.5rem, 6vw, 4rem);
+  --radius-decision-pill: 9999px;
+  --radius-decision-slab: 1.25rem;
+  --radius-decision-inner: 0.875rem;
+  --leading-decision-annotation: 1;
+  --opacity-approach-grid: 0.14;
+  --opacity-placeholder-surface: 0.72;
+  --shadow-decision-browser: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 9%, transparent);
+  --shadow-decision-slab: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 12%, transparent);
+  --shadow-decision-inset: 0 1.25rem 3rem color-mix(in srgb, var(--color-ink-950) 16%, transparent);
 
   /* ── Hero typography (responsive clamps + one-off settings) ─────── */
   --text-hero-display: clamp(2.75rem, 14.125vw, 11.3rem);

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ExternalArrowIcon, RedditIcon } from '../../components/icons/icons';
+import { ExternalArrowIcon, RedditIcon, TutorAnswerArrowIcon, TutorBulbIcon } from '../../components/icons/icons';
 import Navigation from '../../components/sections/Navigation/Navigation';
 import Tooltip from '../../components/shared/Tooltip';
 import styles from './neuron.module.css';
@@ -79,6 +79,101 @@ const redditCards = [
     quote: 'Here’s 800 pages… weak spots get two problems.',
     interpretation: 'The market had enough material, but not enough intelligence to decide what deserved attention for each student.',
     href: 'https://www.reddit.com/r/satprep/comments/1lqvbql',
+  },
+];
+
+const answerFrames = [
+  {
+    id: 'evaluate',
+    headline: 'Evaluate first',
+    bodyText: 'A tutor would not hand over a content dump. They would first understand where the student stands.',
+    body: [
+      { text: 'A tutor would not hand over a content dump. ' },
+      { text: 'They would first understand where the student stands.', strong: true },
+    ],
+    video: '/videos/case-studies/sat-lms/private-tutor-evaluate.mp4',
+  },
+  {
+    id: 'curate',
+    headline: 'Curate the path',
+    bodyText: 'A tutor would focus the student on what matters, skip what they already know, and keep proof where needed.',
+    body: [
+      { text: 'A tutor would ' },
+      { text: 'focus the student on what matters', strong: true },
+      { text: ', skip what they already know, and keep proof where needed.' },
+    ],
+    video: '/videos/case-studies/sat-lms/private-tutor-evaluate.mp4',
+  },
+  {
+    id: 'momentum',
+    headline: 'Keep momentum alive',
+    bodyText: 'A tutor would not let confusion, low scores, or breaks become dead ends. They would give the next useful action.',
+    body: [
+      { text: 'A tutor ' },
+      { text: 'would not let confusion, low scores, or breaks become dead ends', strong: true },
+      { text: '. They would give the next useful action.' },
+    ],
+    video: '/videos/case-studies/sat-lms/private-tutor-evaluate.mp4',
+  },
+];
+
+const tutorDecisions = [
+  {
+    number: '01',
+    title: 'I made the diagnostic the first evident action.',
+    productDecision: 'Students should begin the course with the diagnostic, so the LMS can understand their level before shaping the path.',
+    uxSupport: 'I kept it prominent until it was taken — through the hero advisory, the recommended first card, and friction that warned against skipping ahead.',
+    visualType: 'diagnostic',
+    placeholderTitle: 'Course focus screenshot',
+    placeholderLabel: 'Diagnostic-first course state',
+    insetTitle: 'Diagnostic advisory modal',
+    annotations: [
+      'Diagnostic gets top priority',
+      'Why this matters is explained',
+      'Browsing stays secondary',
+      'Guided before exploration',
+    ],
+  },
+  {
+    number: '02',
+    title: 'I made the personalized path feel earned — not magical.',
+    productDecision: 'After the diagnostic, students should get a path shaped by what they know, what they can skip, and what still needs proof.',
+    uxSupport: 'I made that payoff visible — recommended items, skipped content, proof checkpoints, and time saved — so the path felt like the reward for effort.',
+    visualType: 'personalize',
+    placeholderTitle: 'PACE-on course screenshot',
+    placeholderLabel: 'Personalized path with skipped and recommended work',
+    annotations: [
+      'Skipped, not hidden',
+      'Recommended path',
+      'Time saved',
+      'Proof still required',
+      'Adaptive, not arbitrary',
+    ],
+  },
+  {
+    number: '03',
+    title: 'I made the next action dominant and pushed exploration into the background.',
+    productDecision: 'Once the path is known, the course should keep prescribing what to do next instead of asking students to browse the full syllabus.',
+    uxSupport: 'I centered the page around Next Up, the current module, and resume learning, while keeping broader exploration available but secondary.',
+    visualType: 'prescribe',
+    placeholderTitle: 'Prescribed next-action screenshot',
+    placeholderLabel: 'Next Up, current module, and resume learning focus',
+    annotations: [
+      'Immediate next step',
+      'Current module stays visible',
+      'Exploration is secondary',
+      'Action over browsing',
+    ],
+  },
+  {
+    number: '04',
+    title: 'I turned weak moments into guided re-entry points.',
+    productDecision: 'When students underperform or return after a break, the LMS should generate a recovery path instead of leaving them to self-correct.',
+    uxSupport: 'The recovery state should show what happened and surface a clear remedial or revision action, so students restart from motion, not confusion.',
+    visualType: 'recover',
+    placeholderTitle: 'Recovery-state screenshot to be added',
+    placeholderLabel: 'Will show remedial / revision re-entry state',
+    annotations: [],
   },
 ];
 
@@ -389,6 +484,208 @@ function BrowserChrome() {
   );
 }
 
+function ApproachInteraction() {
+  const shellRef = useRef(null);
+  const wordplayRef = useRef(null);
+
+  useEffect(() => {
+    const shell = shellRef.current;
+    const wordplay = wordplayRef.current;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!shell) {
+      return undefined;
+    }
+
+    if (!wordplay || prefersReducedMotion) {
+      shell.classList.add(styles.wordplayReady);
+      return undefined;
+    }
+
+    const wordplayObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          shell.classList.add(styles.wordplayReady);
+          wordplayObserver.disconnect();
+        }
+      },
+      { threshold: 0.95 }
+    );
+
+    wordplayObserver.observe(wordplay);
+
+    return () => wordplayObserver.disconnect();
+  }, []);
+
+  return (
+    <div ref={shellRef} className={styles.approachPinShell}>
+      <div className={styles.approachSticky}>
+        <div className="mx-auto max-w-5xl">
+          <Reveal>
+            <div className={styles.approachInteractionLayout}>
+              <div className={styles.approachThinkingRow}>
+                <p id="approach-heading" className="mb-10 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">How I approached the problem</p>
+                <div className={styles.approachCopyColumn}>
+                  <p className="font-dm text-body leading-relaxed text-ink-950">
+                    Once the problem was clear, I asked the question —
+                    <br />
+                    <span className="box-decoration-clone bg-accent-yellow px-1 font-extrabold">
+                      If the student were working with a private tutor,
+                      <br />
+                      what would the tutor do for them?
+                    </span>
+                  </p>
+
+                  <p
+                    ref={wordplayRef}
+                    className={styles.wordplayStatement}
+                    aria-label="I began thinking of the LMS as an intelligent tutor."
+                  >
+                    <span>I began thinking of the LMS </span>
+                    <span className={styles.wordplayRejected}>not as a place to browse courses, but </span>
+                    <span>as an intelligent tutor.</span>
+                  </p>
+                </div>
+                <TutorAnswerArrowIcon className={styles.approachAnswerArrow} />
+              </div>
+
+              <div className={styles.approachAnswerRow}>
+                <div className={styles.answerStatic}>
+                  <TutorBulbIcon className={styles.answerBulbIcon} />
+                  <p>The answer:</p>
+                </div>
+                <div className={styles.answerViewport}>
+                  <div className={styles.answerTrack}>
+                    {answerFrames.map((frame) => (
+                      <article
+                        key={frame.id}
+                        className={styles.answerFrame}
+                        aria-label={`${frame.headline}: ${frame.bodyText}`}
+                      >
+                        <div className={styles.answerVideoWrap} aria-hidden="true">
+                          <video
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="metadata"
+                          >
+                            <source src={frame.video} type="video/mp4" />
+                          </video>
+                        </div>
+                        <div className={styles.answerCopy}>
+                          <h3 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950">{frame.headline}</h3>
+                          <p className="mt-6 font-dm text-small leading-relaxed text-ink-800">
+                            {frame.body.map((segment) => (
+                              segment.strong ? (
+                                <strong key={segment.text} className="font-extrabold text-ink-950">{segment.text}</strong>
+                              ) : (
+                                <span key={segment.text}>{segment.text}</span>
+                              )
+                            ))}
+                          </p>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DecisionVisual({ decision }) {
+  const visualClassName = `${styles.decisionVisualFrame} ${styles[`decisionVisualFrame${decision.visualType}`]}`;
+
+  return (
+    <div>
+      <div className={visualClassName}>
+        {decision.visualType === 'recover' ? (
+          <div className={styles.recoveryPlaceholder}>
+            <p className="font-cabinet text-2xl font-extrabold leading-tight text-ink-950">{decision.placeholderTitle}</p>
+            <p className="mt-2 font-dm text-base leading-relaxed text-ink-500">{decision.placeholderLabel}</p>
+          </div>
+        ) : (
+          <>
+            <div className={styles.decisionBrowser}>
+              <BrowserChrome />
+              <div className={styles.decisionPlaceholderCanvas}>
+                <div className={styles.placeholderHeader}>
+                  <span>{decision.placeholderTitle}</span>
+                  {decision.visualType === 'personalize' ? <span className={styles.paceToggle}>PACE on</span> : null}
+                </div>
+                <div className={styles.placeholderHero}></div>
+                <div className={styles.placeholderCards}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <p className="font-dm text-sm font-extrabold uppercase tracking-widest text-ink-500">{decision.placeholderLabel}</p>
+              </div>
+            </div>
+
+            {decision.visualType === 'diagnostic' ? (
+              <div className={styles.decisionInset}>
+                <p className="font-cabinet text-xl font-extrabold leading-tight text-ink-950">{decision.insetTitle}</p>
+                <p className="mt-3 font-dm text-sm leading-relaxed text-ink-700">Shows why the diagnostic matters before exploration.</p>
+                <div className={styles.insetActions}>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            ) : null}
+          </>
+        )}
+
+        {decision.annotations.length > 0 ? (
+          <div className={styles.decisionAnnotationLayer}>
+            {decision.annotations.map((annotation, index) => (
+              <span
+                key={annotation}
+                className={`${styles.decisionAnnotation} ${styles[`decisionAnnotation${index}`]}`}
+              >
+                {annotation}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function TutorDecision({ decision }) {
+  return (
+    <article className={styles.tutorDecision}>
+      <div className="grid gap-6 md:grid-cols-12 md:items-start">
+        <p className="font-cabinet text-5xl font-extrabold leading-none text-accent-orange md:col-span-1">{decision.number}</p>
+        <div className="md:col-span-11">
+          <h3 className="font-cabinet text-3xl font-extrabold leading-tight text-ink-950 md:text-4xl">{decision.title}</h3>
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <div>
+              <p className="mb-3 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Product decision</p>
+              <p className="font-dm text-base leading-relaxed text-ink-800">{decision.productDecision}</p>
+            </div>
+            <div>
+              <p className="mb-3 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">UX support</p>
+              <p className="font-dm text-base leading-relaxed text-ink-800">{decision.uxSupport}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10">
+        <DecisionVisual decision={decision} />
+      </div>
+    </article>
+  );
+}
+
 export default function SatLmsCaseStudy() {
   const [activeSignalIndex, setActiveSignalIndex] = useState(0);
   const [isSignalStackPaused, setIsSignalStackPaused] = useState(false);
@@ -490,7 +787,7 @@ export default function SatLmsCaseStudy() {
               <div className="mt-16 pt-4">
                 <p className="mb-8 font-dm text-xs font-extrabold uppercase tracking-[0.2em] text-ink-500">My Impact</p>
                 <h3 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950">
-                  After my redesign, the LMS showed a clear shift in learning behavior: <span className="box-decoration-clone bg-accent-green px-1 text-ink-950">faster starts, deeper progression, and significantly higher continuation rates.</span>
+                  After my redesign, the LMS showed a clear shift in learning behavior: faster starts, deeper progression, and significantly higher continuation rates.
                 </h3>
                 <div className="mx-auto mt-14 grid max-w-5xl gap-8 text-center md:grid-cols-3">
                   {metrics.map((metric) => (
@@ -602,7 +899,34 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="solution" className="border-y border-ink-100 bg-surface-light px-6 py-20 md:py-28">
+        <section id="solution" aria-labelledby="approach-heading" className={`${styles.approachSection} border-b border-ink-100 px-6 pb-20 pt-4 md:pb-28 md:pt-6`}>
+          <ApproachInteraction />
+
+          <div className="mx-auto max-w-5xl">
+            <Reveal>
+              <div className="border-t border-ink-100 pt-8">
+                <p className="mb-5 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Key design decisions</p>
+                <h2 className="max-w-4xl font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
+                  With the tutor lens on, I made <br/><span className="box-decoration-clone bg-accent-yellow px-1">4 pivotal decisions</span> that made the LMS behave like a private tutor.
+                </h2>
+              </div>
+
+              <div className="mt-12 space-y-16 md:mt-16 md:space-y-20">
+                {tutorDecisions.map((decision) => (
+                  <TutorDecision key={decision.number} decision={decision} />
+                ))}
+              </div>
+
+              <div className="mt-16 border-t border-ink-100 pt-10 md:mt-20">
+                <p className="mx-auto max-w-4xl text-center font-cabinet text-3xl font-extrabold leading-tight text-ink-950 md:text-case-study-statement">
+                  Together, these decisions shifted the LMS from a place students had to navigate into a system that kept <span className="box-decoration-clone bg-accent-yellow px-1">diagnosing, guiding, and pulling them back into progress.</span>
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section id="strategy" className="border-b border-ink-100 bg-surface-light px-6 py-20 md:py-28">
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
               <div className="lg:col-span-5">
