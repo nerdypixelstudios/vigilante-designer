@@ -6,6 +6,7 @@
   --font-dm: 'DM Sans', sans-serif;
   --font-rock-salt: 'Rock Salt', cursive;
   --font-caveat: 'Caveat', cursive;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
   /* ── Type scale — all spec-defined sizes as named tokens ───────── */
   --text-h1: 5.5rem;
@@ -99,6 +100,7 @@
   --leading-answer-static: 1.1;
   --rotate-approach-arrow: -8deg;
   --duration-approach-intro: 0.4s;
+  --duration-decision-video-reveal: 0.9s;
   --duration-wordplay-tone: 0.45s;
   --duration-wordplay-strike: 0.85s;
   --delay-wordplay-tone: 0.8s;
@@ -121,8 +123,17 @@
   --spacing-decision-annotation-line: 2.25rem;
   --spacing-decision-annotation-stroke: 0.125rem;
   --spacing-decision-annotation-width: 11rem;
+  --spacing-decision-video-reveal-y: clamp(2rem, 5vw, 4rem);
+  --spacing-decision-label-column: 7rem;
+  /* 112px - label column for case study decision evidence rows */
   --spacing-decision-placeholder-border: 0.125rem;
   --spacing-tutor-decision-padding-top: clamp(2.5rem, 6vw, 4rem);
+  --aspect-decision-video: 8 / 5;
+  --color-decision-surface: var(--color-fun-surface-black);
+  --color-decision-ink: var(--color-surface-white);
+  --color-decision-muted: var(--color-ink-100);
+  --color-decision-rule: color-mix(in srgb, var(--color-surface-white) 16%, transparent);
+  --opacity-decision-grid: 0.09;
   --radius-decision-pill: 9999px;
   --radius-decision-slab: 1.25rem;
   --radius-decision-inner: 0.875rem;

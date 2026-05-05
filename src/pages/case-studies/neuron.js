@@ -117,13 +117,34 @@ const answerFrames = [
   },
 ];
 
+const decisionVideos = {
+  diagnostic: '/videos/case-studies/sat-lms/diagnostic-first.mp4',
+  personalizedPath: '/videos/case-studies/sat-lms/personalized-path.mp4',
+  nextAction: '/videos/case-studies/sat-lms/next-action.mp4',
+  remedial: '/videos/case-studies/sat-lms/remedial.mp4',
+};
+
 const tutorDecisions = [
   {
     number: '01',
     title: 'I made the diagnostic the first evident action.',
-    productDecision: 'Students should begin the course with the diagnostic, so the LMS can understand their level before shaping the path.',
-    uxSupport: 'I kept it prominent until it was taken — through the hero advisory, the recommended first card, and friction that warned against skipping ahead.',
+    aim: 'Establish the student\'s starting point before the LMS prescribes anything.',
+    productDecision: [
+      { text: 'Students should ' },
+      { text: 'begin the course with the diagnostic', strong: true },
+      { text: ', so the LMS can understand their level before shaping the path.' },
+    ],
+    uxSupport: [
+      { text: 'I kept it prominent until it was taken through the ' },
+      { text: 'hero advisory', strong: true },
+      { text: ', the ' },
+      { text: 'recommended first card', strong: true },
+      { text: ', and ' },
+      { text: 'friction that warned', strong: true },
+      { text: ' against skipping ahead.' },
+    ],
     visualType: 'diagnostic',
+    video: decisionVideos.diagnostic,
     placeholderTitle: 'Course focus screenshot',
     placeholderLabel: 'Diagnostic-first course state',
     insetTitle: 'Diagnostic advisory modal',
@@ -137,9 +158,25 @@ const tutorDecisions = [
   {
     number: '02',
     title: 'I made the personalized path feel earned — not magical.',
-    productDecision: 'After the diagnostic, students should get a path shaped by what they know, what they can skip, and what still needs proof.',
-    uxSupport: 'I made that payoff visible — recommended items, skipped content, proof checkpoints, and time saved — so the path felt like the reward for effort.',
+    aim: 'Make personalization feel trustworthy by showing the logic behind the changed path.',
+    productDecision: [
+      { text: 'After the diagnostic, students should get a ' },
+      { text: 'path shaped by what they know, what they can skip, and what still needs proof', strong: true },
+      { text: '.' },
+    ],
+    uxSupport: [
+      { text: 'I made that payoff visible through ' },
+      { text: 'recommended items', strong: true },
+      { text: ', ' },
+      { text: 'skipped content', strong: true },
+      { text: ', ' },
+      { text: 'proof checkpoints', strong: true },
+      { text: ', and ' },
+      { text: 'time saved', strong: true },
+      { text: ', so the path felt like the reward for effort.' },
+    ],
     visualType: 'personalize',
+    video: decisionVideos.personalizedPath,
     placeholderTitle: 'PACE-on course screenshot',
     placeholderLabel: 'Personalized path with skipped and recommended work',
     annotations: [
@@ -153,9 +190,23 @@ const tutorDecisions = [
   {
     number: '03',
     title: 'I made the next action dominant and pushed exploration into the background.',
-    productDecision: 'Once the path is known, the course should keep prescribing what to do next instead of asking students to browse the full syllabus.',
-    uxSupport: 'I centered the page around Next Up, the current module, and resume learning, while keeping broader exploration available but secondary.',
+    aim: 'Keep students moving through the right next activity instead of returning them to a syllabus.',
+    productDecision: [
+      { text: 'Once the path is known, the course should ' },
+      { text: 'keep prescribing what to do next', strong: true },
+      { text: ' instead of asking students to browse the full syllabus.' },
+    ],
+    uxSupport: [
+      { text: 'I centered the page around ' },
+      { text: 'Next Up', strong: true },
+      { text: ', the ' },
+      { text: 'current module', strong: true },
+      { text: ', and ' },
+      { text: 'resume learning', strong: true },
+      { text: ', while keeping broader exploration available but secondary.' },
+    ],
     visualType: 'prescribe',
+    video: decisionVideos.nextAction,
     placeholderTitle: 'Prescribed next-action screenshot',
     placeholderLabel: 'Next Up, current module, and resume learning focus',
     annotations: [
@@ -168,79 +219,26 @@ const tutorDecisions = [
   {
     number: '04',
     title: 'I turned weak moments into guided re-entry points.',
-    productDecision: 'When students underperform or return after a break, the LMS should generate a recovery path instead of leaving them to self-correct.',
-    uxSupport: 'The recovery state should show what happened and surface a clear remedial or revision action, so students restart from motion, not confusion.',
+    aim: 'Turn low-score and return moments into clear recovery instead of self-diagnosis.',
+    productDecision: [
+      { text: 'When students underperform or return after a break, the LMS should ' },
+      { text: 'generate a recovery path', strong: true },
+      { text: ' instead of leaving them to self-correct.' },
+    ],
+    uxSupport: [
+      { text: 'The recovery state should ' },
+      { text: 'show what happened', strong: true },
+      { text: ' and surface a ' },
+      { text: 'clear remedial or revision action', strong: true },
+      { text: ', so students ' },
+      { text: 'restart from motion', strong: true },
+      { text: ', not confusion.' },
+    ],
     visualType: 'recover',
+    video: decisionVideos.remedial,
     placeholderTitle: 'Recovery-state screenshot to be added',
     placeholderLabel: 'Will show remedial / revision re-entry state',
     annotations: [],
-  },
-];
-
-const courseLayers = [
-  'Module',
-  'Unit',
-  'Logical group',
-  'Concept file',
-  'Process skill file',
-  'Unit qualifying exam',
-  'Module qualifying exam',
-  'Course ability quiz',
-  'Cementing modules',
-];
-
-const paceSteps = [
-  'One-time diagnostic',
-  'Inferred placement',
-  'Activity map',
-  'Known work shaded',
-  'Assessments protected',
-  'Next Up prescribed',
-];
-
-const reinforcementItems = [
-  {
-    title: 'Remedials',
-    text: 'If a student misses the threshold after an assessment, the system creates targeted recovery work while the mistake is still fresh.',
-  },
-  {
-    title: 'Revision modules',
-    text: 'After learning is complete, revision loops keep the course from becoming one-and-done content.',
-  },
-  {
-    title: 'Cementing modules',
-    text: 'The final layer shifts students from newly learned concepts into durable ability before score-critical practice.',
-  },
-];
-
-const uxPrinciples = [
-  {
-    title: 'Default action',
-    text: 'The page opens around what the student should do next, not around everything the course contains.',
-    image: '/images/case-studies/sat-lms/hero-focus-pace-on.webp',
-    width: 1600,
-    height: 947,
-  },
-  {
-    title: 'Friction asymmetry',
-    text: 'Starting the right task is visually easy. Drifting into the full course requires a deliberate choice.',
-    image: '/images/case-studies/sat-lms/diagnostic-advisory.webp',
-    width: 1600,
-    height: 1285,
-  },
-  {
-    title: 'Continuous flow',
-    text: 'The diagnostic does not end in a score. It hands the student into a chosen path.',
-    image: '/images/case-studies/sat-lms/pace-choice-modal.webp',
-    width: 1600,
-    height: 1017,
-  },
-  {
-    title: 'Visibility drives behavior',
-    text: 'Skipped work stays visible, dimmed, and explained. Efficiency still feels earned.',
-    image: '/images/case-studies/sat-lms/pace-skip-visible.webp',
-    width: 1600,
-    height: 813,
   },
 ];
 
@@ -289,13 +287,296 @@ const shippedFlow = [
   },
 ];
 
+const designForgeInputFiles = [
+  '00-README-remedials.md',
+  '01-context-and-business-rules-remedials.md',
+  '02-screen-inventory-remedials.md',
+  '03-user-journey-map-remedials.md',
+  '04-component-specification-remedials.md',
+  '05-wireframes-remedials.md',
+  '06-screen-flow-diagram-remedials.md',
+  '07-backend-specification-remedials.md',
+  '08-frontend-success-criteria-remedials.md',
+  'html-renders/',
+];
+
+const journeyComponentLibrary = {
+  R1: {
+    name: 'Remedial Created Modal',
+    type: 'Modal (New)',
+    purpose: 'Single-button prompt after activity with mistakes. Shows mistake count, question count, and time estimate. One button: "Start Remedial".',
+    states: ['Visible', 'Dismissed'],
+  },
+  R2: {
+    name: 'Remedial Activity Row',
+    type: 'Row (New)',
+    purpose: 'Indented sidebar entry under mother activity. Shows remedial name, question count, time estimate, and status.',
+    states: ['Not Started', 'In Progress', 'Completed (Pass)', 'Completed (Fail)'],
+  },
+  R3: {
+    name: 'Remedial Completion Feedback',
+    type: 'Feedback (New)',
+    purpose: 'Score-based messaging after remedial completion. Green checkmark for 100%, amber warning for <100%.',
+    states: ['Perfect (100%)', 'With Mistakes (<100%)'],
+  },
+  R4: {
+    name: 'Remedial Activity Header',
+    type: 'Header (New)',
+    purpose: 'Header during remedial quiz showing context: "REMEDIAL" badge, mother activity name, mistake count, progress.',
+    states: ['Default'],
+  },
+  R5: {
+    name: 'Remedial Reason Tooltip',
+    type: 'Tooltip (New)',
+    purpose: 'Hover explanation showing why remedial was created: "Created because you made X mistake(s) in [Mother Activity]".',
+    states: ['Hidden', 'Visible'],
+  },
+  R6: {
+    name: 'Results Screen Notice',
+    type: 'Notice (New)',
+    purpose: 'Section in activity results screen indicating remedial was created. Shows question count and time estimate.',
+    states: ['Visible (remedial created)', 'Hidden (no remedial)'],
+  },
+  M1: {
+    name: 'Activity Results Screen',
+    type: 'Modified',
+    purpose: 'Add space for R6 notice. Continue button triggers R1 modal if remedial created.',
+    states: ['Results Only', 'Results + Remedial Notice'],
+  },
+  M2: {
+    name: 'Course Sidebar',
+    type: 'Modified',
+    purpose: 'Support indented remedial rows (R2). Remedials insert below mother activity with visual hierarchy.',
+    states: ['Default', 'With Remedials'],
+  },
+  M3: {
+    name: 'Next Up Section',
+    type: 'Modified',
+    purpose: 'Include remedials in queue. Priority: oldest pending remedial first (FIFO), then regular activities.',
+    states: ['No Remedials', 'With Pending Remedials'],
+  },
+  M4: {
+    name: 'Course Progress Display',
+    type: 'Modified',
+    purpose: 'Account for remedials: total = base - pace_shaded + remedials_created. Completed includes remedials.',
+    states: ['Default'],
+  },
+  M6: {
+    name: 'Course Time Estimate',
+    type: 'Modified',
+    purpose: 'Include pending remedial time in remaining estimate. Updates when remedial created.',
+    states: ['Default'],
+  },
+};
+
+const journeyComponentRows = [
+  {
+    id: 'J1',
+    name: 'CF Remedial (Happy Path)',
+    desc: 'Primary flow — Concept File with any mistake',
+    frequency: 'high',
+    trigger: 'Any mistake in Concept File (100% required)',
+    flows: [
+      { label: 'Activity Complete', tags: [{ id: 'M1' }, { id: 'R6' }, { id: 'R1' }] },
+      { label: 'Remedial Quiz', tags: [{ id: 'R4' }, { id: 'R3' }] },
+      { label: 'Course Home', tags: [{ id: 'M2' }, { id: 'M3' }, { id: 'M4' }, { id: 'M6' }] },
+    ],
+  },
+  {
+    id: 'J2',
+    name: 'Process Skill Remedial',
+    desc: 'PrS with <80% accuracy',
+    frequency: 'medium',
+    trigger: 'Score below 80% in Process Skill',
+    flows: [{ note: 'Same as J1 (different trigger threshold: <80% instead of any mistake)' }],
+  },
+  {
+    id: 'J6',
+    name: 'Remedial Skipped',
+    desc: 'Student dismisses modal',
+    frequency: 'medium',
+    trigger: 'User dismisses R1 modal',
+    flows: [
+      { tags: [{ id: 'R1', state: 'dismissed' }, { id: 'M2', state: 'pending' }] },
+      { label: 'Result', note: 'Remedial stays in sidebar (not_started), appears in Next Up. NOT blocking.' },
+    ],
+  },
+  {
+    id: 'J7',
+    name: 'Return to Skipped',
+    desc: 'User clicks skipped remedial in sidebar',
+    frequency: 'medium',
+    trigger: 'Click skipped remedial in sidebar',
+    flows: [
+      { tags: [{ id: 'R5', state: 'hover tooltip' }, { id: 'R2', state: 'click' }, { id: 'R4' }, { id: 'R3' }] },
+    ],
+  },
+];
+
+const designForgeSandboxRows = [
+  '# Remedials Sandbox Requirement Document',
+  '## Base Pages Needed',
+  '## Existing Components to DELETE',
+  '## New Components to Create (R1-R6)',
+  '## Mock Data Requirements',
+  '## Routing Setup',
+];
+
+const designForgeGapRows = [
+  'Q1 | mistake_count for R1/R5',
+  'Q2 | question_count for R1/R6',
+  'Q4 | R6 Notice / R1 Modal integration',
+  'Q6 | activity completion response for remedial states',
+  'X. Backend Issues.md | missing remedialData in quiz summary',
+];
+
+const designForgeInterfaceRows = [
+  '3. Design iteration.jpg',
+  'Gap-Closure-Tracker-Specification.md',
+  'activity-rows-demo.html',
+  'ActivitySidebarDemo.jsx',
+  'r2-remedial-row.jsx',
+  'r6-dual-placement.jsx',
+];
+
+const designForgeIntegrationRows = [
+  '# Parallel Component Documentation Template',
+  '## What to Document (Non-Obvious Things)',
+  'Integration Patterns | State Dependencies | Data Requirements',
+  '## PaceTogglePanel (PC2)',
+  '### Easy to Miss',
+];
+
+const designForgeMigrationRows = [
+  'O6. Prod migration map.md',
+  'O7. Migration Process Flowchart.md',
+  'O8. Remedials Frontend Audit.md',
+  'O9. Remedials Backend Audit.md',
+  'O7. Token deviation report.md | empty',
+];
+
 const designForgeSteps = [
-  'Journey map',
-  'Sandbox setup',
-  'System rough build',
-  'UX hole review',
-  'Three design options',
-  'Curate and migrate',
+  {
+    id: 'input-spec',
+    number: '00',
+    title: 'Talk it through before walking it',
+    artifact: 'Input specification package',
+    body: [
+      { text: 'Before build, I wrote down ' },
+      { text: 'all', strong: true },
+      { text: ' the business rules, screens, journeys, component behavior, wireframes, screen flow, backend contracts, and success criteria, so the feature had one source of truth.' },
+    ],
+    prevented: 'AI inventing product logic mid-build.',
+    previewType: 'inputTree',
+  },
+  {
+    id: 'map-behavior',
+    number: '01',
+    title: 'Map the behavior',
+    artifact: 'Journey component map',
+    body: [
+      { text: 'Once the specification — what we are trying to build — was written into an ironclad input, I converted that into a ' },
+      { text: 'student journey and a component dependency map', strong: true },
+      { text: ', so the feature could be judged as a flow instead of isolated screens.' },
+    ],
+    prevented: 'Screens that looked right alone but failed in sequence.',
+    previewType: 'journeyMap',
+  },
+  {
+    id: 'safe-build-space',
+    number: '02',
+    title: 'Create a safe build space',
+    artifact: 'Sandbox requirement doc',
+    body: [
+      { text: 'With the journey and component map in hand, I set up a ' },
+      { text: 'sandbox', strong: true },
+      { text: ' where those components could be assembled, tested, broken, and improved away from production pressure.' },
+    ],
+    prevented: 'Production constraints deciding the UX too early.',
+    previewType: 'sandboxDoc',
+  },
+  {
+    id: 'rough-experience',
+    number: '03',
+    title: 'Make the experience work before making it beautiful',
+    artifact: 'Rough working build + gap docs',
+    body: [
+      { text: 'Inside the sandbox, I used a ' },
+      { text: 'rough working build', strong: true },
+      { text: ' to find missing states, unclear next actions, weak hierarchy, and backend gaps before any visual polish.' },
+    ],
+    prevented: 'Polishing while core data contracts were still unclear.',
+    previewType: 'roughBuildGaps',
+  },
+  {
+    id: 'forge-interface',
+    number: '04',
+    title: 'Forge the interface',
+    artifact: 'Component renders + design specification',
+    body: [
+      { text: 'Once the rough build had exposed the real UX behavior, I moved into interface design — ' },
+      { text: 'only then', strong: true },
+      { text: ' documenting hierarchy, states, and treatment.' },
+    ],
+    prevented: 'Pretty UI detached from behavior.',
+    previewType: 'componentOptions',
+  },
+  {
+    id: 'assemble-experience',
+    number: '05',
+    title: 'Assemble the experience',
+    artifact: 'Integrated sandbox',
+    body: [
+      { text: 'I dropped the polished components back into the sandbox and tested them as ' },
+      { text: 'one complete flow', strong: true },
+      { text: ', so the polish had to survive the journey end to end.' },
+    ],
+    prevented: 'Polished components that did not survive the full flow.',
+    previewType: 'integratedSandbox',
+  },
+  {
+    id: 'production',
+    number: '06',
+    title: 'Move into production',
+    artifact: 'Migration map, token deviation report, productionized component',
+    body: [
+      { text: 'With the full flow validated, I moved to production with ' },
+      { text: 'migration notes, system checks, backend contracts, and token-deviation reports', strong: true },
+      { text: ', so intent did not get flattened in handoff.' },
+    ],
+    prevented: 'Intent getting flattened in handoff.',
+    previewType: 'productionMigration',
+  },
+];
+
+const designForgePromptExcerpts = [
+  {
+    label: 'Map behavior',
+    copy: 'Review the requirement package and identify user journeys, component dependencies, missing decisions, and build priority before UI work begins.',
+  },
+  {
+    label: 'Forge interface',
+    copy: 'Create three distinct design options. Use the component purpose, user state, required data, states, constraints, and rough render as context.',
+  },
+];
+
+const designForgeOutcomes = [
+  {
+    title: 'Faster build',
+    copy: 'Less rework because the product was not being rediscovered during execution.',
+  },
+  {
+    title: 'Cleaner UX',
+    copy: 'Building the rough experience first exposed UX problems before visual polish.',
+  },
+  {
+    title: 'Better UI output',
+    copy: 'Every component had a known role inside the student journey.',
+  },
+  {
+    title: 'Safer production migration',
+    copy: 'The final feature carried product logic and design intent into the real system.',
+  },
 ];
 
 function useScrollReveal() {
@@ -599,6 +880,75 @@ function ApproachInteraction() {
 }
 
 function DecisionVisual({ decision }) {
+  if (decision.video) {
+    return <DecisionVideoFrame decision={decision} />;
+  }
+
+  return <DecisionPlaceholderGraphic decision={decision} />;
+}
+
+function DecisionVideoFrame({ decision }) {
+  const frameRef = useRef(null);
+  const videoRef = useRef(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const frame = frameRef.current;
+
+    if (!frame) {
+      return undefined;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      setIsInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -24px 0px' }
+    );
+
+    observer.observe(frame);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isInView && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [isInView]);
+
+  return (
+    <div
+      ref={frameRef}
+      className={`${styles.decisionBrowser} ${styles.decisionVideoBrowser} ${styles.decisionVideoFrame} ${isInView ? styles.decisionVideoFrameVisible : ''}`}
+    >
+      <BrowserChrome />
+      <div className={styles.decisionVideoReveal}>
+        <video
+          ref={videoRef}
+          className={styles.decisionVideo}
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-label={decision.placeholderLabel}
+        >
+          <source src={decision.video} type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  );
+}
+
+function DecisionPlaceholderGraphic({ decision }) {
   const visualClassName = `${styles.decisionVisualFrame} ${styles[`decisionVisualFrame${decision.visualType}`]}`;
 
   return (
@@ -659,21 +1009,57 @@ function DecisionVisual({ decision }) {
   );
 }
 
+function DecisionSentence({ segments }) {
+  return (
+    <>
+      {segments.map((segment, index) => (
+        segment.strong ? (
+          <strong key={`${segment.text}-${index}`} className={styles.decisionEvidenceStrong}>{segment.text}</strong>
+        ) : (
+          <span key={`${segment.text}-${index}`}>{segment.text}</span>
+        )
+      ))}
+    </>
+  );
+}
+
+function ProcessSentence({ segments }) {
+  return (
+    <>
+      {segments.map((segment, index) => (
+        segment.strong ? (
+          <strong key={`${segment.text}-${index}`}>{segment.text}</strong>
+        ) : (
+          <span key={`${segment.text}-${index}`}>{segment.text}</span>
+        )
+      ))}
+    </>
+  );
+}
+
 function TutorDecision({ decision }) {
   return (
     <article className={styles.tutorDecision}>
       <div className="grid gap-6 md:grid-cols-12 md:items-start">
-        <p className="font-cabinet text-5xl font-extrabold leading-none text-accent-orange md:col-span-1">{decision.number}</p>
+        <p className={`${styles.decisionNumber} font-cabinet text-5xl font-extrabold leading-none md:col-span-1`}>{decision.number}</p>
         <div className="md:col-span-11">
-          <h3 className="font-cabinet text-3xl font-extrabold leading-tight text-ink-950 md:text-4xl">{decision.title}</h3>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <div>
-              <p className="mb-3 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Product decision</p>
-              <p className="font-dm text-base leading-relaxed text-ink-800">{decision.productDecision}</p>
+          <h3 className={`${styles.decisionTitle} font-cabinet text-3xl font-extrabold leading-tight md:text-4xl`}>{decision.title}</h3>
+          <div className={styles.decisionEvidenceTable}>
+            <div className={styles.decisionEvidenceRow}>
+              <p className={styles.decisionEvidenceLabel}>Decision aim</p>
+              <p className={styles.decisionEvidenceCopy}>{decision.aim}</p>
             </div>
-            <div>
-              <p className="mb-3 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">UX support</p>
-              <p className="font-dm text-base leading-relaxed text-ink-800">{decision.uxSupport}</p>
+            <div className={styles.decisionEvidenceRow}>
+              <p className={styles.decisionEvidenceLabel}>Product decision</p>
+              <p className={styles.decisionEvidenceCopy}>
+                <DecisionSentence segments={decision.productDecision} />
+              </p>
+            </div>
+            <div className={styles.decisionEvidenceRow}>
+              <p className={styles.decisionEvidenceLabel}>UX support</p>
+              <p className={styles.decisionEvidenceCopy}>
+                <DecisionSentence segments={decision.uxSupport} />
+              </p>
             </div>
           </div>
         </div>
@@ -683,6 +1069,277 @@ function TutorDecision({ decision }) {
         <DecisionVisual decision={decision} />
       </div>
     </article>
+  );
+}
+
+function DesignForgeProcessSection() {
+  return (
+    <section id="process" aria-labelledby="designforge-process-heading" className={styles.designForgeProcessSection}>
+      <div className={`${styles.designForgeProcessContainer} mx-auto max-w-5xl`}>
+        <Reveal>
+          <div className={styles.processIntro}>
+            <p className={styles.processEyebrow}>Process: the engine behind the speed</p>
+            <h2 id="designforge-process-heading" className={styles.processHeading}>
+              Built with <span className={styles.processHighlight}>DesignForge</span> in four weeks
+            </h2>
+            <p className={styles.processSubline}>
+              Not by brute force. Experience first, interface next, production last.
+            </p>
+          </div>
+
+          <div className={styles.processStoryGrid}>
+            <div className={styles.processStoryCopy}>
+              <p>
+                <strong>I had already seen the trap:</strong> when product logic, UX flow, UI polish, code, data, and production constraints are solved together, the work gets noisy.
+              </p>
+              <p>
+                So I split the build into layers: <strong>experience first, interface next, production last.</strong>
+              </p>
+              <p>
+                That separation gave DesignForge room to move fast without asking AI to guess.
+              </p>
+            </div>
+
+            <aside className={styles.processLayerPanel} aria-label="DesignForge separated layers">
+              <p className={styles.processLayerKicker}>Separated layers</p>
+              <div className={styles.processLayerRow}>
+                <span>Layer 01</span>
+                <strong>Experience first</strong>
+              </div>
+              <div className={styles.processLayerRow}>
+                <span>Layer 02</span>
+                <strong>Interface next</strong>
+              </div>
+              <div className={styles.processLayerRow}>
+                <span>Layer 03</span>
+                <strong>Production last</strong>
+              </div>
+            </aside>
+          </div>
+
+          <div className={styles.processTrailIntro}>
+            <p className={styles.processTrailKicker}>Each step produced evidence.</p>
+            <h3>The product did not jump from idea to UI.</h3>
+            <p className={styles.processTrailSupport}>
+              It moved <strong>one node at a time.</strong>
+            </p>
+          </div>
+
+          <div className={styles.processTrail} aria-label="DesignForge process artifact trail">
+            {designForgeSteps.map((step) => (
+              <article className={styles.processStep} key={step.id}>
+                <div className={styles.processStepCopy}>
+                  <p className={styles.processStepNumber}>{step.number}</p>
+                  <p className={styles.processArtifactLabel}>{step.artifact}</p>
+                  <h4>{step.title}</h4>
+                  <p><ProcessSentence segments={step.body} /></p>
+                  <p className={styles.processPrevented}>
+                    <strong>What this prevented:</strong> {step.prevented}
+                  </p>
+                </div>
+
+                <ArtifactPreview type={step.previewType} />
+              </article>
+            ))}
+          </div>
+
+          <div className={styles.processPromptBlock}>
+            <div className={styles.processPromptIntro}>
+              <h3>Prompt discipline made the output usable</h3>
+              <p>
+                Each prompt carried <strong>context, state, data, constraints,</strong> and the artifact in progress.
+              </p>
+            </div>
+            <div className={styles.processPromptGrid}>
+              {designForgePromptExcerpts.map((prompt) => (
+                <article className={styles.processPromptCard} key={prompt.label}>
+                  <p>{prompt.label}</p>
+                  <blockquote>{prompt.copy}</blockquote>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.processOutcomeBlock}>
+            <h3>What this changed</h3>
+            <div className={styles.processOutcomeGrid}>
+              {designForgeOutcomes.map((outcome) => (
+                <article className={styles.processOutcomeCard} key={outcome.title}>
+                  <h4>{outcome.title}</h4>
+                  <p>{outcome.copy}</p>
+                </article>
+              ))}
+            </div>
+            <p className={styles.processClosing}>
+              DesignForge worked because it separated the work that usually gets tangled together.
+              <span>Experience first.</span>
+              <span>Interface next.</span>
+              <strong>Production last.</strong>
+            </p>
+            <p className={styles.processFinalLine}>
+              That is how the SAT LMS moved fast without becoming shallow.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function ArtifactPreview({ type }) {
+  if (type === 'inputTree') {
+    return (
+      <SourceArtifactPreview
+        title="2-Remedials/"
+        source="S0 input specification package"
+        rows={designForgeInputFiles.map((file, index) => `${index === designForgeInputFiles.length - 1 ? '`--' : '|--'} ${file}`)}
+        terminal
+      />
+    );
+  }
+
+  if (type === 'journeyMap') {
+    return <JourneyComponentMapArtifact />;
+  }
+
+  if (type === 'sandboxDoc') {
+    return (
+      <SourceArtifactPreview title="O2. Sandbox requirement doc.md" source="S2 sandbox requirements" rows={designForgeSandboxRows} />
+    );
+  }
+
+  if (type === 'roughBuildGaps') {
+    return (
+      <SourceArtifactPreview title="O4.0 - Gap Analysis Summary.md" source="S3 gap documents" rows={designForgeGapRows} />
+    );
+  }
+
+  if (type === 'componentOptions') {
+    return (
+      <SourceArtifactPreview title="3. Design Iteration/" source="S4 design iteration folder" rows={designForgeInterfaceRows} />
+    );
+  }
+
+  if (type === 'integratedSandbox') {
+    return (
+      <SourceArtifactPreview title="PACE-Component-Integration-Notes-Template.md" source="S5 base integration template" rows={designForgeIntegrationRows} />
+    );
+  }
+
+  return (
+    <SourceArtifactPreview title="Step 6/" source="S6 production migration package" rows={designForgeMigrationRows} />
+  );
+}
+
+function JourneyComponentChip({ id, state }) {
+  const data = journeyComponentLibrary[id];
+  const kind = id.startsWith('R') ? 'new' : 'modified';
+
+  const tooltipContent = (
+    <span className={styles.journeyTipBody}>
+      <span className={styles.journeyTipHeader}>
+        <span className={styles.journeyTipCode}>
+          {id}
+          {state ? <span className={styles.journeyTipState}> ({state})</span> : null}
+        </span>
+        <span className={styles.journeyTipType}>{data.type}</span>
+      </span>
+      <span className={styles.journeyTipName}>{data.name}</span>
+      <span className={styles.journeyTipPurpose}>{data.purpose}</span>
+      <span className={styles.journeyTipStatesLabel}>States</span>
+      <span className={styles.journeyTipStates}>
+        {data.states.map((s) => (
+          <span key={s} className={styles.journeyTipStateTag}>{s}</span>
+        ))}
+      </span>
+    </span>
+  );
+
+  return (
+    <Tooltip
+      content={tooltipContent}
+      panelClassName={styles.journeyTipPanel}
+      className={styles.journeyChipWrap}
+      position="bottom"
+    >
+      <span className={`${styles.journeyChip} ${kind === 'new' ? styles.journeyChipNew : styles.journeyChipModified}`}>
+        {id}
+      </span>
+    </Tooltip>
+  );
+}
+
+function JourneyComponentMapArtifact() {
+  return (
+    <div className={styles.processArtifactPreview}>
+      <div className={styles.journeyMapBox}>
+        <div className={styles.journeyMapBoxInner}>
+          <div className={styles.journeyMapHeader}>
+            <p>Remedials User Journey · Component Mapping</p>
+            <small>O1. Journey component map · S1 artifact</small>
+          </div>
+          <table className={styles.journeyMapTable}>
+            <thead>
+              <tr>
+                <th className={styles.journeyMapColJourney}>Journey</th>
+                <th className={styles.journeyMapColFrequency}>Frequency</th>
+                <th className={styles.journeyMapColTrigger}>Trigger</th>
+                <th className={styles.journeyMapColFlow}>Component flow</th>
+              </tr>
+            </thead>
+            <tbody>
+              {journeyComponentRows.map((row) => (
+                <tr key={row.id}>
+                  <td>
+                    <span className={styles.journeyMapId}>{row.id}</span>
+                    <span className={styles.journeyMapName}>{row.name}</span>
+                    <span className={styles.journeyMapDesc}>{row.desc}</span>
+                  </td>
+                  <td>
+                    <span className={`${styles.journeyMapFrequency} ${styles[`journeyMapFrequency_${row.frequency}`]}`}>
+                      {row.frequency.charAt(0).toUpperCase() + row.frequency.slice(1)}
+                    </span>
+                  </td>
+                  <td className={styles.journeyMapTrigger}>{row.trigger}</td>
+                  <td>
+                    {row.flows.map((flow, flowIndex) => (
+                      <div key={flowIndex} className={styles.journeyMapFlowRow}>
+                        {flow.label ? <span className={styles.journeyMapFlowLabel}>{flow.label}:</span> : null}
+                        {flow.tags
+                          ? flow.tags.map((tag, tagIndex) => (
+                              <span key={`${tag.id}-${tagIndex}`} className={styles.journeyMapFlowItem}>
+                                <JourneyComponentChip id={tag.id} state={tag.state} />
+                                {tagIndex < flow.tags.length - 1 ? <span className={styles.journeyMapFlowArrow}>→</span> : null}
+                              </span>
+                            ))
+                          : null}
+                        {flow.note ? <span className={styles.journeyMapFlowNote}>{flow.note}</span> : null}
+                      </div>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SourceArtifactPreview({ title, source, rows, terminal = false }) {
+  return (
+    <div className={styles.processArtifactPreview}>
+      <div className={`${styles.sourceArtifactPreview} ${terminal ? styles.sourceArtifactPreviewTerminal : ''}`}>
+        <p>{title}</p>
+        <small>{source}</small>
+        <div>
+          {rows.map((row) => (
+            <span key={row}>{row}</span>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -899,16 +1556,24 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="solution" aria-labelledby="approach-heading" className={`${styles.approachSection} border-b border-ink-100 px-6 pb-20 pt-4 md:pb-28 md:pt-6`}>
+        <section id="solution" aria-labelledby="approach-heading" className={`${styles.approachSection} px-6 pb-20 pt-4 md:pb-28 md:pt-6`}>
           <ApproachInteraction />
+        </section>
 
+        <section id="decisions" aria-labelledby="decisions-heading" className={`${styles.decisionSection} px-6 pb-20 pt-12 md:pb-28 md:pt-16`}>
           <div className="mx-auto max-w-5xl">
             <Reveal>
-              <div className="border-t border-ink-100 pt-8">
-                <p className="mb-5 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Key design decisions</p>
-                <h2 className="max-w-4xl font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
-                  With the tutor lens on, I made <br/><span className="box-decoration-clone bg-accent-yellow px-1">4 pivotal decisions</span> that made the LMS behave like a private tutor.
-                </h2>
+              <div>
+                <p className={`${styles.decisionKicker} mb-5 font-dm text-xs font-extrabold uppercase tracking-widest`}>Key design decisions</p>
+                <StaggeredText
+                  id="decisions-heading"
+                  className={`${styles.decisionHeading} max-w-4xl font-cabinet text-4xl font-extrabold leading-tight md:text-6xl`}
+                  segments={[
+                    { text: 'With the tutor lens on, I made', breakAfter: true },
+                    { text: '4 pivotal decisions', className: styles.decisionHighlight },
+                    { text: 'that made the LMS behave like a private tutor.' },
+                  ]}
+                />
               </div>
 
               <div className="mt-12 space-y-16 md:mt-16 md:space-y-20">
@@ -917,150 +1582,12 @@ export default function SatLmsCaseStudy() {
                 ))}
               </div>
 
-              <div className="mt-16 border-t border-ink-100 pt-10 md:mt-20">
-                <p className="mx-auto max-w-4xl text-center font-cabinet text-3xl font-extrabold leading-tight text-ink-950 md:text-case-study-statement">
-                  Together, these decisions shifted the LMS from a place students had to navigate into a system that kept <span className="box-decoration-clone bg-accent-yellow px-1">diagnosing, guiding, and pulling them back into progress.</span>
+              <div className={styles.decisionSummary}>
+                <p className={`${styles.decisionSummaryText} mx-auto max-w-4xl text-center font-cabinet text-3xl font-extrabold leading-tight md:text-case-study-statement`}>
+                  Together, these decisions made <span className={styles.decisionHighlight}>Good learning behavior the default</span>, not left to willpower.
                 </p>
               </div>
             </Reveal>
-          </div>
-        </section>
-
-        <section id="strategy" className="border-b border-ink-100 bg-surface-light px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-              <div className="lg:col-span-5">
-                <p className="mb-4 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Product Strategy</p>
-                <h2 className="font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
-                  Intelligence enabled through structure and diagnostic.
-                </h2>
-                <p className="mt-8 font-dm text-xl leading-relaxed text-ink-700">
-                  PACE could prescribe a path because the course was not a loose content library. It was structured tightly enough for a diagnostic to reason about.
-                </p>
-              </div>
-
-              <div className="lg:col-span-7">
-                <div className="grid gap-3">
-                  {courseLayers.map((layer, index) => (
-                    <div key={layer} className="grid grid-cols-12 items-center gap-3">
-                      <div className="col-span-3 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">
-                        Step {index + 1}
-                      </div>
-                      <div className="col-span-9 border border-ink-100 bg-surface-white p-4 font-cabinet text-xl font-extrabold text-ink-950">
-                        {layer}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 border-l-4 border-accent-orange bg-surface-peach p-6">
-                  <p className="font-dm text-xl font-extrabold leading-relaxed text-ink-950">
-                    Structure made intelligence possible. The diagnostic did not guess from thin air; it worked against a course map built from modules, units, logical groups, concept files, process-skill files, and protected exams.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="pace" className="bg-ink-950 px-6 py-20 text-surface-white md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-              <div className="lg:col-span-5">
-                <p className="mb-4 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-300">PACE</p>
-                <h2 className="font-cabinet text-4xl font-extrabold leading-tight text-surface-white md:text-6xl">
-                  The diagnostic does not just score the student. It rewrites the path.
-                </h2>
-                <p className="mt-8 font-dm text-xl leading-relaxed text-ink-100">
-                  PACE begins each course with a one-time diagnostic. At a safe public level: it uses the course dependency structure to infer known and unknown zones, then produces an activity map for the course layer.
-                </p>
-                <p className="mt-5 font-dm text-xl leading-relaxed text-ink-100">
-                  Known work stays visible but dimmed, receives system-assigned completion credit, and is skipped in Next Up. Protected assessments remain required.
-                </p>
-              </div>
-              <div className="lg:col-span-7">
-                <div className="grid gap-4 md:grid-cols-2">
-                  {paceSteps.map((step, index) => (
-                    <div key={step} className="border border-ink-800 bg-fun-surface-dark p-6">
-                      <p className="mb-4 font-cabinet text-4xl font-extrabold text-accent-yellow">{String(index + 1).padStart(2, '0')}</p>
-                      <p className="font-dm text-lg font-extrabold text-surface-white">{step}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <figure className="mt-14 overflow-hidden rounded-lg border border-ink-800 bg-fun-surface-dark">
-              <Image
-                src="/images/case-studies/sat-lms/pace-skip-visible.webp"
-                alt="PACE skipped activities remain visible with explanation"
-                width={1600}
-                height={813}
-                sizes="100vw"
-                className="h-auto w-full"
-              />
-            </figure>
-          </div>
-        </section>
-
-        <section className="px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
-              <div className="lg:col-span-5">
-                <p className="mb-4 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Reinforcement</p>
-                <h2 className="font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
-                  PACE chooses the path. Remedials and revision keep it from breaking.
-                </h2>
-              </div>
-              <div className="grid gap-5 md:grid-cols-3 lg:col-span-7">
-                {reinforcementItems.map((item) => (
-                  <div key={item.title} className="border border-ink-100 bg-surface-light p-6">
-                    <h3 className="font-cabinet text-2xl font-extrabold text-ink-950">{item.title}</h3>
-                    <p className="mt-4 font-dm text-lg leading-relaxed text-ink-700">{item.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <figure className="mt-12 overflow-hidden rounded-lg border border-ink-100 bg-surface-white shadow-lg">
-              <Image
-                src="/images/case-studies/sat-lms/next-activity-recovery.webp"
-                alt="Next activity recovery panel"
-                width={1600}
-                height={844}
-                sizes="100vw"
-                className="h-auto w-full"
-              />
-            </figure>
-          </div>
-        </section>
-
-        <section id="ux" className="border-y border-ink-100 bg-surface-light px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <p className="mb-4 text-center font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">UX System</p>
-            <h2 className="mx-auto max-w-4xl text-center font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
-              Good learning behavior was not left to willpower.
-            </h2>
-            <p className="mx-auto mt-6 max-w-3xl text-center font-dm text-xl leading-relaxed text-ink-700">
-              The interface was shaped around habit design: make the required path obvious, make the next action easy, and make drift feel unnecessary.
-            </p>
-
-            <div className="mt-14 grid gap-6 md:grid-cols-2">
-              {uxPrinciples.map((principle) => (
-                <article key={principle.title} className="border border-ink-100 bg-surface-white">
-                  <div className="p-6">
-                    <h3 className="font-cabinet text-3xl font-extrabold text-ink-950">{principle.title}</h3>
-                    <p className="mt-4 font-dm text-lg leading-relaxed text-ink-700">{principle.text}</p>
-                  </div>
-                  <Image
-                    src={principle.image}
-                    alt={`${principle.title} screen evidence`}
-                    width={principle.width}
-                    height={principle.height}
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="h-auto w-full border-t border-ink-100"
-                  />
-                </article>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -1095,37 +1622,7 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="process" className="bg-ink-950 px-6 py-20 text-surface-white md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <p className="mb-4 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-300">DesignForge</p>
-                <h2 className="font-cabinet text-4xl font-extrabold leading-tight text-surface-white md:text-6xl">
-                  The process made product logic visible before UI decisions hardened.
-                </h2>
-                <p className="mt-8 font-dm text-xl leading-relaxed text-ink-100">
-                  Later features like PACE, Remedials, and Forums moved through a stricter process: map journeys, create a sandbox, rough-build the system, expose gaps, request multiple design options, curate the best direction, integrate, then migrate.
-                </p>
-              </div>
-              <div className="lg:col-span-7">
-                <div className="grid gap-4">
-                  {designForgeSteps.map((step, index) => (
-                    <div key={step} className="grid grid-cols-12 items-center gap-4 border border-ink-800 bg-fun-surface-dark p-5">
-                      <p className="col-span-3 font-cabinet text-3xl font-extrabold text-accent-yellow">{String(index + 1).padStart(2, '0')}</p>
-                      <p className="col-span-9 font-dm text-xl font-extrabold text-surface-white">{step}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 bg-accent-yellow p-6 text-ink-950">
-                  <p className="font-cabinet text-3xl font-extrabold leading-tight">Spotlight: rough build plus design iteration.</p>
-                  <p className="mt-4 font-dm text-xl leading-relaxed">
-                    The value was not asking AI to draw faster screens. It was building a working skeleton early enough to find UX holes, then using multiple design options to choose the strongest interface direction.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <DesignForgeProcessSection />
 
         <section id="outcome" className="px-6 py-20 md:py-28">
           <div className="mx-auto max-w-5xl">
