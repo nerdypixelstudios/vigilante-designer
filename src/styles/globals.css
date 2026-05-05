@@ -8,33 +8,33 @@
   --font-caveat: 'Caveat', cursive;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
-  /* ── Type scale — all spec-defined sizes as named tokens ───────── */
-  --text-h1: 5.5rem;
-  /* 88px — Cabinet Grotesk H1 (normal mode) */
-  --text-h2: 4.5rem;
-  /* 72px — Cabinet Grotesk H2 section headline (normal mode) */
-  --text-h3: 1.625rem;
-  /* 26px — DM Sans H3 (normal mode) */
-  --text-h4: 1.25rem;
-  /* 20px — DM Sans H4 (normal mode) */
-  --text-body: 1.25rem;
-  /* 20px — DM Sans body (both modes) */
+  /* ── Type scale — clamp(min @ 375px, fluid, max @ 1280px) ───────── */
+  --text-h1: clamp(3.875rem, 2.873vw + 3.202rem, 5.5rem);
+  /* 62 → 88px — Cabinet Grotesk H1 (normal mode) */
+  --text-h2: clamp(3.125rem, 2.43vw + 2.555rem, 4.5rem);
+  /* 50 → 72px — Cabinet Grotesk H2 section headline (normal mode) */
+  --text-h3: clamp(1.5rem, 0.221vw + 1.448rem, 1.625rem);
+  /* 24 → 26px — DM Sans H3 (normal mode) */
+  --text-h4: clamp(1.125rem, 0.221vw + 1.073rem, 1.25rem);
+  /* 18 → 20px — DM Sans H4 (normal mode) */
+  --text-body: clamp(1.125rem, 0.221vw + 1.073rem, 1.25rem);
+  /* 18 → 20px — DM Sans body (both modes) */
   --text-small: 1rem;
-  /* 16px — DM Sans small meta/decorative labels (both modes) */
-  --text-fun-h1: 4.0625rem;
-  /* 65px — Rock Salt H1 (fun mode) */
-  --text-fun-h2: 2.5rem;
-  /* 40px — Rock Salt H2 (fun mode) */
-  --text-fun-h3: 1.875rem;
-  /* 30px — Caveat H3 (fun mode) */
-  --text-fun-h4: 1.625rem;
-  /* 26px — Caveat H4 (fun mode) */
-  --text-humongous: 14rem;
-  /* 224px - Cabinet Grotesk extrabold hero display title */
-  --text-case-study-statement: 2.5rem;
-  /* 40px - Cabinet Grotesk case study narrative statement */
+  /* 16px — DM Sans small meta/decorative labels (both modes, fixed) */
+  --text-fun-h1: clamp(3.25rem, 1.436vw + 2.913rem, 4.0625rem);
+  /* 52 → 65px — Rock Salt H1 (fun mode) */
+  --text-fun-h2: clamp(2rem, 0.884vw + 1.793rem, 2.5rem);
+  /* 32 → 40px — Rock Salt H2 (fun mode) */
+  --text-fun-h3: clamp(1.5rem, 0.663vw + 1.345rem, 1.875rem);
+  /* 24 → 30px — Caveat H3 (fun mode) */
+  --text-fun-h4: clamp(1.5rem, 0.221vw + 1.448rem, 1.625rem);
+  /* 24 → 26px — Caveat H4 (fun mode) */
+  --text-humongous: clamp(9.75rem, 7.514vw + 7.989rem, 14rem);
+  /* 156 → 224px - Cabinet Grotesk extrabold hero display title */
+  --text-case-study-statement: clamp(2rem, 0.884vw + 1.793rem, 2.5rem);
+  /* 32 → 40px - Cabinet Grotesk case study narrative statement */
   --text-decision-micro: 0.8125rem;
-  /* 13px - compact case study decision labels */
+  /* 13px - compact case study decision labels (fixed) */
 
   /* Case study problem section composition */
   --spacing-stagger-word-y: 0.6em;

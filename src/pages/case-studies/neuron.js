@@ -401,16 +401,6 @@ const journeyComponentRows = [
       { label: 'Result', note: 'Remedial stays in sidebar (not_started), appears in Next Up. NOT blocking.' },
     ],
   },
-  {
-    id: 'J7',
-    name: 'Return to Skipped',
-    desc: 'User clicks skipped remedial in sidebar',
-    frequency: 'medium',
-    trigger: 'Click skipped remedial in sidebar',
-    flows: [
-      { tags: [{ id: 'R5', state: 'hover tooltip' }, { id: 'R2', state: 'click' }, { id: 'R4' }, { id: 'R3' }] },
-    ],
-  },
 ];
 
 const designForgeSandboxRows = [
@@ -1190,10 +1180,8 @@ function ArtifactPreview({ type }) {
   if (type === 'inputTree') {
     return (
       <SourceArtifactPreview
-        title="2-Remedials/"
-        source="S0 input specification package"
+        title="Input specification | Remedials"
         rows={designForgeInputFiles.map((file, index) => `${index === designForgeInputFiles.length - 1 ? '`--' : '|--'} ${file}`)}
-        terminal
       />
     );
   }
@@ -1204,30 +1192,30 @@ function ArtifactPreview({ type }) {
 
   if (type === 'sandboxDoc') {
     return (
-      <SourceArtifactPreview title="O2. Sandbox requirement doc.md" source="S2 sandbox requirements" rows={designForgeSandboxRows} />
+      <SourceArtifactPreview title="Sandbox requirement | Remedials" rows={designForgeSandboxRows} />
     );
   }
 
   if (type === 'roughBuildGaps') {
     return (
-      <SourceArtifactPreview title="O4.0 - Gap Analysis Summary.md" source="S3 gap documents" rows={designForgeGapRows} />
+      <SourceArtifactPreview title="Gap analysis | Remedials" rows={designForgeGapRows} />
     );
   }
 
   if (type === 'componentOptions') {
     return (
-      <SourceArtifactPreview title="3. Design Iteration/" source="S4 design iteration folder" rows={designForgeInterfaceRows} />
+      <SourceArtifactPreview title="Design iteration | Remedials" rows={designForgeInterfaceRows} />
     );
   }
 
   if (type === 'integratedSandbox') {
     return (
-      <SourceArtifactPreview title="PACE-Component-Integration-Notes-Template.md" source="S5 base integration template" rows={designForgeIntegrationRows} />
+      <SourceArtifactPreview title="Integration notes | Remedials" rows={designForgeIntegrationRows} />
     );
   }
 
   return (
-    <SourceArtifactPreview title="Step 6/" source="S6 production migration package" rows={designForgeMigrationRows} />
+    <SourceArtifactPreview title="Production migration | Remedials" rows={designForgeMigrationRows} />
   );
 }
 
@@ -1271,75 +1259,80 @@ function JourneyComponentChip({ id, state }) {
 
 function JourneyComponentMapArtifact() {
   return (
+    <ArtifactWindow title="Journey component mapping | Remedials" bodyClassName={`${styles.artifactBodyJourney} ${styles.artifactBodyClipRight}`}>
+      <table className={styles.journeyMapTable}>
+        <thead>
+          <tr>
+            <th className={styles.journeyMapColJourney}>Journey</th>
+            <th className={styles.journeyMapColFlow}>Component flow</th>
+          </tr>
+        </thead>
+        <tbody>
+          {journeyComponentRows.map((row) => (
+            <tr key={row.id}>
+              <td>
+                <span className={styles.journeyMapNameRow}>
+                  <span className={styles.journeyMapName}>{row.name}</span>
+                  <span className={`${styles.journeyMapFrequency} ${styles[`journeyMapFrequency_${row.frequency}`]}`}>
+                    {row.frequency.charAt(0).toUpperCase() + row.frequency.slice(1)}
+                  </span>
+                </span>
+                <span className={styles.journeyMapTrigger}>
+                  <span className={styles.journeyMapTriggerLabel}>Trigger:</span> {row.trigger}
+                </span>
+              </td>
+              <td>
+                {row.flows.map((flow, flowIndex) => (
+                  <div key={flowIndex} className={styles.journeyMapFlowRow}>
+                    {flow.label ? <span className={styles.journeyMapFlowLabel}>{flow.label}:</span> : null}
+                    {flow.tags
+                      ? flow.tags.map((tag, tagIndex) => (
+                          <span key={`${tag.id}-${tagIndex}`} className={styles.journeyMapFlowItem}>
+                            <JourneyComponentChip id={tag.id} state={tag.state} />
+                            {tagIndex < flow.tags.length - 1 ? <span className={styles.journeyMapFlowArrow}>→</span> : null}
+                          </span>
+                        ))
+                      : null}
+                    {flow.note ? <span className={styles.journeyMapFlowNote}>{flow.note}</span> : null}
+                  </div>
+                ))}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </ArtifactWindow>
+  );
+}
+
+function ArtifactWindow({ title, bodyClassName, children }) {
+  const bodyClasses = bodyClassName ? `${styles.artifactBody} ${bodyClassName}` : styles.artifactBody;
+
+  return (
     <div className={styles.processArtifactPreview}>
-      <div className={styles.journeyMapBox}>
-        <div className={styles.journeyMapBoxInner}>
-          <div className={styles.journeyMapHeader}>
-            <p>Remedials User Journey · Component Mapping</p>
-            <small>O1. Journey component map · S1 artifact</small>
-          </div>
-          <table className={styles.journeyMapTable}>
-            <thead>
-              <tr>
-                <th className={styles.journeyMapColJourney}>Journey</th>
-                <th className={styles.journeyMapColFrequency}>Frequency</th>
-                <th className={styles.journeyMapColTrigger}>Trigger</th>
-                <th className={styles.journeyMapColFlow}>Component flow</th>
-              </tr>
-            </thead>
-            <tbody>
-              {journeyComponentRows.map((row) => (
-                <tr key={row.id}>
-                  <td>
-                    <span className={styles.journeyMapId}>{row.id}</span>
-                    <span className={styles.journeyMapName}>{row.name}</span>
-                    <span className={styles.journeyMapDesc}>{row.desc}</span>
-                  </td>
-                  <td>
-                    <span className={`${styles.journeyMapFrequency} ${styles[`journeyMapFrequency_${row.frequency}`]}`}>
-                      {row.frequency.charAt(0).toUpperCase() + row.frequency.slice(1)}
-                    </span>
-                  </td>
-                  <td className={styles.journeyMapTrigger}>{row.trigger}</td>
-                  <td>
-                    {row.flows.map((flow, flowIndex) => (
-                      <div key={flowIndex} className={styles.journeyMapFlowRow}>
-                        {flow.label ? <span className={styles.journeyMapFlowLabel}>{flow.label}:</span> : null}
-                        {flow.tags
-                          ? flow.tags.map((tag, tagIndex) => (
-                              <span key={`${tag.id}-${tagIndex}`} className={styles.journeyMapFlowItem}>
-                                <JourneyComponentChip id={tag.id} state={tag.state} />
-                                {tagIndex < flow.tags.length - 1 ? <span className={styles.journeyMapFlowArrow}>→</span> : null}
-                              </span>
-                            ))
-                          : null}
-                        {flow.note ? <span className={styles.journeyMapFlowNote}>{flow.note}</span> : null}
-                      </div>
-                    ))}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <div className={styles.artifactWindow}>
+        <div className={styles.artifactChrome}>
+          <span className={styles.artifactChromeDots}>
+            <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotRed}`} />
+            <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotYellow}`} />
+            <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotGreen}`} />
+          </span>
+          <span className={styles.artifactChromeTitle}>{title}</span>
+          <span className={styles.artifactChromeSpacer} />
         </div>
+        <div className={bodyClasses}>{children}</div>
       </div>
     </div>
   );
 }
 
-function SourceArtifactPreview({ title, source, rows, terminal = false }) {
+function SourceArtifactPreview({ title, rows }) {
   return (
-    <div className={styles.processArtifactPreview}>
-      <div className={`${styles.sourceArtifactPreview} ${terminal ? styles.sourceArtifactPreviewTerminal : ''}`}>
-        <p>{title}</p>
-        <small>{source}</small>
-        <div>
-          {rows.map((row) => (
-            <span key={row}>{row}</span>
-          ))}
-        </div>
-      </div>
-    </div>
+    <ArtifactWindow title={title}>
+      {rows.map((row) => (
+        <span key={row}>{row}</span>
+      ))}
+    </ArtifactWindow>
   );
 }
 

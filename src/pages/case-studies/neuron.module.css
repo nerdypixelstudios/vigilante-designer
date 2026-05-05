@@ -983,7 +983,7 @@
 .processTrail {
   position: relative;
   display: grid;
-  gap: var(--spacing-answer-copy-margin-top);
+  gap: clamp(4rem, 8vw, 7rem);
 }
 
 .processTrail::before {
@@ -995,7 +995,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--spacing-answer-frame-gap);
-  align-items: start;
+  align-items: center;
 }
 
 .processStepCopy .processStepNumber {
@@ -1055,69 +1055,109 @@
   min-height: var(--spacing-answer-video-height);
 }
 
-.sourceArtifactPreview {
+.artifactWindow {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-decision-inner);
+  background-color: var(--color-ink-950);
+  box-shadow: var(--shadow-decision-browser);
+  overflow: hidden;
+}
+
+.artifactChrome {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background-color: color-mix(in srgb, var(--color-surface-white) 6%, transparent);
+  border-block-end: 1px solid color-mix(in srgb, var(--color-surface-white) 10%, transparent);
+}
+
+.artifactChromeDots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.artifactChromeDot {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+}
+
+.artifactChromeDotRed {
+  background-color: var(--color-fun-accent-red);
+}
+
+.artifactChromeDotYellow {
+  background-color: var(--color-accent-yellow);
+}
+
+.artifactChromeDotGreen {
+  background-color: var(--color-accent-green);
+}
+
+.artifactChromeTitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-decision-micro);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-300);
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artifactChromeSpacer {
+  width: calc(0.7rem * 3 + 0.4rem * 2);
+}
+
+.artifactBody {
+  position: relative;
+  flex: 1;
   display: grid;
   align-content: start;
-  gap: calc(var(--spacing-decision-placeholder-gap) * 0.5);
-  min-height: 100%;
-  padding: var(--spacing-decision-visual-padding);
-  border-radius: var(--radius-decision-inner);
-  background-color: var(--color-surface-white);
-  box-shadow: var(--shadow-decision-browser);
-  font-family: var(--font-mono);
-}
-
-.sourceArtifactPreview p {
-  margin: 0;
-  font-size: var(--text-decision-micro);
-  font-weight: 800;
-  line-height: var(--leading-answer-static);
-  color: var(--color-ink-950);
-  overflow-wrap: anywhere;
-}
-
-.sourceArtifactPreview small {
-  font-size: var(--text-decision-micro);
-  font-weight: 800;
-  line-height: var(--leading-answer-static);
-  color: var(--color-ink-500);
-  text-transform: uppercase;
-}
-
-.sourceArtifactPreview div {
-  display: grid;
   gap: calc(var(--spacing-decision-placeholder-border) * 2);
-  margin-block-start: calc(var(--spacing-decision-placeholder-gap) * 0.5);
-  padding-block-start: calc(var(--spacing-decision-placeholder-gap) * 0.75);
+  padding: var(--spacing-decision-visual-padding);
+  font-family: var(--font-mono);
+  color: var(--color-surface-white);
 }
 
-.sourceArtifactPreview span {
+.artifactBody > span {
   font-size: var(--text-decision-micro);
   font-weight: 600;
   line-height: var(--leading-subpitch);
-  color: var(--color-ink-800);
+  color: var(--color-surface-white);
   overflow-wrap: anywhere;
 }
 
-.sourceArtifactPreviewTerminal {
-  background-color: var(--color-ink-950);
-  box-shadow: var(--shadow-decision-browser);
+.artifactBodyClipRight {
+  overflow-x: clip;
+  overflow-y: visible;
+  padding-inline-end: 0;
 }
 
-.sourceArtifactPreviewTerminal p {
-  color: var(--color-surface-white);
+.artifactBodyClipRight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6rem;
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, var(--color-ink-950));
 }
 
-.sourceArtifactPreviewTerminal small {
-  color: var(--color-ink-300);
-}
-
-.sourceArtifactPreviewTerminal div {
-  border-block-start: 0;
-}
-
-.sourceArtifactPreviewTerminal span {
-  color: var(--color-surface-white);
+.artifactBodyJourney {
+  display: block;
+  padding-inline-end: 0;
 }
 
 .inputTreePreview,
@@ -1313,41 +1353,6 @@
 }
 
 /* Journey component map artifact (S1) */
-.journeyMapBox {
-  position: relative;
-  min-height: 100%;
-  border-radius: var(--radius-decision-inner);
-  background-color: var(--color-surface-white);
-  box-shadow: var(--shadow-decision-browser);
-  overflow-x: clip;
-  overflow-y: visible;
-}
-
-.journeyMapBoxInner {
-  padding: var(--spacing-decision-visual-padding);
-}
-
-.journeyMapHeader p {
-  margin: 0 0 calc(var(--spacing-decision-placeholder-border) * 2);
-  font-family: var(--font-mono);
-  font-size: var(--text-decision-micro);
-  font-weight: 800;
-  line-height: var(--leading-answer-static);
-  color: var(--color-ink-950);
-  text-transform: uppercase;
-}
-
-.journeyMapHeader small {
-  display: block;
-  margin-block-end: calc(var(--spacing-decision-placeholder-gap) * 0.75);
-  font-family: var(--font-mono);
-  font-size: var(--text-decision-micro);
-  font-weight: 600;
-  line-height: var(--leading-answer-static);
-  color: var(--color-ink-500);
-  text-transform: uppercase;
-}
-
 .journeyMapTable {
   width: max-content;
   min-width: 100%;
@@ -1357,26 +1362,26 @@
 }
 
 .journeyMapTable thead {
-  background-color: var(--color-surface-light);
+  background-color: color-mix(in srgb, var(--color-surface-white) 8%, transparent);
 }
 
 .journeyMapTable th {
   padding: calc(var(--spacing-decision-placeholder-gap) * 0.5) calc(var(--spacing-decision-placeholder-gap) * 0.6);
-  font-family: var(--font-dm);
+  font-family: var(--font-mono);
   font-size: calc(var(--text-decision-micro) * 0.85);
   font-weight: 800;
   line-height: var(--leading-answer-static);
   letter-spacing: 0.05em;
   text-align: left;
   text-transform: uppercase;
-  color: var(--color-ink-700);
+  color: var(--color-ink-300);
   white-space: nowrap;
 }
 
 .journeyMapTable td {
   padding: calc(var(--spacing-decision-placeholder-gap) * 0.6);
   vertical-align: top;
-  color: var(--color-ink-800);
+  color: var(--color-surface-white);
 }
 
 .journeyMapTable tbody tr {
@@ -1384,52 +1389,33 @@
 }
 
 .journeyMapTable tbody tr:hover {
-  background-color: var(--color-surface-light);
+  background-color: color-mix(in srgb, var(--color-surface-white) 6%, transparent);
 }
 
 .journeyMapTable tbody tr + tr td {
-  border-block-start: 1px solid color-mix(in srgb, var(--color-ink-950) 8%, transparent);
+  border-block-start: 1px solid color-mix(in srgb, var(--color-surface-white) 12%, transparent);
 }
 
 .journeyMapColJourney {
-  width: 14rem;
-}
-
-.journeyMapColFrequency {
-  width: 6rem;
-}
-
-.journeyMapColTrigger {
-  width: 14rem;
+  width: 13rem;
 }
 
 .journeyMapColFlow {
   width: 26rem;
 }
 
-.journeyMapId {
-  display: inline-block;
-  margin-inline-end: calc(var(--spacing-decision-placeholder-border) * 2);
-  font-family: var(--font-mono);
-  font-size: var(--text-decision-micro);
-  font-weight: 800;
-  color: var(--color-accent-orange);
+.journeyMapNameRow {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
 .journeyMapName {
   font-family: var(--font-dm);
   font-size: var(--text-decision-micro);
   font-weight: 700;
-  color: var(--color-ink-950);
-}
-
-.journeyMapDesc {
-  display: block;
-  margin-block-start: calc(var(--spacing-decision-placeholder-border) * 1.5);
-  font-family: var(--font-dm);
-  font-size: calc(var(--text-decision-micro) * 0.9);
-  font-weight: 500;
-  color: var(--color-ink-500);
+  color: var(--color-surface-white);
 }
 
 .journeyMapFrequency {
@@ -1448,18 +1434,30 @@
 }
 
 .journeyMapFrequency_medium {
-  background-color: var(--color-surface-light);
-  color: var(--color-ink-700);
-}
-
-.journeyMapFrequency_low {
-  background-color: var(--color-surface-light);
+  background-color: color-mix(in srgb, var(--color-surface-white) 12%, transparent);
   color: var(--color-ink-300);
 }
 
+.journeyMapFrequency_low {
+  background-color: color-mix(in srgb, var(--color-surface-white) 8%, transparent);
+  color: var(--color-ink-500);
+}
+
 .journeyMapTrigger {
+  display: block;
+  margin-block-start: calc(var(--spacing-decision-placeholder-border) * 1.5);
+  font-family: var(--font-mono);
   font-size: calc(var(--text-decision-micro) * 0.95);
-  color: var(--color-ink-700);
+  font-weight: 500;
+  color: var(--color-ink-300);
+}
+
+.journeyMapTriggerLabel {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent-orange);
 }
 
 .journeyMapFlowRow {
@@ -1472,16 +1470,16 @@
 .journeyMapFlowRow + .journeyMapFlowRow {
   margin-block-start: calc(var(--spacing-decision-placeholder-border) * 2);
   padding-block-start: calc(var(--spacing-decision-placeholder-border) * 2);
-  border-block-start: 1px dashed color-mix(in srgb, var(--color-ink-950) 12%, transparent);
+  border-block-start: 1px dashed color-mix(in srgb, var(--color-surface-white) 18%, transparent);
 }
 
 .journeyMapFlowLabel {
-  font-family: var(--font-dm);
+  font-family: var(--font-mono);
   font-size: calc(var(--text-decision-micro) * 0.8);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-ink-500);
+  color: var(--color-ink-300);
   margin-inline-end: calc(var(--spacing-decision-placeholder-border) * 1.5);
 }
 
@@ -1499,7 +1497,7 @@
 .journeyMapFlowNote {
   font-family: var(--font-dm);
   font-size: calc(var(--text-decision-micro) * 0.95);
-  color: var(--color-ink-500);
+  color: var(--color-ink-300);
 }
 
 .journeyChipWrap {
@@ -1523,7 +1521,7 @@
 
 .journeyChipNew {
   background-color: var(--color-surface-mint);
-  color: var(--color-accent-green);
+  color: var(--color-ink-950);
 }
 
 .journeyChipNew:hover,
@@ -1536,7 +1534,7 @@
 
 .journeyChipModified {
   background-color: var(--color-surface-lilac);
-  color: var(--color-accent-lavender);
+  color: var(--color-ink-950);
 }
 
 .journeyChipModified:hover,
@@ -1751,7 +1749,7 @@
 
   .processStep {
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
-    gap: var(--spacing-answer-frame-gap);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
   }
 
   .processArtifactPreview {
