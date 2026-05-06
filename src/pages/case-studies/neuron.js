@@ -1,6 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ExternalArrowIcon, RedditIcon, TutorAnswerArrowIcon, TutorBulbIcon } from '../../components/icons/icons';
+import {
+  ArrowForwardLineIcon,
+  DocumentLogicIcon,
+  ExternalArrowIcon,
+  EyeRevealIcon,
+  InterfaceFrameIcon,
+  JourneyFlowIcon,
+  ProductionShieldIcon,
+  RedditIcon,
+  SpeedBuildIcon,
+  TutorAnswerArrowIcon,
+  TutorBulbIcon,
+  UiOutputIcon,
+  UxClarityIcon,
+} from '../../components/icons/icons';
+import ActivitySidebarDemo from '../../components/case-study/supporting-graphics/design-iteration-artifacts/ActivitySidebarDemo';
+import R2RemedialRowDesign from '../../components/case-study/supporting-graphics/design-iteration-artifacts/R2RemedialRowDesign';
+import R6DualPlacementDesign from '../../components/case-study/supporting-graphics/design-iteration-artifacts/R6DualPlacementDesign';
 import Navigation from '../../components/sections/Navigation/Navigation';
 import Tooltip from '../../components/shared/Tooltip';
 import styles from './neuron.module.css';
@@ -48,6 +65,36 @@ const metrics = [
       'Measures how long it takes for a student to start their first learning activity after opening the app.',
       'Reduced by removing setup decisions and surfacing a single, immediate next action, so users can start learning without figuring out where to begin.',
     ],
+  },
+];
+
+const outcomePollOptions = [
+  {
+    id: 'yes',
+    label: 'Yes, they should be prescribed a path.',
+  },
+  {
+    id: 'no',
+    label: 'No, they should not be.',
+  },
+];
+
+const stakeholderQuotes = [
+  {
+    name: 'Sanchari',
+    initials: 'S',
+    role: 'Technical Lead, e-GMAT',
+    image: '/images/testimonials/testimonial-sanchari-portrait.webp',
+    linkedin: 'https://www.linkedin.com/in/shomesanchari/',
+    quote: 'I had not thought about UX at this level before. The minute decisions Lohith made made the flow surprisingly easy to follow. What also stood out was how he used DesignForge to break the work into simple atomic blocks, which sped development up very quickly.',
+  },
+  {
+    name: 'Abhishek',
+    initials: 'A',
+    role: 'Backend Developer, e-GMAT',
+    image: '/images/testimonials/testimonial-abhishek-portrait.webp',
+    linkedin: 'https://www.linkedin.com/in/abhishek25varshney/',
+    quote: 'Lohith was very clear about frontend data requirements, which made the backend contracts easy to draft. Within a week, even though he is not a developer, he picked up the language and methods fast, and that made collaboration smoother with very little rework.',
   },
 ];
 
@@ -288,17 +335,144 @@ const shippedFlow = [
 ];
 
 const designForgeInputFiles = [
-  '00-README-remedials.md',
-  '01-context-and-business-rules-remedials.md',
-  '02-screen-inventory-remedials.md',
-  '03-user-journey-map-remedials.md',
-  '04-component-specification-remedials.md',
-  '05-wireframes-remedials.md',
-  '06-screen-flow-diagram-remedials.md',
-  '07-backend-specification-remedials.md',
-  '08-frontend-success-criteria-remedials.md',
-  'html-renders/',
+  '2-Remedials/',
+  '|-- 00-README-remedials.md',
+  '|-- 01-context-and-business-rules-remedials.md',
+  '|-- 02-screen-inventory-remedials.md',
+  '|-- 03-user-journey-map-remedials.md',
+  '|-- 04-component-specification-remedials.md',
+  '|-- 05-wireframes-remedials.md',
+  '|-- 06-screen-flow-diagram-remedials.md',
+  '|-- 07-backend-specification-remedials.md',
+  '|-- 08-frontend-success-criteria-remedials.md',
+  '`-- html-renders/',
 ];
+
+const businessRulesCardExcerpt = `---
+## 2. How Remedials Work
+
+### The Core Flow
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│   1. COMPLETE ACTIVITY     2. MISTAKES DETECTED     3. REMEDIAL CREATED │
+│                                                                         │
+│   ┌─────────────┐          ┌─────────────────┐      ┌─────────────────┐ │
+│   │Process Skill│   ───▶   │ 3 wrong answers │ ───▶ │ 6-question      │ │
+│   │  (8 Qs)     │          │ detected        │      │ remedial added  │ │
+│   └─────────────┘          └─────────────────┘      └─────────────────┘ │
+│                                                                         │
+│   Student scores            System identifies       Modal prompts       │
+│   75% (below 80%)           specific mistakes       "Start Remedial"    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘`;
+
+const journeyMapCardExcerpt = `---
+## J1: Concept File Remedial (Happy Path)
+
+**Trigger:** Student makes any mistake in a Concept File (100% required)
+
+┌────────────────────────────────────────────────────────────────────────┐
+│ STEP 1: Complete Concept File                                          │
+├────────────────────────────────────────────────────────────────────────┤
+│ Student completes CF with 4/5 correct (80%)                            │
+│ System detects: 1 mistake → triggers remedial                          │
+└────────────────────────────────────────────────────────────────────────┘
+
+                                │
+                                ▼
+
+┌────────────────────────────────────────────────────────────────────────┐
+│ STEP 2: Activity Results Screen                                        │
+├────────────────────────────────────────────────────────────────────────┤
+│ Shows:                                                                 │
+│ • Score: 80%`;
+
+const inputSpecStackCards = [
+  {
+    title: '01-context-and-business-rules-remedials.md',
+    excerpt: businessRulesCardExcerpt,
+    className: 'inputSpecOverlayCardBusiness',
+  },
+  {
+    title: '03-user-journey-map-remedials.md',
+    excerpt: journeyMapCardExcerpt,
+    className: 'inputSpecOverlayCardJourney',
+  },
+  {
+    title: '07-backend-specification-remedials.md',
+    variant: 'sql',
+    className: 'inputSpecOverlayCardBackend',
+  },
+];
+
+const sandboxFileStructureExcerpt = `---
+## 8. Sandbox File Structure
+
+\`\`\`
+pages/sandbox/remedials/
+├── PageHome.jsx                  # Copy, replace API with mock data
+├── PageHome.css                  # Copy
+├── ActivityPage.jsx              # Copy, add remedial callback handling
+├── ActivityPage.css              # Copy
+├── components/
+│   ├── activity/                 # Activity page components
+│   │   ├── ActivityPageShell.jsx
+│   │   ├── ActivityPageShell.css
+│   │   └── index.js
+│   ├── course/                   # Course page components
+│   │   ├── ActivityLineItem.jsx
+│   │   ├── ActivityLineItem.css
+│   │   ├── UnitBlock.jsx
+│   │   ├── UnitBlock.css`;
+
+const sandboxIntegrationFiles = [
+  'Sandbox integration/',
+  '|-- Task P3.1 - R2 integration.md',
+  '|-- Task P3.2 - M2 UI update.md',
+  '`-- Task P3.2 - R6 integration.md',
+];
+
+const migrationFolderTree = `src/components/remedials/
+├── RemedialCreatedModal/
+│   ├── RemedialCreatedModal.jsx
+│   ├── RemedialCreatedModal.css
+│   └── index.js
+├── RemedialCompletionFeedback/
+├── RemedialActivityHeader/
+├── RemedialReasonTooltip/
+├── RemedialResultsNotice/
+└── index.js`;
+
+const migrationFlowchart = `┌─────────────────────────────────────────────────────────────────────────────┐
+│                          OVERALL MIGRATION SEQUENCE                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+    STEP 1                    STEP 2                    STEP 3
+┌───────────────┐        ┌───────────────┐        ┌───────────────┐
+│  DELETE OLD   │───────▶│  ADD NEW      │───────▶│  UPDATE       │
+│  COMPONENTS   │        │  COMPONENTS   │        │  MODIFIED     │
+│  (Sequential) │        │  (PARALLEL)   │        │  COMPONENTS   │
+│               │        │               │        │  (Sequential) │
+│ • Remove pre- │        │ ┌───────────┐ │        │               │
+│   spec files  │        │ │ Agent 1   │ │        │ • UnitBlock   │
+│ • Update      │        │ │ Component │ │        │ • CurrentMod- │
+│   index.js    │        │ └───────────┘ │        │   uleCard     │
+│ • Remove      │        │ ┌───────────┐ │        │ • Activity-   │
+│   imports     │        │ │ Agent 2   │ │        │   LineItem    │
+│               │        │ │ Component │ │        │ • PageHome    │
+│               │        │ └───────────┘ │        │ • ActivityPage│
+│               │        │ ┌───────────┐ │        │               │
+│               │        │ │ Agent N   │ │        │ Full diff     │
+│               │        │ │ Component │ │        │ approach      │
+│               │        │ └───────────┘ │        │               │
+└───────────────┘        └───────────────┘        └───────────────┘
+       │                        │                        │
+       ▼                        ▼                        ▼
+┌───────────────────────────────────────────────────────────────────┐
+│                         STEP 4: VERIFY                            │
+│   Run app, test all user journeys, check responsive, verify API    │
+└───────────────────────────────────────────────────────────────────┘`;
 
 const journeyComponentLibrary = {
   R1: {
@@ -403,48 +577,6 @@ const journeyComponentRows = [
   },
 ];
 
-const designForgeSandboxRows = [
-  '# Remedials Sandbox Requirement Document',
-  '## Base Pages Needed',
-  '## Existing Components to DELETE',
-  '## New Components to Create (R1-R6)',
-  '## Mock Data Requirements',
-  '## Routing Setup',
-];
-
-const designForgeGapRows = [
-  'Q1 | mistake_count for R1/R5',
-  'Q2 | question_count for R1/R6',
-  'Q4 | R6 Notice / R1 Modal integration',
-  'Q6 | activity completion response for remedial states',
-  'X. Backend Issues.md | missing remedialData in quiz summary',
-];
-
-const designForgeInterfaceRows = [
-  '3. Design iteration.jpg',
-  'Gap-Closure-Tracker-Specification.md',
-  'activity-rows-demo.html',
-  'ActivitySidebarDemo.jsx',
-  'r2-remedial-row.jsx',
-  'r6-dual-placement.jsx',
-];
-
-const designForgeIntegrationRows = [
-  '# Parallel Component Documentation Template',
-  '## What to Document (Non-Obvious Things)',
-  'Integration Patterns | State Dependencies | Data Requirements',
-  '## PaceTogglePanel (PC2)',
-  '### Easy to Miss',
-];
-
-const designForgeMigrationRows = [
-  'O6. Prod migration map.md',
-  'O7. Migration Process Flowchart.md',
-  'O8. Remedials Frontend Audit.md',
-  'O9. Remedials Backend Audit.md',
-  'O7. Token deviation report.md | empty',
-];
-
 const designForgeSteps = [
   {
     id: 'input-spec',
@@ -528,7 +660,7 @@ const designForgeSteps = [
     id: 'production',
     number: '06',
     title: 'Move into production',
-    artifact: 'Migration map, token deviation report, productionized component',
+    artifact: 'Migration to production.',
     body: [
       { text: 'With the full flow validated, I moved to production with ' },
       { text: 'migration notes, system checks, backend contracts, and token-deviation reports', strong: true },
@@ -539,33 +671,53 @@ const designForgeSteps = [
   },
 ];
 
-const designForgePromptExcerpts = [
-  {
-    label: 'Map behavior',
-    copy: 'Review the requirement package and identify user journeys, component dependencies, missing decisions, and build priority before UI work begins.',
-  },
-  {
-    label: 'Forge interface',
-    copy: 'Create three distinct design options. Use the component purpose, user state, required data, states, constraints, and rough render as context.',
-  },
-];
-
 const designForgeOutcomes = [
   {
     title: 'Faster build',
     copy: 'Less rework because the product was not being rediscovered during execution.',
+    Icon: SpeedBuildIcon,
   },
   {
     title: 'Cleaner UX',
     copy: 'Building the rough experience first exposed UX problems before visual polish.',
+    Icon: UxClarityIcon,
   },
   {
     title: 'Better UI output',
     copy: 'Every component had a known role inside the student journey.',
+    Icon: UiOutputIcon,
   },
   {
     title: 'Safer production migration',
     copy: 'The final feature carried product logic and design intent into the real system.',
+    Icon: ProductionShieldIcon,
+  },
+];
+
+const whyThisWorkedItems = [
+  {
+    id: 'spec',
+    label: 'The spec',
+    rest: 'carried the logic.',
+    Icon: DocumentLogicIcon,
+  },
+  {
+    id: 'journey',
+    label: 'The journey',
+    rest: 'carried the flow.',
+    Icon: JourneyFlowIcon,
+  },
+  {
+    id: 'rough-build',
+    label: 'The rough build',
+    rest: 'exposed the UX.',
+    Icon: EyeRevealIcon,
+  },
+  {
+    id: 'interface',
+    label: 'The interface',
+    rest: 'sharpened the product.',
+    Icon: InterfaceFrameIcon,
   },
 ];
 
@@ -1085,9 +1237,6 @@ function DesignForgeProcessSection() {
               <p>
                 So I split the build into layers: <strong>experience first, interface next, production last.</strong>
               </p>
-              <p>
-                That separation gave DesignForge room to move fast without asking AI to guess.
-              </p>
             </div>
 
             <aside className={styles.processLayerPanel} aria-label="DesignForge separated layers">
@@ -1117,73 +1266,93 @@ function DesignForgeProcessSection() {
 
           <div className={styles.processTrail} aria-label="DesignForge process artifact trail">
             {designForgeSteps.map((step) => (
-              <article className={styles.processStep} key={step.id}>
-                <div className={styles.processStepCopy}>
-                  <p className={styles.processStepNumber}>{step.number}</p>
-                  <p className={styles.processArtifactLabel}>{step.artifact}</p>
-                  <h4>{step.title}</h4>
-                  <p><ProcessSentence segments={step.body} /></p>
-                  <p className={styles.processPrevented}>
-                    <strong>What this prevented:</strong> {step.prevented}
-                  </p>
-                </div>
-
-                <ArtifactPreview type={step.previewType} />
-              </article>
+              <ProcessStep key={step.id} step={step} />
             ))}
           </div>
 
-          <div className={styles.processPromptBlock}>
-            <div className={styles.processPromptIntro}>
-              <h3>Prompt discipline made the output usable</h3>
-              <p>
-                Each prompt carried <strong>context, state, data, constraints,</strong> and the artifact in progress.
-              </p>
-            </div>
-            <div className={styles.processPromptGrid}>
-              {designForgePromptExcerpts.map((prompt) => (
-                <article className={styles.processPromptCard} key={prompt.label}>
-                  <p>{prompt.label}</p>
-                  <blockquote>{prompt.copy}</blockquote>
-                </article>
-              ))}
-            </div>
-          </div>
-
           <div className={styles.processOutcomeBlock}>
-            <h3>What this changed</h3>
+            <h3>The result?</h3>
             <div className={styles.processOutcomeGrid}>
-              {designForgeOutcomes.map((outcome) => (
+              {designForgeOutcomes.map(({ Icon, ...outcome }) => (
                 <article className={styles.processOutcomeCard} key={outcome.title}>
+                  <span className={styles.processOutcomeIcon} aria-hidden="true">
+                    <Icon />
+                  </span>
                   <h4>{outcome.title}</h4>
                   <p>{outcome.copy}</p>
                 </article>
               ))}
             </div>
-            <p className={styles.processClosing}>
-              DesignForge worked because it separated the work that usually gets tangled together.
-              <span>Experience first.</span>
-              <span>Interface next.</span>
-              <strong>Production last.</strong>
-            </p>
-            <p className={styles.processFinalLine}>
-              That is how the SAT LMS moved fast without becoming shallow.
-            </p>
           </div>
+
+          <WhyThisWorkedSection />
         </Reveal>
       </div>
     </section>
   );
 }
 
+function WhyThisWorkedSection() {
+  return (
+    <section className={styles.whyWorkedBlock} aria-labelledby="why-worked-heading">
+      <div className={styles.whyWorkedLeft}>
+        <p className={styles.whyWorkedEyebrow}>
+          <span aria-hidden="true" />
+          WHY THIS WORKED
+        </p>
+        <h3 id="why-worked-heading">
+          This build moved fast because AI was never solving the whole product at once.
+        </h3>
+      </div>
+
+      <div className={styles.whyWorkedRight}>
+        <ul className={styles.whyWorkedList}>
+          {whyThisWorkedItems.map(({ Icon, ...item }) => (
+            <li key={item.id}>
+              <span className={styles.whyWorkedIconBadge} aria-hidden="true">
+                <Icon />
+              </span>
+              <p>
+                <strong>{item.label}</strong> {item.rest}
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.whyWorkedCloser}>
+          <span className={styles.whyWorkedArrowBadge} aria-hidden="true">
+            <ArrowForwardLineIcon />
+          </span>
+          <strong>Each step narrowed the next one.</strong>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProcessStep({ step }) {
+  const ref = useScrollReveal();
+
+  return (
+    <article ref={ref} className={`${styles.processStep} ${styles.processStepReveal}`}>
+      <div className={styles.processStepCopy}>
+        <p className={styles.processStepNumber}>{step.number}</p>
+        <p className={styles.processArtifactLabel}>{step.artifact}</p>
+        <h4>{step.title}</h4>
+        <p><ProcessSentence segments={step.body} /></p>
+        <p className={styles.processPrevented}>
+          <strong>What this prevented:</strong> {step.prevented}
+        </p>
+      </div>
+
+      <ArtifactPreview type={step.previewType} />
+    </article>
+  );
+}
+
 function ArtifactPreview({ type }) {
   if (type === 'inputTree') {
-    return (
-      <SourceArtifactPreview
-        title="Input specification | Remedials"
-        rows={designForgeInputFiles.map((file, index) => `${index === designForgeInputFiles.length - 1 ? '`--' : '|--'} ${file}`)}
-      />
-    );
+    return <InputSpecBusinessRulesStack />;
   }
 
   if (type === 'journeyMap') {
@@ -1191,31 +1360,392 @@ function ArtifactPreview({ type }) {
   }
 
   if (type === 'sandboxDoc') {
-    return (
-      <SourceArtifactPreview title="Sandbox requirement | Remedials" rows={designForgeSandboxRows} />
-    );
+    return <SandboxRequirementArtifact />;
   }
 
   if (type === 'roughBuildGaps') {
-    return (
-      <SourceArtifactPreview title="Gap analysis | Remedials" rows={designForgeGapRows} />
-    );
+    return <GapAnalysisArtifact />;
   }
 
   if (type === 'componentOptions') {
-    return (
-      <SourceArtifactPreview title="Design iteration | Remedials" rows={designForgeInterfaceRows} />
-    );
+    return <DesignIterationArtifact />;
   }
 
   if (type === 'integratedSandbox') {
-    return (
-      <SourceArtifactPreview title="Integration notes | Remedials" rows={designForgeIntegrationRows} />
-    );
+    return <SandboxIntegrationArtifact />;
   }
 
+  return <ProductionMigrationArtifact />;
+}
+
+function InputSpecBusinessRulesStack() {
   return (
-    <SourceArtifactPreview title="Production migration | Remedials" rows={designForgeMigrationRows} />
+    <div className={styles.processArtifactPreview}>
+      <div className={styles.inputSpecStackStage}>
+        <div className={`${styles.artifactWindow} ${styles.inputSpecBaseWindow}`} aria-hidden="true">
+          <ArtifactChrome title="Input specification | Remedials" />
+          <div className={`${styles.artifactBody} ${styles.inputSpecBaseBody}`}>
+            {designForgeInputFiles.map((row) => (
+              <span key={row}>{row}</span>
+            ))}
+          </div>
+          <span className={styles.inputSpecFocusVeil} aria-hidden="true" />
+        </div>
+
+        {inputSpecStackCards.map((card) => (
+          <div
+            key={card.title}
+            className={`${styles.artifactWindow} ${styles.inputSpecOverlayWindow} ${styles[card.className]}`}
+            aria-label={`${card.title} artifact`}
+          >
+            <ArtifactChrome
+              title={card.title}
+              titleClassName={styles.inputSpecOverlayTitle}
+            />
+            <div className={`${styles.artifactBody} ${styles.inputSpecOverlayBody}`}>
+              {card.variant === 'sql' ? (
+                <BackendSpecCodeExcerpt />
+              ) : (
+                <pre className={styles.inputSpecOverlayCode}>{card.excerpt}</pre>
+              )}
+            </div>
+            <span className={styles.inputSpecFocusVeil} aria-hidden="true" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BackendSpecCodeExcerpt() {
+  return (
+    <pre className={styles.inputSpecOverlayCode}>
+      <span>---</span>{'\n'}
+      <span>## 1. Data Models & Schema</span>{'\n\n'}
+      <span>### `remedials` Table</span>{'\n\n'}
+      <span className={styles.inputSpecCodeKeyword}>CREATE TABLE</span><span> remedials </span><span className={styles.inputSpecCodeMuted}>(</span>{'\n'}
+      <span>    id </span><span className={styles.inputSpecCodeType}>UUID</span><span> </span><span className={styles.inputSpecCodeKeyword}>PRIMARY KEY DEFAULT</span><span> gen_random_uuid</span><span className={styles.inputSpecCodeMuted}>(),</span>{'\n'}
+      <span>    student_id </span><span className={styles.inputSpecCodeType}>UUID</span><span> </span><span className={styles.inputSpecCodeKeyword}>NOT NULL REFERENCES</span><span> students</span><span className={styles.inputSpecCodeMuted}>(id),</span>{'\n'}
+      <span>    course_id </span><span className={styles.inputSpecCodeType}>UUID</span><span> </span><span className={styles.inputSpecCodeKeyword}>NOT NULL REFERENCES</span><span> courses</span><span className={styles.inputSpecCodeMuted}>(id),</span>{'\n'}
+      <span>    mother_activity_id </span><span className={styles.inputSpecCodeType}>UUID</span><span> </span><span className={styles.inputSpecCodeKeyword}>NOT NULL REFERENCES</span><span> activities</span><span className={styles.inputSpecCodeMuted}>(id),</span>{'\n\n'}
+      <span className={styles.inputSpecCodeComment}>    -- Remedial metadata</span>{'\n'}
+      <span>    question_count </span><span className={styles.inputSpecCodeType}>INTEGER</span><span> </span><span className={styles.inputSpecCodeKeyword}>NOT NULL</span><span className={styles.inputSpecCodeMuted}>,</span>{'\n'}
+      <span>    time_estimate_minutes </span><span className={styles.inputSpecCodeType}>INTEGER</span><span> </span><span className={styles.inputSpecCodeKeyword}>NOT NULL</span><span className={styles.inputSpecCodeMuted}>,</span>{'\n'}
+      <span>    reason </span><span className={styles.inputSpecCodeType}>TEXT</span><span> </span><span className={styles.inputSpecCodeKeyword}>NOT NULL</span><span className={styles.inputSpecCodeMuted}>, </span><span className={styles.inputSpecCodeComment}>-- </span><span className={styles.inputSpecCodeString}>"3 mistakes in Linear Equations Practice"</span>{'\n\n'}
+      <span className={styles.inputSpecCodeComment}>    -- Questions (references to parallel questions)</span>{'\n'}
+      <span>    question_ids </span><span className={styles.inputSpecCodeType}>UUID[]</span><span> </span><span className={styles.inputSpecCodeKeyword}>NOT NULL</span><span className={styles.inputSpecCodeMuted}>,</span>
+    </pre>
+  );
+}
+
+function SandboxRequirementArtifact() {
+  return (
+    <div className={styles.processArtifactPreview}>
+      <div className={styles.sandboxArtifactStage}>
+        <div className={`${styles.artifactWindow} ${styles.sandboxBaseWindow}`}>
+          <ArtifactChrome
+            title="02-sandbox-requirement-remedials.md"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.sandboxArtifactBody}`}>
+            <pre className={styles.sandboxTreeCode}>{sandboxFileStructureExcerpt}</pre>
+          </div>
+        </div>
+
+        <div className={styles.sandboxRoutingCard} aria-label="Routing setup artifact">
+          <SandboxRoutingCode />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SandboxRoutingCode() {
+  return (
+    <pre className={styles.sandboxRoutingCode}>
+      <span>## 9. Routing Setup</span>{'\n\n'}
+      <span>Add to `App.jsx`:</span>{'\n\n'}
+      <span>```</span>{'\n'}
+      <span className={styles.inputSpecCodeComment}>// Course home sandbox</span>{'\n'}
+      <span className={styles.inputSpecCodeMuted}>&lt;</span><span className={styles.inputSpecCodeKeyword}>Route</span><span> path=</span><span className={styles.inputSpecCodeString}>"/sandbox/remedials/:courseCode"</span><span> element=&#123;&#60;</span><span className={styles.inputSpecCodeType}>RemedialsSandboxHome</span>{'\n'}
+      <span>/&#62;&#125; /&#62;</span>{'\n\n'}
+      <span className={styles.inputSpecCodeComment}>// Activity page sandbox</span>{'\n'}
+      <span className={styles.inputSpecCodeMuted}>&lt;</span><span className={styles.inputSpecCodeKeyword}>Route</span><span> path=</span><span className={styles.inputSpecCodeString}>"/sandbox/remedials/:courseCode/activity/:activityId"</span><span> element=</span>{'\n'}
+      <span>&#123;&#60;</span><span className={styles.inputSpecCodeType}>RemedialsSandboxActivity</span><span> /&#62;&#125; /&#62;</span>
+    </pre>
+  );
+}
+
+function GapAnalysisArtifact() {
+  const optionRows = [
+    ['(A) ActivityPage wrapper', 'ActivityPage receives completion event, renders custom results wrapper with R6, then R1 modal'],
+    ['(B) Overlay approach', 'Let spark-maximus show default results, ActivityPage overlays R6/R1 on top'],
+    ['(C) Callback injection', 'Pass render callback to spark-maximus to inject R6 into its results'],
+  ];
+
+  const fieldRows = [
+    ['contentId', 'number', 'Yes', 'Unique ID of the remedial', 'Navigation'],
+    ['contentType', 'string', 'Yes', 'Must be "REMEDIAL"', 'Card styling (red/coral theme)'],
+    ['contentName', 'string', 'Yes', 'Display name (preferably "REM: [Activity Name]")', 'Card title'],
+    ['correlationId', 'string', 'Yes', 'UUID for Neuron iframe', 'Launching remedial'],
+    ['estimatedDurationMinutes', 'number', 'Yes', 'Expected completion time', 'Time badge on card'],
+    ['progressStatus', 'string', 'Yes', '"NOT_STARTED", "INPROGRESS", "COMPLETED"', 'Status badge'],
+    ['questionCount', 'number', 'Needs verification', 'Number of questions', 'Card info display'],
+    ['mistakeCount', 'number', 'Needs verification', 'Mistakes that triggered it', 'Description: "Fix X gaps..."'],
+    ['motherActivityName', 'string', 'Needs verification', 'Parent activity name', 'Description: "...based on [name] attempt"'],
+  ];
+
+  return (
+    <div className={styles.processArtifactPreview}>
+      <div className={styles.gapAnalysisStackStage}>
+        <div className={`${styles.artifactWindow} ${styles.gapAnalysisBaseWindow}`}>
+          <ArtifactChrome
+            title="gap-analysis-summary-remedials.md"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.gapAnalysisBody}`}>
+            <p className={styles.gapAnalysisHeading}>### Q4: How do R6 Notice and R1 Modal integrate with Activity Results?</p>
+            <p className={styles.gapAnalysisMeta}>
+              <strong>Affected Components:</strong> R6 (Notice), R1 (Modal), M1 (Results Screen)
+            </p>
+            <p className={styles.gapAnalysisSubheading}>The Issue:</p>
+            <ul className={styles.gapAnalysisList}>
+              <li>Spec shows R6 as a section within the results screen</li>
+              <li>R1 modal appears after clicking "Continue" on results</li>
+              <li>O0 decision says ActivityPage handles this via callback</li>
+            </ul>
+            <p className={styles.gapAnalysisSubheading}>Options:</p>
+            <table className={styles.gapAnalysisTable}>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {optionRows.map((row) => (
+                  <tr key={row[0]}>
+                    <td><strong>{row[0]}</strong></td>
+                    <td>{row[1]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <span className={styles.inputSpecFocusVeil} aria-hidden="true" />
+        </div>
+
+        <div className={`${styles.artifactWindow} ${styles.gapAnalysisDetailWindow}`}>
+          <ArtifactChrome
+            title="backend-gap-analysis-remedials.md"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.gapAnalysisBody}`}>
+            <p className={styles.gapAnalysisHeading}>### Fields Required in Remedial Children (for Next Up card display)</p>
+            <table className={`${styles.gapAnalysisTable} ${styles.gapAnalysisFieldTable}`}>
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Type</th>
+                  <th>Required</th>
+                  <th>Description</th>
+                  <th>Used For</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fieldRows.map((row) => (
+                  <tr key={row[0]}>
+                    <td><code>{row[0]}</code></td>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                    <td>{row[3]}</td>
+                    <td>{row[4]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className={styles.gapAnalysisSubheading}>How Frontend Uses This</p>
+            <ol className={styles.gapAnalysisList}>
+              <li>Extract remedials from `activity.children` in the Next Up block</li>
+              <li>Flatten them into the `contentItems` array</li>
+              <li>Render each remedial as a separate card immediately after its parent activity</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DesignIterationArtifact() {
+  return (
+    <div className={styles.processArtifactPreview}>
+      <div className={styles.designIterationStage}>
+        <div className={`${styles.designIterationCard} ${styles.designIterationBaseCard}`}>
+          <div className={`${styles.designIterationCanvas} ${styles.designIterationCanvasSidebar}`}>
+            <ActivitySidebarDemo />
+          </div>
+        </div>
+        <div className={`${styles.designIterationCard} ${styles.designIterationOverlayCard}`}>
+          <div className={`${styles.designIterationCanvas} ${styles.designIterationCanvasR2}`}>
+            <R2RemedialRowDesign />
+          </div>
+        </div>
+        <div className={`${styles.designIterationCard} ${styles.designIterationFinalCard}`}>
+          <div className={`${styles.designIterationCanvas} ${styles.designIterationCanvasR6}`}>
+            <R6DualPlacementDesign />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SandboxIntegrationArtifact() {
+  return (
+    <div className={styles.processArtifactPreview}>
+      <div className={styles.sandboxIntegrationStage}>
+        <div className={`${styles.artifactWindow} ${styles.sandboxIntegrationPromptWindow}`}>
+          <ArtifactChrome
+            title="PR4 - Sandbox Integration.md"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.sandboxIntegrationPromptBody}`}>
+            <p className={styles.gapAnalysisHeading}>Phase 4 - Sandbox Integration</p>
+            <p className={styles.gapAnalysisMeta}><strong>Goal:</strong> Implement finalized designs using established patterns and design tokens.</p>
+            <p className={styles.gapAnalysisSubheading}>By the end, the sandbox should have:</p>
+            <ol className={styles.gapAnalysisList}>
+              <li>All components built with proper design tokens and patterns</li>
+              <li>Full responsive implementation across mobile, tablet, and desktop</li>
+              <li>Components integrated and working together in the sandbox</li>
+              <li>A migration map documenting what needs to move to production</li>
+            </ol>
+            <p className={styles.gapAnalysisSubheading}>Integration rule:</p>
+            <p className={styles.gapAnalysisMeta}>Use production tokens, follow existing component patterns, document non-obvious behavior, and test components together, not in isolation.</p>
+          </div>
+        </div>
+
+        <div className={`${styles.artifactWindow} ${styles.sandboxIntegrationFolderWindow}`}>
+          <ArtifactChrome
+            title="Sandbox integration"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.inputSpecBaseBody}`}>
+            {sandboxIntegrationFiles.map((row) => (
+              <span key={row}>{row}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProductionMigrationArtifact() {
+  const migrationRows = [
+    ['R1', 'RemedialCreatedModal', 'sandbox/remedials/components/remedials/RemedialCreatedModal/', 'src/components/remedials/RemedialCreatedModal/'],
+    ['R3', 'RemedialCompletionFeedback', 'sandbox/remedials/components/remedials/RemedialCompletionFeedback/', 'src/components/remedials/RemedialCompletionFeedback/'],
+    ['R4', 'RemedialActivityHeader', 'sandbox/remedials/components/remedials/RemedialActivityHeader/', 'src/components/remedials/RemedialActivityHeader/'],
+    ['R5', 'RemedialReasonTooltip', 'sandbox/remedials/components/remedials/RemedialReasonTooltip/', 'src/components/remedials/RemedialReasonTooltip/'],
+    ['R6', 'RemedialResultsNotice', 'sandbox/remedials/components/remedials/RemedialResultsNotice/', 'src/components/remedials/RemedialResultsNotice/'],
+  ];
+
+  const auditRows = [
+    ['Typography', '☐ Pass / ☐ Fail', ''],
+    ['Colors', '☐ Pass / ☐ Fail', ''],
+    ['Spacing', '☐ Pass / ☐ Fail', ''],
+    ['Border Radius', '☐ Pass / ☐ Fail', ''],
+    ['Shadows', '☐ Pass / ☐ Fail', ''],
+    ['Responsive', '☐ Pass / ☐ Fail', ''],
+    ['Accessibility', '☐ Pass / ☐ Fail', ''],
+    ['Animations', '☐ Pass / ☐ Fail', ''],
+    ['Component Structure', '☐ Pass / ☐ Fail', ''],
+    ['Code Quality', '☐ Pass / ☐ Fail', ''],
+    ['Icons Usage', '☐ Pass / ☐ Fail', 'Inline SVG arrow needs fix'],
+    ['Classname Semantics', '☐ Pass / ☐ Fail', 'r1- → remedial-created-modal-'],
+  ];
+
+  return (
+    <div className={styles.processArtifactPreview}>
+      <div className={styles.productionMigrationStage}>
+        <div className={`${styles.artifactWindow} ${styles.productionBaseWindow}`}>
+          <ArtifactChrome
+            title="prod-migration-map.md"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.gapAnalysisBody}`}>
+            <p className={styles.gapAnalysisHeading}>## 3. New Components to Migrate</p>
+            <p className={styles.gapAnalysisSubheading}>From Sandbox to Production</p>
+            <table className={`${styles.gapAnalysisTable} ${styles.productionMigrationTable}`}>
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Component</th>
+                  <th>Sandbox Location</th>
+                  <th>Production Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                {migrationRows.map((row) => (
+                  <tr key={row[0]}>
+                    <td><code>{row[0]}</code></td>
+                    <td>{row[1]}</td>
+                    <td><code>{row[2]}</code></td>
+                    <td><code>{row[3]}</code></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className={styles.gapAnalysisSubheading}>Create New Folder Structure</p>
+            <pre className={styles.productionTreeCode}>{migrationFolderTree}</pre>
+          </div>
+          <span className={styles.inputSpecFocusVeil} aria-hidden="true" />
+        </div>
+
+        <div className={`${styles.artifactWindow} ${styles.productionFlowWindow}`}>
+          <ArtifactChrome
+            title="migration-process-flowchart"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.inputSpecOverlayBody}`}>
+            <p className={styles.gapAnalysisHeading}>## Overall Migration Order</p>
+            <p className={styles.gapAnalysisMeta}>Execute migrations in this sequence to avoid broken dependencies:</p>
+            <pre className={styles.inputSpecOverlayCode}>{migrationFlowchart}</pre>
+          </div>
+          <span className={styles.inputSpecFocusVeil} aria-hidden="true" />
+        </div>
+
+        <div className={`${styles.artifactWindow} ${styles.productionAuditWindow}`}>
+          <ArtifactChrome
+            title="Front-End Audit"
+            titleClassName={styles.inputSpecOverlayTitle}
+          />
+          <div className={`${styles.artifactBody} ${styles.gapAnalysisBody}`}>
+            <p className={styles.gapAnalysisHeading}>## Component Audit Reports</p>
+            <p className={styles.gapAnalysisSubheading}>R1: RemedialCreatedModal</p>
+            <p className={styles.gapAnalysisMeta}><strong>Files:</strong> JSX and CSS implementation for RemedialCreatedModal</p>
+            <table className={styles.gapAnalysisTable}>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Status</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {auditRows.map((row) => (
+                  <tr key={row[0]}>
+                    <td>{row[0]}</td>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1260,6 +1790,7 @@ function JourneyComponentChip({ id, state }) {
 function JourneyComponentMapArtifact() {
   return (
     <ArtifactWindow title="Journey component mapping | Remedials" bodyClassName={`${styles.artifactBodyJourney} ${styles.artifactBodyClipRight}`}>
+      <p className={styles.journeyMapHint}>Hover/Click on the component badges to understand what they are</p>
       <table className={styles.journeyMapTable}>
         <thead>
           <tr>
@@ -1273,9 +1804,6 @@ function JourneyComponentMapArtifact() {
               <td>
                 <span className={styles.journeyMapNameRow}>
                   <span className={styles.journeyMapName}>{row.name}</span>
-                  <span className={`${styles.journeyMapFrequency} ${styles[`journeyMapFrequency_${row.frequency}`]}`}>
-                    {row.frequency.charAt(0).toUpperCase() + row.frequency.slice(1)}
-                  </span>
                 </span>
                 <span className={styles.journeyMapTrigger}>
                   <span className={styles.journeyMapTriggerLabel}>Trigger:</span> {row.trigger}
@@ -1311,17 +1839,25 @@ function ArtifactWindow({ title, bodyClassName, children }) {
   return (
     <div className={styles.processArtifactPreview}>
       <div className={styles.artifactWindow}>
-        <div className={styles.artifactChrome}>
-          <span className={styles.artifactChromeDots}>
-            <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotRed}`} />
-            <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotYellow}`} />
-            <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotGreen}`} />
-          </span>
-          <span className={styles.artifactChromeTitle}>{title}</span>
-          <span className={styles.artifactChromeSpacer} />
-        </div>
+        <ArtifactChrome title={title} />
         <div className={bodyClasses}>{children}</div>
       </div>
+    </div>
+  );
+}
+
+function ArtifactChrome({ title, titleClassName }) {
+  const titleClasses = titleClassName ? `${styles.artifactChromeTitle} ${titleClassName}` : styles.artifactChromeTitle;
+
+  return (
+    <div className={styles.artifactChrome}>
+      <span className={styles.artifactChromeDots} aria-hidden="true">
+        <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotRed}`} />
+        <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotYellow}`} />
+        <span className={`${styles.artifactChromeDot} ${styles.artifactChromeDotGreen}`} />
+      </span>
+      <span className={titleClasses}>{title}</span>
+      <span className={styles.artifactChromeSpacer} aria-hidden="true" />
     </div>
   );
 }
@@ -1333,6 +1869,119 @@ function SourceArtifactPreview({ title, rows }) {
         <span key={row}>{row}</span>
       ))}
     </ArtifactWindow>
+  );
+}
+
+function OutcomePoll() {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const totalVotes = selectedOption ? 1 : 0;
+
+  return (
+    <aside className={styles.outcomePoll} aria-labelledby="outcome-poll-title">
+      <div className={styles.outcomePollHeader}>
+        <span className={styles.outcomePollIcon} aria-hidden="true">
+          <UxClarityIcon className={styles.outcomePollIconSvg} />
+        </span>
+        <div>
+          <h3 id="outcome-poll-title">What do you think?</h3>
+          <p>Should students be given a prescribed path instead of being left to figure out what to do next on their own?</p>
+        </div>
+      </div>
+
+      <div className={styles.outcomePollOptions}>
+        {outcomePollOptions.map((option) => {
+          const isSelected = selectedOption === option.id;
+          const percentage = totalVotes && isSelected ? 100 : 0;
+
+          return (
+            <button
+              key={option.id}
+              className={`${styles.outcomePollOption} ${isSelected ? styles.outcomePollOptionSelected : ''}`}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => setSelectedOption(option.id)}
+            >
+              <span className={styles.outcomePollRadio} aria-hidden="true" />
+              <span className={styles.outcomePollOptionText}>{option.label}</span>
+              {totalVotes ? <span className={styles.outcomePollPercent}>{percentage}%</span> : null}
+            </button>
+          );
+        })}
+      </div>
+
+      <p className={styles.outcomePollMeta}>
+        {totalVotes ? `${totalVotes} vote` : '0 votes'}
+        <span aria-hidden="true">/</span>
+        {totalVotes ? 'Thanks for weighing in' : 'Be the first to vote'}
+      </p>
+    </aside>
+  );
+}
+
+function OutcomeMetric({ metric }) {
+  return (
+    <article className={styles.outcomeMetric}>
+      <p className={styles.outcomeMetricValue}>{metric.value}</p>
+      <p className={styles.outcomeMetricLabel}>
+        <span>{metric.label}</span>
+        <Tooltip
+          content={(
+            <span className="block space-y-3">
+              {metric.tooltip.map((item) => (
+                <span key={item} className="block">{item}</span>
+              ))}
+            </span>
+          )}
+          panelClassName={styles.metricTooltipPanel}
+        >
+          <span className={styles.outcomeMetricTip}>?</span>
+        </Tooltip>
+      </p>
+      <p className={styles.outcomeMetricDelta}>{metric.detail}</p>
+    </article>
+  );
+}
+
+function StakeholderQuoteCard({ quote }) {
+  return (
+    <article className={styles.stakeholderQuoteCard}>
+      <div className={styles.stakeholderQuoteBody}>
+        <span className={styles.stakeholderQuoteMark} aria-hidden="true">"</span>
+        <p className={styles.stakeholderQuoteText}>"{quote.quote}"</p>
+      </div>
+      <footer className={styles.stakeholderQuoteFooter}>
+        <Image
+          src={quote.image}
+          alt={`${quote.name} portrait`}
+          width={320}
+          height={320}
+          sizes="(min-width: 768px) 96px, 72px"
+          className={styles.stakeholderAvatar}
+        />
+        <span>
+          <a href={quote.linkedin} target="_blank" rel="noreferrer">{quote.name}</a>
+          <small>{quote.role}</small>
+        </span>
+      </footer>
+    </article>
+  );
+}
+
+function NextCaseStudyPreview() {
+  return (
+    <a className={styles.nextCasePreview} href="/case-studies/designforge">
+      <span className={styles.nextCaseCopy}>
+        <span className={styles.nextCaseKicker}>Next case study</span>
+        <span className={styles.nextCaseTitle}>Building clarity in a complex enterprise workflow</span>
+        <span className={styles.nextCaseCta}>
+          View next case study
+          <ArrowForwardLineIcon className={styles.nextCaseArrow} />
+        </span>
+      </span>
+      <span className={styles.nextCaseThumb} aria-hidden="true">
+        <UiOutputIcon className={styles.nextCaseIcon} />
+      </span>
+    </a>
   );
 }
 
@@ -1617,51 +2266,42 @@ export default function SatLmsCaseStudy() {
 
         <DesignForgeProcessSection />
 
-        <section id="outcome" className="px-6 py-20 md:py-28">
+        <section id="outcome" className={styles.finalOutcomeSection}>
           <div className="mx-auto max-w-5xl">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <p className="mb-4 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Outcome</p>
-                <h2 className="font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
-                  The prescribed path changed student movement.
-                </h2>
-                <p className="mt-8 font-dm text-xl leading-relaxed text-ink-700">
-                  Students started faster, continued more often, and completed more of what the system recommended.
-                </p>
-              </div>
-              <div className="lg:col-span-7">
-                <div className="grid gap-5 md:grid-cols-2">
-                  <div className="bg-surface-mint p-8 md:col-span-2">
-                    <p className="font-cabinet text-3xl font-extrabold leading-tight text-ink-950">
-                      "It is the first product I have seen that decides for the student instead of asking them to decide. The diagnostic alone justifies the build."
-                    </p>
-                    <p className="mt-5 font-dm text-sm font-extrabold uppercase tracking-widest text-ink-700">Internal stakeholder, e-GMAT</p>
+            <Reveal>
+              <div className={styles.finalOutcomeStack}>
+                <div className={styles.outcomeEditorial}>
+                  <div className={styles.outcomePanelCopy}>
+                    <p className={styles.outcomeEyebrow}>Outcome</p>
+                    <h2>The prescribed path changed student movement.</h2>
+                    <p>Students started faster, continued more often, and completed more of what the system recommended.</p>
                   </div>
-                  <div className="border border-ink-100 bg-surface-light p-6">
-                    <h3 className="font-cabinet text-3xl font-extrabold text-ink-950">What I would improve</h3>
-                    <p className="mt-4 font-dm text-lg leading-relaxed text-ink-700">
-                      I would extract shared UI patterns earlier. By the time PACE and Remedials were moving, the repeatable atoms were obvious.
-                    </p>
+
+                  <div className={styles.outcomeMetricsGrid}>
+                    {metrics.map((metric) => (
+                      <OutcomeMetric key={metric.label} metric={metric} />
+                    ))}
                   </div>
-                  <div className="border border-ink-100 bg-surface-light p-6">
-                    <h3 className="font-cabinet text-3xl font-extrabold text-ink-950">What v2 should push</h3>
-                    <p className="mt-4 font-dm text-lg leading-relaxed text-ink-700">
-                      The system surfaces the next action, but the student still has to click. The next version should make that continuation even more inevitable.
-                    </p>
+
+                  <OutcomePoll />
+                </div>
+
+                <div className={styles.stakeholderSection}>
+                  <div className={styles.stakeholderQuoteGrid} aria-label="Stakeholder validation">
+                    {stakeholderQuotes.map((quote) => (
+                      <StakeholderQuoteCard key={quote.name} quote={quote} />
+                    ))}
                   </div>
                 </div>
-                <figure className="mt-6 overflow-hidden rounded-lg border border-ink-100 bg-surface-white shadow-lg">
-                  <Image
-                    src="/images/case-studies/sat-lms/pace-course-stats.webp"
-                    alt="PACE course stats showing time saved and skipped work"
-                    width={1600}
-                    height={813}
-                    sizes="(min-width: 1024px) 58vw, 100vw"
-                    className="h-auto w-full"
-                  />
-                </figure>
+
+                <div className={styles.nextCaseBridge}>
+                  <div className={styles.nextCaseStatement}>
+                    <p>One project was about guiding students through complexity. The next was about building clarity in a very different system.</p>
+                  </div>
+                  <NextCaseStudyPreview />
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>

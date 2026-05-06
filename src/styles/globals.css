@@ -144,6 +144,31 @@
   --shadow-decision-slab: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 12%, transparent);
   --shadow-decision-inset: 0 1.25rem 3rem color-mix(in srgb, var(--color-ink-950) 16%, transparent);
 
+  /* Case study final outcome section */
+  --text-outcome-heading: clamp(3rem, 5vw, 5rem);
+  --text-outcome-metric: clamp(2.75rem, 5vw, 4rem);
+  --text-outcome-card-heading: clamp(1.5rem, 2vw, 1.875rem);
+  --spacing-outcome-section-padding-block: clamp(5rem, 9vw, 7rem);
+  --spacing-outcome-section-padding-inline: clamp(1.5rem, 4vw, 3rem);
+  --spacing-outcome-stack-gap: clamp(1.5rem, 3vw, 2rem);
+  --spacing-outcome-panel-padding: clamp(1.75rem, 4vw, 3.5rem);
+  --spacing-outcome-panel-gap: clamp(2rem, 4vw, 3.5rem);
+  --spacing-outcome-copy-gap: clamp(1.25rem, 3vw, 2rem);
+  --spacing-outcome-poll-min-width: clamp(17rem, 28vw, 24rem);
+  --spacing-outcome-poll-padding: clamp(1rem, 2vw, 1.5rem);
+  --spacing-outcome-card-padding: clamp(1.5rem, 3vw, 2rem);
+  --spacing-outcome-bridge-padding: clamp(1.25rem, 3vw, 2rem);
+  --spacing-outcome-bridge-media-width: clamp(12rem, 24vw, 18rem);
+  --spacing-outcome-avatar-size: clamp(4.5rem, 8vw, 6rem);
+  --spacing-outcome-icon-size: 2.75rem;
+  --radius-outcome-panel: 1.25rem;
+  --radius-outcome-card: 1rem;
+  --radius-outcome-inner: 0.75rem;
+  --shadow-outcome-panel: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 7%, transparent);
+  --shadow-outcome-card: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 8%, transparent);
+  --leading-outcome-heading: 0.95;
+  --tracking-outcome-kicker: 0.16em;
+
   /* ── Hero typography (responsive clamps + one-off settings) ─────── */
   --text-hero-display: clamp(2.75rem, 14.125vw, 11.3rem);
   /* Hero H1 normal — reaches 11.3rem at 1280px+, scales down with viewport */
