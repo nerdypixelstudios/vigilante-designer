@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useTheme } from '../../shared/ThemeContext';
-import { LightningIcon, BulbIcon } from '../../icons/icons';
 import arcData from '../../../content/skills-arcs.json';
 import styles from './Skills.module.css';
 
@@ -10,18 +9,28 @@ const clusters = [
   {
     id: 'product-ux',
     label: 'Product &\nUX/UI Design',
-    color: 'bg-accent-lavender',
-    textColor: 'text-ink-950',
+    tone: 'productUx',
+    size: 'hero',
+    x: '29%',
+    y: '38%',
     tools: [
       { name: 'Figma', level: 'expert' },
       { name: 'Adobe XD', level: 'expert' },
+      { name: 'Front-end engineering', level: 'expert' },
+      { name: 'Python', level: 'expert' },
+      { name: 'Selenium', level: 'expert' },
+      { name: 'Product development', level: 'expert' },
+      { name: 'SQL', level: 'learning' },
+      { name: 'API Integration', level: 'learning' },
     ],
   },
   {
     id: 'web-dev',
     label: 'Web Design &\nDevelopment',
-    color: 'bg-accent-orange',
-    textColor: 'text-fun-ink-50',
+    tone: 'webDev',
+    size: 'medium',
+    x: '68%',
+    y: '33%',
     tools: [
       { name: 'Webflow', level: 'expert' },
       { name: 'Framer', level: 'expert' },
@@ -32,8 +41,10 @@ const clusters = [
   {
     id: 'ai-stack',
     label: 'AI Stack',
-    color: 'bg-fun-accent-red',
-    textColor: 'text-fun-ink-50',
+    tone: 'aiStack',
+    size: 'large',
+    x: '56%',
+    y: '72%',
     tools: [
       { name: 'Claude Code', level: 'expert' },
       { name: 'Claude.ai', level: 'expert' },
@@ -45,8 +56,10 @@ const clusters = [
   {
     id: 'marketing',
     label: 'Marketing &\nBranding',
-    color: 'bg-accent-green',
-    textColor: 'text-ink-950',
+    tone: 'marketing',
+    size: 'small',
+    x: '24%',
+    y: '76%',
     tools: [
       { name: 'Photoshop', level: 'expert' },
       { name: 'Illustrator', level: 'expert' },
@@ -58,26 +71,92 @@ const clusters = [
   {
     id: 'instructional',
     label: 'Instructional\nDesign',
-    color: 'bg-accent-sky',
-    textColor: 'text-ink-950',
+    tone: 'instructional',
+    size: 'tiny',
+    x: '82%',
+    y: '73%',
     tools: [
       { name: 'Storyline 360', level: 'expert' },
       { name: 'Rise 360', level: 'expert' },
     ],
   },
-  {
-    id: 'technical',
-    label: 'Technical',
-    color: 'bg-ink-300',
-    textColor: 'text-ink-950',
-    tools: [
-      { name: 'Python + Selenium', level: 'expert' },
-      { name: 'Prompt Engineering', level: 'expert' },
-      { name: 'SQL', level: 'learning' },
-      { name: 'API Integration', level: 'learning' },
-    ],
-  },
 ];
+
+const toolPositions = {
+  Figma: { x: '15%', y: '28%' },
+  'Adobe XD': { x: '15%', y: '43%', label: 'XD' },
+  'Front-end engineering': { x: '11%', y: '57%' },
+  Python: { x: '24%', y: '63%' },
+  Selenium: { x: '34%', y: '15%' },
+  'Product development': { x: '51%', y: '26%' },
+  SQL: { x: '43%', y: '38%' },
+  'API Integration': { x: '51%', y: '49%' },
+  Photoshop: { x: '38%', y: '61%' },
+  'Figma AI': { x: '44%', y: '72%' },
+  Replit: { x: '44%', y: '84%' },
+  Lovable: { x: '49%', y: '94%' },
+  'Claude Code': { x: '70%', y: '88%' },
+  'Claude.ai': { x: '72%', y: '73%' },
+  'HTML/CSS': { x: '60%', y: '17%' },
+  Webflow: { x: '79%', y: '20%' },
+  Framer: { x: '80%', y: '35%' },
+  React: { x: '76%', y: '49%' },
+  Illustrator: { x: '16%', y: '75%' },
+  'Premiere Pro': { x: '34%', y: '75%' },
+  Canva: { x: '18%', y: '86%' },
+  Camtasia: { x: '29%', y: '86%' },
+  'Storyline 360': { x: '88%', y: '62%' },
+  'Rise 360': { x: '88%', y: '85%' },
+};
+
+const extraToolRelationships = {
+  Photoshop: ['product-ux', 'marketing', 'web-dev'],
+  'Figma AI': ['product-ux', 'ai-stack'],
+  Lovable: ['product-ux', 'ai-stack'],
+  Replit: ['product-ux', 'ai-stack'],
+};
+
+const toolToneClasses = {
+  'product-ux': styles.toolActiveProductUx,
+  'web-dev': styles.toolActiveWebDev,
+  'ai-stack': styles.toolActiveAiStack,
+  marketing: styles.toolActiveMarketing,
+  instructional: styles.toolActiveInstructional,
+};
+
+const uniqueTools = clusters.reduce((tools, cluster) => {
+  cluster.tools.forEach(tool => {
+    if (!tools[tool.name]) {
+      tools[tool.name] = {
+        ...tool,
+        clusters: [],
+      };
+    }
+
+    tools[tool.name].clusters.push(cluster.id);
+
+    if (tool.level === 'expert') {
+      tools[tool.name].level = 'expert';
+    }
+  });
+
+  return tools;
+}, {});
+
+Object.entries(extraToolRelationships).forEach(([toolName, clusterIds]) => {
+  if (!uniqueTools[toolName]) return;
+
+  uniqueTools[toolName].clusters = [
+    ...clusterIds,
+    ...uniqueTools[toolName].clusters.filter(clusterId => !clusterIds.includes(clusterId)),
+  ];
+});
+
+const tools = Object.entries(uniqueTools).map(([name, tool]) => ({
+  name,
+  ...tool,
+  ...(toolPositions[name] || {}),
+}));
 
 // ── Fun mode hats ─────────────────────────────────────────────────────────────
 
@@ -201,34 +280,85 @@ function ArcExpansion({ hatId, isFunMode, onClose }) {
 
 // ── MindMap (normal mode) ─────────────────────────────────────────────────────
 
-function ToolPill({ name, level }) {
+function ToolPill({ tool, activeSkill }) {
+  const isActive = Boolean(activeSkill && tool.clusters.includes(activeSkill));
+  const isDimmed = Boolean(activeSkill && !isActive);
+  const activeClass = isActive ? toolToneClasses[activeSkill] : '';
+  const label = tool.label || tool.name;
+  const displayName = `${label}${tool.level === 'learning' ? '*' : ''}`;
+
   return (
-    <div className={styles.toolPill}>
-      <div className={`${styles.toolDot} ${level === 'expert' ? 'bg-accent-orange' : 'bg-accent-sky'}`} />
-      <span className="font-dm text-sm text-ink-800 font-normal">{name}</span>
-      {level === 'expert' ? <LightningIcon /> : <BulbIcon />}
-    </div>
+    <button
+      type="button"
+      className={`${styles.toolPill} ${activeClass} ${isActive ? styles.toolPillActive : ''} ${isDimmed ? styles.toolPillDimmed : ''}`}
+      style={{ '--tool-x': tool.x, '--tool-y': tool.y }}
+      aria-label={`${label}, ${tool.level === 'expert' ? 'expert' : 'learning'}`}
+    >
+      <span className={styles.toolName}>{displayName}</span>
+    </button>
   );
 }
 
 function MindMap() {
+  const [activeSkill, setActiveSkill] = useState(null);
+
   return (
-    <div className={styles.mindMap}>
+    <div
+      className={`${styles.mindMap} ${activeSkill ? styles.mindMapActive : ''}`}
+      onMouseLeave={() => setActiveSkill(null)}
+    >
+      <div className={styles.skillLayer} aria-label="Skill categories">
+        {clusters.map(cluster => {
+          const isActive = activeSkill === cluster.id;
+          const isDimmed = Boolean(activeSkill && !isActive);
+
+          return (
+            <button
+              key={cluster.id}
+              type="button"
+              className={`${styles.clusterBubble} ${styles[cluster.tone]} ${styles[cluster.size]} ${isActive ? styles.clusterBubbleActive : ''} ${isDimmed ? styles.clusterBubbleDimmed : ''}`}
+              style={{ '--skill-x': cluster.x, '--skill-y': cluster.y }}
+              onMouseEnter={() => setActiveSkill(cluster.id)}
+              onFocus={() => setActiveSkill(cluster.id)}
+              onClick={() => setActiveSkill(cluster.id)}
+              aria-pressed={isActive}
+            >
+              <span className={styles.clusterLabel}>
+                {cluster.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className={styles.toolLayer} aria-label="Tools">
+        {tools.map(tool => (
+          <ToolPill
+            key={tool.name}
+            tool={tool}
+            activeSkill={activeSkill}
+          />
+        ))}
+      </div>
+
+      <div className={styles.mobileClusterStack}>
       {clusters.map(cluster => (
-        <div key={cluster.id} className={styles.clusterGroup}>
-          <div className={`${styles.clusterBubble} ${cluster.color}`}>
-            <span className={`font-dm font-extrabold text-xs ${cluster.textColor} text-center`}
-              style={{ whiteSpace: 'pre-line' }}>
+        <article key={cluster.id} className={styles.mobileClusterCard}>
+          <div className={`${styles.mobileClusterBubble} ${styles[cluster.tone]}`}>
+            <span className={styles.mobileClusterLabel}>
               {cluster.label}
             </span>
           </div>
-          <div className={styles.toolPills}>
+          <div className={styles.mobileToolList}>
             {cluster.tools.map(tool => (
-              <ToolPill key={tool.name} name={tool.name} level={tool.level} />
+              <span key={tool.name} className={styles.mobileToolPill}>
+                <span>{toolPositions[tool.name]?.label || tool.name}{tool.level === 'learning' ? '*' : ''}</span>
+              </span>
             ))}
           </div>
-        </div>
+        </article>
       ))}
+      </div>
     </div>
   );
 }
@@ -315,7 +445,7 @@ export default function Skills() {
   const headlineColor = isFunMode ? 'text-fun-ink-50' : 'text-ink-950';
 
   return (
-    <section id="skills" className={`${sectionBg} ${styles.section}`}>
+    <section id="skills" className={`${sectionBg} ${styles.section} ${!isFunMode ? styles.normalSection : ''}`}>
       <div className={styles.inner}>
 
         {/* ── Section headline ── */}
@@ -347,10 +477,7 @@ export default function Skills() {
             <span className="font-dm text-xs text-ink-500">*Logos are properties of respective companies</span>
             <div className={styles.legendKeys}>
               <span className="font-dm text-xs text-ink-500 flex items-center gap-1">
-                <LightningIcon /> Expert
-              </span>
-              <span className="font-dm text-xs text-ink-500 flex items-center gap-1">
-                <BulbIcon /> Learning
+                * Learning
               </span>
             </div>
           </div>
