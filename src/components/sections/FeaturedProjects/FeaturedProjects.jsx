@@ -22,8 +22,9 @@ const projects = [
     funSticker: 'The path finds the student.',
     previewClass: 'previewSat',
     media: {
-      poster: '/images/work/work-sat-lms-preview-test-2.png',
+      poster: '/images/work/work-sat-lms-preview-thumbnail.png',
       mp4: '/videos/work/work-sat-lms-preview.mp4',
+      overlay: '/images/work/work-cover-overlay.png',
     },
   },
   {
@@ -143,6 +144,7 @@ function ProjectCard({ project, isFunMode }) {
               src={project.media.poster}
               alt=""
               fill
+              unoptimized
               sizes="(max-width: 767px) calc(100vw - 3rem), min(100vw - 6rem, 1200px)"
               className={styles.posterImage}
             />
@@ -154,6 +156,15 @@ function ProjectCard({ project, isFunMode }) {
               <span className={styles.previewLineLong} />
               <span className={styles.previewLineShort} />
             </div>
+          )}
+          {project.media?.overlay && (
+            <Image
+              src={project.media.overlay}
+              alt=""
+              fill
+              sizes="(max-width: 767px) calc(100vw - 3rem), min(100vw - 6rem, 1200px)"
+              className={styles.coverOverlay}
+            />
           )}
         </div>
 
@@ -192,36 +203,6 @@ function ProjectCard({ project, isFunMode }) {
 
 export default function FeaturedProjects() {
   const { isFunMode } = useTheme();
-  const itemRefs = useRef([]);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const updateActiveCard = () => {
-      let nextActiveIndex = 0;
-
-      itemRefs.current.forEach((item, index) => {
-        if (!item) return;
-
-        const itemTop = item.getBoundingClientRect().top;
-        const stickyTop = Number.parseFloat(window.getComputedStyle(item).top);
-
-        if (itemTop <= stickyTop + 2) {
-          nextActiveIndex = index;
-        }
-      });
-
-      setActiveIndex(nextActiveIndex);
-    };
-
-    updateActiveCard();
-    window.addEventListener('scroll', updateActiveCard, { passive: true });
-    window.addEventListener('resize', updateActiveCard);
-
-    return () => {
-      window.removeEventListener('scroll', updateActiveCard);
-      window.removeEventListener('resize', updateActiveCard);
-    };
-  }, []);
 
   return (
     <section id="featured-projects" className={`${isFunMode ? 'bg-fun-surface-dark' : 'bg-surface-white'} ${styles.section}`}>
@@ -245,10 +226,7 @@ export default function FeaturedProjects() {
           {projects.map((project, index) => (
             <div
               key={project.id}
-              ref={element => {
-                itemRefs.current[index] = element;
-              }}
-              className={`${styles.stackItem} ${styles[`stackDepth${index}`]} ${index < activeIndex ? styles.isSecondary : ''}`}
+              className={styles.stackItem}
               style={{ '--stack-index': index, zIndex: index + 1 }}
             >
               <ProjectCard project={project} isFunMode={isFunMode} />

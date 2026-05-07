@@ -5,11 +5,10 @@
   --work-section-gap: clamp(2rem, 5vw, 4rem);
   --work-heading-gap: 0.375rem;
   --work-heading-line-gap: 1rem;
-  --work-stack-gap: clamp(1.8rem, 5vw, 3.5rem);
-  --work-stack-gap-mobile: clamp(1.25rem, 4vw, 2rem);
+  --work-stack-gap: clamp(6rem, 12vw, 10rem);
+  --work-stack-gap-mobile: clamp(3rem, 8vw, 4.5rem);
   --work-stack-exit-space: clamp(0.75rem, 2vw, 1.5rem);
   --work-sticky-top: clamp(5rem, 8vw, 7rem);
-  --work-stack-peek: clamp(1.25rem, 2.4vw, 2rem);
   --work-card-padding: clamp(0.875rem, 2vw, 1.25rem);
   --work-card-copy-padding: clamp(1.25rem, 3vw, 2rem);
   --work-card-border: 0.0625rem;
@@ -98,47 +97,7 @@
 
 .stackItem {
   position: sticky;
-  top: calc(var(--work-sticky-top) + var(--stack-offset));
-  --card-scale: 1;
-  --card-tilt-x: 0deg;
-  --card-overlay-opacity: 0;
-  --stack-offset: 0rem;
-  perspective: 80rem;
-}
-
-.stackDepth0 {
-  --stack-offset: 0rem;
-}
-
-.stackDepth1 {
-  --stack-offset: var(--work-stack-peek);
-}
-
-.stackDepth2 {
-  --stack-offset: calc(var(--work-stack-peek) * 2);
-}
-
-.stackDepth3 {
-  --card-scale: 1;
-  --stack-offset: calc(var(--work-stack-peek) * 3);
-}
-
-.isSecondary.stackDepth0 {
-  --card-scale: 0.94;
-  --card-tilt-x: 5deg;
-  --card-overlay-opacity: 0.34;
-}
-
-.isSecondary.stackDepth1 {
-  --card-scale: 0.96;
-  --card-tilt-x: 3.25deg;
-  --card-overlay-opacity: 0.22;
-}
-
-.isSecondary.stackDepth2 {
-  --card-scale: 0.98;
-  --card-tilt-x: 1.5deg;
-  --card-overlay-opacity: 0.12;
+  top: var(--work-sticky-top);
 }
 
 .card {
@@ -151,24 +110,9 @@
   text-decoration: none;
   cursor: pointer;
   border-radius: var(--work-card-radius);
-  transform: rotateX(var(--card-tilt-x)) scale(var(--card-scale));
-  transform-origin: top center;
-  transform-style: preserve-3d;
   transition:
     transform var(--work-card-hover-duration) var(--work-card-hover-ease),
     box-shadow var(--work-card-hover-duration) var(--work-card-hover-ease);
-}
-
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: inherit;
-  background: var(--color-surface-white);
-  opacity: var(--card-overlay-opacity);
-  pointer-events: none;
-  transition: opacity var(--work-card-hover-duration) var(--work-card-hover-ease);
 }
 
 .cardNormal {
@@ -185,12 +129,7 @@
 
 .card:hover,
 .card:focus-visible {
-  transform: translateY(var(--work-card-lift)) rotateX(var(--card-tilt-x)) scale(var(--card-scale));
-}
-
-.card:hover::after,
-.card:focus-visible::after {
-  opacity: 0;
+  transform: translateY(var(--work-card-lift));
 }
 
 .card:focus-visible {
@@ -205,7 +144,7 @@
 }
 
 .mediaSurface {
-  aspect-ratio: 1200 / 440;
+  aspect-ratio: 1200 / 340;
   overflow: hidden;
   border-radius: var(--work-media-radius);
   background: var(--color-surface-white);
@@ -224,7 +163,16 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: center center;
+  object-position: center 25%;
+}
+
+.coverOverlay {
+  z-index: 2;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  object-fit: cover;
+  object-position: center 25%;
+  pointer-events: none;
 }
 
 .placeholderPreview {
@@ -318,14 +266,14 @@
 
 .ribbon {
   position: absolute;
-  right: calc(var(--work-card-padding) * 0.25);
-  bottom: calc(var(--work-card-padding) * 0.25);
+  top: calc(var(--work-card-padding) * -0.35);
+  left: calc(var(--work-card-padding) * -0.75);
   z-index: 3;
   display: inline-flex;
   align-items: center;
   max-width: min(16rem, 72%);
   padding: calc(var(--work-ribbon-padding-y) * 0.8) calc(var(--work-ribbon-padding-x) * 0.8);
-  border-radius: var(--work-chip-radius);
+  border-radius: 0;
   color: var(--color-surface-white);
   background: var(--color-fun-accent-red);
   box-shadow:
@@ -335,6 +283,7 @@
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0;
+  transform: rotate(-2deg);
 }
 
 .cardFun .ribbon {
@@ -424,19 +373,35 @@
   display: inline-flex;
   align-items: center;
   gap: var(--work-hover-cue-gap);
-  padding: var(--work-hover-cue-padding-y) var(--work-hover-cue-padding-x);
+  padding: calc(var(--work-hover-cue-padding-y) * 0.85) calc(var(--work-hover-cue-padding-x) * 0.85);
   border-radius: var(--work-pill-radius);
   color: var(--color-surface-white);
-  background: var(--color-ink-950);
+  background:
+    linear-gradient(color-mix(in srgb, var(--color-surface-white) 18%, transparent), color-mix(in srgb, var(--color-surface-white) 8%, transparent));
+  border: var(--work-card-border) solid color-mix(in srgb, var(--color-surface-white) 42%, transparent);
+  box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--color-ink-950) 14%, transparent);
+  backdrop-filter: blur(0.75rem);
+  -webkit-backdrop-filter: blur(0.75rem);
   font-size: var(--text-decision-micro);
   line-height: 1;
   letter-spacing: 0;
+  isolation: isolate;
   opacity: 0;
   pointer-events: none;
   transform: translate(var(--work-hover-cue-translate), var(--work-hover-cue-translate));
   transition:
     opacity var(--work-cue-hover-duration) var(--work-card-hover-ease),
     transform var(--work-cue-hover-duration) var(--work-card-hover-ease);
+}
+
+.hoverCue::before {
+  content: "";
+  position: absolute;
+  inset: 0.25rem;
+  z-index: -1;
+  border-radius: var(--work-pill-radius);
+  background: var(--color-ink-950);
+  box-shadow: 0 0.65rem 1.35rem color-mix(in srgb, var(--color-ink-950) 28%, transparent);
 }
 
 .cardFun .hoverCue {
@@ -480,6 +445,6 @@
   }
 
   .mediaSurface {
-    aspect-ratio: 1200 / 440;
+    aspect-ratio: 1200 / 340;
   }
 }
