@@ -29,8 +29,8 @@
   --work-summary-max-width: 54rem;
   --work-sticker-inset: clamp(1.25rem, 2.75vw, 2rem);
   --work-hover-cue-gap: 0.375rem;
-  --work-hover-cue-padding-y: 0.625rem;
-  --work-hover-cue-padding-x: 0.875rem;
+  --work-hover-cue-padding-y: 0.75rem;
+  --work-hover-cue-padding-x: 1rem;
   --work-focus-ring: 0.125rem;
   --work-focus-offset: 0.25rem;
   --work-card-radius: 1.5rem;
@@ -373,7 +373,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--work-hover-cue-gap);
-  padding: calc(var(--work-hover-cue-padding-y) * 0.85) calc(var(--work-hover-cue-padding-x) * 0.85);
+  padding: var(--work-hover-cue-padding-y) var(--work-hover-cue-padding-x);
   border-radius: var(--work-pill-radius);
   color: var(--color-surface-white);
   background:
@@ -382,7 +382,8 @@
   box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--color-ink-950) 14%, transparent);
   backdrop-filter: blur(0.75rem);
   -webkit-backdrop-filter: blur(0.75rem);
-  font-size: var(--text-decision-micro);
+  font-size: var(--text-small);
+  font-weight: 800;
   line-height: 1;
   letter-spacing: 0;
   isolation: isolate;
@@ -397,7 +398,7 @@
 .hoverCue::before {
   content: "";
   position: absolute;
-  inset: 0.25rem;
+  inset: 0.2rem;
   z-index: -1;
   border-radius: var(--work-pill-radius);
   background: var(--color-ink-950);
