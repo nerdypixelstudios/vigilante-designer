@@ -1,109 +1,239 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
 import { useTheme } from '../../shared/ThemeContext';
-import { PaperPlane, PlayIcon } from '../../icons/icons';
+import { PaperPlane } from '../../icons/icons';
 import styles from './FeaturedProjects.module.css';
 
 const projects = [
   {
-    id: 'neuron',
+    id: 'sat-lms',
     slug: 'neuron',
+    name: 'SAT LMS',
+    funName: 'SAT LMS (aka The Next-Step Engine)',
+    tags: [
+      { label: 'In progress', tone: 'progress' },
+      { label: 'Case study live' },
+      { label: 'Adaptive Learning' },
+      { label: 'UX System' },
+    ],
+    ribbon: '3x quiz completions / 10x attempts',
+    summary: 'An adaptive learning experience that decides what a student should do next, making good study behavior the default instead of a willpower test.',
+    funSticker: 'The path finds the student.',
+    previewClass: 'previewSat',
+    media: {
+      poster: '/images/work/work-sat-lms-preview-test-2.png',
+      mp4: '/videos/work/work-sat-lms-preview.mp4',
+    },
+  },
+  {
+    id: 'spark-presenter',
+    slug: '#featured-projects',
+    name: 'SPARK Presenter',
+    funName: 'SPARK Presenter (aka The Content Cannon)',
+    tags: [
+      { label: 'Active product', tone: 'active' },
+      { label: 'Case study coming soon' },
+      { label: 'Learning Tool' },
+      { label: 'Content System' },
+    ],
+    ribbon: '1 structure / many lessons',
+    summary: 'A scalable lesson presenter where structured content feeds the experience, so teams can ship learning modules without rebuilding the shell.',
+    funSticker: 'One system. Many lessons.',
+    previewClass: 'previewSpark',
+    media: null,
+  },
+  {
+    id: 'egmat-website',
+    slug: '#featured-projects',
+    name: 'e-GMAT Website',
+    funName: 'e-GMAT Website (aka The Public Front)',
+    tags: [
+      { label: 'Active product', tone: 'active' },
+      { label: 'Case study coming soon' },
+      { label: 'Marketing Site' },
+      { label: 'End-to-End Ownership' },
+    ],
+    ribbon: 'Ranked on new keywords',
+    summary: 'A public product site shaped to explain value quickly, hold attention longer, and give the brand a sharper front door.',
+    funSticker: 'The front door got serious.',
+    previewClass: 'previewEgmat',
+    media: null,
+  },
+  {
+    id: 'neuron',
+    slug: '#featured-projects',
     name: 'Neuron',
     funName: 'Neuron (aka The Practice Grinder)',
-    tags: ['Web App', 'UI/UX Design'],
-    summary: 'Rethought the interaction model: guided dashboard from day one, next step after every quiz surfaced automatically. Result: 3× quiz completions, 10× question attempts.',
-    funSticker: '10× attempts. No excuses.',
-  },
-  {
-    id: 'designforge',
-    slug: 'designforge',
-    name: 'DesignForge Methodology',
-    funName: 'DesignForge Methodology (aka The Blueprint Vault)',
-    tags: ['AI Methodology', 'Process Design'],
-    summary: 'The 6-phase spec-to-ship framework that keeps AI output from drifting. AI generates. I curate. Build time: months → weeks.',
-    funSticker: 'Built the playbook. Used it.',
-  },
-  {
-    id: 'spark',
-    slug: 'third-project',
-    name: 'SPARK',
-    funName: 'SPARK (aka The Content Cannon)',
-    tags: ['Web App', 'Content System'],
-    summary: 'A JSON-driven content system — feed a structured file, the presenter handles the rest. Cut one module build from one day to zero engineering cycles.',
-    funSticker: 'One JSON. Infinite modules.',
-  },
-  {
-    id: 'website-v3',
-    slug: 'third-project',
-    name: 'Website v3',
-    funName: 'Website v3 (aka The Public Front)',
-    tags: ['Web Design', 'End-to-End Ownership'],
-    summary: 'One person owned design, content, and code — no handoff. The redesigned site ranks on keywords it had never ranked on before and holds visitors deeper into the product.',
-    funSticker: 'Designed it. Wrote it. Shipped it.',
+    tags: [
+      { label: 'Archived product', tone: 'archived' },
+      { label: 'Case study being written' },
+      { label: 'Web App' },
+      { label: 'GMAT Practice' },
+    ],
+    ribbon: 'Guided practice from day one',
+    summary: 'A practice platform rebuilt around momentum: clearer entry points, guided next steps, and a study flow that kept learners moving.',
+    funSticker: 'No more wandering around.',
+    previewClass: 'previewNeuron',
+    media: null,
   },
 ];
 
 function ProjectCard({ project, isFunMode }) {
-  const headlineColor = isFunMode ? 'text-fun-ink-50' : 'text-ink-950';
-  const bodyColor = isFunMode ? 'text-fun-ink-300' : 'text-ink-700';
-  const cardBg = isFunMode ? 'bg-fun-surface-dark' : 'bg-surface-white';
-  const tagBg = isFunMode ? 'bg-fun-surface-black text-fun-ink-100' : 'bg-surface-light text-ink-700';
-  const linkColor = isFunMode ? 'text-fun-accent-yellow' : 'text-accent-orange';
-  const mediaBg = isFunMode ? 'bg-fun-surface-black' : 'bg-ink-100';
+  const videoRef = useRef(null);
+  const [isActive, setIsActive] = useState(false);
+  const [playsByDefault, setPlaysByDefault] = useState(false);
+  const href = project.slug.startsWith('#') ? project.slug : `/case-studies/${project.slug}`;
+  const hasVideo = Boolean(project.media?.mp4);
+  const shouldPlayVideo = hasVideo && (isActive || playsByDefault);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: none), (pointer: coarse)');
+    const syncPlayMode = () => setPlaysByDefault(mediaQuery.matches);
+
+    syncPlayMode();
+    mediaQuery.addEventListener('change', syncPlayMode);
+
+    return () => mediaQuery.removeEventListener('change', syncPlayMode);
+  }, []);
+
+  useEffect(() => {
+    if (!videoRef.current || !shouldPlayVideo) return;
+
+    videoRef.current.currentTime = 0;
+    videoRef.current.play().catch(() => {});
+  }, [shouldPlayVideo]);
+
+  const handlePointerMove = event => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - bounds.left}px`);
+    event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - bounds.top}px`);
+  };
 
   return (
-    <div className={`${styles.card} ${cardBg}`}>
-      <div className={`${styles.cardMedia} ${mediaBg}`}>
-        <PlayIcon className={styles.playIcon} />
+    <Link
+      href={href}
+      className={`${styles.card} ${isFunMode ? styles.cardFun : styles.cardNormal}`}
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+      onFocus={() => setIsActive(true)}
+      onBlur={() => setIsActive(false)}
+      onMouseMove={handlePointerMove}
+    >
+      <div className={styles.mediaFrame}>
+        <span className={`${styles.ribbon} font-dm font-extrabold`} aria-hidden="true">
+          {project.ribbon}
+        </span>
+
+        <div className={styles.mediaSurface}>
+          {shouldPlayVideo ? (
+            <video
+              ref={videoRef}
+              className={styles.previewVideo}
+              muted
+              loop
+              playsInline
+              autoPlay
+              preload="metadata"
+            >
+              <source src={project.media.mp4} type="video/mp4" />
+            </video>
+          ) : hasVideo ? (
+            <Image
+              src={project.media.poster}
+              alt=""
+              fill
+              sizes="(max-width: 767px) calc(100vw - 3rem), min(100vw - 6rem, 1200px)"
+              className={styles.posterImage}
+            />
+          ) : (
+            <div className={`${styles.placeholderPreview} ${styles[project.previewClass]}`} aria-hidden="true">
+              <span className={styles.previewRail} />
+              <span className={styles.previewPanel} />
+              <span className={styles.previewPanelSmall} />
+              <span className={styles.previewLineLong} />
+              <span className={styles.previewLineShort} />
+            </div>
+          )}
+        </div>
+
         {isFunMode && (
           <span className={`${styles.funSticker} font-caveat font-bold text-fun-ink-50`}>
             {project.funSticker}
           </span>
         )}
       </div>
+
       <div className={styles.cardInfo}>
         <div className={styles.tagRow}>
           {project.tags.map(tag => (
-            <span key={tag} className={`${styles.tag} ${tagBg} font-dm text-xs font-extrabold`}>
-              {tag}
+            <span key={tag.label} className={`${styles.tag} ${tag.tone ? styles[tag.tone] : ''} font-dm`}>
+              {tag.tone && <span className={styles.tagDot} aria-hidden="true" />}
+              {tag.label}
             </span>
           ))}
         </div>
-        <h3 className={isFunMode
-          ? `font-caveat font-bold text-fun-h4 ${headlineColor} mt-3`
-          : `font-dm font-extrabold text-h4 ${headlineColor} mt-3`
-        }>
+
+        <h3 className={`${styles.cardTitle} ${isFunMode ? 'font-caveat font-bold text-fun-ink-50' : 'font-dm font-extrabold text-ink-950'}`}>
           {isFunMode ? project.funName : project.name}
         </h3>
-        <p className={`font-dm font-normal text-sm ${bodyColor} mt-3 leading-relaxed`}>
+
+        <p className={`${styles.summary} font-dm ${isFunMode ? 'text-fun-ink-300' : 'text-ink-700'}`}>
           {project.summary}
         </p>
-        <Link
-          href={`/case-studies/${project.slug}`}
-          className={`${styles.viewLink} ${linkColor} font-dm font-extrabold text-sm mt-4 inline-flex items-center gap-1 hover:underline`}
-        >
-          View in detail →
-        </Link>
       </div>
-    </div>
+
+      <span className={`${styles.hoverCue} font-dm font-extrabold`} aria-hidden="true">
+        View in detail <span>{'👀'}</span>
+      </span>
+    </Link>
   );
 }
 
 export default function FeaturedProjects() {
   const { isFunMode } = useTheme();
-  const headlineColor = isFunMode ? 'text-fun-ink-50' : 'text-ink-950';
+  const itemRefs = useRef([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const updateActiveCard = () => {
+      let nextActiveIndex = 0;
+
+      itemRefs.current.forEach((item, index) => {
+        if (!item) return;
+
+        const itemTop = item.getBoundingClientRect().top;
+        const stickyTop = Number.parseFloat(window.getComputedStyle(item).top);
+
+        if (itemTop <= stickyTop + 2) {
+          nextActiveIndex = index;
+        }
+      });
+
+      setActiveIndex(nextActiveIndex);
+    };
+
+    updateActiveCard();
+    window.addEventListener('scroll', updateActiveCard, { passive: true });
+    window.addEventListener('resize', updateActiveCard);
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveCard);
+      window.removeEventListener('resize', updateActiveCard);
+    };
+  }, []);
 
   return (
-    <section id="featured-projects" className={`${isFunMode ? 'bg-fun-surface-dark' : 'bg-surface-light'} ${styles.section}`}>
+    <section id="featured-projects" className={`${isFunMode ? 'bg-fun-surface-dark' : 'bg-surface-white'} ${styles.section}`}>
       <div className={styles.inner}>
-
         <div className={styles.headline}>
-          <p className={`font-caveat font-bold ${isFunMode ? 'text-fun-accent-yellow' : 'text-fun-accent-red'} text-xl`}>
+          <p className={`${styles.eyebrow} font-caveat font-bold ${isFunMode ? 'text-fun-accent-yellow' : 'text-fun-accent-red'}`}>
             {isFunMode ? "The vigilante's best work." : 'Shipped. Not just designed.'}
           </p>
           <div className={styles.headlineLine}>
             <h2 className={isFunMode
-              ? `font-rock-salt ${headlineColor} leading-rock-salt ${styles.h2Fun}`
-              : `font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`
+              ? `font-rock-salt text-fun-ink-50 leading-rock-salt ${styles.h2Fun}`
+              : `font-cabinet font-extrabold text-ink-950 ${styles.h2Normal}`
             }>
               {isFunMode ? 'Missions Completed!' : 'Work That Speaks!'}
             </h2>
@@ -111,12 +241,20 @@ export default function FeaturedProjects() {
           </div>
         </div>
 
-        <div className={styles.grid}>
-          {projects.map(project => (
-            <ProjectCard key={project.id} project={project} isFunMode={isFunMode} />
+        <div className={styles.stack}>
+          {projects.map((project, index) => (
+            <div
+              key={project.id}
+              ref={element => {
+                itemRefs.current[index] = element;
+              }}
+              className={`${styles.stackItem} ${styles[`stackDepth${index}`]} ${index < activeIndex ? styles.isSecondary : ''}`}
+              style={{ '--stack-index': index, zIndex: index + 1 }}
+            >
+              <ProjectCard project={project} isFunMode={isFunMode} />
+            </div>
           ))}
         </div>
-
       </div>
     </section>
   );

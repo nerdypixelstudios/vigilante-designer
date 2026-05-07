@@ -57,7 +57,7 @@ function ThumbGrid({ count, isFunMode }) {
 export default function MoreFromDesk() {
   const { isFunMode } = useTheme();
 
-  const sectionBg = isFunMode ? 'bg-fun-surface-black' : 'bg-surface-light';
+  const sectionBg = isFunMode ? 'bg-fun-surface-black' : 'bg-surface-white';
   const headlineColor = isFunMode ? 'text-fun-ink-50' : 'text-ink-950';
   const descColor = isFunMode ? 'text-fun-ink-300' : 'text-ink-500';
   const linkColor = isFunMode ? 'text-fun-accent-yellow' : 'text-accent-orange';
