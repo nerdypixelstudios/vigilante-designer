@@ -9,15 +9,18 @@ import {
   JourneyFlowIcon,
   ProductionShieldIcon,
   RedditIcon,
+  SharedLinkedInIcon,
   SpeedBuildIcon,
   TutorAnswerArrowIcon,
   TutorBulbIcon,
+  TrustTickIcon,
   UiOutputIcon,
   UxClarityIcon,
 } from '../../components/icons/icons';
 import ActivitySidebarDemo from '../../components/case-study/supporting-graphics/design-iteration-artifacts/ActivitySidebarDemo';
 import R2RemedialRowDesign from '../../components/case-study/supporting-graphics/design-iteration-artifacts/R2RemedialRowDesign';
 import R6DualPlacementDesign from '../../components/case-study/supporting-graphics/design-iteration-artifacts/R6DualPlacementDesign';
+import ShippedFlowSection from '../../components/case-study/ShippedFlowSection';
 import Navigation from '../../components/sections/Navigation/Navigation';
 import Tooltip from '../../components/shared/Tooltip';
 import styles from './neuron.module.css';
@@ -286,51 +289,6 @@ const tutorDecisions = [
     placeholderTitle: 'Recovery-state screenshot to be added',
     placeholderLabel: 'Will show remedial / revision re-entry state',
     annotations: [],
-  },
-];
-
-const shippedFlow = [
-  {
-    title: 'Course landing before diagnostic',
-    text: 'The first job is not browsing. It is starting the diagnostic that unlocks the path.',
-    image: '/images/case-studies/sat-lms/course-before-diagnostic.webp',
-    width: 1600,
-    height: 947,
-  },
-  {
-    title: 'Diagnostic advisory',
-    text: 'The student sees the value before committing time to the assessment.',
-    image: '/images/case-studies/sat-lms/diagnostic-advisory.webp',
-    width: 1600,
-    height: 1285,
-  },
-  {
-    title: 'Diagnostic results',
-    text: 'The result is direction, not just a score.',
-    image: '/images/case-studies/sat-lms/diagnostic-results-summary.webp',
-    width: 1600,
-    height: 979,
-  },
-  {
-    title: 'PACE path choice',
-    text: 'The product explains what changed and invites the student into the personalized path.',
-    image: '/images/case-studies/sat-lms/pace-choice-modal.webp',
-    width: 1600,
-    height: 1017,
-  },
-  {
-    title: 'PACE focus mode',
-    text: 'The course now opens around the prescribed next items.',
-    image: '/images/case-studies/sat-lms/hero-focus-pace-on.webp',
-    width: 1600,
-    height: 947,
-  },
-  {
-    title: 'Recovery path',
-    text: 'Missed learning converts into the next action instead of becoming another search task.',
-    image: '/images/case-studies/sat-lms/next-activity-recovery.webp',
-    width: 1600,
-    height: 844,
   },
 ];
 
@@ -947,7 +905,7 @@ function ApproachInteraction() {
           <Reveal>
             <div className={styles.approachInteractionLayout}>
               <div className={styles.approachThinkingRow}>
-                <p id="approach-heading" className="mb-10 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">How I approached the problem</p>
+                <p id="approach-heading" className={`${styles.caseStudyBrow} ${styles.caseStudyBrowGreen} mb-10`}>How I approached the problem</p>
                 <div className={styles.approachCopyColumn}>
                   <p className="font-dm text-body leading-relaxed text-ink-950">
                     Once the problem was clear, I asked the question —
@@ -1879,9 +1837,6 @@ function OutcomePoll() {
   return (
     <aside className={styles.outcomePoll} aria-labelledby="outcome-poll-title">
       <div className={styles.outcomePollHeader}>
-        <span className={styles.outcomePollIcon} aria-hidden="true">
-          <UxClarityIcon className={styles.outcomePollIconSvg} />
-        </span>
         <div>
           <h3 id="outcome-poll-title">What do you think?</h3>
           <p>Should students be given a prescribed path instead of being left to figure out what to do next on their own?</p>
@@ -1945,24 +1900,38 @@ function OutcomeMetric({ metric }) {
 function StakeholderQuoteCard({ quote }) {
   return (
     <article className={styles.stakeholderQuoteCard}>
-      <div className={styles.stakeholderQuoteBody}>
-        <span className={styles.stakeholderQuoteMark} aria-hidden="true">"</span>
-        <p className={styles.stakeholderQuoteText}>"{quote.quote}"</p>
-      </div>
-      <footer className={styles.stakeholderQuoteFooter}>
-        <Image
-          src={quote.image}
-          alt={`${quote.name} portrait`}
-          width={320}
-          height={320}
-          sizes="(min-width: 768px) 96px, 72px"
-          className={styles.stakeholderAvatar}
-        />
-        <span>
-          <a href={quote.linkedin} target="_blank" rel="noreferrer">{quote.name}</a>
-          <small>{quote.role}</small>
+      <header className={styles.stakeholderQuoteHeader}>
+        <span className={styles.stakeholderIdentity}>
+          <span className={styles.stakeholderAvatarFrame}>
+            <Image
+              src={quote.image}
+              alt={`${quote.name} portrait`}
+              width={320}
+              height={320}
+              sizes="(min-width: 768px) 52px, 44px"
+              className={styles.stakeholderAvatar}
+              data-person={quote.initials.toLowerCase()}
+            />
+          </span>
+          <span className={styles.stakeholderDetails}>
+            <span className={styles.stakeholderNameLine}>
+              <span>{quote.name}</span>
+              <TrustTickIcon className={styles.stakeholderTrustIcon} />
+            </span>
+            <small>{quote.role}</small>
+          </span>
         </span>
-      </footer>
+        <a
+          href={quote.linkedin}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.stakeholderLinkedIn}
+          aria-label={`${quote.name} on LinkedIn`}
+        >
+          <SharedLinkedInIcon className={styles.stakeholderLinkedInIcon} />
+        </a>
+      </header>
+      <p className={styles.stakeholderQuoteText}>"{quote.quote}"</p>
     </article>
   );
 }
@@ -1970,16 +1939,14 @@ function StakeholderQuoteCard({ quote }) {
 function NextCaseStudyPreview() {
   return (
     <a className={styles.nextCasePreview} href="/case-studies/designforge">
-      <span className={styles.nextCaseCopy}>
-        <span className={styles.nextCaseKicker}>Next case study</span>
-        <span className={styles.nextCaseTitle}>Building clarity in a complex enterprise workflow</span>
-        <span className={styles.nextCaseCta}>
-          View next case study
-          <ArrowForwardLineIcon className={styles.nextCaseArrow} />
+      <span className={styles.nextCaseVideoTile} aria-hidden="true">
+        <span className={styles.nextCaseVideoFrame}>
+          <UiOutputIcon className={styles.nextCaseIcon} />
         </span>
       </span>
-      <span className={styles.nextCaseThumb} aria-hidden="true">
-        <UiOutputIcon className={styles.nextCaseIcon} />
+      <span className={styles.nextCaseCopy}>
+        <span className={styles.nextCaseKicker}>Next case study</span>
+        <span className={styles.nextCaseTitle}>DesignForge: building clarity in a complex enterprise workflow</span>
       </span>
     </a>
   );
@@ -2060,10 +2027,10 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="tldr" className="bg-surface-white px-6 pb-20 pt-6 md:pb-28">
+        <section id="tldr" className={`${styles.caseStudySection} bg-surface-white px-6`}>
           <div className="mx-auto max-w-5xl">
             <Reveal>
-              <p className="mb-5 font-dm text-xs font-extrabold uppercase tracking-[0.2em] text-ink-500">TL;DR</p>
+              <p className={`${styles.caseStudyBrow} ${styles.caseStudyBrowGreen} mb-5`}>TL;DR</p>
               <StaggeredText
                 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950"
                 segments={[
@@ -2084,7 +2051,7 @@ export default function SatLmsCaseStudy() {
               </div>
 
               <div className="mt-16 pt-4">
-                <p className="mb-8 font-dm text-xs font-extrabold uppercase tracking-[0.2em] text-ink-500">My Impact</p>
+                <p className={`${styles.caseStudyBrow} ${styles.caseStudyBrowGreen} mb-8`}>My Impact</p>
                 <h3 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950">
                   After my redesign, the LMS showed a clear shift in learning behavior: faster starts, deeper progression, and significantly higher continuation rates.
                 </h3>
@@ -2118,12 +2085,12 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="problem" aria-labelledby="problem-heading" className={`${styles.problemSection} px-6 py-20 md:py-28`}>
+        <section id="problem" aria-labelledby="problem-heading" className={`${styles.problemSection} ${styles.caseStudySection} px-6`}>
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
                 <div>
-                  <p className="mb-6 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">THE PROBLEM</p>
+                  <p className={`${styles.caseStudyBrow} ${styles.caseStudyBrowOrange} mb-6`}>The Problem</p>
                   <StaggeredText
                     id="problem-heading"
                     className="font-cabinet text-5xl font-extrabold leading-tight text-ink-950 md:text-6xl"
@@ -2198,15 +2165,15 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="solution" aria-labelledby="approach-heading" className={`${styles.approachSection} px-6 pb-20 pt-4 md:pb-28 md:pt-6`}>
+        <section id="solution" aria-labelledby="approach-heading" className={`${styles.approachSection} ${styles.caseStudySection} px-6`}>
           <ApproachInteraction />
         </section>
 
-        <section id="decisions" aria-labelledby="decisions-heading" className={`${styles.decisionSection} px-6 pb-20 pt-12 md:pb-28 md:pt-16`}>
+        <section id="decisions" aria-labelledby="decisions-heading" className={`${styles.decisionSection} ${styles.caseStudySection} px-6`}>
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <div>
-                <p className={`${styles.decisionKicker} mb-5 font-dm text-xs font-extrabold uppercase tracking-widest`}>Key design decisions</p>
+                <p className={`${styles.decisionKicker} ${styles.caseStudyBrow} ${styles.caseStudyBrowGreen} mb-5`}>Key design decisions</p>
                 <StaggeredText
                   id="decisions-heading"
                   className={`${styles.decisionHeading} max-w-4xl font-cabinet text-4xl font-extrabold leading-tight md:text-6xl`}
@@ -2233,36 +2200,7 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
 
-        <section id="flow" className="px-6 py-20 md:py-28">
-          <div className="mx-auto max-w-5xl">
-            <p className="mb-4 font-dm text-xs font-extrabold uppercase tracking-widest text-ink-500">Shipped Flow</p>
-            <h2 className="max-w-4xl font-cabinet text-4xl font-extrabold leading-tight text-ink-950 md:text-6xl">
-              From diagnostic to recovery, uncertainty keeps turning into action.
-            </h2>
-
-            <div className="mt-14 space-y-12">
-              {shippedFlow.map((screen, index) => (
-                <article key={screen.title} className="grid gap-6 lg:grid-cols-12 lg:items-start">
-                  <div className="lg:col-span-4">
-                    <p className="mb-4 font-cabinet text-5xl font-extrabold text-accent-orange">{String(index + 1).padStart(2, '0')}</p>
-                    <h3 className="font-cabinet text-3xl font-extrabold leading-tight text-ink-950">{screen.title}</h3>
-                    <p className="mt-4 font-dm text-xl leading-relaxed text-ink-700">{screen.text}</p>
-                  </div>
-                  <figure className="overflow-hidden rounded-lg border border-ink-100 bg-surface-white shadow-lg lg:col-span-8">
-                    <Image
-                      src={screen.image}
-                      alt={`${screen.title} screenshot`}
-                      width={screen.width}
-                      height={screen.height}
-                      sizes="(min-width: 1024px) 66vw, 100vw"
-                      className="h-auto w-full"
-                    />
-                  </figure>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ShippedFlowSection />
 
         <DesignForgeProcessSection />
 
@@ -2296,9 +2234,23 @@ export default function SatLmsCaseStudy() {
 
                 <div className={styles.nextCaseBridge}>
                   <div className={styles.nextCaseStatement}>
-                    <p>One project was about guiding students through complexity. The next was about building clarity in a very different system.</p>
+                    <p className={styles.nextCasePrelude}>That is how I built this one.</p>
+                    <h2>Next, a different kind of complexity. Same clarity-first build system.</h2>
                   </div>
-                  <NextCaseStudyPreview />
+                  <div className={styles.nextCaseBottom}>
+                    <div className={styles.nextCasePointer} aria-hidden="true">
+                      <Image
+                        src="/images/case-studies/sat-lms/next-case-pointer-clean.webp"
+                        alt=""
+                        width={707}
+                        height={1335}
+                        sizes="(min-width: 1024px) 34vw, 70vw"
+                        unoptimized
+                        className={styles.nextCasePointerImage}
+                      />
+                    </div>
+                    <NextCaseStudyPreview />
+                  </div>
                 </div>
               </div>
             </Reveal>

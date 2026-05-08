@@ -148,7 +148,7 @@
   --text-outcome-heading: clamp(3rem, 5vw, 5rem);
   --text-outcome-metric: clamp(2.75rem, 5vw, 4rem);
   --text-outcome-card-heading: clamp(1.5rem, 2vw, 1.875rem);
-  --spacing-outcome-section-padding-block: clamp(5rem, 9vw, 7rem);
+  --spacing-outcome-section-padding-block: clamp(4rem, 7vw, 5.5rem);
   --spacing-outcome-section-padding-inline: clamp(1.5rem, 4vw, 3rem);
   --spacing-outcome-stack-gap: clamp(1.5rem, 3vw, 2rem);
   --spacing-outcome-panel-padding: clamp(1.75rem, 4vw, 3.5rem);

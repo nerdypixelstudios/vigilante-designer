@@ -83,6 +83,81 @@ export function ExternalArrowIcon({ className = '' }) {
   );
 }
 
+export function LiveProductArrowIcon({ className = '' }) {
+  return (
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        d="M23.0066 7.838L3.24631 27.5982L0 24.3519L19.7579 4.59167H2.34405V0H27.5982V25.2542H23.0066V7.838Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function ShippedCourseLandingIcon({ className = '' }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path d="M2.25 12L11.2 3.05C11.64 2.61 12.36 2.61 12.8 3.05L21.75 12M4.5 10.5V20.25H9.75V15.75C9.75 15.13 10.25 14.63 10.88 14.63H13.13C13.75 14.63 14.25 15.13 14.25 15.75V20.25H19.5V10.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ShippedDiagnosticIcon({ className = '' }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path d="M16.86 4.49L19.51 7.14M4.5 19.5H7.15L18.18 8.47C18.91 7.74 18.91 6.56 18.18 5.83C17.45 5.1 16.27 5.1 15.54 5.83L4.5 16.85V19.5Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ShippedResultsIcon({ className = '' }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path d="M4.5 19.5V14.25M9.5 19.5V9.75M14.5 19.5V12M19.5 19.5V5.25M3.75 19.5H20.25" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ShippedPathIcon({ className = '' }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path d="M6 4.5C4.76 4.5 3.75 5.51 3.75 6.75S4.76 9 6 9H18C19.24 9 20.25 10.01 20.25 11.25S19.24 13.5 18 13.5H6C4.76 13.5 3.75 14.51 3.75 15.75S4.76 18 6 18H18M18 18L15.75 15.75M18 18L15.75 20.25" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ShippedLearningIcon({ className = '' }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path d="M5.25 5.25H15.75C17.41 5.25 18.75 6.59 18.75 8.25V18.75H8.25C6.59 18.75 5.25 17.41 5.25 15.75V5.25ZM9 9H15M9 12H15M9 15H12.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ShippedRemedialIcon({ className = '' }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path d="M4.5 10.5C5.21 7.05 8.26 4.5 12 4.5C15.24 4.5 18 6.51 19.13 9.34M19.5 4.5V9.75H14.25M19.5 13.5C18.79 16.95 15.74 19.5 12 19.5C8.76 19.5 6 17.49 4.87 14.66M4.5 19.5V14.25H9.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function ShippedNextIcon({ className = '' }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} aria-hidden="true">
+      <path d="M9 12.75L11.25 15L15.75 9M21 12C21 16.97 16.97 21 12 21C7.03 21 3 16.97 3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function RedditIcon({ className = '' }) {
   return (
     <svg
@@ -1208,6 +1283,42 @@ export function LinkedInIcon({ className = '', color = '#000000' }) {
 }
 
 // ── UI icons ──────────────────────────────────────────────────────────────────
+
+export function TrustTickIcon({ className = '' }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="m94.1149368 59.6092033c-1.9655228-3.057457-3.9310303-6.0057449-5.896553-9.0632019-.4367828-.6551819-.4367828-1.0919571 0-1.7471352 1.9655228-2.9482727 3.8218384-5.8965454 5.7873611-8.8448334 2.2930984-3.4942474 1.0919495-6.8793106-2.8390808-8.2988548-3.2758636-1.2011566-6.5517197-2.5114975-9.8275833-3.7126369-.6551743-.2183876-.9827652-.6551781-.9827652-1.4195442-.1091919-3.6034508-.3275833-7.2069016-.5459747-10.7011499-.2183838-3.8218393-3.1666641-6.0057468-6.879303-5.022995-3.4942474.8735666-6.9884949 1.8563185-10.3735619 2.8390865-.7643661.2183876-1.2011566 0-1.7471313-.5459766-2.1839104-2.8390865-4.4770203-5.5689716-6.6609268-8.2988567-2.4022942-3.0574741-6.1149483-3.0574741-8.6264305 0-2.1839066 2.7298846-4.4770164 5.4597697-6.5517235 8.1896534-.5459747.7643642-1.0919533.8735666-1.965519.655179-3.3850632-.9827518-6.7701111-1.8563185-9.1724052-2.5114975-4.695406-1.0919533-7.5344753.7643652-7.7528801 4.695406-.2183876 3.6034498-.4367752 7.2069025-.5459766 10.9195375 0 .7643642-.327589 1.0919552-.9827518 1.4195442-3.3850641 1.3103409-6.7701111 2.6206818-10.1551743 3.9310398-3.4942493 1.4195442-4.5862036 4.8045921-2.5114975 7.9712677 1.9655204 3.0574722 3.9310408 6.0057449 5.8965445 9.0632019.4367752.6551819.4367752 1.0919571 0 1.8563385-2.0747061 3.057457-4.040226 6.1149483-6.0057464 9.2816048-1.8563185 2.9482918-.655179 6.4425201 2.6206822 7.7528839 3.3850641 1.3103561 6.8793135 2.6206818 10.2643604 3.9310379.7643642.2184067.9827518.6551819.9827518 1.4195251.1092014 3.4942703.5459766 6.8792953.5459766 10.3735657 0 3.4942627 3.0574741 6.6609192 7.3160877 5.350563 3.3850632-1.0919495 6.7701092-1.8563309 10.1551762-2.8390884.6551781-.218399 1.0919533-.1091995 1.5287285.5459824 2.2931099 2.8390808 4.4770164 5.5689697 6.7701111 8.4080582 2.5114937 3.057457 6.1149483 3.057457 8.5172424 0 2.2931099-2.8390884 4.4770164-5.5689774 6.7701111-8.4080582.4367752-.5459824.7643623-.7643814 1.5287285-.5459824 3.4942513.9827576 6.9884987 1.8563385 10.4827614 2.8390884 3.6034546.9827499 6.6609192-1.2011566 6.7701111-4.9137878.2183914-3.6034393.4367828-7.2069092.5459824-10.9195404 0-.8735504.4367828-1.2011566 1.0919495-1.4195251 3.2758636-1.2011566 6.6609192-2.5114822 9.9367828-3.8218384 3.4942932-1.7471381 4.5862503-5.2414008 2.5115356-8.4080611zm-26.0976944-17.9080352-21.8390732 21.839077c-.5459785.5459747-1.3103447.9827499-2.074707 1.0919495-.2183876 0-.5459785.1092072-.7643661.1092072-.9827499 0-2.0747032-.4367752-2.8390846-1.2011566l-8.9540195-8.9540367c-1.5287285-1.5287285-1.5287285-4.0402412 0-5.5689697 1.5287304-1.5287285 4.0402279-1.5287285 5.5689716 0l6.1149483 6.1149483 18.9999924-18.9999924c1.5287285-1.5287285 4.0402222-1.5287285 5.5689697 0 1.7471007 1.5287283 1.7471007 4.0402258.2183684 5.5689734z"
+      />
+    </svg>
+  );
+}
+
+export function SharedLinkedInIcon({ className = '' }) {
+  return (
+    <svg
+      viewBox="0 0 176 176"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect fill="currentColor" height="176" rx="24" width="176" />
+      <g fill="var(--color-surface-white)">
+        <path d="m63.4 48a15 15 0 1 1 -15-15 15 15 0 0 1 15 15z" />
+        <path d="m60 73v66.27a3.71 3.71 0 0 1 -3.71 3.73h-15.81a3.71 3.71 0 0 1 -3.72-3.72v-66.28a3.72 3.72 0 0 1 3.72-3.72h15.81a3.72 3.72 0 0 1 3.71 3.72z" />
+        <path d="m142.64 107.5v32.08a3.41 3.41 0 0 1 -3.42 3.42h-17a3.41 3.41 0 0 1 -3.42-3.42v-31.09c0-4.64 1.36-20.32-12.13-20.32-10.45 0-12.58 10.73-13 15.55v35.86a3.42 3.42 0 0 1 -3.37 3.42h-16.42a3.41 3.41 0 0 1 -3.41-3.42v-66.87a3.41 3.41 0 0 1 3.41-3.42h16.42a3.42 3.42 0 0 1 3.42 3.42v5.78c3.88-5.82 9.63-10.31 21.9-10.31 27.18 0 27.02 25.38 27.02 39.32z" />
+      </g>
+    </svg>
+  );
+}
 
 export function HamburgerIcon({ className = '', color = '#ffffff' }) {
   return (
