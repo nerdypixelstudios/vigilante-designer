@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import {
   ArrowForwardLineIcon,
   DocumentLogicIcon,
@@ -7,12 +8,11 @@ import {
   EyeRevealIcon,
   InterfaceFrameIcon,
   JourneyFlowIcon,
+  MotifCurlyArrow,
   ProductionShieldIcon,
   RedditIcon,
   SharedLinkedInIcon,
   SpeedBuildIcon,
-  TutorAnswerArrowIcon,
-  TutorBulbIcon,
   TrustTickIcon,
   UiOutputIcon,
   UxClarityIcon,
@@ -20,7 +20,9 @@ import {
 import ActivitySidebarDemo from '../../components/case-study/supporting-graphics/design-iteration-artifacts/ActivitySidebarDemo';
 import R2RemedialRowDesign from '../../components/case-study/supporting-graphics/design-iteration-artifacts/R2RemedialRowDesign';
 import R6DualPlacementDesign from '../../components/case-study/supporting-graphics/design-iteration-artifacts/R6DualPlacementDesign';
+import ControlledVideo from '../../components/case-study/ControlledVideo';
 import ShippedFlowSection from '../../components/case-study/ShippedFlowSection';
+import Footer from '../../components/sections/Footer/Footer';
 import Navigation from '../../components/sections/Navigation/Navigation';
 import Tooltip from '../../components/shared/Tooltip';
 import styles from './neuron.module.css';
@@ -75,10 +77,12 @@ const outcomePollOptions = [
   {
     id: 'yes',
     label: 'Yes, they should be prescribed a path.',
+    initialVotes: 15,
   },
   {
     id: 'no',
     label: 'No, they should not be.',
+    initialVotes: 5,
   },
 ];
 
@@ -132,38 +136,50 @@ const redditCards = [
   },
 ];
 
-const answerFrames = [
+const tutorBehaviorVideos = {
+  evaluateVideo: '/videos/case-studies/sat-lms/private-tutor-evaluate.mp4',
+  guideVideo: '/videos/case-studies/sat-lms/guide.mp4',
+  encourageVideo: '/videos/case-studies/sat-lms/encourage.mp4',
+};
+
+const tutorBehaviors = [
   {
     id: 'evaluate',
-    headline: 'Evaluate first',
-    bodyText: 'A tutor would not hand over a content dump. They would first understand where the student stands.',
-    body: [
-      { text: 'A tutor would not hand over a content dump. ' },
-      { text: 'They would first understand where the student stands.', strong: true },
+    title: 'EVALUATE',
+    descriptionText: 'They would first understand where the student currently stands.',
+    description: [
+      { text: 'They would first ' },
+      { text: 'understand where the student currently stands.', strong: true },
     ],
-    video: '/videos/case-studies/sat-lms/private-tutor-evaluate.mp4',
+    video: tutorBehaviorVideos.evaluateVideo,
+    direction: 'left',
+    videoPosition: 'left',
   },
   {
-    id: 'curate',
-    headline: 'Curate the path',
-    bodyText: 'A tutor would focus the student on what matters, skip what they already know, and keep proof where needed.',
-    body: [
+    id: 'guide',
+    title: 'GUIDE',
+    descriptionText: 'A tutor would channel effort toward what needs to be learned next, instead of making the student learn everything.',
+    description: [
       { text: 'A tutor would ' },
-      { text: 'focus the student on what matters', strong: true },
-      { text: ', skip what they already know, and keep proof where needed.' },
+      { text: 'channel effort toward what needs to be learned', strong: true },
+      { text: ' next, instead of making the student learn everything.' },
     ],
-    video: '/videos/case-studies/sat-lms/private-tutor-evaluate.mp4',
+    video: tutorBehaviorVideos.guideVideo,
+    direction: 'right',
+    videoPosition: 'right',
   },
   {
-    id: 'momentum',
-    headline: 'Keep momentum alive',
-    bodyText: 'A tutor would not let confusion, low scores, or breaks become dead ends. They would give the next useful action.',
-    body: [
-      { text: 'A tutor ' },
-      { text: 'would not let confusion, low scores, or breaks become dead ends', strong: true },
-      { text: '. They would give the next useful action.' },
+    id: 'encourage',
+    title: 'ENCOURAGE',
+    descriptionText: 'A tutor would keep setbacks from becoming dead ends. They would give the next useful action.',
+    description: [
+      { text: 'A tutor would ' },
+      { text: 'keep setbacks from becoming dead ends.', strong: true },
+      { text: ' They would give the next useful action.' },
     ],
-    video: '/videos/case-studies/sat-lms/private-tutor-evaluate.mp4',
+    video: tutorBehaviorVideos.encourageVideo,
+    direction: 'left',
+    videoPosition: 'left',
   },
 ];
 
@@ -832,26 +848,22 @@ function AnimatedMetricValue({ metric }) {
 }
 
 function HeroVideo() {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.8;
-    }
-  }, []);
-
   return (
-    <video
-      ref={videoRef}
-      className="block h-auto w-full"
+    <ControlledVideo
+      className={`${styles.heroImage} shadow-2xl`}
+      chrome={<BrowserChrome />}
+      videoClassName="block h-auto w-full"
       autoPlay
       loop
       muted
       playsInline
+      playbackRate={0.8}
       poster="/images/case-studies/sat-lms/hero-focus-pace-on.webp"
-    >
-      <source src="/videos/case-studies/sat-lms/pace-path.mp4" type="video/mp4" />
-    </video>
+      ariaLabel="SAT LMS personalized learning path product demo"
+      sources={[
+        { src: '/videos/case-studies/sat-lms/pace-path.mp4', type: 'video/mp4' },
+      ]}
+    />
   );
 }
 
@@ -865,111 +877,160 @@ function BrowserChrome() {
   );
 }
 
-function ApproachInteraction() {
-  const shellRef = useRef(null);
-  const wordplayRef = useRef(null);
+function TutorBehaviorVideo({ behavior }) {
+  return (
+    <div className={styles.tutorBehaviorVideoWrap} aria-hidden="true">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      >
+        <source src={behavior.video} type="video/mp4" />
+      </video>
+    </div>
+  );
+}
 
-  useEffect(() => {
-    const shell = shellRef.current;
-    const wordplay = wordplayRef.current;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function TutorBehaviorDescription({ behavior }) {
+  return (
+    <p className={styles.tutorBehaviorDescription}>
+      {behavior.description.map((segment) => (
+        segment.strong ? (
+          <strong key={segment.text}>{segment.text}</strong>
+        ) : (
+          <span key={segment.text}>{segment.text}</span>
+        )
+      ))}
+    </p>
+  );
+}
 
-    if (!shell) {
-      return undefined;
-    }
-
-    if (!wordplay || prefersReducedMotion) {
-      shell.classList.add(styles.wordplayReady);
-      return undefined;
-    }
-
-    const wordplayObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          shell.classList.add(styles.wordplayReady);
-          wordplayObserver.disconnect();
-        }
-      },
-      { threshold: 0.95 }
-    );
-
-    wordplayObserver.observe(wordplay);
-
-    return () => wordplayObserver.disconnect();
-  }, []);
+function TutorBehaviorRow({ behavior, scrollYProgress }) {
+  const shouldReduceMotion = useReducedMotion();
+  const x = useTransform(
+    scrollYProgress,
+    [behavior.rangeStart, behavior.rangeEnd],
+    behavior.direction === 'left' ? ['-120px', '0px'] : ['120px', '0px']
+  );
+  const opacity = useTransform(scrollYProgress, [behavior.rangeStart, behavior.rangeEnd], [0, 1]);
+  const motionStyle = shouldReduceMotion ? { x: 0, opacity: 1 } : { x, opacity };
 
   return (
-    <div ref={shellRef} className={styles.approachPinShell}>
+    <motion.article
+      className={`${styles.tutorBehaviorRow} ${behavior.videoPosition === 'right' ? styles.tutorBehaviorRowVideoRight : ''}`}
+      style={motionStyle}
+      aria-label={`${behavior.title}: ${behavior.descriptionText}`}
+    >
+      {behavior.videoPosition === 'left' ? <TutorBehaviorVideo behavior={behavior} /> : null}
+      <h3 className={styles.tutorBehaviorTitle}>{behavior.title}</h3>
+      <TutorBehaviorDescription behavior={behavior} />
+      {behavior.videoPosition === 'right' ? <TutorBehaviorVideo behavior={behavior} /> : null}
+    </motion.article>
+  );
+}
+
+function ApproachInteraction() {
+  const sectionRef = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start 80%', 'end 20%'],
+  });
+  const behaviorRanges = [
+    { rangeStart: 0.15, rangeEnd: 0.32 },
+    { rangeStart: 0.32, rangeEnd: 0.5 },
+    { rangeStart: 0.5, rangeEnd: 0.68 },
+  ];
+  const conclusionInitial = shouldReduceMotion ? false : { opacity: 0, y: 64, scale: 0.9, filter: 'blur(10px)' };
+  const conclusionReveal = shouldReduceMotion ? {} : { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' };
+  const conclusionTransition = { duration: 0.72, ease: [0.16, 1, 0.3, 1] };
+  const rejectedInitial = shouldReduceMotion ? false : {
+    color: 'var(--color-ink-950)',
+    backgroundSize: '0% var(--spacing-wordplay-strike-height)',
+  };
+  const rejectedReveal = shouldReduceMotion ? {} : {
+    color: 'var(--color-ink-300)',
+    backgroundSize: '100% var(--spacing-wordplay-strike-height)',
+  };
+  const rejectedTransition = {
+    color: { duration: 0.45, delay: 1.05 },
+    backgroundSize: { duration: 0.9, delay: 1.2, ease: [0.16, 1, 0.3, 1] },
+  };
+
+  return (
+    <div ref={sectionRef} className={`${styles.approachPinShell} ${styles.wordplayReady}`}>
       <div className={styles.approachSticky}>
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <div className={styles.approachInteractionLayout}>
               <div className={styles.approachThinkingRow}>
-                <p id="approach-heading" className={`${styles.caseStudyBrow} ${styles.caseStudyBrowGreen} mb-10`}>How I approached the problem</p>
+                <p className={`${styles.caseStudyBrow} ${styles.caseStudyBrowGreen}`}>My approach</p>
                 <div className={styles.approachCopyColumn}>
-                  <p className="font-dm text-body leading-relaxed text-ink-950">
+                  <h2 id="approach-heading" className={styles.approachHeading}>How I approached the problem?</h2>
+                  <p className={styles.approachQuestion}>
                     Once the problem was clear, I asked the question —
                     <br />
-                    <span className="box-decoration-clone bg-accent-yellow px-1 font-extrabold">
-                      If the student were working with a private tutor,
-                      <br />
-                      what would the tutor do for them?
-                    </span>
-                  </p>
-
-                  <p
-                    ref={wordplayRef}
-                    className={styles.wordplayStatement}
-                    aria-label="I began thinking of the LMS as an intelligent tutor."
-                  >
-                    <span>I began thinking of the LMS </span>
-                    <span className={styles.wordplayRejected}>not as a place to browse courses, but </span>
-                    <span>as an intelligent tutor.</span>
+                    <strong>If the student were working with a private tutor,</strong>
+                    <br />
+                    <strong className={styles.approachQuestionHighlight}>what would the tutor do for them?</strong>
                   </p>
                 </div>
-                <TutorAnswerArrowIcon className={styles.approachAnswerArrow} />
               </div>
 
-              <div className={styles.approachAnswerRow}>
-                <div className={styles.answerStatic}>
-                  <TutorBulbIcon className={styles.answerBulbIcon} />
-                  <p>The answer:</p>
-                </div>
-                <div className={styles.answerViewport}>
-                  <div className={styles.answerTrack}>
-                    {answerFrames.map((frame) => (
-                      <article
-                        key={frame.id}
-                        className={styles.answerFrame}
-                        aria-label={`${frame.headline}: ${frame.bodyText}`}
-                      >
-                        <div className={styles.answerVideoWrap} aria-hidden="true">
-                          <video
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            preload="metadata"
-                          >
-                            <source src={frame.video} type="video/mp4" />
-                          </video>
-                        </div>
-                        <div className={styles.answerCopy}>
-                          <h3 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950">{frame.headline}</h3>
-                          <p className="mt-6 font-dm text-small leading-relaxed text-ink-800">
-                            {frame.body.map((segment) => (
-                              segment.strong ? (
-                                <strong key={segment.text} className="font-extrabold text-ink-950">{segment.text}</strong>
-                              ) : (
-                                <span key={segment.text}>{segment.text}</span>
-                              )
-                            ))}
-                          </p>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
+              <div className={styles.tutorBehaviorList}>
+                {tutorBehaviors.map((behavior, index) => (
+                  <TutorBehaviorRow
+                    key={behavior.id}
+                    behavior={{ ...behavior, ...behaviorRanges[index] }}
+                    scrollYProgress={scrollYProgress}
+                  />
+                ))}
+              </div>
+
+              <div className={styles.approachConclusionWrap}>
+                <motion.div
+                  className={`${styles.approachConclusionArrow} ${styles.approachConclusionArrowTop}`}
+                  initial={conclusionInitial}
+                  whileInView={conclusionReveal}
+                  viewport={{ once: true, amount: 0.7 }}
+                  transition={{ ...conclusionTransition, delay: 0.08 }}
+                  aria-hidden="true"
+                >
+                  <MotifCurlyArrow />
+                </motion.div>
+                <motion.p
+                  className={styles.wordplayStatement}
+                  initial={conclusionInitial}
+                  whileInView={conclusionReveal}
+                  viewport={{ once: true, amount: 0.7 }}
+                  transition={conclusionTransition}
+                  aria-label="I began thinking of the LMS as an intelligent tutor."
+                >
+                  <span>I began thinking of the LMS </span>
+                  <motion.span
+                    className={styles.wordplayRejected}
+                    initial={rejectedInitial}
+                    whileInView={rejectedReveal}
+                    viewport={{ once: true, amount: 0.8 }}
+                    transition={rejectedTransition}
+                  >
+                    not as a place to browse courses, but
+                    {' '}
+                  </motion.span>
+                  <span>as an intelligent tutor.</span>
+                </motion.p>
+                <motion.div
+                  className={`${styles.approachConclusionArrow} ${styles.approachConclusionArrowBottom}`}
+                  initial={conclusionInitial}
+                  whileInView={conclusionReveal}
+                  viewport={{ once: true, amount: 0.7 }}
+                  transition={{ ...conclusionTransition, delay: 0.12 }}
+                  aria-hidden="true"
+                >
+                  <MotifCurlyArrow />
+                </motion.div>
               </div>
             </div>
           </Reveal>
@@ -989,7 +1050,6 @@ function DecisionVisual({ decision }) {
 
 function DecisionVideoFrame({ decision }) {
   const frameRef = useRef(null);
-  const videoRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
@@ -1019,32 +1079,23 @@ function DecisionVideoFrame({ decision }) {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (isInView && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, [isInView]);
-
   return (
-    <div
+    <ControlledVideo
       ref={frameRef}
       className={`${styles.decisionBrowser} ${styles.decisionVideoBrowser} ${styles.decisionVideoFrame} ${isInView ? styles.decisionVideoFrameVisible : ''}`}
-    >
-      <BrowserChrome />
-      <div className={styles.decisionVideoReveal}>
-        <video
-          ref={videoRef}
-          className={styles.decisionVideo}
-          loop
-          muted
-          playsInline
-          preload="auto"
-          aria-label={decision.placeholderLabel}
-        >
-          <source src={decision.video} type="video/mp4" />
-        </video>
-      </div>
-    </div>
+      chrome={<BrowserChrome />}
+      mediaClassName={styles.decisionVideoReveal}
+      videoClassName={styles.decisionVideo}
+      loop
+      muted
+      playsInline
+      preload="auto"
+      playWhen={isInView}
+      ariaLabel={decision.placeholderLabel}
+      sources={[
+        { src: decision.video, type: 'video/mp4' },
+      ]}
+    />
   );
 }
 
@@ -1256,7 +1307,7 @@ function WhyThisWorkedSection() {
       <div className={styles.whyWorkedLeft}>
         <p className={styles.whyWorkedEyebrow}>
           <span aria-hidden="true" />
-          WHY THIS WORKED
+          Why this worked?
         </p>
         <h3 id="why-worked-heading">
           This build moved fast because AI was never solving the whole product at once.
@@ -1832,7 +1883,8 @@ function SourceArtifactPreview({ title, rows }) {
 
 function OutcomePoll() {
   const [selectedOption, setSelectedOption] = useState(null);
-  const totalVotes = selectedOption ? 1 : 0;
+  const totalVotes = outcomePollOptions.reduce((sum, option) => sum + option.initialVotes + (selectedOption === option.id ? 1 : 0), 0);
+  const hasVoted = Boolean(selectedOption);
 
   return (
     <aside className={styles.outcomePoll} aria-labelledby="outcome-poll-title">
@@ -1846,7 +1898,8 @@ function OutcomePoll() {
       <div className={styles.outcomePollOptions}>
         {outcomePollOptions.map((option) => {
           const isSelected = selectedOption === option.id;
-          const percentage = totalVotes && isSelected ? 100 : 0;
+          const voteCount = option.initialVotes + (isSelected ? 1 : 0);
+          const percentage = Math.round((voteCount / totalVotes) * 100);
 
           return (
             <button
@@ -1854,20 +1907,20 @@ function OutcomePoll() {
               className={`${styles.outcomePollOption} ${isSelected ? styles.outcomePollOptionSelected : ''}`}
               type="button"
               aria-pressed={isSelected}
+              style={{ '--poll-option-fill': `${hasVoted ? percentage : 0}%` }}
               onClick={() => setSelectedOption(option.id)}
             >
-              <span className={styles.outcomePollRadio} aria-hidden="true" />
               <span className={styles.outcomePollOptionText}>{option.label}</span>
-              {totalVotes ? <span className={styles.outcomePollPercent}>{percentage}%</span> : null}
+              {hasVoted ? <span className={styles.outcomePollPercent}>{percentage}%</span> : null}
             </button>
           );
         })}
       </div>
 
       <p className={styles.outcomePollMeta}>
-        {totalVotes ? `${totalVotes} vote` : '0 votes'}
+        {totalVotes} votes
         <span aria-hidden="true">/</span>
-        {totalVotes ? 'Thanks for weighing in' : 'Be the first to vote'}
+        {hasVoted ? 'Thanks for weighing in' : 'Add your take'}
       </p>
     </aside>
   );
@@ -1937,16 +1990,34 @@ function StakeholderQuoteCard({ quote }) {
 }
 
 function NextCaseStudyPreview() {
+  const handlePointerMove = event => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty('--next-cursor-x', `${event.clientX - bounds.left}px`);
+    event.currentTarget.style.setProperty('--next-cursor-y', `${event.clientY - bounds.top}px`);
+  };
+
   return (
-    <a className={styles.nextCasePreview} href="/case-studies/designforge">
-      <span className={styles.nextCaseVideoTile} aria-hidden="true">
-        <span className={styles.nextCaseVideoFrame}>
-          <UiOutputIcon className={styles.nextCaseIcon} />
+    <a className={styles.nextCasePreview} href="/#featured-projects" onMouseMove={handlePointerMove}>
+      <span className={styles.nextCaseMediaFrame}>
+        <span className={styles.nextCaseRibbon} aria-hidden="true">
+          1 structure / many lessons
+        </span>
+        <span className={styles.nextCaseMediaSurface} aria-hidden="true">
+          <span className={styles.nextCasePreviewRail} />
+          <span className={styles.nextCasePreviewPanel} />
+          <span className={styles.nextCasePreviewPanelSmall} />
+          <span className={styles.nextCasePreviewLineLong} />
+          <span className={styles.nextCasePreviewLineShort} />
         </span>
       </span>
       <span className={styles.nextCaseCopy}>
-        <span className={styles.nextCaseKicker}>Next case study</span>
-        <span className={styles.nextCaseTitle}>DesignForge: building clarity in a complex enterprise workflow</span>
+        <span className={styles.nextCaseTitle}>SPARK Presenter: How I built a modular presenter system to scale lesson production</span>
+        <span className={styles.nextCaseSummary}>
+          I turned structured learning content into reusable presentation files, so one lesson system could produce many modules without rebuilding each one.
+        </span>
+      </span>
+      <span className={styles.nextCaseHoverCue} aria-hidden="true">
+        View in detail
       </span>
     </a>
   );
@@ -2019,10 +2090,7 @@ export default function SatLmsCaseStudy() {
                 Logos are properties of their respective companies.
               </p>
 
-              <div className={`${styles.heroImage} shadow-2xl`}>
-                <BrowserChrome />
-                <HeroVideo />
-              </div>
+              <HeroVideo />
             </Reveal>
           </div>
         </section>
@@ -2221,7 +2289,6 @@ export default function SatLmsCaseStudy() {
                     ))}
                   </div>
 
-                  <OutcomePoll />
                 </div>
 
                 <div className={styles.stakeholderSection}>
@@ -2231,6 +2298,8 @@ export default function SatLmsCaseStudy() {
                     ))}
                   </div>
                 </div>
+
+                <OutcomePoll />
 
                 <div className={styles.nextCaseBridge}>
                   <div className={styles.nextCaseStatement}>
@@ -2257,6 +2326,7 @@ export default function SatLmsCaseStudy() {
           </div>
         </section>
       </main>
+      <Footer variant="caseStudy" />
     </div>
   );
 }

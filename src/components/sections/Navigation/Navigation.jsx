@@ -1,10 +1,9 @@
 import { useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Tooltip from '../../shared/Tooltip';
 import { useTheme } from '../../shared/ThemeContext';
 import {
-  NavBrandNormal,
-  NavBrandFun,
   NavIconWork,
   NavIconSkills,
   NavIconContact,
@@ -39,6 +38,9 @@ export default function Navigation({
   const iconRefs = useRef({});
 
   const activeLinks = links ?? (isFunMode ? funLinks : normalLinks);
+  const brandSrc = isFunMode
+    ? '/favicons/favicon-fun.png'
+    : '/favicons/favicon-normal.png';
 
   const triggerIcon = (href, action) => {
     const ref = iconRefs.current[href];
@@ -58,7 +60,15 @@ export default function Navigation({
 
           {/* ── Brand (logo only) ── */}
           <Link href="/" className={styles.brand} aria-label="Lohith Savala — home">
-            {isFunMode ? <NavBrandFun /> : <NavBrandNormal />}
+            <Image
+              src={brandSrc}
+              alt=""
+              width={44}
+              height={44}
+              className={styles.brandMark}
+              priority
+              unoptimized
+            />
           </Link>
 
           {/* ── Desktop nav links (centred) ── */}

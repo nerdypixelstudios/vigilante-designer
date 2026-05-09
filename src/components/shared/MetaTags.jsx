@@ -2,6 +2,11 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import { useTheme } from './ThemeContext';
 
+const faviconSources = {
+  normal: '/favicons/favicon-normal.png',
+  fun: '/favicons/favicon-fun.png',
+};
+
 export default function MetaTags() {
   const { isFunMode } = useTheme();
 
@@ -10,17 +15,22 @@ export default function MetaTags() {
     : 'Lohith Savala — AI-Enabled Product Designer';
 
   useEffect(() => {
-    const src = isFunMode
-      ? '/favicons/favicon-fun-32.png'
-      : '/favicons/favicon-normal-32.png';
+    const src = isFunMode ? faviconSources.fun : faviconSources.normal;
 
-    // Draw the PNG onto a canvas and use a data URL — Chrome reliably updates favicons this way
+    // Draw the PNG onto a square canvas so Chrome reliably updates favicons without stretching portraits.
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
       canvas.width = 32;
       canvas.height = 32;
-      canvas.getContext('2d').drawImage(img, 0, 0, 32, 32);
+      const context = canvas.getContext('2d');
+      const size = Math.min(canvas.width / img.width, canvas.height / img.height);
+      const width = img.width * size;
+      const height = img.height * size;
+      const x = (canvas.width - width) / 2;
+      const y = (canvas.height - height) / 2;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(img, x, y, width, height);
 
       const existing = document.querySelector("link[rel~='icon'][type='image/png']");
       if (existing) document.head.removeChild(existing);
@@ -36,9 +46,7 @@ export default function MetaTags() {
     // Apple Touch Icon — iOS home screen (best-effort toggle)
     const touchLink = document.querySelector("link[rel='apple-touch-icon']");
     if (touchLink) {
-      touchLink.href = isFunMode
-        ? '/favicons/favicon-fun-180.png'
-        : '/favicons/favicon-normal-180.png';
+      touchLink.href = src;
     }
   }, [isFunMode]);
 

@@ -5,9 +5,9 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* Favicon — static fallbacks; active favicon managed by MetaTags.jsx */}
-        <link rel="shortcut icon" href="/favicons/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-normal-32.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/favicon-normal-180.png" />
+        <link rel="shortcut icon" type="image/png" href="/favicons/favicon-normal.png" />
+        <link rel="icon" type="image/png" href="/favicons/favicon-normal.png" />
+        <link rel="apple-touch-icon" href="/favicons/favicon-normal.png" />
 
         {/* Open Graph — static; crawlers read this before JS runs */}
         <meta property="og:title" content="Lohith Savala — AI-Enabled Product Designer" />

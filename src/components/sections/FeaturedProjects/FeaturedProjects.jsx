@@ -9,7 +9,7 @@ const projects = [
   {
     id: 'sat-lms',
     slug: 'neuron',
-    name: 'SAT LMS',
+    name: 'SAT LMS: How I made a dump of learning content behave like a personalized tutor',
     funName: 'SAT LMS (aka The Next-Step Engine)',
     tags: [
       { label: 'In progress', tone: 'progress' },
@@ -18,7 +18,7 @@ const projects = [
       { label: 'UX System' },
     ],
     ribbon: '3x quiz completions / 10x attempts',
-    summary: 'An adaptive learning experience that decides what a student should do next, making good study behavior the default instead of a willpower test.',
+    summary: 'I used diagnostic-first UX, prescribed paths, and next-action UI to turn scattered course material into a guided learning journey.',
     funSticker: 'The path finds the student.',
     previewClass: 'previewSat',
     media: {
@@ -30,7 +30,7 @@ const projects = [
   {
     id: 'spark-presenter',
     slug: '#featured-projects',
-    name: 'SPARK Presenter',
+    name: 'SPARK Presenter: How I built a modular presenter system to scale lesson production',
     funName: 'SPARK Presenter (aka The Content Cannon)',
     tags: [
       { label: 'Active product', tone: 'active' },
@@ -39,7 +39,7 @@ const projects = [
       { label: 'Content System' },
     ],
     ribbon: '1 structure / many lessons',
-    summary: 'A scalable lesson presenter where structured content feeds the experience, so teams can ship learning modules without rebuilding the shell.',
+    summary: 'I turned structured learning content into reusable presentation files, so one lesson system could produce many modules without rebuilding each one.',
     funSticker: 'One system. Many lessons.',
     previewClass: 'previewSpark',
     media: null,
@@ -47,7 +47,7 @@ const projects = [
   {
     id: 'egmat-website',
     slug: '#featured-projects',
-    name: 'e-GMAT Website',
+    name: 'e-GMAT Website: How I rebuilt the website to make product value easier to trust',
     funName: 'e-GMAT Website (aka The Public Front)',
     tags: [
       { label: 'Active product', tone: 'active' },
@@ -56,7 +56,7 @@ const projects = [
       { label: 'End-to-End Ownership' },
     ],
     ribbon: 'Ranked on new keywords',
-    summary: 'A public product site shaped to explain value quickly, hold attention longer, and give the brand a sharper front door.',
+    summary: 'I reorganized messaging, proof, and action paths so visitors could understand the offering faster and move forward with more confidence.',
     funSticker: 'The front door got serious.',
     previewClass: 'previewEgmat',
     media: null,
@@ -64,7 +64,7 @@ const projects = [
   {
     id: 'neuron',
     slug: '#featured-projects',
-    name: 'Neuron',
+    name: 'Neuron: How I turned scattered GMAT practice into guided learner momentum',
     funName: 'Neuron (aka The Practice Grinder)',
     tags: [
       { label: 'Archived product', tone: 'archived' },
@@ -73,7 +73,7 @@ const projects = [
       { label: 'GMAT Practice' },
     ],
     ribbon: 'Guided practice from day one',
-    summary: 'A practice platform rebuilt around momentum: clearer entry points, guided next steps, and a study flow that kept learners moving.',
+    summary: 'I reworked entry points, practice flow, and next-step cues so learners spent less time searching and more time practicing.',
     funSticker: 'No more wandering around.',
     previewClass: 'previewNeuron',
     media: null,
