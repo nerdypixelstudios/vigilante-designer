@@ -5,6 +5,8 @@
   padding: clamp(4rem, 7vw, 5.5rem) clamp(1.5rem, 4vw, 3rem);
   background-color: var(--color-surface-white);
   color: var(--color-ink-950);
+  --shipped-flow-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shipped-flow-pill-radius: 9999px;
 }
 
 .skyImage {
@@ -74,7 +76,7 @@
   display: inline-block;
   opacity: 0;
   transform: translateY(0.6em);
-  animation: shippedWordRise 0.72s var(--ease-approach-motion) forwards;
+  animation: shippedWordRise 0.72s var(--shipped-flow-ease) forwards;
   animation-delay: calc(var(--word-index) * 0.075s);
 }
 
@@ -118,7 +120,7 @@
   gap: 0;
   padding: 0.45rem;
   border: 1px solid color-mix(in srgb, var(--color-ink-100) 70%, transparent);
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background-color: color-mix(in srgb, var(--color-surface-white) 72%, transparent);
   box-shadow: 0 0.75rem 2rem color-mix(in srgb, var(--color-ink-950) 6%, transparent);
   backdrop-filter: blur(1rem);
@@ -130,11 +132,11 @@
   inset-block: 0.45rem;
   inset-inline-start: 0.45rem;
   width: calc((100% - 0.9rem) / 2);
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background-color: var(--color-accent-green);
   box-shadow: 0 0 1.25rem color-mix(in srgb, var(--color-accent-green) 36%, transparent);
   transform: translateX(0);
-  transition: transform 260ms var(--ease-approach-motion);
+  transition: transform 260ms var(--shipped-flow-ease);
 }
 
 .toggle[data-active="map"] .toggleIndicator {
@@ -146,7 +148,7 @@
   z-index: 1;
   min-width: 10.25rem;
   border: 0;
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   padding: 0.75rem 1.05rem;
   background-color: transparent;
   font-family: var(--font-dm);
@@ -207,7 +209,7 @@
 .mapFramePanel {
   width: 100%;
   height: 100%;
-  animation: shippedPanelIn 420ms var(--ease-approach-motion) both;
+  animation: shippedPanelIn 420ms var(--shipped-flow-ease) both;
 }
 
 .frameImage {
@@ -257,7 +259,7 @@
   width: min(8.5rem, 28vw);
   height: 0.32rem;
   overflow: hidden;
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background-color: color-mix(in srgb, var(--color-surface-white) 26%, transparent);
 }
 
@@ -380,7 +382,7 @@
 .nextRule {
   width: 5.2rem;
   height: 0.25rem;
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background: linear-gradient(to right, var(--color-accent-green) 75%, var(--color-ink-100) 75%);
 }
 
@@ -473,7 +475,7 @@
 }
 
 .mapFramePanel::-webkit-scrollbar-thumb {
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background: color-mix(in srgb, var(--color-ink-500) 68%, transparent);
 }
 
@@ -509,7 +511,7 @@
 .loopLabel {
   width: fit-content;
   border: 1px solid color-mix(in srgb, var(--color-accent-green) 32%, transparent);
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background-color: color-mix(in srgb, var(--color-surface-white) 82%, var(--color-surface-mint));
   padding: 0.5rem 0.8rem;
   font-family: var(--font-dm);
@@ -706,7 +708,7 @@
   place-items: center;
   width: 1.55rem;
   aspect-ratio: 1;
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background-color: var(--color-surface-mint);
   font-size: 0.8rem;
   color: color-mix(in srgb, var(--color-accent-green) 58%, var(--color-ink-950));
@@ -756,7 +758,7 @@
   place-items: center;
   width: clamp(6.2rem, 8vw, 7.8rem);
   aspect-ratio: 1;
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background-color: var(--color-accent-green);
   color: var(--color-surface-white);
   box-shadow: 0 1.25rem 3rem color-mix(in srgb, var(--color-accent-green) 35%, transparent);
@@ -808,7 +810,7 @@
   flex: 0 0 auto;
   width: 1.55rem;
   aspect-ratio: 1;
-  border-radius: var(--radius-decision-pill);
+  border-radius: var(--shipped-flow-pill-radius);
   background-color: var(--color-ink-100);
   font-size: 0.85rem;
   font-weight: 900;

@@ -1,1 +1,1 @@
-export { default } from './neuron';
+export { default } from './sat-lms';

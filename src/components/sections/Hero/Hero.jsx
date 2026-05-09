@@ -4,14 +4,14 @@ import { WhiteSwirlyArrow, HandDrawnCircleArrow, ExperienceSticker, SmallArrow }
 import styles from './Hero.module.css';
 
 const normalProjects = [
-  { num: '01', label: 'SAT LMS',         sub: 'Adaptive learning app',         href: '/case-studies/neuron' },
+  { num: '01', label: 'SAT LMS',         sub: 'Adaptive learning app',         href: '/case-studies/sat-lms' },
   { num: '02', label: 'SPARK Presenter', sub: 'Scalable learning content stack', href: '#' },
   { num: '03', label: 'e-GMAT Website',  sub: 'Public marketing site',         href: '#' },
   { num: '04', label: 'NEURON',          sub: 'GMAT practice platform',        href: '#' },
 ];
 
 const funProjects = [
-  { num: '01', label: 'SAT LMS',         sub: 'Adaptive learning app',         href: '/case-studies/neuron' },
+  { num: '01', label: 'SAT LMS',         sub: 'Adaptive learning app',         href: '/case-studies/sat-lms' },
   { num: '02', label: 'SPARK Presenter', sub: 'Scalable learning content stack', href: '#' },
   { num: '03', label: 'e-GMAT Website',  sub: 'Public marketing site',         href: '#' },
   { num: '04', label: 'NEURON',          sub: 'GMAT practice platform',        href: '#' },

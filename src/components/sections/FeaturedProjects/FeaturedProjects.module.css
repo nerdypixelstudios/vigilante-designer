@@ -25,8 +25,8 @@
   --work-chip-padding-x: 0.75rem;
   --work-ribbon-padding-y: 0.55rem;
   --work-ribbon-padding-x: 1rem;
-  --work-title-max-width: 44rem;
-  --work-summary-max-width: 54rem;
+  --work-title-max-width: 64rem;
+  --work-summary-max-width: 68rem;
   --work-sticker-inset: clamp(1.25rem, 2.75vw, 2rem);
   --work-hover-cue-gap: 0.375rem;
   --work-hover-cue-padding-y: 0.75rem;
@@ -36,8 +36,10 @@
   --work-card-radius: 1.5rem;
   --work-media-radius: 1rem;
   --work-preview-piece-radius: 0.875rem;
-  --work-chip-radius: 0.375rem;
+  --work-chip-radius: 9999px;
   --work-pill-radius: 9999px;
+  --work-label-text: 0.8125rem;
+  --work-preview-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 9%, transparent);
   --work-media-hover-scale: 1.015;
   --work-sticker-rotate: 2deg;
   --work-hover-cue-translate: -50%;
@@ -215,7 +217,7 @@
 .previewLineShort {
   display: block;
   background: color-mix(in srgb, var(--color-surface-white) 78%, transparent);
-  box-shadow: var(--shadow-decision-browser);
+  box-shadow: var(--work-preview-shadow);
 }
 
 .previewRail {
@@ -260,7 +262,7 @@
   padding: var(--work-chip-padding-y) var(--work-chip-padding-x);
   border-radius: var(--work-chip-radius);
   background-color: var(--color-fun-accent-red);
-  font-size: var(--text-decision-micro);
+  font-size: var(--work-label-text);
   transform: rotate(var(--work-sticker-rotate));
 }
 
@@ -279,7 +281,7 @@
   box-shadow:
     inset 0 0 0 var(--work-card-border) color-mix(in srgb, var(--color-surface-white) 28%, transparent),
     0 0.65rem 1.25rem color-mix(in srgb, var(--color-ink-950) 10%, transparent);
-  font-size: var(--text-decision-micro);
+  font-size: var(--work-label-text);
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0;
@@ -309,11 +311,11 @@
   align-items: center;
   min-height: var(--work-chip-height);
   padding: var(--work-chip-padding-y) var(--work-chip-padding-x);
-  border-radius: var(--radius-decision-inner);
+  border-radius: var(--work-chip-radius);
   border: var(--work-card-border) solid var(--color-ink-100);
   background: var(--color-surface-white);
   color: var(--color-ink-700);
-  font-size: var(--text-decision-micro);
+  font-size: var(--work-label-text);
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0;

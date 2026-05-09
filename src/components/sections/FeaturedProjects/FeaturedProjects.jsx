@@ -8,7 +8,7 @@ import styles from './FeaturedProjects.module.css';
 const projects = [
   {
     id: 'sat-lms',
-    slug: 'neuron',
+    slug: 'sat-lms',
     name: 'SAT LMS: How I made a dump of learning content behave like a personalized tutor',
     funName: 'SAT LMS (aka The Next-Step Engine)',
     tags: [

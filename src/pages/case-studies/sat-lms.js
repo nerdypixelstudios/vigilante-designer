@@ -25,7 +25,7 @@ import ShippedFlowSection from '../../components/case-study/ShippedFlowSection';
 import Footer from '../../components/sections/Footer/Footer';
 import Navigation from '../../components/sections/Navigation/Navigation';
 import Tooltip from '../../components/shared/Tooltip';
-import styles from './neuron.module.css';
+import styles from './sat-lms.module.css';
 
 const caseStudyLinks = [
   { href: '#tldr', label: 'TL;DR' },
@@ -948,15 +948,15 @@ function ApproachInteraction() {
   const conclusionTransition = { duration: 0.72, ease: [0.16, 1, 0.3, 1] };
   const rejectedInitial = shouldReduceMotion ? false : {
     color: 'var(--color-ink-950)',
-    backgroundSize: '0% var(--spacing-wordplay-strike-height)',
+    backgroundSize: '0% 0.08em',
   };
   const rejectedReveal = shouldReduceMotion ? {} : {
     color: 'var(--color-ink-300)',
-    backgroundSize: '100% var(--spacing-wordplay-strike-height)',
+    backgroundSize: '100% 0.08em',
   };
   const rejectedTransition = {
-    color: { duration: 0.45, delay: 1.05 },
-    backgroundSize: { duration: 0.9, delay: 1.2, ease: [0.16, 1, 0.3, 1] },
+    color: { duration: 0.45, delay: 0.8 },
+    backgroundSize: { duration: 0.85, delay: 1.05, ease: [0.16, 1, 0.3, 1] },
   };
 
   return (

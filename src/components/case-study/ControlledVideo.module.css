@@ -15,7 +15,7 @@
   height: clamp(2.05rem, 3.6vw, 2.6rem);
   place-items: center;
   border: 1px solid color-mix(in srgb, var(--color-surface-white) 24%, transparent);
-  border-radius: var(--radius-decision-pill);
+  border-radius: 9999px;
   background:
     linear-gradient(
       135deg,
