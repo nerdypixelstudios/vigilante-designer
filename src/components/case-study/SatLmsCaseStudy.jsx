@@ -2025,7 +2025,7 @@ function NextCaseStudyPreview() {
   };
 
   return (
-    <a className={styles.nextCasePreview} href="/#featured-projects" onMouseMove={handlePointerMove}>
+    <a className={styles.nextCasePreview} href="/case-studies/spark-presenter" onMouseMove={handlePointerMove}>
       <span className={styles.nextCaseMediaFrame}>
         <span className={styles.nextCaseRibbon} aria-hidden="true">
           1 structure / many lessons
@@ -2039,7 +2039,7 @@ function NextCaseStudyPreview() {
         </span>
       </span>
       <span className={styles.nextCaseCopy}>
-        <span className={styles.nextCaseTitle}>SPARK Presenter: How I built a modular presenter system to scale lesson production</span>
+        <span className={styles.nextCaseTitle}>S.P.A.R.K. Presenter: How I built a modular presenter system to scale lesson production</span>
         <span className={styles.nextCaseSummary}>
           I turned structured learning content into reusable presentation files, so one lesson system could produce many modules without rebuilding each one.
         </span>

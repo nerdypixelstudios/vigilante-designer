@@ -1,0 +1,1107 @@
+.metricTip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  aspect-ratio: 1;
+  border: 0.125rem solid var(--color-ink-100);
+  border-radius: 9999px;
+  background: var(--color-surface-white);
+  color: var(--color-ink-500);
+  font-size: 0.8125rem;
+  line-height: 1;
+}
+
+.heroSystemGraphic {
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-inline: auto;
+  max-width: 64rem;
+  padding: clamp(1rem, 2vw, 1.4rem);
+  border: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 80%, transparent);
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--color-surface-mint) 32%, transparent), transparent 45%),
+    var(--color-surface-white);
+  box-shadow: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 9%, transparent);
+}
+
+.heroStage {
+  position: relative;
+  display: grid;
+  gap: 0.4rem;
+  min-height: 8.25rem;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  border: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 78%, transparent);
+  border-radius: 0.875rem;
+  background: var(--color-surface-white);
+  text-align: left;
+}
+
+.heroStage::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: calc(clamp(0.75rem, 2vw, 1rem) * -0.8);
+  inset-block-start: 50%;
+  width: 1.1rem;
+  height: 0.125rem;
+  border-radius: 9999px;
+  background: var(--color-accent-green);
+  transform: translateY(-50%);
+}
+
+.heroStage:last-child::after {
+  content: none;
+}
+
+.heroStageNumber {
+  font-family: var(--font-dm);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--color-accent-green);
+}
+
+.heroStage strong,
+.sparkCore strong,
+.decisionVisualBody p,
+.livePreviewMain strong,
+.liveProductCopy h3,
+.processStepCopy h3,
+.whyWorkedBlock h3,
+.stakeholderCard strong {
+  margin: 0;
+  font-family: var(--font-cabinet);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--color-ink-950);
+}
+
+.heroStage strong {
+  font-size: var(--text-h4);
+}
+
+.heroStage span:last-child {
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.sparkCenterGraphic {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: center;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 72%, transparent);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-accent-green) 24%, transparent), transparent 36%),
+    var(--color-surface-light);
+}
+
+.sparkInputColumn,
+.sparkOutputColumn {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.sparkInputColumn span,
+.sparkOutputColumn span,
+.pipelineGraphic span,
+.whyWorkedItems span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.6rem;
+  padding: 0.7rem 0.9rem;
+  border: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 76%, transparent);
+  border-radius: 0.75rem;
+  background: var(--color-surface-white);
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-ink-800);
+}
+
+.sparkCore {
+  display: grid;
+  place-items: center;
+  gap: 0.55rem;
+  min-height: 13rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 35% 25%, var(--color-surface-white), transparent 30%),
+    linear-gradient(135deg, var(--color-accent-green), color-mix(in srgb, var(--color-accent-sky) 70%, var(--color-surface-white)));
+  text-align: center;
+  box-shadow: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 12%, transparent);
+}
+
+.sparkCore span {
+  font-family: var(--font-dm);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-ink-950) 58%, transparent);
+}
+
+.sparkCore strong {
+  max-width: 12rem;
+  font-size: var(--text-h3);
+}
+
+.problemBridge {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  margin-block-start: clamp(4rem, 8vw, 6rem);
+  padding-block-start: clamp(2rem, 4vw, 3rem);
+  border-block-start: 0.125rem solid var(--color-ink-100);
+}
+
+.problemBridge > p,
+.approachCloser {
+  margin: 0;
+  font-family: var(--font-cabinet);
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--color-ink-950);
+}
+
+.problemBridge h3,
+.approachQuestion {
+  margin: 0;
+  max-width: 48rem;
+  font-family: var(--font-dm);
+  font-size: var(--text-body);
+  font-weight: 800;
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.bottleneckDiagram {
+  position: relative;
+  display: grid;
+  gap: 0.8rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: 1.25rem;
+  background: var(--color-surface-white);
+  box-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 8%, transparent);
+}
+
+.bottleneckStep {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 1rem;
+  border: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 76%, transparent);
+  border-radius: 0.75rem;
+  background: var(--color-surface-light);
+}
+
+.bottleneckStep span,
+.processArtifact span,
+.processStepCopy span {
+  font-family: var(--font-dm);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-500);
+}
+
+.bottleneckStep strong {
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--color-ink-950);
+}
+
+.bottleneckStepHot {
+  background: color-mix(in srgb, var(--color-surface-peach) 72%, var(--color-surface-white));
+  border-color: color-mix(in srgb, var(--color-accent-orange) 42%, var(--color-ink-100));
+}
+
+.bottleneckDiagram p {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-accent-yellow);
+  font-family: var(--font-caveat);
+  font-size: var(--text-fun-h4);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-ink-950);
+  transform: rotate(-1deg);
+}
+
+.approachSection {
+  background:
+    linear-gradient(to bottom, var(--color-surface-white), var(--color-surface-light));
+}
+
+.approachQuestion {
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+}
+
+.approachMachineGrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+}
+
+.approachMachine {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 78%, transparent);
+  border-radius: 1.25rem;
+  background: var(--color-surface-white);
+  box-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 7%, transparent);
+}
+
+.approachMachine p {
+  margin: 0 0 0.8rem;
+  font-family: var(--font-dm);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent-green);
+}
+
+.approachMachine h3 {
+  margin: 0;
+  font-family: var(--font-cabinet);
+  font-size: var(--text-h3);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--color-ink-950);
+}
+
+.approachMachine strong {
+  display: block;
+  margin-block-start: 0.8rem;
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.approachMachine dl {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+}
+
+.approachMachine dl div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: var(--color-surface-light);
+}
+
+.approachMachine dt,
+.approachMachine dd {
+  margin: 0;
+  font-family: var(--font-dm);
+  line-height: var(--leading-subpitch);
+}
+
+.approachMachine dt {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-500);
+}
+
+.approachMachine dd {
+  font-size: var(--text-small);
+  color: var(--color-ink-700);
+}
+
+.approachCloser {
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+}
+
+.sparkDecision {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.decisionVisual {
+  overflow: hidden;
+  border: 0.125rem solid color-mix(in srgb, var(--color-surface-white) 14%, transparent);
+  border-radius: 1.25rem;
+  background: color-mix(in srgb, var(--color-surface-white) 10%, transparent);
+  box-shadow: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 28%, transparent);
+}
+
+.decisionVisualChrome {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-block-end: 0.125rem solid color-mix(in srgb, var(--color-surface-white) 12%, transparent);
+}
+
+.decisionVisualChrome span {
+  width: 0.75rem;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-surface-white) 32%, transparent);
+}
+
+.decisionVisualBody {
+  display: grid;
+  gap: 1.25rem;
+  min-height: clamp(18rem, 34vw, 27rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background:
+    radial-gradient(circle at 85% 15%, color-mix(in srgb, var(--color-accent-green) 42%, transparent), transparent 35%),
+    var(--color-ink-950);
+}
+
+.decisionVisualBody p {
+  color: var(--color-surface-white);
+  font-size: var(--text-h3);
+}
+
+.decisionVisualList {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.decisionVisualList span {
+  display: block;
+  padding: 0.85rem 1rem;
+  border: 0.125rem solid color-mix(in srgb, var(--color-surface-white) 16%, transparent);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--color-surface-white) 9%, transparent);
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 800;
+  color: var(--color-ink-100);
+}
+
+.buildProcessSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4rem, 7vw, 5.5rem) 1.5rem;
+  background: var(--color-surface-light);
+}
+
+.buildProcessSection::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(var(--color-ink-500) 0.08rem, transparent 0.08rem);
+  background-size: 1.25rem 1.25rem;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.pipelineGraphic {
+  display: grid;
+  gap: 0.75rem;
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: 1.25rem;
+  background: var(--color-ink-950);
+}
+
+.pipelineGraphic span {
+  border-color: color-mix(in srgb, var(--color-surface-white) 12%, transparent);
+  background: color-mix(in srgb, var(--color-surface-white) 8%, transparent);
+  color: var(--color-surface-white);
+}
+
+.processStepList {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+}
+
+.processStep {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 1.25rem;
+  background: var(--color-surface-white);
+  box-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 7%, transparent);
+}
+
+.processStepCopy {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.processStepCopy span {
+  color: var(--color-accent-green);
+}
+
+.processStepCopy h3 {
+  font-size: var(--text-h3);
+}
+
+.processStepCopy p {
+  margin: 0;
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.processStepCopy strong {
+  color: var(--color-ink-950);
+}
+
+.processArtifact {
+  display: grid;
+  align-content: center;
+  gap: 0.5rem;
+  min-height: 8rem;
+  padding: 1.25rem;
+  border-radius: 0.875rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--color-surface-mint) 70%, var(--color-surface-white)), var(--color-surface-white));
+}
+
+.processArtifact strong {
+  font-family: var(--font-cabinet);
+  font-size: var(--text-h4);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--color-ink-950);
+}
+
+.whyWorkedBlock {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  margin-block-start: clamp(3rem, 6vw, 4rem);
+  padding-block-start: clamp(2rem, 4vw, 3rem);
+  border-block-start: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 82%, transparent);
+}
+
+.whyWorkedBlock h3 {
+  max-width: 36rem;
+  font-size: var(--text-case-study-statement);
+}
+
+.whyWorkedItems {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.whyWorkedItems span {
+  background: var(--color-surface-white);
+}
+
+.shippedOutputSection {
+  background:
+    linear-gradient(to bottom, var(--color-surface-white), color-mix(in srgb, var(--color-surface-ice) 72%, var(--color-surface-white)));
+}
+
+.liveProductCard {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: 1.25rem;
+  background: var(--color-surface-white);
+  box-shadow: 0 1.5rem 4.5rem color-mix(in srgb, var(--color-ink-950) 10%, transparent);
+}
+
+.liveActivityPreview {
+  display: grid;
+  grid-template-columns: minmax(3rem, 0.22fr) minmax(0, 1fr);
+  min-height: clamp(20rem, 40vw, 30rem);
+  overflow: hidden;
+  border: 0.125rem solid var(--color-ink-100);
+  border-radius: 1rem;
+  background: var(--color-surface-white);
+}
+
+.livePreviewRail {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: var(--color-ink-950);
+}
+
+.livePreviewRail span {
+  height: 2.5rem;
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, var(--color-surface-white) 18%, transparent);
+}
+
+.livePreviewMain {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent-green) 28%, transparent), transparent 36%),
+    var(--color-surface-light);
+}
+
+.livePreviewBadge {
+  width: fit-content;
+  padding: 0.45rem 0.7rem;
+  border-radius: 9999px;
+  background: var(--color-accent-green);
+  font-family: var(--font-dm);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--color-ink-950);
+}
+
+.livePreviewMain strong {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.livePreviewLine,
+.livePreviewLineShort {
+  display: block;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-ink-100) 82%, transparent);
+}
+
+.livePreviewLineShort {
+  width: 62%;
+}
+
+.livePreviewCards {
+  display: grid;
+  gap: 0.8rem;
+  margin-block-start: 1rem;
+}
+
+.livePreviewCards span {
+  padding: 1rem;
+  border-radius: 0.875rem;
+  background: var(--color-surface-white);
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 800;
+  color: var(--color-ink-800);
+}
+
+.liveProductCopy {
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+}
+
+.liveProductCopy h3 {
+  font-size: var(--text-case-study-statement);
+}
+
+.liveProductCopy p:not(:first-child) {
+  margin: 0;
+  font-family: var(--font-dm);
+  font-size: var(--text-body);
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.liveProductNote {
+  font-size: var(--text-small) !important;
+  color: var(--color-ink-500) !important;
+}
+
+.liveProductDisabled,
+.liveProductLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 2.75rem;
+  padding: 0.8rem 1rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-ink-950);
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 800;
+  color: var(--color-surface-white);
+  text-decoration: none;
+}
+
+.liveProductDisabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.liveProductIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-inline-start: 0.5rem;
+}
+
+.stakeholderGrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.stakeholderCard {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: 1rem;
+  background: var(--color-surface-white);
+  box-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 8%, transparent);
+}
+
+.stakeholderInitials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: var(--color-surface-mint);
+  font-family: var(--font-cabinet);
+  font-size: var(--text-h4);
+  font-weight: 800;
+  color: var(--color-ink-950);
+}
+
+.stakeholderCard p,
+.stakeholderCard span:not(.stakeholderInitials) {
+  margin: 0;
+  font-family: var(--font-dm);
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.stakeholderCard p {
+  font-size: var(--text-body);
+  font-weight: 600;
+  color: var(--color-ink-950);
+}
+
+.stakeholderCard div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.websitePreviewSurface {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 0.45fr;
+  grid-template-rows: 0.5fr 1fr 0.45fr;
+  gap: clamp(0.45rem, 1vw, 0.75rem);
+  width: 100%;
+  aspect-ratio: 1200 / 340;
+  padding: clamp(0.75rem, 1.5vw, 1.1rem);
+  overflow: hidden;
+  border-radius: calc(1rem * 0.46);
+  background:
+    radial-gradient(circle at 82% 12%, color-mix(in srgb, var(--color-accent-orange) 64%, transparent), transparent 44%),
+    linear-gradient(135deg, var(--color-surface-peach), var(--color-accent-yellow));
+  transition: transform 0.2s ease;
+}
+
+.websitePreviewSurface span {
+  display: block;
+  border-radius: calc(1rem * 0.34);
+  background: var(--color-surface-white);
+  opacity: 0.86;
+  box-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 9%, transparent);
+}
+
+.websitePreviewSurface span:first-child {
+  grid-column: 1 / 3;
+}
+
+.websitePreviewSurface span:nth-child(2) {
+  grid-row: 2 / 4;
+}
+
+.websitePreviewSurface span:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.websitePreviewSurface span:nth-child(4) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+@media (min-width: 48rem) {
+  .heroSystemGraphic {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .sparkCenterGraphic {
+    grid-template-columns: minmax(0, 0.75fr) minmax(13rem, 0.85fr) minmax(0, 1fr);
+  }
+
+  .bottleneckDiagram {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .bottleneckDiagram p {
+    grid-column: 2 / 5;
+  }
+
+  .approachMachine {
+    grid-template-columns: minmax(0, 0.55fr) minmax(0, 1fr);
+  }
+
+  .sparkDecision {
+    grid-template-columns: minmax(0, 1.05fr) minmax(20rem, 0.85fr);
+    align-items: start;
+  }
+
+  .pipelineGraphic {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .processStep {
+    grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.42fr);
+    align-items: stretch;
+  }
+
+  .whyWorkedBlock {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  }
+
+  .liveProductCard {
+    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+  }
+
+  .stakeholderGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 47.9375rem) {
+  .heroStage::after {
+    inset-inline-start: 50%;
+    inset-inline-end: auto;
+    inset-block-start: auto;
+    inset-block-end: calc(clamp(0.75rem, 2vw, 1rem) * -0.8);
+    width: 0.125rem;
+    height: 1rem;
+    transform: translateX(-50%);
+  }
+
+  .pipelineGraphic span,
+  .sparkInputColumn span,
+  .sparkOutputColumn span {
+    width: 100%;
+  }
+}
+
+/* Feedback pass: SAT LMS-aligned Spark layouts */
+.heroVideoFrame {
+  max-width: 68rem;
+  margin-inline: auto;
+}
+
+.heroVideoMedia {
+  min-height: clamp(18rem, 48vw, 38rem);
+  background:
+    radial-gradient(circle at 74% 18%, color-mix(in srgb, var(--color-accent-green) 32%, transparent), transparent 34%),
+    linear-gradient(135deg, var(--color-ink-950), color-mix(in srgb, var(--color-ink-950) 72%, var(--color-accent-sky)));
+}
+
+.heroVideoMedia::before {
+  content: "S.P.A.R.K. product demo video frame";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 2;
+  width: min(82%, 30rem);
+  padding: 1rem 1.2rem;
+  border: 0.125rem solid color-mix(in srgb, var(--color-surface-white) 14%, transparent);
+  border-radius: 0.875rem;
+  background: color-mix(in srgb, var(--color-surface-white) 10%, transparent);
+  color: var(--color-surface-white);
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.sparkCenterGraphic {
+  border-radius: 1.25rem;
+  background: var(--color-surface-light);
+  box-shadow: 0 1.25rem 4rem color-mix(in srgb, var(--color-ink-950) 9%, transparent);
+}
+
+.sparkCore {
+  border-radius: 9999px;
+  background: var(--color-ink-950);
+  color: var(--color-surface-white);
+}
+
+.sparkCore span {
+  color: color-mix(in srgb, var(--color-surface-white) 45%, transparent);
+}
+
+.sparkCore strong {
+  color: var(--color-surface-white);
+}
+
+.sparkCore p {
+  max-width: 15rem;
+  margin: 0;
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: var(--leading-subpitch);
+  color: color-mix(in srgb, var(--color-surface-white) 62%, transparent);
+}
+
+.sparkOutputColumn span {
+  background: var(--color-surface-mint);
+}
+
+.sparkGraphicCaption {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 700;
+  font-style: italic;
+  line-height: var(--leading-subpitch);
+  text-align: center;
+  color: var(--color-ink-500);
+}
+
+.painPointGrid {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-block-start: clamp(2.5rem, 5vw, 4rem);
+}
+
+.painPointCard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  padding: clamp(1.25rem, 3vw, 1.8rem);
+  border: 0.125rem solid color-mix(in srgb, var(--color-ink-100) 78%, transparent);
+  border-radius: 1rem;
+  background: var(--color-surface-white);
+  box-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 6%, transparent);
+}
+
+.painPointAvatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: var(--color-surface-mint);
+  font-family: var(--font-cabinet);
+  font-size: var(--text-h4);
+  font-weight: 800;
+  color: var(--color-ink-950);
+}
+
+.painPointCard div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.painPointCard p,
+.painPointCard h3,
+.painPointCard > span:last-child {
+  margin: 0;
+}
+
+.painPointCard p {
+  font-family: var(--font-dm);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-500);
+}
+
+.painPointCard h3 {
+  font-family: var(--font-cabinet);
+  font-size: var(--text-h4);
+  font-weight: 800;
+  line-height: 1.08;
+  color: var(--color-ink-950);
+}
+
+.painPointCard > span:last-child {
+  grid-column: 1 / -1;
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.approachQuestion {
+  max-width: 60rem;
+  font-family: var(--font-cabinet);
+  font-size: var(--text-case-study-statement);
+  font-weight: 800;
+  line-height: 1.12;
+  color: var(--color-ink-950);
+}
+
+.approachQuestion span {
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background: var(--color-accent-yellow);
+  padding-inline: 0.25rem;
+}
+
+.approachMachine {
+  display: grid;
+  gap: 1rem;
+}
+
+.approachMachine > p {
+  margin: 0;
+  font-family: var(--font-dm);
+  font-size: var(--text-body);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.approachProcessNote {
+  max-width: 54rem;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  font-family: var(--font-dm);
+  font-size: var(--text-body);
+  font-weight: 700;
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
+.sparkDecision {
+  display: block;
+}
+
+.decisionVisual {
+  margin-block-start: clamp(1.5rem, 3vw, 2rem);
+}
+
+.decisionVisualBody {
+  min-height: clamp(14rem, 24vw, 20rem);
+}
+
+.decisionVisualList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.buildProcessGrid {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  margin-block-start: clamp(2rem, 4vw, 3rem);
+}
+
+.pipelineGraphicVertical {
+  align-self: start;
+  margin-block-start: 0;
+}
+
+.pipelineGraphicVertical span {
+  position: relative;
+}
+
+.pipelineGraphicVertical span:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-end: -0.95rem;
+  width: 0.125rem;
+  height: 0.95rem;
+  border-radius: 9999px;
+  background: var(--color-accent-green);
+  transform: translateX(-50%);
+}
+
+.processStep {
+  position: relative;
+  padding-inline-start: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.processStep::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.75rem;
+  inset-block: 1.25rem;
+  width: 0.125rem;
+  border-radius: 9999px;
+  background: var(--color-accent-green);
+}
+
+.liveProductCard {
+  background:
+    radial-gradient(circle at 84% 12%, color-mix(in srgb, var(--color-accent-green) 26%, transparent), transparent 30%),
+    var(--color-ink-950);
+  color: var(--color-surface-white);
+}
+
+.liveProductCopy h3,
+.liveProductCopy p:not(:first-child) {
+  color: var(--color-surface-white);
+}
+
+.liveProductNote {
+  color: color-mix(in srgb, var(--color-surface-white) 62%, transparent) !important;
+}
+
+.liveActivityPreview {
+  border-color: color-mix(in srgb, var(--color-surface-white) 14%, transparent);
+}
+
+.livePreviewMain {
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent-green) 28%, transparent), transparent 36%),
+    var(--color-surface-white);
+}
+
+.liveProductDisabled,
+.liveProductLink {
+  background: var(--color-accent-green);
+  color: var(--color-ink-950);
+}
+
+@media (min-width: 48rem) {
+  .painPointGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .painPointCard:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .approachMachine {
+    grid-template-columns: minmax(0, 0.48fr) minmax(0, 1fr);
+  }
+
+  .sparkDecision {
+    display: block;
+  }
+
+  .buildProcessGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, 0.32fr);
+    align-items: start;
+  }
+
+  .processStep {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

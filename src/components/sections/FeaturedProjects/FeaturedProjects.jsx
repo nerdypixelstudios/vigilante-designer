@@ -29,12 +29,12 @@ const projects = [
   },
   {
     id: 'spark-presenter',
-    slug: '#featured-projects',
-    name: 'SPARK Presenter: How I built a modular presenter system to scale lesson production',
-    funName: 'SPARK Presenter (aka The Content Cannon)',
+    slug: 'spark-presenter',
+    name: 'S.P.A.R.K. Presenter: How I built a modular presenter system to scale lesson production',
+    funName: 'S.P.A.R.K. Presenter (aka The Content Cannon)',
     tags: [
       { label: 'Active product', tone: 'active' },
-      { label: 'Case study coming soon' },
+      { label: 'Case study live' },
       { label: 'Learning Tool' },
       { label: 'Content System' },
     ],
