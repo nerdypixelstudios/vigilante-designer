@@ -1,125 +1,50 @@
+import { useCallback, useState } from 'react';
 import { useTheme } from '../../shared/ThemeContext';
+import MoreWorkImageModal from './MoreWorkImageModal';
+import RangeMorphStage from './RangeMorphStage';
+import { moreWorkLanes } from './moreWorksData';
 import styles from './MoreFromDesk.module.css';
-
-const categories = [
-  {
-    id: 'product-design',
-    label: 'Product Design',
-    funLabel: 'Product Design',
-    funAnnotation: '(aka: The Field Lab)',
-    desc: 'End-to-end web apps — from first user journey to production.',
-    thumbCount: 4,
-    accentBg: 'bg-surface-lilac',
-    funAccentBg: 'bg-fun-surface-dark',
-    borderColor: 'border-accent-lavender',
-    funBorderColor: 'border-fun-accent-pink',
-    priority: 'high',
-  },
-  {
-    id: 'web-ai-build',
-    label: 'Web & AI Build',
-    funLabel: 'Web & AI Build',
-    funAnnotation: '(aka: The Launch Pad)',
-    desc: 'Landing pages, marketing sites, and AI-assisted builds — volume at quality.',
-    thumbCount: 4,
-    accentBg: 'bg-surface-peach',
-    funAccentBg: 'bg-fun-surface-dark',
-    borderColor: 'border-accent-orange',
-    funBorderColor: 'border-fun-accent-red',
-    priority: 'high',
-  },
-  {
-    id: 'instructional-branding',
-    label: 'Instructional & Branding',
-    funLabel: 'Instructional & Branding',
-    funAnnotation: '(aka: The Signal Corps)',
-    desc: 'Learning systems, visual identity, and content that teaches.',
-    thumbCount: 3,
-    accentBg: 'bg-surface-mint',
-    funAccentBg: 'bg-fun-surface-dark',
-    borderColor: 'border-accent-green',
-    funBorderColor: 'border-fun-accent-forest',
-    priority: 'lower',
-  },
-];
-
-function ThumbGrid({ count, isFunMode }) {
-  const thumbBg = isFunMode ? 'bg-fun-surface-black border-fun-ink-900' : 'bg-surface-white border-ink-100';
-  return (
-    <div className={`${styles.thumbGrid} ${count === 3 ? styles.thumbGrid3 : styles.thumbGrid4}`}>
-      {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className={`${styles.thumb} ${thumbBg} border`} />
-      ))}
-    </div>
-  );
-}
 
 export default function MoreFromDesk() {
   const { isFunMode } = useTheme();
+  const [activeModalItem, setActiveModalItem] = useState(null);
 
-  const sectionBg = isFunMode ? 'bg-fun-surface-black' : 'bg-surface-white';
-  const headlineColor = isFunMode ? 'text-fun-ink-50' : 'text-ink-950';
-  const descColor = isFunMode ? 'text-fun-ink-300' : 'text-ink-500';
-  const linkColor = isFunMode ? 'text-fun-accent-yellow' : 'text-accent-orange';
+  const openModal = useCallback((item, lane) => {
+    setActiveModalItem({ item, lane });
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setActiveModalItem(null);
+  }, []);
 
   return (
-    <section id="more-from-desk" className={`${sectionBg} ${styles.section}`}>
+    <section
+      id="more-from-desk"
+      className={`${styles.section} ${isFunMode ? styles.sectionFun : styles.sectionNormal}`}
+    >
       <div className={styles.inner}>
-
-        <div className={styles.headline}>
-          <p className={`font-caveat font-bold ${isFunMode ? 'text-fun-accent-yellow' : 'text-fun-accent-red'} text-xl`}>
+        <header className={styles.headline}>
+          <p className={styles.eyebrow}>
             {isFunMode ? 'Every mission has a story.' : 'Beyond the headline work.'}
           </p>
-          <h2 className={isFunMode
-            ? `font-rock-salt ${headlineColor} leading-rock-salt ${styles.h2Fun}`
-            : `font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`
-          }>
-            {isFunMode ? 'The Full Dossier!' : 'The Full Range!'}
+          <h2 className={isFunMode ? styles.h2Fun : styles.h2Normal}>
+            {isFunMode ? (
+              'The Full Dossier!'
+            ) : (
+              <>
+                The Full <span>Range!</span>
+              </>
+            )}
           </h2>
-        </div>
+          <p className={styles.description}>
+            <strong>Product systems, web builds, and brand collateral</strong> - the wider body of work behind how I think, design, and ship.
+          </p>
+        </header>
 
-        <div className={styles.grid}>
-          {categories.map(cat => (
-            <div
-              key={cat.id}
-              className={`
-                ${styles.tile}
-                ${cat.priority === 'lower' ? styles.tileLower : ''}
-                ${isFunMode ? cat.funAccentBg : cat.accentBg}
-              `}
-            >
-              <div className={styles.tileContent}>
-                <div>
-                  <h3 className={isFunMode
-                    ? `font-caveat font-bold text-fun-h4 ${headlineColor}`
-                    : `font-dm font-extrabold text-h4 ${headlineColor}`
-                  }>
-                    {isFunMode ? cat.funLabel : cat.label}
-                  </h3>
-                  {isFunMode && (
-                    <span className="font-caveat text-fun-accent-yellow text-base block mt-0.5">
-                      {cat.funAnnotation}
-                    </span>
-                  )}
-                  <p className={`font-dm font-normal text-sm ${descColor} mt-1`}>
-                    {cat.desc}
-                  </p>
-                </div>
-
-                <ThumbGrid count={cat.thumbCount} isFunMode={isFunMode} />
-
-                <a
-                  href="#"
-                  className={`${styles.tileLink} ${linkColor} font-dm font-extrabold text-sm hover:underline`}
-                >
-                  View curated work →
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-
+        <RangeMorphStage lanes={moreWorkLanes} onOpenModal={openModal} />
       </div>
+
+      <MoreWorkImageModal activeItem={activeModalItem} onClose={closeModal} />
     </section>
   );
 }

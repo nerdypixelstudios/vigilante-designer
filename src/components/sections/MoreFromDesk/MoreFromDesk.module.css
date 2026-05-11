@@ -1,100 +1,648 @@
 .section {
-  padding: 5rem 1.5rem;
+  position: relative;
+  overflow: clip;
+  padding: clamp(4.5rem, 8vw, 6.5rem) 1.25rem;
+  color: var(--color-ink-950);
+}
+
+.sectionNormal {
+  background: var(--color-surface-light);
+}
+
+.sectionFun {
+  background: var(--color-fun-surface-black);
+  color: var(--color-fun-ink-50);
 }
 
 .inner {
-  max-width: 1200px;
+  width: min(100%, 77.5rem);
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
 }
 
-/* ── Headline ── */
+.headline {
+  max-width: 56rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.eyebrow {
+  margin-bottom: 1rem;
+  color: var(--color-accent-orange);
+  font-family: var(--font-caveat);
+  font-size: clamp(1.5rem, 2.7vw, 1.75rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sectionFun .eyebrow {
+  color: var(--color-fun-accent-yellow);
+}
+
+.h2Normal,
+.h2Fun {
+  color: inherit;
+  font-weight: 800;
+  letter-spacing: 0;
+}
 
 .h2Normal {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-family: var(--font-cabinet);
+  font-size: var(--text-h2);
+  line-height: 0.9;
+}
+
+.h2Normal span {
+  color: var(--color-accent-orange);
+  font-family: var(--font-caveat);
 }
 
 .h2Fun {
-  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+  font-family: var(--font-rock-salt);
+  font-size: var(--text-fun-h2);
+  line-height: var(--leading-rock-salt);
 }
 
-/* ── Grid ── */
+.description {
+  max-width: 47rem;
+  margin-top: 1.45rem;
+  color: var(--color-ink-700);
+  font-family: var(--font-dm);
+  font-size: var(--text-body);
+  line-height: 1.65;
+}
 
-.grid {
+.description strong {
+  color: var(--color-ink-950);
+  font-weight: 900;
+}
+
+.sectionFun .description {
+  color: var(--color-fun-ink-300);
+}
+
+.stage {
+  position: relative;
+  min-height: 154rem;
+}
+
+.stickyStage {
+  position: sticky;
+  top: 2rem;
+  min-height: 84rem;
+  overflow: visible;
+  padding: 0.5rem 0;
+}
+
+.stageGlow {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 9999px;
+  filter: blur(3rem);
+}
+
+.stageGlowOrange {
+  left: -4rem;
+  top: 2.5rem;
+  width: 12rem;
+  height: 12rem;
+  background: color-mix(in srgb, var(--color-accent-orange) 11%, transparent);
+}
+
+.stageGlowLavender {
+  right: 2rem;
+  top: 6rem;
+  width: 13rem;
+  height: 13rem;
+  background: color-mix(in srgb, var(--color-accent-lavender) 18%, transparent);
+}
+
+.overviewLayer {
+  position: absolute;
+  inset: 2.5rem 0 auto;
+  z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: auto;
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2.3vw, 2rem);
 }
 
-/* ── Tile base ── */
-
-.tile {
-  border-radius: 10px;
+.overviewCard {
+  position: relative;
+  min-height: 22.5rem;
   overflow: hidden;
+  padding: clamp(1.4rem, 2.5vw, 1.9rem);
+  color: var(--color-ink-950);
+  background:
+    linear-gradient(
+      145deg,
+      var(--more-work-soft) 0%,
+      var(--color-surface-white) 54%,
+      color-mix(in srgb, var(--more-work-accent) 34%, var(--color-surface-white)) 155%
+    );
+  box-shadow: 0 1.4rem 4.4rem color-mix(in srgb, var(--color-ink-950) 8.5%, transparent);
+  transition: box-shadow 0.3s ease;
 }
 
-.tile-tall {
-  /* Taller tiles in the top row */
+.overviewCard:hover,
+.overviewCard:focus-within {
+  box-shadow: 0 1.9rem 5.6rem color-mix(in srgb, var(--color-ink-950) 13%, transparent);
 }
 
-.tile-medium {
-  /* Standard tiles */
+.overviewCard0 {
+  border-radius: 3rem 1.25rem 2.25rem 1.4rem;
 }
 
-.tileContent {
-  padding: 1.5rem;
+.overviewCard1 {
+  border-radius: 1.5rem 3rem 1.35rem 2.75rem;
+}
+
+.overviewCard2 {
+  border-radius: 2.6rem 1.2rem 3.2rem 1.5rem;
+}
+
+.overviewGlow {
+  position: absolute;
+  top: -3rem;
+  right: -3rem;
+  width: 9rem;
+  height: 9rem;
+  border-radius: 9999px;
+  background: var(--more-work-accent);
+  filter: blur(2rem);
+  opacity: 0.18;
+}
+
+.overviewContent {
+  position: relative;
+  z-index: 1;
   display: flex;
+  min-height: 19rem;
   flex-direction: column;
-  gap: 1.25rem;
-  height: 100%;
+  justify-content: space-between;
 }
 
-.tileHeader {
-  flex-shrink: 0;
+.overviewEyebrow,
+.laneEyebrow,
+.cardTag,
+.modalEyebrow {
+  color: var(--color-ink-500);
+  font-family: var(--font-dm);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
-/* ── Thumb grids ── */
-
-.thumbGrid {
-  flex: 1;
-  display: grid;
-  gap: 0.5rem;
+.overviewEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
-.thumbGrid3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.thumbGrid4 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.thumb {
-  border-radius: 4px;
-  aspect-ratio: 4/3;
-}
-
-/* ── Tile link ── */
-
-.tileLink {
-  text-decoration: none;
-  align-self: flex-end;
+.overviewEyebrow::before {
+  content: "";
   display: inline-block;
+  width: 1.15rem;
+  height: 0.15rem;
+  border-radius: 9999px;
+  background: currentColor;
 }
 
-/* ── Responsive ── */
+.laneEyebrow,
+.cardTag,
+.modalEyebrow {
+  color: color-mix(in srgb, var(--more-work-accent) 86%, var(--color-ink-950));
+}
 
-@media (max-width: 767px) {
-  .section {
-    padding: 3rem 1.5rem;
+.overviewTitle,
+.laneTitle {
+  display: block;
+  margin-top: 1.8rem;
+  font-family: var(--font-cabinet);
+  font-size: clamp(2.55rem, 4.2vw, 3rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.overviewMetric,
+.laneMetric {
+  display: block;
+  color: var(--more-work-accent);
+  font-family: var(--font-cabinet);
+  font-size: clamp(1.55rem, 2.4vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.overviewDescription,
+.laneDescription {
+  display: block;
+  max-width: 20rem;
+  margin-top: 0.85rem;
+  color: var(--color-ink-700);
+  font-family: var(--font-dm);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.35;
+}
+
+.lanesLayer {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+}
+
+.laneRow {
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+  padding: clamp(3.8rem, 5vw, 5rem) 0;
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s ease;
+}
+
+.laneDivider {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-ink-950) 16%, transparent), transparent);
+}
+
+.laneGrid {
+  display: grid;
+  grid-template-columns: minmax(15rem, 18.2rem) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 3.2rem);
+}
+
+.laneCopy {
+  position: relative;
+  z-index: 10;
+}
+
+.laneTitle {
+  max-width: 18rem;
+  margin-top: 0.85rem;
+}
+
+.laneMetric {
+  margin-top: 1.3rem;
+}
+
+.marqueeViewport {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: 2rem 1.2rem;
+  margin: -2rem 0;
+}
+
+.marqueeFade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 4rem;
+  pointer-events: none;
+}
+
+.marqueeFadeLeft {
+  left: 0;
+  background: linear-gradient(90deg, var(--color-surface-light) 8%, transparent);
+}
+
+.marqueeFadeRight {
+  right: 0;
+  background: linear-gradient(270deg, var(--color-surface-light) 8%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  gap: 1.25rem;
+  will-change: transform;
+}
+
+.marqueeSegment {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.25rem;
+}
+
+.workCard {
+  display: block;
+  width: 19.4rem;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 2rem 1rem 2.4rem 1.15rem;
+  background: var(--color-surface-white);
+  padding: 0.75rem;
+  color: var(--color-ink-950);
+  box-shadow: 0 1rem 2.8rem color-mix(in srgb, var(--color-ink-950) 8%, transparent);
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.workCard:hover,
+.workCard:focus-visible {
+  box-shadow: 0 1.5rem 4.4rem color-mix(in srgb, var(--color-ink-950) 13%, transparent);
+  transform: translateY(-0.25rem);
+}
+
+.workCard:focus-visible {
+  outline: 2px solid var(--more-work-accent);
+  outline-offset: 4px;
+}
+
+.workCardDisabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.workCardDisabled:hover {
+  transform: none;
+}
+
+.cardBody,
+.cardTopline,
+.cardTopline > span:first-child {
+  display: block;
+}
+
+.cardBody {
+  padding: 1rem 0.75rem 0.75rem;
+}
+
+.cardTopline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.cardTitle {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-cabinet);
+  font-size: 1.36rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.cardIcon {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 9999px;
+  background: var(--more-work-soft);
+  color: var(--color-ink-950);
+  transition: transform 0.3s ease;
+}
+
+.cardIcon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.workCard:hover .cardIcon,
+.workCard:focus-visible .cardIcon {
+  transform: rotate(12deg);
+}
+
+.cardNote {
+  display: block;
+  color: var(--color-ink-700);
+  font-family: var(--font-dm);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.miniMock {
+  position: relative;
+  height: 9rem;
+  overflow: hidden;
+  border-radius: 1.75rem 0.9rem 2.1rem 1.1rem;
+  background: color-mix(in srgb, var(--color-ink-100) 70%, var(--color-surface-light));
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  background: color-mix(in srgb, var(--color-ink-950) 64%, transparent);
+  padding: 1.25rem;
+}
+
+.modalDialog {
+  width: min(100%, 66rem);
+}
+
+.modalFrame {
+  max-height: calc(100vh - 2.5rem);
+}
+
+.modalFrameBody {
+  min-height: 32rem;
+  overflow: auto;
+}
+
+.modalContent {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(18rem, 1.15fr);
+  gap: clamp(1.4rem, 4vw, 2.5rem);
+  min-height: 32rem;
+  padding: clamp(1.3rem, 4vw, 2.5rem);
+  background:
+    radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--more-work-accent) 16%, transparent), transparent 28rem),
+    var(--color-surface-light);
+}
+
+.modalCopy {
+  align-self: center;
+}
+
+.modalTitle {
+  margin-top: 0.6rem;
+  color: var(--color-ink-950);
+  font-family: var(--font-cabinet);
+  font-size: clamp(2.3rem, 6vw, 4.2rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.modalText {
+  margin-top: 1.2rem;
+  color: var(--color-ink-700);
+  font-family: var(--font-dm);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+.detailMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+}
+
+.detailMeta span {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--more-work-accent) 28%, var(--color-ink-100));
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--more-work-soft) 55%, var(--color-surface-white));
+  color: var(--color-ink-800);
+  font-family: var(--font-dm);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.35rem 0.8rem;
+}
+
+.modalVisual {
+  align-self: stretch;
+  min-height: 22rem;
+}
+
+.modalVisual .miniMock {
+  height: 100%;
+  min-height: 24rem;
+  border-radius: 2.2rem 1.1rem 2.8rem 1.4rem;
+}
+
+@media (max-width: 63.999rem) {
+  .stage {
+    min-height: auto;
   }
 
-  .grid {
+  .stickyStage {
+    position: relative;
+    top: auto;
+    min-height: auto;
+  }
+
+  .overviewLayer,
+  .lanesLayer {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .overviewLayer {
     grid-template-columns: 1fr;
+    margin-bottom: 2rem;
+  }
+
+  .overviewCard {
+    min-height: 18rem;
+    opacity: 1 !important;
+    filter: none !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .overviewContent {
+    min-height: 15rem;
+  }
+
+  .laneGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .laneTitle,
+  .laneDescription {
+    max-width: 34rem;
+  }
+
+  .marqueeViewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
+    padding: 1.4rem 0.4rem;
+    margin: -1.4rem 0;
+  }
+
+  .marqueeFade {
+    display: none;
+  }
+
+  .marqueeTrack {
+    transform: none !important;
+  }
+
+  .workCard {
+    scroll-snap-align: start;
+  }
+
+  .modalContent {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 39.999rem) {
+  .section {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .headline {
+    margin-bottom: 2rem;
+  }
+
+  .overviewTitle,
+  .laneTitle {
+    font-size: 2.35rem;
+  }
+
+  .laneRow {
+    padding: 3.1rem 0;
+  }
+
+  .workCard {
+    width: min(82vw, 19.4rem);
+  }
+
+  .modalOverlay {
+    padding: 0.75rem;
+  }
+
+  .modalFrame {
+    max-height: calc(100vh - 1.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overviewCard,
+  .laneRow,
+  .workCard,
+  .cardIcon {
+    transition: none;
+  }
+
+  .workCard:hover,
+  .workCard:focus-visible,
+  .workCard:hover .cardIcon,
+  .workCard:focus-visible .cardIcon {
+    transform: none;
   }
 }

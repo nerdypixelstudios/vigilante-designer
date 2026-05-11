@@ -3,6 +3,7 @@
 @theme {
   /* ── Fonts ─────────────────────────────────────────────────────── */
   --font-cabinet: 'Cabinet Grotesk', sans-serif;
+  --font-bricolage: 'Bricolage Grotesque', sans-serif;
   --font-dm: 'DM Sans', sans-serif;
   --font-rock-salt: 'Rock Salt', cursive;
   --font-caveat: 'Caveat', cursive;
@@ -63,6 +64,7 @@
   --color-brand-cap-shadow: #2E2C1B;
   --color-brand-cap-base: #F7E006;
   --color-brand-cap-highlight: #FFF279;
+  --color-brand-linkedin: #0A66C2;
 
   /* ── Normal mode — Accent ───────────────────────────────────────── */
   --color-accent-yellow: #FBE200;

@@ -1,154 +1,257 @@
-import { useState } from 'react';
-import { useTheme } from '../../shared/ThemeContext';
-import { ChevronLeft, ChevronRight } from '../../icons/icons';
+import { useMemo, useRef, useState } from 'react';
+import Image from 'next/image';
+import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
+import { SharedLinkedInIcon } from '../../icons/icons';
 import styles from './Testimonials.module.css';
 
-const normalSlides = [
+const testimonials = [
   {
-    id: 1,
-    person: 'Sundeep Eddu',
-    role: 'Head of Marketing and Sales, e-GMAT',
-    quote: "Working with Lohith on the public website redesign changed what I thought was possible from a single person. He didn't just design — he owned the content, the structure, and the production, end to end. We shipped faster and cleaner than I've seen on any project of that scale. When I look at the current site, I see his decisions in every section.",
+    id: 'atul',
+    name: 'Atul Kumar',
+    role: 'Chief Product Architect, Career Launcher',
+    relation: 'Former COO, e-GMAT · Mentor',
+    badge: 'Relentless Builder',
+    headlinePrefix: 'He is a',
+    quote:
+      'Lohith was relentless in the best way. I watched him grow from someone I hired and mentored into the face of design at eGMAT. Once he sets his sights on something, he does not rest until it is finished.',
+    linkedin: 'https://www.linkedin.com/in/atulkumar4/',
+    avatar: '/images/testimonials/testimonial-atul-portrait.png',
+    accentClass: styles.accentGreen,
   },
   {
-    id: 2,
-    person: 'Atul Kumar',
-    role: 'Former COO, e-GMAT · Chief Product Architect, Career Launcher',
-    quote: "Lohith was the most quietly unstoppable person I've worked with. He never waited to be told what the problem was — he'd spot it, propose a solution, and ship it while others were still in the discussion. The Quant course transformation, the shift toward individual product creators, DesignForge — Lohith was at the front of every one of those, not because he was asked to be, but because that's how he's built.",
+    id: 'sundeep',
+    name: 'Sundeep Eddu',
+    role: 'Head of Marketing & Sales, e-GMAT',
+    relation: 'Public website redesign partner',
+    badge: 'End-to-End Owner',
+    headlinePrefix: 'He is an',
+    quote:
+      'Lohith did not just design the public website — he owned the content, structure, and production end to end. We shipped faster and cleaner than any project of that scale, and his decisions still show in every section.',
+    linkedin: 'https://www.linkedin.com/in/eddu-sundeep/',
+    avatar: '/images/testimonials/testimonial-sundeep-portrait.png',
+    accentClass: styles.accentYellow,
   },
   {
-    id: 3,
-    person: 'Sanchari',
+    id: 'sanchari',
+    name: 'Sanchari Shome',
     role: 'Technical Lead, e-GMAT',
-    quote: "I've worked with a lot of designers. Lohith is the one who actually speaks the same language as engineering. He comes in with specs that have already accounted for the edge cases, with data structures mapped, with test cases written. The SAT product suite didn't take months to coordinate — it took weeks, because there was nothing ambiguous about what we were building.",
+    relation: 'SAT product suite collaborator',
+    badge: 'Spec Architect',
+    headlinePrefix: 'She calls him a',
+    quote:
+      "Lohith speaks engineering's language. His specs come with edge cases, data structures, and test cases already mapped. The SAT product suite moved in weeks because nothing about the build was ambiguous.",
+    linkedin: 'https://www.linkedin.com/in/shomesanchari/',
+    avatar: '/images/testimonials/testimonial-sanchari-portrait.png',
+    accentClass: styles.accentOrange,
   },
 ];
 
-const funSlides = [
-  {
-    id: 1,
-    source: 'Laptop',
-    role: 'Scene 47 · Silent Witness',
-    emoji: '💻',
-    quote: 'He treats me gently, even when rendering!',
-    frameLabel: "</Laptop's field report>",
-  },
-  {
-    id: 2,
-    source: 'Coffee Mug',
-    role: 'Morning Debrief · Witness',
-    emoji: '☕',
-    quote: 'He never lets me go cold.',
-    frameLabel: "</Mug's field report>",
-  },
-  {
-    id: 3,
-    source: 'The Whiteboard',
-    role: 'Planning Room · Silent Witness',
-    emoji: '🗒',
-    quote: 'Every idea I held got shipped. Some twice.',
-    frameLabel: "</Whiteboard's field report>",
-  },
-];
+function splitBadge(badge) {
+  const [firstWord, ...rest] = badge.split(' ');
 
-export default function Testimonials() {
-  const { isFunMode } = useTheme();
-  const [current, setCurrent] = useState(0);
+  return {
+    firstWord,
+    rest: rest.join(' '),
+  };
+}
 
-  const slides = isFunMode ? funSlides : normalSlides;
-  const slide = slides[current];
-  const total = slides.length;
+function getPairIndex(scrollValue, total) {
+  const raw = scrollValue * (total - 1);
 
-  const prev = () => setCurrent(i => (i - 1 + total) % total);
-  const next = () => setCurrent(i => (i + 1) % total);
+  return Math.min(total - 2, Math.max(0, Math.floor(raw)));
+}
 
-  const sectionBg = isFunMode ? 'bg-fun-surface-dark' : 'bg-surface-mint';
-  const headlineColor = isFunMode ? 'text-fun-ink-50' : 'text-ink-950';
-  const bodyColor = isFunMode ? 'text-fun-ink-100' : 'text-ink-800';
-  const arrowColor = isFunMode ? '#EEEFEB' : '#000000';
+function getLocalFlipProgress(scrollValue, total) {
+  const raw = scrollValue * (total - 1);
+  const pairIndex = getPairIndex(scrollValue, total);
+
+  return Math.min(1, Math.max(0, raw - pairIndex));
+}
+
+function LinkedInIconLink({ href, name }) {
+  return (
+    <a
+      className={styles.linkedin}
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={`Open ${name}'s LinkedIn profile`}
+      onClick={(event) => event.stopPropagation()}
+    >
+      <SharedLinkedInIcon className={styles.linkedinIcon} />
+    </a>
+  );
+}
+
+function TestimonialFace({ item, side, opacity }) {
+  const { firstWord, rest } = splitBadge(item.badge);
 
   return (
-    <section id="testimonials" className={`${sectionBg} ${styles.section}`}>
-      <div className={styles.inner}>
-
-        {/* ── Headline ── */}
-        <div className={styles.headline}>
-          <p className={`font-caveat font-bold ${isFunMode ? 'text-fun-accent-yellow' : 'text-fun-accent-red'} text-xl mb-1`}>
-            What they say?
-          </p>
-          <h2 className={isFunMode
-            ? `font-rock-salt ${headlineColor} leading-rock-salt ${styles.h2Fun}`
-            : `font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`
-          }>
-            {isFunMode ? 'Witness Statements!!' : 'Echoes of Impact!'}
-          </h2>
-          <p className={`font-dm font-normal text-body ${isFunMode ? 'text-fun-ink-300' : 'text-ink-700'} mt-3 ${styles.framingSentence}`}>
-            {isFunMode
-              ? 'Everyone who works with me eventually has something to say. Including the furniture.'
-              : "Design is collaborative. From mentors to teammates, words that remind me — \"I've made an impact!\""}
-          </p>
+    <motion.article className={`${styles.face} ${side === 'front' ? styles.faceFront : styles.faceBack}`} style={{ opacity }}>
+      <div className={styles.stage}>
+        <div className={styles.personWrap}>
+          <div className={`${styles.personHalo} ${item.accentClass}`} />
+          <Image
+            src={item.avatar}
+            alt={item.name}
+            fill
+            className={styles.person}
+            sizes="(min-width: 1120px) 300px, 278px"
+            unoptimized
+            priority={item.id === 'atul'}
+          />
         </div>
 
-        {/* ── Carousel ── */}
-        <div className={`${styles.testimonialCard} ${isFunMode ? 'bg-fun-surface-black border-fun-ink-700' : 'bg-surface-white border-ink-100'} border`}>
-          {isFunMode ? (
-            <div className={styles.centreContent}>
-              <span className={styles.emoji}>{slide.emoji}</span>
-              <blockquote className={`font-caveat font-bold text-fun-h3 ${headlineColor} mt-4 leading-snug`}>
-                "{slide.quote}"
-              </blockquote>
-              <p className="font-caveat font-bold text-fun-accent-yellow text-xl mt-3">
-                — {slide.source}
-              </p>
-              <p className="font-caveat text-fun-ink-500 text-base mt-0.5">
-                {slide.role}
-              </p>
-            </div>
-          ) : (
-            <div className={styles.centreContent}>
-              <div className={styles.personAvatar}>
-                <span className="font-dm font-extrabold text-ink-500 text-lg">
-                  {slide.person.charAt(0)}
-                </span>
-              </div>
-              <blockquote className={`font-dm font-normal text-body ${bodyColor} mt-4 leading-relaxed italic ${styles.quoteText}`}>
-                "{slide.quote}"
-              </blockquote>
-              <p className={`font-dm font-extrabold text-sm text-ink-950 mt-4`}>
-                {slide.person}
-              </p>
-              <p className="font-dm font-normal text-sm text-ink-500">
-                {slide.role}
-              </p>
-            </div>
-          )}
-        </div>
-
-        {/* ── Navigation ── */}
-        <div className={styles.carouselNav}>
-          <button onClick={prev} className={styles.arrowBtn} aria-label="Previous testimonial">
-            <ChevronLeft color={arrowColor} />
-          </button>
-
-          <div className={styles.dots}>
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`${styles.dot} ${i === current
-                  ? (isFunMode ? 'bg-fun-accent-yellow' : 'bg-ink-950')
-                  : (isFunMode ? 'bg-fun-ink-700' : 'bg-ink-300')
-                }`}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
+        <div className={`${styles.card} ${styles.identityCard}`}>
+          <div className={styles.nameRow}>
+            <h3 className={styles.cardTitle}>{item.name}</h3>
+            <LinkedInIconLink href={item.linkedin} name={item.name} />
           </div>
-
-          <button onClick={next} className={styles.arrowBtn} aria-label="Next testimonial">
-            <ChevronRight color={arrowColor} />
-          </button>
+          <p className={styles.meta}>{item.role}</p>
+          <p className={`${styles.meta} ${styles.metaSubtle}`}>{item.relation}</p>
         </div>
 
+        <div className={`${styles.card} ${styles.headlineCard}`}>
+          <h3 className={`${styles.cardTitle} ${styles.headlineTitle}`}>
+            - {item.headlinePrefix}{' '}
+            <span className={`${styles.scriptHighlight} ${item.accentClass}`}>
+              {firstWord}
+            </span>{' '}
+            {rest}
+          </h3>
+        </div>
+
+        <div className={`${styles.card} ${styles.quoteCard}`}>
+          <p className={styles.quote}>&ldquo;{item.quote}&rdquo;</p>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+function MobileCard({ item }) {
+  const { firstWord, rest } = splitBadge(item.badge);
+
+  return (
+    <article className={styles.mobileCard}>
+      <div className={styles.mobileTop}>
+        <div className={styles.mobilePersonWrap}>
+          <div className={`${styles.mobilePersonHalo} ${item.accentClass}`} />
+          <Image
+            src={item.avatar}
+            alt={item.name}
+            fill
+            className={styles.mobilePerson}
+            sizes="120px"
+            unoptimized
+          />
+        </div>
+
+        <div className={styles.mobileIdentity}>
+          <div className={styles.nameRow}>
+            <h3 className={styles.cardTitle}>{item.name}</h3>
+            <LinkedInIconLink href={item.linkedin} name={item.name} />
+          </div>
+          <p className={styles.meta}>{item.role}</p>
+          <p className={`${styles.meta} ${styles.metaSubtle}`}>{item.relation}</p>
+        </div>
+      </div>
+
+      <h3 className={`${styles.cardTitle} ${styles.headlineTitle} ${styles.mobileHeadline}`}>
+        - {item.headlinePrefix}{' '}
+        <span className={`${styles.scriptHighlight} ${item.accentClass}`}>
+          {firstWord}
+        </span>{' '}
+        {rest}
+      </h3>
+
+      <p className={`${styles.quote} ${styles.mobileQuote}`}>&ldquo;{item.quote}&rdquo;</p>
+    </article>
+  );
+}
+
+export default function Testimonials() {
+  const sectionRef = useRef(null);
+  const total = testimonials.length;
+  const pairCount = total - 1;
+  const [pairIndex, setPairIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sectionHeight = useMemo(() => `calc(${total * 115}vh + 18rem)`, [total]);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const localFlipProgress = useTransform(scrollYProgress, (value) => getLocalFlipProgress(value, total));
+  const flipRotation = useTransform(localFlipProgress, [0, 1], [0, -180]);
+  const frontOpacity = useTransform(localFlipProgress, [0, 0.485, 0.5, 1], [1, 1, 0, 0]);
+  const backOpacity = useTransform(localFlipProgress, [0, 0.5, 0.515, 1], [0, 0, 1, 1]);
+  const headerY = useTransform(scrollYProgress, [0, 1], [0, -18]);
+
+  useMotionValueEvent(scrollYProgress, 'change', (value) => {
+    const nextPairIndex = getPairIndex(value, total);
+    const rawIndex = value * pairCount;
+    const nextActiveIndex = Math.min(total - 1, Math.max(0, Math.round(rawIndex)));
+
+    setPairIndex(nextPairIndex);
+    setActiveIndex(nextActiveIndex);
+  });
+
+  const jumpToSlide = (index) => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const maxScrollableDistance = Math.max(0, section.offsetHeight - window.innerHeight);
+    const targetProgress = total === 1 ? 0 : index / (total - 1);
+    const sectionTop = window.scrollY + section.getBoundingClientRect().top;
+    const targetY = sectionTop + maxScrollableDistance * targetProgress;
+
+    setActiveIndex(index);
+    window.scrollTo({ top: targetY, behavior: 'smooth' });
+  };
+
+  const frontItem = testimonials[pairIndex];
+  const backItem = testimonials[pairIndex + 1];
+
+  return (
+    <section ref={sectionRef} id="testimonials" className={styles.section} style={{ height: sectionHeight }}>
+      <div className={styles.sticky}>
+        <motion.header className={styles.header} style={{ y: headerY }}>
+          <p className={styles.kicker}>What they say?</p>
+          <h2 className={styles.heading}>
+            Echoes of <span className={styles.scriptWord}>Impact!</span>
+          </h2>
+          <p className={styles.subcopy}>
+            Design is collaborative. From mentors to teammates, words that remind me — <strong>&quot;I&apos;ve made an impact!&quot;</strong>
+          </p>
+        </motion.header>
+
+        <div className={styles.viewport}>
+          <motion.div className={styles.flipper} style={{ rotateY: flipRotation }}>
+            <TestimonialFace item={frontItem} side="front" opacity={frontOpacity} />
+            <TestimonialFace item={backItem} side="back" opacity={backOpacity} />
+          </motion.div>
+        </div>
+
+        <div className={styles.dots} aria-label="Choose testimonial slide">
+          {testimonials.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`${styles.dotButton} ${activeIndex === index ? styles.dotButtonActive : ''}`}
+              aria-label={`Go to testimonial ${index + 1}: ${item.name}`}
+              aria-current={activeIndex === index ? 'true' : undefined}
+              onClick={() => jumpToSlide(index)}
+            />
+          ))}
+        </div>
+
+        <div className={styles.mobileList}>
+          {testimonials.map((item) => (
+            <MobileCard key={item.id} item={item} />
+          ))}
+        </div>
       </div>
     </section>
   );

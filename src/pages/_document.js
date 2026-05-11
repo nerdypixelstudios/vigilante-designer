@@ -28,7 +28,7 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:wght@400;800&family=Rock+Salt&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&family=Caveat:wght@400;700&family=DM+Sans:wght@400;500;800&family=Rock+Salt&display=swap"
           rel="stylesheet"
         />
         {/* Cabinet Grotesk — Fontshare (not on Google Fonts) */}

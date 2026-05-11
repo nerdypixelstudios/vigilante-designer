@@ -4768,7 +4768,7 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  color: rgb(0 119 181);
+  color: var(--color-brand-linkedin);
   text-decoration: none;
   transition: transform 160ms ease;
 }
@@ -4779,7 +4779,7 @@
 }
 
 .stakeholderLinkedIn:focus-visible {
-  outline: 0.125rem solid rgb(0 119 181);
+  outline: 0.125rem solid var(--color-brand-linkedin);
   outline-offset: calc(0.125rem * 2);
 }
 

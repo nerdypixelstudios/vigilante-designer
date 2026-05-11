@@ -311,6 +311,10 @@
     border-radius: 24px;
   }
 
+  .desktopLinks {
+    display: none;
+  }
+
   .toggleLabel {
     display: none;
   }
