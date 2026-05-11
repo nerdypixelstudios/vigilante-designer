@@ -1,11 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import {
   ArrowForwardLineIcon,
   DesignForgeArrowRightIcon,
+  DesignForgeRocketBadgeIcon,
   DesignForgeStarMark,
+  DesignForgeVerifiedBadgeIcon,
   DesignForgeWarningMark,
   DocumentLogicIcon,
   EyeRevealIcon,
@@ -93,7 +95,11 @@ const steps = [
   },
 ];
 
-const proofItems = ['4 products in 6 months', 'Same designer', 'Spec to shipped'];
+const proofItems = [
+  { id: 'products', title: '4 products', detail: 'in 6 months', icon: 'verified' },
+  { id: 'designer', title: 'Same designer', detail: '', icon: 'designer' },
+  { id: 'shipped', title: 'Spec to shipped', detail: '', icon: 'rocket' },
+];
 
 const productCards = [
   { name: 'SAT LMS', subtitle: 'Adaptive learning app', href: '/case-studies/sat-lms' },
@@ -208,37 +214,94 @@ function HeroIntro() {
             So I split the build into layers: <strong>experience first, interface next, production last.</strong>
           </p>
         </div>
-        <HeroProofStrip />
       </div>
-      <MiniFlowCard />
+      <LaunchGraphic />
     </div>
   );
 }
 
-function HeroProofStrip() {
-  return (
-    <ul className={styles.proofStrip} aria-label="DesignForge proof points">
-      {proofItems.map((item) => (
-        <li key={item}>
-          <span aria-hidden="true" />
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
-}
+function LaunchGraphic() {
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const rotateZ = useMotionValue(0);
+  const springX = useSpring(rotateX, { stiffness: 58, damping: 24, mass: 0.75 });
+  const springY = useSpring(rotateY, { stiffness: 58, damping: 24, mass: 0.75 });
+  const springZ = useSpring(rotateZ, { stiffness: 52, damping: 26, mass: 0.8 });
 
-function MiniFlowCard() {
+  function handlePointerMove(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+    rotateX.set(y * -7);
+    rotateY.set(x * 9);
+    rotateZ.set(x * 1.8);
+  }
+
+  function handlePointerLeave() {
+    rotateX.set(0);
+    rotateY.set(0);
+    rotateZ.set(0);
+  }
+
   return (
-    <aside className={styles.flowCard} aria-label="DesignForge layers graphic">
-      <Image
-        src="/images/designforge/designforge-steps.svg"
-        alt=""
-        width={322}
-        height={429}
-        unoptimized
-        className={styles.flowCardImage}
-      />
+    <aside
+      className={styles.launchGraphic}
+      aria-label="DesignForge launch proof: 4 products in 6 months, same designer, spec to shipped"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
+      <motion.div className={styles.launchScene} style={{ rotateX: springX, rotateY: springY, rotateZ: springZ }}>
+        <div className={styles.launchBoard} aria-hidden="true">
+          <Image
+            src="/images/designforge/designforge-launch-emblem.webp"
+            alt=""
+            width={1176}
+            height={1176}
+            sizes="(min-width: 768px) 28rem, 70vw"
+            className={styles.launchEmblem}
+          />
+          <Image
+            src="/images/designforge/designforge-launch-word.webp"
+            alt=""
+            width={848}
+            height={196}
+            sizes="(min-width: 768px) 15rem, 42vw"
+            className={styles.launchWord}
+          />
+        </div>
+
+        <div className={styles.launchBadges}>
+          {proofItems.map((item) => (
+            <div key={item.id} className={`${styles.launchBadge} ${styles[`launchBadge${item.id}`]}`}>
+              <span className={styles.launchBadgeIcon} aria-hidden="true">
+                {item.icon === 'verified' && (
+                  <>
+                    <DesignForgeVerifiedBadgeIcon />
+                    <DesignForgeVerifiedBadgeIcon />
+                    <DesignForgeVerifiedBadgeIcon />
+                    <DesignForgeVerifiedBadgeIcon />
+                  </>
+                )}
+                {item.icon === 'designer' && (
+                  <Image
+                    src="/images/designforge/designforge-designer-badge.webp"
+                    alt=""
+                    width={80}
+                    height={80}
+                    className={styles.launchDesignerIcon}
+                  />
+                )}
+                {item.icon === 'rocket' && <DesignForgeRocketBadgeIcon />}
+              </span>
+              <span className={styles.launchBadgeCopy}>
+                <strong>{item.title}</strong>
+                {item.detail ? <small>{item.detail}</small> : null}
+              </span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </aside>
   );
 }
@@ -371,7 +434,7 @@ function ArtifactPreview({ type }) {
   if (type === 'sandbox') return <SandboxRequirementArtifact />;
   if (type === 'gaps') return <GapAnalysisArtifact />;
   if (type === 'interface') return <InterfaceArtifact />;
-  if (type === 'integration') return <TextArtifact title="PR4 - Sandbox Integration.md" rows={integrationRows} accent="green" />;
+  if (type === 'integration') return <TextArtifact title="PR4 - Sandbox Integration.md" rows={integrationRows} />;
   if (type === 'production') return <ProductionArtifact />;
 
   return <TextArtifact title="Input specification | Remedials" rows={inputRows} />;
@@ -396,9 +459,9 @@ function ArtifactShell({ title, children, className = '', bodyClassName = '' }) 
   );
 }
 
-function TextArtifact({ title, rows, accent = 'orange' }) {
+function TextArtifact({ title, rows }) {
   return (
-    <ArtifactShell title={title} className={accent === 'green' ? styles.artifactGreen : ''}>
+    <ArtifactShell title={title}>
       <div className={styles.treeArtifact}>
         {rows.map((row) => (
           <span key={row}>{row}</span>
@@ -563,7 +626,7 @@ function InterfaceArtifact() {
 
 function ProductionArtifact() {
   return (
-    <ArtifactShell title="prod-migration-map.md" className={styles.artifactGreen}>
+    <ArtifactShell title="prod-migration-map.md">
       <table className={styles.productionTable}>
         <tbody>
           {productionRows.map((row) => (
