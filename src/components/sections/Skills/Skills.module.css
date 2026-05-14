@@ -72,6 +72,12 @@
   opacity: 1;
 }
 
+.headlineDesc {
+  max-width: 36rem;
+  margin-top: 0.5rem;
+  line-height: 1.55;
+}
+
 .clusterBubble {
   --skill-active-color: var(--color-ink-300);
   position: absolute;
@@ -89,10 +95,25 @@
   border: none;
   color: var(--color-surface-white);
   cursor: pointer;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translate(var(--wobble-x, 0), var(--wobble-y, 0));
   transition:
     opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Physics mode drives wobble inline at 60fps — the transform transition would
+   fight the rAF writes. Keep opacity/box-shadow transitions for hover polish. */
+.mindMapPhysics .clusterBubble {
+  transition:
+    opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mindMapPhysics .toolPill {
+  transition:
+    opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.22s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -103,7 +124,7 @@
 .clusterBubbleActive {
   z-index: 6;
   box-shadow: 0 0 3rem color-mix(in srgb, var(--skill-active-color) 24%, transparent);
-  transform: translate(-50%, -50%) scale(1.02);
+  transform: translate(-50%, -50%) translate(var(--wobble-x, 0), var(--wobble-y, 0)) scale(1.02);
 }
 
 .clusterBubble:focus-visible,

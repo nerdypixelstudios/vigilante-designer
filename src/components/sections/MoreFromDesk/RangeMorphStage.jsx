@@ -38,11 +38,30 @@ function useStickyStageProgress(ref, triggerOffset = 96, morphDistance = 780) {
   return progress;
 }
 
+function useIsPhoneLayout(breakpoint = '(max-width: 39.999rem)') {
+  const [isPhoneLayout, setIsPhoneLayout] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const mediaQuery = window.matchMedia(breakpoint);
+    const update = () => setIsPhoneLayout(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener('change', update);
+
+    return () => mediaQuery.removeEventListener('change', update);
+  }, [breakpoint]);
+
+  return isPhoneLayout;
+}
+
 export default function RangeMorphStage({ lanes, onOpenModal }) {
   const stageRef = useRef(null);
+  const isPhoneLayout = useIsPhoneLayout();
   const rawProgress = useStickyStageProgress(stageRef, 96, 780);
-  const morphOut = smoothstep(clamp((rawProgress - 0.1) / 0.38));
-  const lanesIn = smoothstep(clamp((rawProgress - 0.28) / 0.5));
+  const morphOut = isPhoneLayout ? 1 : smoothstep(clamp((rawProgress - 0.1) / 0.38));
+  const lanesIn = isPhoneLayout ? 1 : smoothstep(clamp((rawProgress - 0.28) / 0.5));
 
   return (
     <section ref={stageRef} className={styles.stage}>

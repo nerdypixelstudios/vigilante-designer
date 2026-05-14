@@ -303,6 +303,10 @@ function ProjectCard({ project, isFunMode }) {
                   </span>
                 ))}
               </div>
+
+              <span className={`${styles.mobileCaseLink} font-dm font-extrabold`}>
+                View Case Study <span aria-hidden="true">{'\u2197'}</span>
+              </span>
             </div>
 
             <aside className={styles.editorialProof} aria-label={`Proof from ${project.quote.person}`}>

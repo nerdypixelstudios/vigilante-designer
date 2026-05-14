@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../shared/ThemeContext';
 import arcData from '../../../content/skills-arcs.json';
 import styles from './Skills.module.css';
@@ -158,6 +158,296 @@ const tools = Object.entries(uniqueTools).map(([name, tool]) => ({
   ...(toolPositions[name] || {}),
 }));
 
+// Owning cluster for each tool — used to anchor its resting pile under the
+// skill circle it primarily belongs to, regardless of extra hover relationships.
+const toolOwner = clusters.reduce((map, cluster) => {
+  cluster.tools.forEach(t => {
+    if (!map[t.name]) map[t.name] = cluster.id;
+  });
+  return map;
+}, {});
+
+const clusterById = clusters.reduce((map, cluster) => {
+  map[cluster.id] = cluster;
+  return map;
+}, {});
+
+// Exponential ease-in-out — slow start, accelerating through the middle,
+// soft landing at the very end. Used for release-to-floor.
+function easeInOutExpo(t) {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  return t < 0.5
+    ? Math.pow(2, 20 * t - 10) / 2
+    : (2 - Math.pow(2, -20 * t + 10)) / 2;
+}
+
+// Back-out — accelerates through the middle and overshoots ~6% past the
+// target before settling, giving the magnet arrival a subtle elastic snap.
+function easeOutBack(t) {
+  if (t <= 0) return 0;
+  if (t >= 1) return 1;
+  const c1 = 1.2;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+}
+
+const MAGNET_DUR = 0.55; // seconds, attract animation
+const RELEASE_DUR = 0.75; // seconds, return-to-floor animation
+
+// ── Magnet physics ───────────────────────────────────────────────────────────
+// rAF simulator. Two modes per pill:
+//   gravity  — falls/sits at a resting pile under its owning skill; mouse cursor
+//              repels nearby tiles like a soft barrier.
+//   magnet   — eased tween into an orbit slot around the active skill, then
+//              continuous orbit.
+// Mode flips snapshot current pos/time so motion always eases from where the
+// pill actually is, not where it was expected to be.
+function useMagnetPhysics({ containerRef, pillRefs, skillRefs, activeSkillRef, cursorRef, enabled }) {
+  useEffect(() => {
+    if (!enabled) return;
+    const container = containerRef.current;
+    if (!container) return undefined;
+
+    const pctToPx = (pct, total) => (parseFloat(pct) / 100) * total;
+
+    const state = {};
+    tools.forEach((tool, i) => {
+      const r = container.getBoundingClientRect();
+      const x0 = pctToPx(tool.x, r.width);
+      const y0 = pctToPx(tool.y, r.height);
+      state[tool.name] = {
+        x: x0,
+        y: y0,
+        vx: 0,
+        vy: 0,
+        rot: 0,
+        vrot: (Math.random() - 0.5) * 8,
+        scale: 1,
+        isMagnet: false,
+        // Negative so the first frame's "release" phase has already elapsed →
+        // pills go straight into free-fall gravity on enable.
+        modeStartT: -10,
+        modeStartX: x0,
+        modeStartY: y0,
+        modeStartRot: 0,
+        // Small per-pill stagger so the swarm doesn't move in lockstep.
+        stagger: (i % 6) * 0.025,
+      };
+    });
+
+    function computeRestTargets() {
+      const r = container.getBoundingClientRect();
+      const groups = {};
+      tools.forEach(tool => {
+        const owner = toolOwner[tool.name];
+        if (!owner) return;
+        if (!groups[owner]) groups[owner] = [];
+        groups[owner].push(tool);
+      });
+
+      const targets = {};
+      Object.entries(groups).forEach(([clusterId, list]) => {
+        const cluster = clusterById[clusterId];
+        if (!cluster) return;
+        const cx = pctToPx(cluster.x, r.width);
+        const floorY = r.height - 24;
+        const perRow = Math.min(3, list.length);
+        const rowGap = 40;
+        const colGap = 96;
+        list.forEach((tool, i) => {
+          const row = Math.floor(i / perRow);
+          const colsInRow = Math.min(perRow, list.length - row * perRow);
+          const col = i % perRow;
+          const xOffset = (col - (colsInRow - 1) / 2) * colGap;
+          // Clamp inside container so corner clusters don't push pills off-screen.
+          const clampedCx = Math.max(60, Math.min(r.width - 60, cx + xOffset));
+          targets[tool.name] = {
+            x: clampedCx,
+            y: floorY - row * rowGap,
+          };
+        });
+      });
+      return targets;
+    }
+
+    let targets = computeRestTargets();
+
+    const onResize = () => {
+      targets = computeRestTargets();
+    };
+    window.addEventListener('resize', onResize);
+
+    let raf = 0;
+    let lastT = performance.now();
+    const t0 = lastT;
+
+    function step(now) {
+      const dt = Math.min(0.032, (now - lastT) / 1000);
+      lastT = now;
+      const nowS = now / 1000;
+      const elapsed = nowS - t0 / 1000;
+      const active = activeSkillRef.current;
+      const cursor = cursorRef.current;
+
+      let skillCenter = null;
+      let attractedList = null;
+      if (active && skillRefs.current[active]) {
+        const skillEl = skillRefs.current[active];
+        const skillRect = skillEl.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        skillCenter = {
+          x: skillRect.left + skillRect.width / 2 - containerRect.left,
+          y: skillRect.top + skillRect.height / 2 - containerRect.top,
+          r: skillRect.width / 2,
+        };
+        attractedList = tools.filter(t => t.clusters.includes(active));
+      }
+
+      tools.forEach(tool => {
+        const s = state[tool.name];
+        const wantMagnet = Boolean(attractedList && tool.clusters.includes(active));
+
+        if (wantMagnet !== s.isMagnet) {
+          s.isMagnet = wantMagnet;
+          s.modeStartT = nowS + s.stagger;
+          s.modeStartX = s.x;
+          s.modeStartY = s.y;
+          s.modeStartRot = s.rot;
+          s.vx = 0;
+          s.vy = 0;
+        }
+
+        const dur = wantMagnet ? MAGNET_DUR : RELEASE_DUR;
+        const progress = Math.max(0, Math.min(1, (nowS - s.modeStartT) / dur));
+
+        if (wantMagnet) {
+          const myIdx = attractedList.findIndex(t => t.name === tool.name);
+          const n = attractedList.length;
+          const orbitR = skillCenter.r + 38;
+          const angle = (myIdx / n) * Math.PI * 2 + elapsed * 0.7;
+          const tx = skillCenter.x + Math.cos(angle) * orbitR;
+          const ty = skillCenter.y + Math.sin(angle) * orbitR;
+          // Pill stays upright (rotation = 0) so text always reads left-to-right.
+          // We lerp from snapshot rotation so transitions are smooth.
+          const easedPos = easeOutBack(progress);
+          const easedRot = easeInOutExpo(progress);
+          // Brief scale pulse mid-flight — peaks at progress 0.5, settles to 1.
+          const pulse = 1 + 0.07 * Math.sin(progress * Math.PI);
+
+          if (progress < 1) {
+            s.x = s.modeStartX + (tx - s.modeStartX) * easedPos;
+            s.y = s.modeStartY + (ty - s.modeStartY) * easedPos;
+            s.rot = s.modeStartRot + (0 - s.modeStartRot) * easedRot;
+            s.scale = pulse;
+          } else {
+            s.x = tx;
+            s.y = ty;
+            // Damp any residual rotation toward upright so motion never drifts.
+            s.rot += (0 - s.rot) * Math.min(1, 12 * dt);
+            s.scale += (1 - s.scale) * Math.min(1, 12 * dt);
+          }
+        } else {
+          const target = targets[tool.name];
+          if (!target) return;
+
+          if (progress < 1) {
+            // Eased return from snapshot to floor — applies on release AND
+            // on initial fall, since modeStartT is seeded in the past so this
+            // branch is skipped on enable.
+            const easedPos = easeInOutExpo(progress);
+            s.x = s.modeStartX + (target.x - s.modeStartX) * easedPos;
+            s.y = s.modeStartY + (target.y - s.modeStartY) * easedPos;
+            s.rot = s.modeStartRot + (0 - s.modeStartRot) * easedPos;
+            s.scale += (1 - s.scale) * Math.min(1, 10 * dt);
+            s.vx = 0;
+            s.vy = 0;
+          } else {
+            // Free physics at rest: gravity + spring to pile + cursor repulsion.
+            s.vy += 1200 * dt;
+            s.vx += (target.x - s.x) * 11 * dt;
+            s.vy += (target.y - s.y) * 11 * dt;
+
+            if (cursor) {
+              const dx = s.x - cursor.x;
+              const dy = s.y - cursor.y;
+              const distSq = dx * dx + dy * dy;
+              const radius = 120;
+              if (distSq < radius * radius && distSq > 1) {
+                const dist = Math.sqrt(distSq);
+                const falloff = 1 - dist / radius;
+                const push = falloff * falloff * 2400;
+                s.vx += (dx / dist) * push * dt;
+                s.vy += (dy / dist) * push * dt;
+                s.vrot += (dx / dist) * falloff * 1.2;
+              }
+            }
+
+            s.vx *= 0.84;
+            s.vy *= 0.84;
+            s.x += s.vx * dt;
+            s.y += s.vy * dt;
+
+            const containerH = container.getBoundingClientRect().height;
+            if (s.y > containerH - 14) {
+              s.y = containerH - 14;
+              s.vy *= -0.22;
+            }
+
+            s.vrot *= 0.93;
+            s.rot += s.vrot * dt * 60;
+            if (Math.abs(s.vrot) < 0.04) s.vrot = 0;
+            s.scale += (1 - s.scale) * Math.min(1, 10 * dt);
+          }
+        }
+
+        const el = pillRefs.current[tool.name];
+        if (el) {
+          el.style.left = '0';
+          el.style.top = '0';
+          el.style.transform = `translate(${s.x}px, ${s.y}px) translate(-50%, -50%) rotate(${s.rot}deg) scale(${s.scale})`;
+        }
+      });
+
+      // Skill wobble while pulling.
+      clusters.forEach(cluster => {
+        const el = skillRefs.current[cluster.id];
+        if (!el) return;
+        let dx = 0;
+        let dy = 0;
+        if (cluster.id === active) {
+          dx = Math.sin(elapsed * 6.5) * 4;
+          dy = Math.cos(elapsed * 5.7) * 3;
+        }
+        el.style.setProperty('--wobble-x', `${dx}px`);
+        el.style.setProperty('--wobble-y', `${dy}px`);
+      });
+
+      raf = requestAnimationFrame(step);
+    }
+    raf = requestAnimationFrame(step);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', onResize);
+      tools.forEach(tool => {
+        const el = pillRefs.current[tool.name];
+        if (el) {
+          el.style.left = '';
+          el.style.top = '';
+          el.style.transform = '';
+        }
+      });
+      clusters.forEach(cluster => {
+        const el = skillRefs.current[cluster.id];
+        if (!el) return;
+        el.style.removeProperty('--wobble-x');
+        el.style.removeProperty('--wobble-y');
+      });
+    };
+  }, [enabled, containerRef, pillRefs, skillRefs, activeSkillRef]);
+}
+
 // ── Fun mode hats ─────────────────────────────────────────────────────────────
 
 const hats = [
@@ -280,7 +570,7 @@ function ArcExpansion({ hatId, isFunMode, onClose }) {
 
 // ── MindMap (normal mode) ─────────────────────────────────────────────────────
 
-function ToolPill({ tool, activeSkill }) {
+const ToolPill = function ToolPill({ tool, activeSkill, pillRef }) {
   const isActive = Boolean(activeSkill && tool.clusters.includes(activeSkill));
   const isDimmed = Boolean(activeSkill && !isActive);
   const activeClass = isActive ? toolToneClasses[activeSkill] : '';
@@ -289,6 +579,7 @@ function ToolPill({ tool, activeSkill }) {
 
   return (
     <button
+      ref={pillRef}
       type="button"
       className={`${styles.toolPill} ${activeClass} ${isActive ? styles.toolPillActive : ''} ${isDimmed ? styles.toolPillDimmed : ''}`}
       style={{ '--tool-x': tool.x, '--tool-y': tool.y }}
@@ -297,15 +588,68 @@ function ToolPill({ tool, activeSkill }) {
       <span className={styles.toolName}>{displayName}</span>
     </button>
   );
-}
+};
 
 function MindMap() {
   const [activeSkill, setActiveSkill] = useState(null);
+  const [physicsOn, setPhysicsOn] = useState(false);
+
+  const containerRef = useRef(null);
+  const pillRefs = useRef({});
+  const skillRefs = useRef({});
+  const activeSkillRef = useRef(null);
+  const cursorRef = useRef(null);
+
+  useEffect(() => {
+    activeSkillRef.current = activeSkill;
+  }, [activeSkill]);
+
+  // Enable physics only on desktop, with motion allowed, once section is in view.
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+    if (reducedMotion || !isDesktop) return undefined;
+
+    const el = containerRef.current;
+    if (!el) return undefined;
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setPhysicsOn(true);
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.25 });
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useMagnetPhysics({ containerRef, pillRefs, skillRefs, activeSkillRef, cursorRef, enabled: physicsOn });
+
+  const handleSkillEnter = (id) => {
+    setActiveSkill(id);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!physicsOn || !containerRef.current) return;
+    const r = containerRef.current.getBoundingClientRect();
+    cursorRef.current = { x: e.clientX - r.left, y: e.clientY - r.top };
+  };
+
+  const handleMouseLeave = () => {
+    setActiveSkill(null);
+    cursorRef.current = null;
+  };
 
   return (
     <div
-      className={`${styles.mindMap} ${activeSkill ? styles.mindMapActive : ''}`}
-      onMouseLeave={() => setActiveSkill(null)}
+      ref={containerRef}
+      className={`${styles.mindMap} ${activeSkill ? styles.mindMapActive : ''} ${physicsOn ? styles.mindMapPhysics : ''}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       <div className={styles.skillLayer} aria-label="Skill categories">
         {clusters.map(cluster => {
@@ -315,12 +659,13 @@ function MindMap() {
           return (
             <button
               key={cluster.id}
+              ref={el => { skillRefs.current[cluster.id] = el; }}
               type="button"
               className={`${styles.clusterBubble} ${styles[cluster.tone]} ${styles[cluster.size]} ${isActive ? styles.clusterBubbleActive : ''} ${isDimmed ? styles.clusterBubbleDimmed : ''}`}
               style={{ '--skill-x': cluster.x, '--skill-y': cluster.y }}
-              onMouseEnter={() => setActiveSkill(cluster.id)}
-              onFocus={() => setActiveSkill(cluster.id)}
-              onClick={() => setActiveSkill(cluster.id)}
+              onMouseEnter={() => handleSkillEnter(cluster.id)}
+              onFocus={() => handleSkillEnter(cluster.id)}
+              onClick={() => handleSkillEnter(cluster.id)}
               aria-pressed={isActive}
             >
               <span className={styles.clusterLabel}>
@@ -337,6 +682,7 @@ function MindMap() {
             key={tool.name}
             tool={tool}
             activeSkill={activeSkill}
+            pillRef={el => { pillRefs.current[tool.name] = el; }}
           />
         ))}
       </div>
@@ -465,6 +811,9 @@ export default function Skills() {
               <h2 className={`font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`}>
                 The Full Toolkit!
               </h2>
+              <p className={`font-dm text-body text-ink-700 ${styles.headlineDesc}`}>
+                Five disciplines I work across, and the kit that earns its place under each. Hover a circle — the rest will follow.
+              </p>
             </>
           )}
         </div>

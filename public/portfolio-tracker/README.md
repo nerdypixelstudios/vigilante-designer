@@ -117,3 +117,18 @@ public/portfolio-tracker/
 ```
 
 It is a temporary execution tracker, not part of the actual portfolio experience. Do not refactor it into `src/components`, do not treat it as a portfolio section, and remove it once the portfolio launch tracker has served its purpose.
+
+
+## Reward system update
+
+The tracker now uses score-weighted progress and dynamic weekly rewards.
+
+- Overall progress = completed score / total available score.
+- Reward Points = current week earned score / current week maximum possible score.
+- Reward thresholds are based on percentages of the current week’s possible score, so finishing all remaining weekly tasks unlocks every reward.
+- Daily icons show the quality of each day:
+  - ✅ Qualified Day: 200+ points
+  - 💪 Strong Day: 250+ points
+  - 🔥 Overdrive Day: 300+ points
+  - 👹 Monster Day: 330+ points
+- The highest reward remains Myra Window / roleplay fallback, unlocked when the current week is fully cleared.

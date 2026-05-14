@@ -35,6 +35,7 @@
     <nav class="tabs" aria-label="Tracker sections">
       <button class="tab-btn active" data-tab="dashboard" type="button">Dashboard</button>
       <button class="tab-btn" data-tab="tasks" type="button">All tasks <span id="taskCount">(39)</span></button>
+      <button class="tab-btn" data-tab="rewards" type="button">Rewards</button>
       <button class="tab-btn" data-tab="backup" type="button">Backup</button>
     </nav>
 
@@ -53,10 +54,19 @@
           <div class="progress-track"><div id="overallBar" class="progress-fill"></div></div>
         </article>
 
-        <article class="metric-card">
-          <span id="weekLabel" class="metric-label">This week</span>
-          <strong id="weekHours">0h / 0h</strong>
-          <div class="progress-track"><div id="weekBar" class="progress-fill info"></div></div>
+        <article class="reward-points-card">
+          <div class="reward-card-header">
+            <div>
+              <span class="metric-label">Reward Points</span>
+              <strong id="rewardPoints">0 pts</strong>
+              <span id="rewardMaxPoints" class="reward-max-copy">of 0 possible this week</span>
+            </div>
+            <button id="showRewardsBtn" class="btn btn-secondary reward-button" type="button">Show my achieved rewards</button>
+          </div>
+          <p id="rewardChaseText" class="reward-chase-copy">Need points for Myra Window</p>
+          <div class="coin-track" aria-hidden="true"><div id="rewardProgressFill" class="coin-fill"></div></div>
+          <div id="rewardSummaryChips" class="reward-summary-chips"></div>
+          <div id="rewardDayStrip" class="reward-day-strip"></div>
         </article>
 
         <article class="metric-card">
@@ -114,6 +124,18 @@
             <tbody id="taskBody"></tbody>
           </table>
         </div>
+      </section>
+    </section>
+
+    <section id="rewardsPane" class="tab-pane" hidden>
+      <section class="panel rewards-panel">
+        <div class="section-title">
+          <div>
+            <h2>Reward unlocks</h2>
+            <p class="section-subcopy">Rewards unlock from the current week’s earned score against the maximum possible weekly score.</p>
+          </div>
+        </div>
+        <div id="rewardsList" class="rewards-list"></div>
       </section>
     </section>
 

@@ -746,6 +746,131 @@ export const NavIconContact = forwardRef(function NavIconContact(
   );
 });
 
+export const NavIconDownload = forwardRef(function NavIconDownload(
+  { className = '', size = 20, duration = 1, isAnimated = true, ...props },
+  ref,
+) {
+  const controls = useAnimation();
+  const reduced = useReducedMotion();
+  const isControlled = useRef(false);
+  const hasParentBinding = useRef(false);
+
+  useImperativeHandle(ref, () => {
+    isControlled.current = true;
+    return {
+      startAnimation: () => reduced ? controls.start('normal') : controls.start('animate'),
+      stopAnimation: () => controls.start('normal'),
+    };
+  });
+
+  const handleEnter = useCallback(() => {
+    if (!isAnimated || reduced || hasParentBinding.current) return;
+    if (!isControlled.current) controls.start('animate');
+  }, [controls, reduced, isAnimated]);
+
+  const handleLeave = useCallback(() => {
+    if (hasParentBinding.current) return;
+    if (!isControlled.current) controls.start('normal');
+  }, [controls]);
+
+  const shaftVariants = {
+    normal: { strokeDashoffset: 0, opacity: 1 },
+    animate: {
+      strokeDashoffset: [30, 0],
+      opacity: [0.4, 1],
+      transition: {
+        duration: 0.6 * duration,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  const headVariants = {
+    normal: { y: 0, opacity: 1, scale: 1 },
+    animate: {
+      y: [-2, 2, 0],
+      scale: [1, 1.05, 1],
+      opacity: [0.6, 1],
+      transition: {
+        duration: 0.6 * duration,
+        ease: 'easeInOut',
+        delay: 0.05,
+      },
+    },
+  };
+
+  const trayVariants = {
+    normal: { strokeDashoffset: 0, opacity: 1 },
+    animate: {
+      strokeDashoffset: [60, 0],
+      opacity: [0.3, 1],
+      transition: {
+        duration: 0.6 * duration,
+        ease: 'easeInOut',
+        delay: 0.1,
+      },
+    },
+  };
+
+  const groupVariants = {
+    normal: { scale: 1 },
+    animate: {
+      scale: [1, 1.02, 1],
+      transition: {
+        duration: 0.6 * duration,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      className={className}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+      {...props}
+    >
+      <motion.svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <motion.g variants={groupVariants} initial="normal" animate={controls}>
+          <motion.path
+            d="M12 3v12"
+            strokeDasharray="30"
+            strokeDashoffset="30"
+            variants={shaftVariants}
+            initial="normal"
+            animate={controls}
+          />
+          <motion.path
+            d="m7 10 5 5 5-5"
+            variants={headVariants}
+            initial="normal"
+            animate={controls}
+          />
+          <motion.path
+            d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+            strokeDasharray="60"
+            strokeDashoffset="60"
+            variants={trayVariants}
+            initial="normal"
+            animate={controls}
+          />
+        </motion.g>
+      </motion.svg>
+    </motion.div>
+  );
+});
+
 export const NavIconMissions = forwardRef(function NavIconMissions(
   { className = '', size = 20, duration = 1, isAnimated = true, ...props },
   ref,

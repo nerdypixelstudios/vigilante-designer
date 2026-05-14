@@ -116,7 +116,7 @@
     0 0.75rem 2.5rem color-mix(in srgb, var(--color-ink-950) 22%, transparent);
   color: var(--color-fun-ink-700);
   font-family: var(--font-dm);
-  font-size: 0.95rem;
+  font-size: var(--text-small);
   font-weight: 500;
   line-height: 1;
   text-decoration: none;

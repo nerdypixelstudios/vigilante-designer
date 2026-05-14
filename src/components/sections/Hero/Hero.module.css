@@ -6,7 +6,7 @@
 .heroInner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 8rem 3rem 0;
+  padding: 9rem 3rem 4rem;
   min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
@@ -200,8 +200,8 @@
 /* Masking tape — at top-right of grid paper, off-centre to avoid the head */
 .tapeWrap {
   position: absolute;
-  top: 160px;
-  left: 0px;
+  top: 126px;
+  left: 28px;
   z-index: 1;
   transform: rotate(-4deg);
 }
@@ -226,6 +226,10 @@
   height: auto;
   display: block;
   max-width: unset;
+}
+
+.portraitFade {
+  display: none;
 }
 
 /* Fun mode glow */
@@ -285,6 +289,11 @@
   font-size: var(--text-small);
   letter-spacing: 0.01em;
   padding-left: 0.25rem;
+  color: var(--color-ink-950);
+}
+
+.recentWorkLabelText {
+  display: inline-block;
 }
 
 .recentWorkArrow {
@@ -296,7 +305,7 @@
 }
 
 .recentWorkArrow path {
-  fill: var(--color-ink-950);
+  fill: currentColor;
 }
 
 .roleList {
@@ -500,32 +509,32 @@
 
 @media (max-width: 767px) {
   .heroInner {
-    padding: 5rem 1.5rem 0;
+    padding: 7rem 1.5rem 5rem;
     min-height: auto;
-    gap: 2rem;
+    gap: 1.75rem;
   }
 
   .h1Row {
     text-align: left;
+    min-height: 12rem;
+    padding-right: 6rem;
   }
 
   .kicker {
     max-width: 100%;
     margin: 0 0 0.5rem 0;
-    font-size: 1.125rem;
     line-height: 1.4;
   }
 
   .roleStrip {
     margin: 0.5rem 0 0 0;
-    font-size: 1rem;
     padding: 0.35rem 0.65rem;
   }
 
   .experienceSticker {
-    width: 80px;
-    top: -0.25rem;
-    right: 0;
+    width: 92px;
+    top: 1.2rem;
+    right: 0.8rem;
   }
 
   .midRow {
@@ -533,33 +542,39 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     align-items: initial;
+    gap: 0.35rem;
   }
 
   .zoneLeft {
-    order: 1;
+    order: 2;
     justify-content: flex-start;
+    gap: 0.5rem;
   }
 
   .zoneCentre {
-    order: 2;
+    order: 1;
     justify-content: center;
-    margin-top: 0;
+    margin-top: -1.85rem;
+    align-items: flex-start;
   }
 
   .zoneRight {
     order: 3;
     justify-content: flex-start;
+    margin-top: 1.5rem;
+  }
+
+  .proofClaim {
+    max-width: none;
   }
 
   .swirlyArrow {
-    width: 120px;
-    margin-right: 0;
-    align-self: flex-start;
+    display: none;
   }
 
   .portraitWrap {
     width: 280px;
-    height: 320px;
+    height: 250px;
   }
 
   .gridPaper {
@@ -571,11 +586,52 @@
   }
 
   .tapeWrap {
-    right: 30px;
+    top: 72px;
+    left: 14px;
   }
 
   .portraitImg {
     width: 260px;
+  }
+
+  .portraitFade {
+    position: absolute;
+    left: -0.5rem;
+    right: -0.5rem;
+    bottom: -0.85rem;
+    z-index: 4;
+    display: block;
+    height: 7rem;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--portrait-fade-bg) 52%, transparent) 30%,
+      var(--portrait-fade-bg) 74%,
+      var(--portrait-fade-bg) 100%
+    );
+  }
+
+  .recentWorkTilted {
+    gap: 0.45rem;
+    margin-top: 0;
+    padding-left: 0;
+    color: var(--color-ink-950);
+    transform: none;
+  }
+
+  .recentWorkLabelText {
+    padding: 0.22rem 0.7rem 0.28rem;
+    border-radius: 0;
+    background: var(--color-surface-white);
+    box-shadow: none;
+    border: 1px solid color-mix(in srgb, var(--color-ink-950) 12%, transparent);
+  }
+
+  .recentWorkArrow {
+    margin-top: 0.2rem;
+    margin-left: 0.18rem;
+    transform: rotate(4deg) translateX(0.24rem);
   }
 
   .roleList {
@@ -585,7 +641,11 @@
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .heroInner {
-    padding: 5.5rem 2rem 0;
+    padding: 6.75rem 2rem 4rem;
+  }
+
+  .h1Row {
+    padding-right: 7.5rem;
   }
 
   .zoneCentre {
@@ -615,6 +675,47 @@
   }
 
   .experienceSticker {
-    width: 110px;
+    width: 116px;
+    top: -0.1rem;
+    right: 1.25rem;
+  }
+
+  .tapeWrap {
+    top: 96px;
+    left: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroInner {
+    padding: 8rem 3rem 0;
+  }
+
+  .zoneCentre {
+    margin-top: -12rem;
+  }
+
+  .portraitWrap {
+    width: 600px;
+    height: 600px;
+  }
+
+  .gridPaper {
+    width: 500px;
+  }
+
+  .tapeWrap {
+    top: 126px;
+    left: 28px;
+  }
+
+  .portraitImg {
+    width: 600px;
+  }
+
+  .experienceSticker {
+    width: 148px;
+    top: -2rem;
+    right: -50px;
   }
 }

@@ -42,7 +42,7 @@
 .eyebrow {
   margin: 0;
   font-family: var(--font-caveat);
-  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-size: var(--text-fun-h3);
   font-weight: 700;
   line-height: 1;
   color: var(--color-accent-yellow);
@@ -1046,7 +1046,7 @@
   border-radius: 9999px;
   background: transparent;
   font-family: var(--font-dm);
-  font-size: 0.9rem;
+  font-size: var(--text-small);
   font-weight: 800;
   color: color-mix(in srgb, var(--color-surface-white) 34%, transparent);
   cursor: pointer;
