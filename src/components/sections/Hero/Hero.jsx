@@ -122,12 +122,13 @@ export default function Hero() {
 
               <div className={styles.portraitImgWrap}>
                 <Image
-                  src="/images/hero/hero-portrait-normal.webp"
+                  src="/images/hero/hero-portrait-normal.png"
                   alt="Lohith Savala, Product Designer"
                   width={596}
                   height={504}
                   className={styles.portraitImg}
                   priority
+                  unoptimized
                 />
               </div>
 

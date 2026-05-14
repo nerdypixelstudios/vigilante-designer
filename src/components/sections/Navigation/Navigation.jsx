@@ -40,6 +40,7 @@ export default function Navigation({
   const { isFunMode, toggleMode, toggleStage } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const iconRefs = useRef({});
+  const islandRef = useRef(null);
 
   const activeLinks = links ?? (isFunMode ? funLinks : normalLinks);
   const brandSrc = isFunMode
@@ -56,10 +57,39 @@ export default function Navigation({
     ? null
     : (isFunMode ? 'Back to the day job' : 'Resist if you can');
 
+  const handleNavLinkClick = (event, href) => {
+    if (!href?.startsWith('#') || typeof window === 'undefined') {
+      return;
+    }
+
+    const targetId = href.slice(1);
+    const target = document.getElementById(targetId);
+
+    if (!target) {
+      return;
+    }
+
+    event.preventDefault();
+    setMenuOpen(false);
+
+    const navBottom = islandRef.current?.getBoundingClientRect().bottom ?? 0;
+    const scrollOffset = navBottom + 16;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - scrollOffset;
+
+    window.history.replaceState(null, '', href);
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <nav className={styles.navOuter}>
       <div className={styles.navStack}>
-        <div className={`${styles.island} ${isFunMode ? styles.islandFun : styles.islandNormal}`}>
+        <div
+          ref={islandRef}
+          className={`${styles.island} ${isFunMode ? styles.islandFun : styles.islandNormal}`}
+        >
           <div className={styles.navInner}>
             <Link href="/" className={styles.brand} aria-label="Lohith Savala - home">
               <Image
@@ -81,6 +111,7 @@ export default function Navigation({
                     target={link.external ? '_blank' : undefined}
                     rel={link.external ? 'noopener noreferrer' : undefined}
                     className={`${styles.navLink} ${isFunMode ? styles.navLinkFun : styles.navLinkNormal}`}
+                    onClick={(event) => handleNavLinkClick(event, link.href)}
                     onMouseEnter={() => triggerIcon(link.href, 'startAnimation')}
                     onMouseLeave={() => triggerIcon(link.href, 'stopAnimation')}
                     onFocus={() => triggerIcon(link.href, 'startAnimation')}
@@ -175,7 +206,10 @@ export default function Navigation({
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={(event) => {
+                    handleNavLinkClick(event, link.href);
+                    setMenuOpen(false);
+                  }}
                   className={`${styles.mobileLink} ${isFunMode ? styles.mobileLinkFun : styles.mobileLinkNormal}`}
                 >
                   {link.Icon && <link.Icon size={20} />}

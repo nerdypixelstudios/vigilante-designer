@@ -67,12 +67,17 @@ function FooterLink({ link, variant = 'home' }) {
   const externalProps = link.external
     ? { target: '_blank', rel: 'noopener noreferrer' }
     : {};
+  const variantClassName = variant === 'caseStudy'
+    ? styles.caseFooterLink
+    : variant === 'lean'
+      ? styles.leanFooterLink
+      : '';
 
   return (
     <a
       href={link.href}
       aria-label={link.ariaLabel}
-      className={`${styles.footerLink} ${variant === 'caseStudy' ? styles.caseFooterLink : ''}`}
+      className={`${styles.footerLink} ${variantClassName}`}
       {...externalProps}
     >
       <Icon color="currentColor" className={styles.footerLinkIcon} />
@@ -82,8 +87,14 @@ function FooterLink({ link, variant = 'home' }) {
 }
 
 function FooterLinks({ variant = 'home' }) {
+  const variantClassName = variant === 'caseStudy'
+    ? styles.caseFooterLinks
+    : variant === 'lean'
+      ? styles.leanFooterLinks
+      : '';
+
   return (
-    <div className={`${styles.footerLinks} ${variant === 'caseStudy' ? styles.caseFooterLinks : ''}`}>
+    <div className={`${styles.footerLinks} ${variantClassName}`}>
       {footerLinks.map((link) => (
         <FooterLink key={link.label} link={link} variant={variant} />
       ))}
@@ -105,6 +116,22 @@ function FooterAvatar({ variant = 'home' }) {
           sizes="83px"
           unoptimized
           className={styles.caseAvatarImage}
+        />
+      </div>
+    );
+  }
+
+  if (variant === 'lean') {
+    return (
+      <div className={styles.leanAvatar} aria-hidden="true">
+        <Image
+          src="/images/footer/footer-avatar-circled.png"
+          alt=""
+          width={50}
+          height={50}
+          sizes="50px"
+          unoptimized
+          className={styles.leanAvatarImage}
         />
       </div>
     );
@@ -228,9 +255,36 @@ function CaseStudyFooter() {
   );
 }
 
+function LeanFooter() {
+  return (
+    <footer id="footer" className={`${styles.footer} ${styles.leanFooter}`}>
+      <div className={styles.leanInner}>
+        <h2 className={styles.leanHeading}>You made it to the end.</h2>
+
+        <div className={styles.leanPromptRow}>
+          <p className={styles.leanPromptLead}>End of page or</p>
+          <div className={styles.leanCalloutCluster}>
+            <span className={styles.leanSpeechWrap}>
+              <span className={styles.leanSpeech}>Start of a conversation.</span>
+            </span>
+            <FooterAvatar variant="lean" />
+          </div>
+        </div>
+
+        <FooterLinks variant="lean" />
+        <CopyrightLine className={styles.leanCopyright} />
+      </div>
+    </footer>
+  );
+}
+
 export default function Footer({ variant = 'home' }) {
   if (variant === 'caseStudy') {
     return <CaseStudyFooter />;
+  }
+
+  if (variant === 'lean') {
+    return <LeanFooter />;
   }
 
   return <HomeFooter />;

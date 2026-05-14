@@ -11,6 +11,11 @@ import {
 import { getLaneStyle } from '../../components/sections/MoreFromDesk/moreWorksUtils';
 import styles from './more-work-detail.module.css';
 
+const leanPageLinks = [
+  { href: '#overview', label: 'Overview' },
+  { href: '#product-preview', label: 'Product preview' },
+];
+
 export default function MoreWorkDetailPage({ item }) {
   const details = item.details || {};
 
@@ -20,9 +25,14 @@ export default function MoreWorkDetailPage({ item }) {
         title={`${details.title || item.title} | Lohith Savala`}
         description={details.description || item.note}
       />
-      <Navigation showToggle={false} backHref="/#more-from-desk" backLabel="Back to range" />
+      <Navigation
+        links={leanPageLinks}
+        showToggle={false}
+        backHref="/#more-from-desk"
+        backLabel="Back to range"
+      />
       <main className={styles.page} style={getLaneStyle(item)}>
-        <section className={styles.hero}>
+        <section id="overview" className={styles.hero}>
           <p className={styles.eyebrow}>{details.eyebrow || item.laneTitle}</p>
           <h1>{details.title || item.title}</h1>
           <p className={styles.context}>{details.context || item.note}</p>
@@ -34,7 +44,11 @@ export default function MoreWorkDetailPage({ item }) {
           </div>
         </section>
 
-        <section className={styles.viewerSection} aria-label={`${item.title} preview`}>
+        <section
+          id="product-preview"
+          className={styles.viewerSection}
+          aria-label={`${item.title} preview`}
+        >
           <div className={styles.viewerContext}>
             <p>{details.description || item.note}</p>
             <div className={styles.detailList}>
@@ -99,7 +113,7 @@ export default function MoreWorkDetailPage({ item }) {
           <Link href="/#more-from-desk">Back to The Full Range</Link>
         </div>
       </main>
-      <Footer variant="caseStudy" />
+      <Footer variant="lean" />
     </>
   );
 }
