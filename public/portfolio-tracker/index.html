@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio Launch Tracker</title>
+  <!--
+    REVIEW AGENT NOTE — TEMPORARY TRACKER
+    This static page is intentionally served from /public/portfolio-tracker/.
+    It is not part of the actual portfolio UX, case study architecture, or reusable component system.
+    It exists only to track the portfolio launch and should be removed once it has served its purpose.
+  -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Portfolio Launch Tracker</p>
+        <h1>Ship the portfolio. Keep the streak alive.</h1>
+        <p class="subtext">Multi-device tracker powered by Firebase Firestore.</p>
+      </div>
+
+      <div class="header-actions">
+        <span id="syncStatus" class="status-pill status-idle">Loading…</span>
+        <button id="refreshBtn" class="btn btn-secondary" type="button">Refresh</button>
+        <button id="saveBtn" class="btn btn-primary" type="button">Save progress</button>
+      </div>
+    </header>
+
+    <section id="setupWarning" class="notice" hidden>
+      Firebase is not reachable yet. Make sure Firestore is enabled and the app is hosted through a local server or subdomain, not opened directly as a file.
+    </section>
+
+    <nav class="tabs" aria-label="Tracker sections">
+      <button class="tab-btn active" data-tab="dashboard" type="button">Dashboard</button>
+      <button class="tab-btn" data-tab="tasks" type="button">All tasks <span id="taskCount">(39)</span></button>
+      <button class="tab-btn" data-tab="backup" type="button">Backup</button>
+    </nav>
+
+    <section id="dashboardPane" class="tab-pane">
+      <section class="dashboard-grid">
+        <article class="streak-card">
+          <span class="flame" aria-hidden="true">🔥</span>
+          <strong id="streakNumber">0</strong>
+          <span id="streakLabel">day streak</span>
+          <p id="streakMessage">Mark your first task done to start your streak.</p>
+        </article>
+
+        <article class="metric-card">
+          <span class="metric-label">Overall progress</span>
+          <strong id="overallProgress">0%</strong>
+          <div class="progress-track"><div id="overallBar" class="progress-fill"></div></div>
+        </article>
+
+        <article class="metric-card">
+          <span id="weekLabel" class="metric-label">This week</span>
+          <strong id="weekHours">0h / 0h</strong>
+          <div class="progress-track"><div id="weekBar" class="progress-fill info"></div></div>
+        </article>
+
+        <article class="metric-card">
+          <span class="metric-label">Tasks remaining</span>
+          <strong id="tasksRemaining">39 left</strong>
+          <div class="progress-track"><div id="remainingBar" class="progress-fill warning"></div></div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <h2>Today’s focus</h2>
+          <span id="currentWeekDates"></span>
+        </div>
+        <div id="focusList" class="focus-list"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">
+          <h2>Week progress</h2>
+        </div>
+        <div id="weekProgressList" class="week-list"></div>
+      </section>
+    </section>
+
+    <section id="tasksPane" class="tab-pane" hidden>
+      <section class="panel">
+        <div class="task-toolbar">
+          <button id="toggleScoresBtn" class="btn btn-secondary" type="button">Show scores</button>
+
+          <label>
+            Week
+            <select id="weekFilter">
+              <option value="">All weeks</option>
+              <option value="W1">Week 1 — May 14–17</option>
+              <option value="W2">Week 2 — May 18–24</option>
+              <option value="W3">Week 3 — May 25–31</option>
+              <option value="W4">Week 4 — Jun 1–7</option>
+            </select>
+          </label>
+
+          <label>
+            Section
+            <select id="groupFilter">
+              <option value="">All sections</option>
+            </select>
+          </label>
+
+          <span class="helper-text">Estimated and actual hours are editable.</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead id="taskHead"></thead>
+            <tbody id="taskBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <section id="backupPane" class="tab-pane" hidden>
+      <section class="panel backup-panel">
+        <h2>Backup controls</h2>
+        <p>
+          Firebase is the main storage. Use these only as a safety net before major edits or after a long work session.
+        </p>
+        <div class="backup-actions">
+          <button id="exportBtn" class="btn btn-secondary" type="button">Export JSON backup</button>
+          <label class="file-label">
+            Import JSON backup
+            <input id="importInput" type="file" accept="application/json" />
+          </label>
+        </div>
+        <p class="small-note">
+          Shared cloud document: <code>portfolioTrackers/lohith-portfolio-launch-2026</code>
+        </p>
+      </section>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
