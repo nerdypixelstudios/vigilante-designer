@@ -847,3 +847,439 @@ code {
     max-width: none;
   }
 }
+
+
+/* Reward shop upgrade — points are now spendable currency, not passive unlocks. */
+.reward-shop-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 18px;
+  padding: 20px;
+  border-radius: var(--tracker-radius-lg);
+  background:
+    radial-gradient(circle at top right, rgba(251, 226, 0, 0.28), transparent 18rem),
+    var(--tracker-surface-soft);
+  border: 1px solid var(--tracker-border);
+}
+
+.reward-shop-hero strong {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--tracker-font-heading);
+  font-size: clamp(2.75rem, 5vw, 5.75rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.reward-shop-hero p {
+  margin: 10px 0 0;
+  color: var(--tracker-muted);
+  font-weight: 800;
+}
+
+.reward-shop-mini {
+  display: grid;
+  gap: 8px;
+  min-width: 180px;
+}
+
+.reward-shop-mini span {
+  display: inline-flex;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: var(--tracker-surface);
+  border: 1px solid var(--tracker-border);
+  font-weight: 900;
+}
+
+.reward-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.shop-reward-card {
+  display: grid;
+  grid-template-rows: 180px 1fr;
+  overflow: hidden;
+  border-radius: var(--tracker-radius-lg);
+  background: var(--tracker-surface);
+  border: 1px solid var(--tracker-border);
+  box-shadow: var(--tracker-shadow);
+}
+
+.reward-illustration {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 28% 20%, rgba(255, 255, 255, 0.9), transparent 9rem),
+    linear-gradient(135deg, rgba(251, 226, 0, 0.85), rgba(255, 95, 0, 0.18));
+}
+
+.shop-locked .reward-illustration {
+  background:
+    radial-gradient(circle at 28% 20%, rgba(255, 255, 255, 0.86), transparent 9rem),
+    linear-gradient(135deg, rgba(240, 237, 255, 0.95), rgba(210, 210, 210, 0.28));
+}
+
+.reward-illustration span {
+  display: grid;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  border-radius: 36px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  font-size: 64px;
+}
+
+.shop-reward-copy {
+  padding: 16px;
+}
+
+.shop-reward-copy h3 {
+  margin: 10px 0 8px;
+  font-family: var(--tracker-font-heading);
+  font-size: 1.35rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.shop-reward-copy p {
+  margin: 0;
+  color: var(--tracker-muted);
+  line-height: 1.45;
+}
+
+.reward-cost {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: var(--tracker-warning-bg);
+  color: var(--tracker-warning);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.reward-claim-btn {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.reward-claim-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.progress-fill.success {
+  background: var(--tracker-success);
+}
+
+@media (max-width: 980px) {
+  .reward-shop-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .reward-shop-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .reward-shop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shop-reward-card {
+    grid-template-rows: 150px 1fr;
+  }
+}
+
+
+/* Final dashboard consolidation: two balanced top cards. */
+.dashboard-grid-two {
+  grid-template-columns: minmax(0, 1.05fr) minmax(420px, 1fr);
+  align-items: stretch;
+}
+
+.sprint-status-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--tracker-border);
+  border-radius: var(--tracker-radius-lg);
+  box-shadow: var(--tracker-shadow);
+  padding: 24px;
+  display: grid;
+  gap: 22px;
+}
+
+.sprint-status-header,
+.status-metrics,
+.qualify-meter {
+  display: grid;
+  gap: 14px;
+}
+
+.sprint-status-header {
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+
+.sprint-status-header h2 {
+  margin-top: 4px;
+  font-family: var(--tracker-font-heading);
+  font-size: clamp(2rem, 3vw, 3.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.status-metrics {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.status-metric {
+  min-width: 0;
+  padding: 14px;
+  border-radius: var(--tracker-radius-md);
+  background: var(--tracker-surface-soft);
+}
+
+.status-metric strong {
+  display: block;
+  font-family: var(--tracker-font-heading);
+  font-size: clamp(2rem, 3.4vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.status-metric span {
+  display: block;
+  margin-top: 8px;
+  color: var(--tracker-muted);
+  font-size: 0.92rem;
+}
+
+.status-metric .progress-track {
+  margin-top: 12px;
+}
+
+.qualify-meter {
+  padding: 15px;
+  border-radius: var(--tracker-radius-md);
+  background: var(--tracker-surface);
+  border: 1px solid var(--tracker-border);
+}
+
+.qualify-meter strong {
+  display: block;
+  font-family: var(--tracker-font-heading);
+  font-size: 1.2rem;
+}
+
+.qualify-meter p {
+  margin: 5px 0 0;
+  color: var(--tracker-muted);
+}
+
+/* Today focus is now a usable mini-table, not static cards. */
+.focus-table-wrap {
+  overflow: auto;
+  border: 1px solid var(--tracker-border);
+  border-radius: var(--tracker-radius-md);
+  background: var(--tracker-surface);
+}
+
+.focus-table {
+  min-width: 820px;
+}
+
+.focus-table th,
+.focus-table td {
+  font-size: 0.9rem;
+}
+
+.focus-empty {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: var(--tracker-radius-md);
+  background: var(--tracker-surface-soft);
+}
+
+.focus-empty span {
+  color: var(--tracker-muted);
+}
+
+/* Reward shop top balance now spans full width above the cards. */
+.rewards-list {
+  display: grid;
+  gap: 18px;
+}
+
+.reward-shop-hero {
+  grid-column: 1 / -1;
+}
+
+.reward-shop-grid {
+  align-items: stretch;
+}
+
+/* Completion feedback layer. */
+.celebration-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.completion-toast {
+  position: fixed;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: var(--tracker-surface);
+  border: 1px solid var(--tracker-border);
+  box-shadow: var(--tracker-shadow);
+  animation: toast-pop 1.8s ease forwards;
+}
+
+.completion-toast span {
+  font-size: 1.35rem;
+}
+
+.completion-toast strong,
+.completion-toast em {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.completion-toast em {
+  color: var(--tracker-success);
+}
+
+.confetti-blast {
+  position: fixed;
+  left: 50%;
+  top: 46%;
+  width: 0;
+  height: 0;
+}
+
+.confetti-blast i {
+  position: absolute;
+  width: 10px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--bg);
+  animation: confetti-fly 1.4s cubic-bezier(0.12, 0.86, 0.22, 1) var(--delay) forwards;
+}
+
+.confetti-message {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 280px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  gap: 4px;
+  text-align: center;
+  padding: 16px 18px;
+  border-radius: var(--tracker-radius-lg);
+  background: var(--tracker-surface);
+  border: 1px solid var(--tracker-border);
+  box-shadow: var(--tracker-shadow);
+  animation: message-pop 2.2s ease forwards;
+}
+
+.confetti-message strong {
+  font-family: var(--tracker-font-heading);
+  font-size: 1.25rem;
+}
+
+.confetti-message span {
+  color: var(--tracker-muted);
+}
+
+@keyframes toast-pop {
+  0% { opacity: 0; transform: translate(-50%, -12px) scale(0.92); }
+  12% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  76% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -16px) scale(0.96); }
+}
+
+@keyframes confetti-fly {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)); }
+}
+
+@keyframes message-pop {
+  0% { opacity: 0; transform: translate(-50%, -42%) scale(0.88); }
+  12% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  78% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -64%) scale(0.94); }
+}
+
+/* Typography normalization requested: controls and badges should not shout. */
+.btn,
+.file-label,
+.status-pill,
+.tab-btn,
+.pill,
+.score-pill,
+.reward-state,
+.reward-cost,
+.reward-summary-chips span,
+.reward-shop-mini span,
+.reward-day-label,
+.reward-day-score,
+th,
+.task-toolbar label {
+  font-weight: 400;
+}
+
+.task-name,
+.metric-label,
+.eyebrow {
+  font-weight: 500;
+}
+
+@media (max-width: 980px) {
+  .dashboard-grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .status-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Rewards grid width fix:
+   The older rewards-list rule still had a 2-column parent grid, causing the
+   reward-shop-grid to occupy only the left side of the page. Keep the balance
+   hero on top and let the shop cards fill the full available width. */
+.rewards-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+.reward-shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  width: 100%;
+  align-items: stretch;
+}
+
+.shop-reward-card {
+  min-width: 0;
+}

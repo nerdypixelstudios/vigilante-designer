@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import {
   LiveProductArrowIcon,
@@ -9,18 +9,13 @@ import {
   ShippedPathIcon,
   ShippedRemedialIcon,
   ShippedResultsIcon,
+  VideoEnterFullscreenIcon,
+  VideoExitFullscreenIcon,
 } from '../icons/icons';
+import { SatLmsDemo } from './sat-lms-demo';
 import styles from './ShippedFlowSection.module.css';
 
 const liveProductUrl = 'https://prismlearning.academy/sat/prep/course/sentence_foundations';
-
-const demoCards = [
-  ['Personalize Your Path', 'Diagnostic', '25 min', '01', true],
-  ['The Five Building Blocks: Parts of Sentences', 'Concept', '45 min', '1'],
-  ['Seeing the Building Blocks: Practice', 'Process Skill', '45 min', '2'],
-  ['Finding the Core Pair: Subjects and Predicates', 'Concept', '45 min', '3'],
-  ['Finding the Structural Core', 'Process Skill', '45 min', '4'],
-];
 
 const mapNodes = [
   ['node1', '1', 'Course landing', 'The learner enters the course and sees the diagnostic as the first clear action.', ShippedCourseLandingIcon],
@@ -34,6 +29,33 @@ const mapNodes = [
 
 export default function ShippedFlowSection() {
   const [activeTab, setActiveTab] = useState('demo');
+  const [isDemoFullscreen, setIsDemoFullscreen] = useState(false);
+  const demoViewportRef = useRef(null);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsDemoFullscreen(document.fullscreenElement === demoViewportRef.current);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleDemoFullscreen = () => {
+    const demoViewport = demoViewportRef.current;
+
+    if (!demoViewport) {
+      return;
+    }
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.();
+      return;
+    }
+
+    demoViewport.requestFullscreen?.();
+  };
 
   return (
     <section id="flow" className={styles.section} aria-labelledby="shipped-flow-heading">
@@ -92,116 +114,78 @@ export default function ShippedFlowSection() {
 
         <div className={styles.panel}>
           <div className={styles.demoStage}>
-            <div className={styles.demoViewport}>
+            <div
+              ref={demoViewportRef}
+              className={`${styles.demoViewport} ${activeTab === 'demo' ? styles.demoViewportInteractive : ''}`}
+            >
               {activeTab === 'demo' ? (
                 <div id="shipped-flow-demo" role="tabpanel" className={styles.demoFramePanel}>
-                <div className={styles.mockApp}>
-                  <div className={styles.mockHero}>
-                    <span className={styles.focusPill}>Focus · ⌘ · □</span>
-                    <h3>Sentence Foundations</h3>
-                    <div className={styles.mockProgress}>
-                      <span className={styles.mockProgressTrack}><span /></span>
-                      <span>0% complete</span>
-                    </div>
-                  </div>
-
-                  <div className={styles.mockBody}>
-                    <div className={styles.diagnosticCard}>
-                      <span className={styles.diagnosticIcon}>01</span>
-                      <div>
-                        <h4>Personalize Your Path</h4>
-                        <p>Take a quick diagnostic to discover what you already know. Students typically <strong>save up to 70%</strong> of study time.</p>
-                        <div className={styles.diagnosticMeta}>
-                          <span>57 min</span>
-                          <span>23 questions</span>
-                          <span>One-time assessment</span>
-                        </div>
-                      </div>
-                      <button type="button" className={styles.diagnosticButton}>Take Diagnostic →</button>
-                    </div>
-
-                    <div className={styles.nextUp}>
-                      <div>
-                        <h4>Next Up</h4>
-                        <p>Your immediate next steps in this course</p>
-                      </div>
-                      <span className={styles.nextRule} aria-hidden="true" />
-                    </div>
-
-                    <div className={styles.courseRail} aria-label="Mock personalized course path">
-                      {demoCards.map(([title, type, time, badge, recommended]) => (
-                        <article
-                          key={title}
-                          className={`${styles.courseCard} ${recommended ? styles.courseCardRecommended : ''}`}
-                        >
-                          <span className={styles.stepIcon}>{badge}</span>
-                          <div>
-                            <h5>{title}</h5>
-                            <p>{type}</p>
-                          </div>
-                          <div className={styles.courseCardFooter}>
-                            <span>{time}</span>
-                            <b>Start ›</b>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                  <button
+                    type="button"
+                    className={styles.demoControlButton}
+                    aria-label={isDemoFullscreen ? 'Exit fullscreen' : 'View fullscreen'}
+                    onClick={toggleDemoFullscreen}
+                  >
+                    {isDemoFullscreen ? <VideoExitFullscreenIcon /> : <VideoEnterFullscreenIcon />}
+                  </button>
+                  <SatLmsDemo
+                    className={styles.demoEmbed}
+                    style={{ height: '100%', minHeight: '100%' }}
+                  />
                 </div>
               ) : (
                 <div id="shipped-flow-map" role="tabpanel" className={styles.mapFramePanel}>
-            <div className={styles.mapCard}>
-              <div className={styles.mapHeader}>
-                <div>
-                  <h3>Behavior map</h3>
-                  <p>
-                    The journey shows how one lesson turns into a mastery loop: progress when the learner is ready, remediate when gaps appear, then continue to the next activity.
-                  </p>
-                </div>
-                <span className={styles.mapBadge}>Lesson to mastery check to next action</span>
-              </div>
-
-              <div className={styles.mapScroll}>
-                <div className={styles.mapCanvas}>
-                  <svg className={styles.mapLines} viewBox="0 0 940 928" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <defs>
-                      <marker id="shippedFlowArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-                        <path d="M1.5 1.5L8 5L1.5 8.5" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                      </marker>
-                    </defs>
-                    <path d="M470 106V136" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                    <path d="M470 246V276" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                    <path d="M470 386V416" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                    <path d="M470 526V556" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                    <path d="M470 666V710" stroke="currentColor" strokeWidth="1.35" />
-                    <path d="M220 710H720" stroke="currentColor" strokeWidth="1.35" />
-                    <path d="M220 710V758" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                    <path d="M720 710V758" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                    <path d="M416 858H522" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                    <path d="M720 898C835 898 840 662 740 662" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
-                  </svg>
-
-                  {mapNodes.map(([key, step, title, body, Icon, narrow]) => (
-                    <article
-                      key={key}
-                      className={`${styles.mapNode} ${narrow ? styles.mapNodeNarrow : ''} ${styles[key]}`}
-                    >
-                      <div className={styles.mapNodeInner}>
-                        <span className={styles.mapIcon}><Icon /></span>
-                        <div>
-                          <h4>{step}. {title}</h4>
-                          <p>{body}</p>
-                        </div>
+                  <div className={styles.mapCard}>
+                    <div className={styles.mapHeader}>
+                      <div>
+                        <h3>Behavior map</h3>
+                        <p>
+                          The journey shows how one lesson turns into a mastery loop: progress when the learner is ready, remediate when gaps appear, then continue to the next activity.
+                        </p>
                       </div>
-                    </article>
-                  ))}
+                      <span className={styles.mapBadge}>Lesson to mastery check to next action</span>
+                    </div>
 
-                  <span className={`${styles.branchLabel} ${styles.branchLeft}`}>Mastery not demonstrated</span>
-                  <span className={`${styles.branchLabel} ${styles.branchRight}`}>Mastery achieved</span>
-                </div>
-              </div>
-            </div>
+                    <div className={styles.mapScroll}>
+                      <div className={styles.mapCanvas}>
+                        <svg className={styles.mapLines} viewBox="0 0 940 928" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <defs>
+                            <marker id="shippedFlowArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+                              <path d="M1.5 1.5L8 5L1.5 8.5" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                            </marker>
+                          </defs>
+                          <path d="M470 106V136" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                          <path d="M470 246V276" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                          <path d="M470 386V416" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                          <path d="M470 526V556" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                          <path d="M470 666V710" stroke="currentColor" strokeWidth="1.35" />
+                          <path d="M220 710H720" stroke="currentColor" strokeWidth="1.35" />
+                          <path d="M220 710V758" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                          <path d="M720 710V758" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                          <path d="M416 858H522" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                          <path d="M720 898C835 898 840 662 740 662" stroke="currentColor" strokeWidth="1.35" markerEnd="url(#shippedFlowArrow)" />
+                        </svg>
+
+                        {mapNodes.map(([key, step, title, body, Icon, narrow]) => (
+                          <article
+                            key={key}
+                            className={`${styles.mapNode} ${narrow ? styles.mapNodeNarrow : ''} ${styles[key]}`}
+                          >
+                            <div className={styles.mapNodeInner}>
+                              <span className={styles.mapIcon}><Icon /></span>
+                              <div>
+                                <h4>{step}. {title}</h4>
+                                <p>{body}</p>
+                              </div>
+                            </div>
+                          </article>
+                        ))}
+
+                        <span className={`${styles.branchLabel} ${styles.branchLeft}`}>Mastery not demonstrated</span>
+                        <span className={`${styles.branchLabel} ${styles.branchRight}`}>Mastery achieved</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>

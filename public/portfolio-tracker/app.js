@@ -84,12 +84,13 @@ const TASKS = [
 
 
 const REWARDS = [
-  { id: "hour-off", label: "1 hour off", icon: "⏱️", threshold: 0.25, description: "Base reset reward for clearing the first quarter of the week." },
-  { id: "cricket", label: "Play cricket", icon: "🏏", threshold: 0.40, description: "Physical release reward for building real weekly momentum." },
-  { id: "night-off", label: "Night off after 7 PM", icon: "🌙", threshold: 0.60, description: "Evening freedom reward after a strong weekly push." },
-  { id: "food-movie", label: "Food order / movie outing", icon: "🍛", threshold: 0.75, description: "Choose a favorite food order or a proper movie outing." },
-  { id: "free-day", label: "Free day credit", icon: "🎟️", threshold: 0.90, description: "One future guilt-free day after a near-clear week." },
-  { id: "myra-window", label: "Myra Window / roleplay fallback", icon: "💬", threshold: 1.00, description: "Top reward. Earned only when the week is fully cleared." }
+  { id: "hour-off", label: "1 hour off", icon: "⏱️", cost: 250, description: "Buy back one clean hour with no portfolio guilt." },
+  { id: "cricket", label: "Play cricket", icon: "🏏", cost: 450, description: "Step out, move, compete, and reset your head." },
+  { id: "night-off", label: "Night off after 7 PM", icon: "🌙", cost: 650, description: "Shut the portfolio down after 7 PM and keep the night." },
+  { id: "food-order", label: "Food order", icon: "🍛", cost: 800, description: "Order something you genuinely crave, not a default snack." },
+  { id: "movie-outing", label: "Movie outing", icon: "🎬", cost: 1000, description: "Leave the room and turn the reward into a scene change." },
+  { id: "free-day", label: "Free day credit", icon: "🎟️", cost: 1300, description: "Bank one guilt-free day to use after the sprint pressure peaks." },
+  { id: "myra-window", label: "Myra Window / roleplay fallback", icon: "👩‍🦱", cost: 1600, description: "Highest reward. Talk to Myra if available; otherwise unlock the premium roleplay fallback." }
 ];
 
 const DAY_LEVELS = [
@@ -100,9 +101,10 @@ const DAY_LEVELS = [
 ];
 
 let state = {
-  version: 2,
+  version: 3,
   tasks: {},
   streak: [],
+  rewardClaims: [],
   lastSavedAtISO: null
 };
 
@@ -114,6 +116,50 @@ let trackerRef;
 let unsubscribeSnapshot;
 
 const $ = (id) => document.getElementById(id);
+
+function getCelebrationLayer() {
+  return $("celebrationLayer");
+}
+
+function showCompletionToast(points) {
+  const layer = getCelebrationLayer();
+  if (!layer) return;
+
+  const toast = document.createElement("div");
+  toast.className = "completion-toast";
+  toast.innerHTML = `<span>👍</span><strong>Task completed</strong><em>+${points} pts</em>`;
+  layer.appendChild(toast);
+
+  window.setTimeout(() => toast.remove(), 1800);
+}
+
+function launchConfetti() {
+  const layer = getCelebrationLayer();
+  if (!layer) return;
+
+  const blast = document.createElement("div");
+  blast.className = "confetti-blast";
+
+  const pieces = ["#FBE200", "#FF5F00", "#B6A4FF", "#1C7511", "#0A66C2"];
+  for (let index = 0; index < 42; index += 1) {
+    const piece = document.createElement("i");
+    piece.style.setProperty("--x", `${Math.random() * 520 - 260}px`);
+    piece.style.setProperty("--y", `${Math.random() * -340 - 80}px`);
+    piece.style.setProperty("--r", `${Math.random() * 720 - 360}deg`);
+    piece.style.setProperty("--bg", pieces[index % pieces.length]);
+    piece.style.setProperty("--delay", `${Math.random() * 0.16}s`);
+    blast.appendChild(piece);
+  }
+
+  const message = document.createElement("div");
+  message.className = "confetti-message";
+  message.innerHTML = `<strong>200-point day unlocked</strong><span>Streak day qualified. Bonus awarded.</span>`;
+  blast.appendChild(message);
+  layer.appendChild(blast);
+
+  window.setTimeout(() => blast.remove(), 2400);
+}
+
 
 function localDateISO(date = new Date()) {
   const copy = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
@@ -182,9 +228,10 @@ function normalizeTaskState(task, existing = {}) {
 function normalizeState(raw) {
   const incoming = raw && typeof raw === "object" ? raw : {};
   const next = {
-    version: 2,
+    version: 3,
     tasks: incoming.tasks && typeof incoming.tasks === "object" ? incoming.tasks : {},
     streak: Array.isArray(incoming.streak) ? incoming.streak : [],
+    rewardClaims: Array.isArray(incoming.rewardClaims) ? incoming.rewardClaims : [],
     lastSavedAtISO: incoming.lastSavedAtISO || null
   };
 
@@ -198,9 +245,10 @@ function normalizeState(raw) {
 
 function serializeState() {
   return {
-    version: 2,
+    version: 3,
     tasks: state.tasks,
     streak: [...new Set(state.streak)].sort(),
+    rewardClaims: Array.isArray(state.rewardClaims) ? state.rewardClaims : [],
     lastSavedAtISO: new Date().toISOString(),
     updatedAt: serverTimestamp()
   };
@@ -288,8 +336,8 @@ function getRemainingDaysInWeek(weekKey = currentWeekKey()) {
   return Math.max(1, daysBetweenInclusive(today, week.end));
 }
 
-function getDayScore(dateString, weekKey = currentWeekKey()) {
-  return getWeekTasks(weekKey)
+function getDayScore(dateString) {
+  return TASKS
     .filter((task) => {
       const taskState = getTaskState(task.id);
       return taskState.done && taskState.completedAt === dateString;
@@ -308,12 +356,15 @@ function getWeekStats(weekKey = currentWeekKey()) {
   const weekCompletedTasks = weekTasks.filter((task) => getTaskState(task.id).done).length;
   const weekAllTasksComplete = weekTasks.length > 0 && weekCompletedTasks === weekTasks.length;
   const weekPercent = weekMax ? Math.min(100, Math.round((weekEarned / weekMax) * 100)) : 0;
-  const dayScores = getWeekDates(weekKey).map((dateString) => ({
-    dateString,
-    label: getShortDayLabel(dateString),
-    score: getDayScore(dateString, weekKey),
-    level: getDayLevel(getDayScore(dateString, weekKey))
-  }));
+  const dayScores = getWeekDates(weekKey).map((dateString) => {
+    const score = getDayScore(dateString);
+    return {
+      dateString,
+      label: getShortDayLabel(dateString),
+      score,
+      level: getDayLevel(score)
+    };
+  });
 
   return {
     weekTasks,
@@ -332,46 +383,44 @@ function getWeekStats(weekKey = currentWeekKey()) {
   };
 }
 
-function getUnlockedRewards(weekKey = currentWeekKey()) {
-  const stats = getWeekStats(weekKey);
-
-  return REWARDS.map((reward) => {
-    const targetScore = Math.ceil(stats.weekMax * reward.threshold);
-    const unlocked = stats.weekAllTasksComplete || (stats.weekMax > 0 && stats.weekEarned >= targetScore);
-    const neededScore = Math.max(0, targetScore - stats.weekEarned);
-    return { ...reward, targetScore, unlocked, neededScore, progress: targetScore ? Math.min(100, Math.round((stats.weekEarned / targetScore) * 100)) : 0 };
-  });
+function getCompletionDates() {
+  return [...new Set(TASKS
+    .map((task) => getTaskState(task.id))
+    .filter((taskState) => taskState.done && taskState.completedAt)
+    .map((taskState) => taskState.completedAt))]
+    .sort();
 }
 
-function getTopReward() {
-  return REWARDS[REWARDS.length - 1];
-}
+function getStreakBonusMap() {
+  const bonusMap = {};
+  let chainLength = 0;
+  let previousDate = null;
 
-function getTopRewardStatus(weekKey = currentWeekKey()) {
-  const stats = getWeekStats(weekKey);
-  const myraReward = getTopReward();
-  const myraTarget = Math.ceil(stats.weekMax * myraReward.threshold);
+  for (const dateString of getCompletionDates()) {
+    const score = getDayScore(dateString);
 
-  if (!stats.weekMax) {
-    return "No scored tasks in this week.";
+    if (score < 200) {
+      chainLength = 0;
+      previousDate = dateString;
+      continue;
+    }
+
+    const expectedPrevious = previousDate ? addDays(dateString, -1) : null;
+    chainLength = previousDate && previousDate === expectedPrevious ? chainLength + 1 : 1;
+    bonusMap[dateString] = Math.min(chainLength * 50, 350);
+    previousDate = dateString;
   }
 
-  if (stats.weekAllTasksComplete || stats.weekEarned >= myraTarget) {
-    return "Week cleared. Myra Window unlocked.";
-  }
-
-  const pointsPerDay = Math.ceil(stats.remainingScore / stats.remainingDays);
-  return `Need ${pointsPerDay} pts/day for Myra Window`;
+  return bonusMap;
 }
 
-function calculateStreak() {
-  const dates = [...new Set(state.streak)].sort().reverse();
+function getQualifiedStreak() {
+  const bonusMap = getStreakBonusMap();
+  const dates = Object.keys(bonusMap).sort().reverse();
   if (!dates.length) return 0;
 
   const today = localDateISO();
-  const yesterdayDate = new Date();
-  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-  const yesterday = localDateISO(yesterdayDate);
+  const yesterday = addDays(today, -1);
 
   if (dates[0] !== today && dates[0] !== yesterday) return 0;
 
@@ -379,10 +428,7 @@ function calculateStreak() {
   let previous = dates[0];
 
   for (let index = 1; index < dates.length; index += 1) {
-    const expectedDate = new Date(`${previous}T00:00:00`);
-    expectedDate.setDate(expectedDate.getDate() - 1);
-    const expected = localDateISO(expectedDate);
-
+    const expected = addDays(previous, -1);
     if (dates[index] === expected) {
       count += 1;
       previous = dates[index];
@@ -392,6 +438,112 @@ function calculateStreak() {
   }
 
   return count;
+}
+
+function getSpentRewardPoints() {
+  return (state.rewardClaims || []).reduce((sum, claim) => sum + Number(claim.cost || 0), 0);
+}
+
+function getRewardClaimCount(rewardId) {
+  return (state.rewardClaims || []).filter((claim) => claim.rewardId === rewardId).length;
+}
+
+function getRewardAccount(weekKey = currentWeekKey()) {
+  const bonusMap = getStreakBonusMap();
+  const allTaskPoints = completedScore();
+  const allBonusPoints = Object.values(bonusMap).reduce((sum, value) => sum + value, 0);
+  const spentPoints = getSpentRewardPoints();
+  const balance = Math.max(0, allTaskPoints + allBonusPoints - spentPoints);
+  const today = localDateISO();
+  const todayTaskPoints = getDayScore(today);
+  const todayBonusPoints = bonusMap[today] || 0;
+  const weekDates = getWeekDates(weekKey);
+  const weekTaskPoints = weekDates.reduce((sum, dateString) => sum + getDayScore(dateString), 0);
+  const weekBonusPoints = weekDates.reduce((sum, dateString) => sum + (bonusMap[dateString] || 0), 0);
+  const dayScores = weekDates.map((dateString) => {
+    const score = getDayScore(dateString);
+    const bonus = bonusMap[dateString] || 0;
+    return {
+      dateString,
+      label: getShortDayLabel(dateString),
+      score,
+      bonus,
+      total: score + bonus,
+      level: getDayLevel(score)
+    };
+  });
+
+  return {
+    balance,
+    allTaskPoints,
+    allBonusPoints,
+    spentPoints,
+    todayTaskPoints,
+    todayBonusPoints,
+    weekTaskPoints,
+    weekBonusPoints,
+    weekTotalPoints: weekTaskPoints + weekBonusPoints,
+    dayScores,
+    qualifiedDays: dayScores.filter((day) => day.score >= 200).length,
+    strongDays: dayScores.filter((day) => day.score >= 250).length,
+    overdriveDays: dayScores.filter((day) => day.score >= 300).length,
+    monsterDays: dayScores.filter((day) => day.score >= 330).length
+  };
+}
+
+function getRewardShopItems() {
+  const account = getRewardAccount();
+
+  return REWARDS.map((reward) => {
+    const claimCount = getRewardClaimCount(reward.id);
+    const affordable = account.balance >= reward.cost;
+    return {
+      ...reward,
+      affordable,
+      claimCount,
+      neededPoints: Math.max(0, reward.cost - account.balance),
+      progress: Math.min(100, Math.round((account.balance / reward.cost) * 100))
+    };
+  });
+}
+
+function getTopReward() {
+  return REWARDS[REWARDS.length - 1];
+}
+
+function getTopRewardStatus() {
+  const account = getRewardAccount();
+  const myraReward = getTopReward();
+
+  if (account.balance >= myraReward.cost) {
+    return "Myra Window is claimable.";
+  }
+
+  return `Need ${myraReward.cost - account.balance} more pts for Myra Window`;
+}
+
+function claimReward(rewardId) {
+  const reward = REWARDS.find((item) => item.id === rewardId);
+  if (!reward) return;
+
+  const account = getRewardAccount();
+  if (account.balance < reward.cost) return;
+
+  const confirmed = confirm(`Spend ${reward.cost} pts on ${reward.label}?`);
+  if (!confirmed) return;
+
+  state.rewardClaims = Array.isArray(state.rewardClaims) ? state.rewardClaims : [];
+  state.rewardClaims.push({
+    rewardId: reward.id,
+    label: reward.label,
+    cost: reward.cost,
+    claimedAt: new Date().toISOString()
+  });
+
+  markDirty();
+  renderAll();
+}function calculateStreak() {
+  return getQualifiedStreak();
 }
 
 function streakMessage(count) {
@@ -431,14 +583,20 @@ function renderDashboard() {
   $("tasksRemaining").textContent = `${remainingCount} left`;
   $("remainingBar").dataset.progress = String(scorePercent);
 
-  $("rewardPoints").textContent = `${weekStats.weekEarned} pts`;
-  $("rewardMaxPoints").textContent = `of ${weekStats.weekMax} possible this week`;
-  $("rewardChaseText").textContent = getTopRewardStatus(activeWeekKey);
-  $("rewardProgressFill").dataset.progress = String(weekStats.weekPercent);
+  const rewardAccount = getRewardAccount(activeWeekKey);
+  const myraReward = getTopReward();
+
+  $("todayQualifyText").textContent = `Today: ${rewardAccount.todayTaskPoints} / 200 pts to qualify`;
+  $("todayQualifyBar").dataset.progress = String(Math.min(100, Math.round((rewardAccount.todayTaskPoints / 200) * 100)));
+
+  $("rewardPoints").textContent = `${rewardAccount.balance} pts`;
+  $("rewardMaxPoints").textContent = `${rewardAccount.allTaskPoints} task pts + ${rewardAccount.allBonusPoints} bonus - ${rewardAccount.spentPoints} spent`;
+  $("rewardChaseText").textContent = getTopRewardStatus();
+  $("rewardProgressFill").dataset.progress = String(Math.min(100, Math.round((rewardAccount.balance / myraReward.cost) * 100)));
   $("rewardSummaryChips").innerHTML = `
-    <span>${weekStats.qualifiedDays} qualified</span>
-    <span>${weekStats.strongDays} strong</span>
-    <span>${weekStats.overdriveDays} overdrive</span>
+    <span>Today ${rewardAccount.todayTaskPoints} pts</span>
+    <span>Bonus +${rewardAccount.todayBonusPoints}</span>
+    <span>Spent ${rewardAccount.spentPoints}</span>
   `;
 
   renderRewardWeekStrip(activeWeekKey);
@@ -449,15 +607,16 @@ function renderDashboard() {
 }
 
 function renderRewardWeekStrip(activeWeekKey) {
-  const stats = getWeekStats(activeWeekKey);
-  $("rewardDayStrip").innerHTML = stats.dayScores.map((day) => {
+  const account = getRewardAccount(activeWeekKey);
+  $("rewardDayStrip").innerHTML = account.dayScores.map((day) => {
     const levelClass = day.level ? `day-${day.level.id}` : "day-empty";
     const icon = day.level ? day.level.icon : "—";
+    const bonusCopy = day.bonus ? ` +${day.bonus}` : "";
     return `
-      <div class="reward-day ${levelClass}" title="${day.label}: ${day.score} pts">
+      <div class="reward-day ${levelClass}" title="${day.label}: ${day.score} task pts${bonusCopy}">
         <span class="reward-day-label">${day.label}</span>
         <span class="reward-day-icon">${icon}</span>
-        <span class="reward-day-score">${day.score}</span>
+        <span class="reward-day-score">${day.score}${bonusCopy}</span>
       </div>
     `;
   }).join("");
@@ -468,23 +627,52 @@ function renderFocus(activeWeekKey) {
     .filter((task) => task.week === activeWeekKey && !getTaskState(task.id).done)
     .map((task) => ({ ...task, priorityScore: taskScore(task.id) }))
     .sort((a, b) => b.priorityScore - a.priorityScore)
-    .slice(0, 4);
+    .slice(0, 5);
 
-  $("currentWeekDates").textContent = WEEKS[activeWeekKey].dates;
-  $("focusList").innerHTML = focusTasks.length
-    ? focusTasks.map((task) => `
-      <label class="focus-item">
-        <input type="checkbox" data-action="toggleDone" data-task-id="${task.id}" />
-        <div>
-          <div class="focus-title">${task.name}</div>
-          <div class="focus-meta">
-            ${task.group} · ${taskScore(task.id)} pts · Est ${getTaskState(task.id).estimatedHours}h · ${task.llm}
-            ${task.blockedBy.length ? ` · needs ${task.blockedBy.join(", ")}` : ""}
-          </div>
-        </div>
-      </label>
-    `).join("")
-    : `<div class="focus-item"><div></div><div><div class="focus-title">All tasks for this week are done.</div><div class="focus-meta">Week cleared. Myra Window unlocked.</div></div></div>`;
+  if (!focusTasks.length) {
+    $("focusList").innerHTML = `
+      <div class="focus-empty">
+        <strong>All tasks for this week are done.</strong>
+        <span>Move to the next highest-risk section.</span>
+      </div>
+    `;
+    return;
+  }
+
+  $("focusList").innerHTML = `
+    <div class="focus-table-wrap">
+      <table class="focus-table">
+        <thead>
+          <tr>
+            <th class="check-col"></th>
+            <th>Task</th>
+            <th>Score</th>
+            <th>Week</th>
+            <th>Est h</th>
+            <th>Act h</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${focusTasks.map((task) => {
+            const taskState = getTaskState(task.id);
+            return `
+              <tr>
+                <td><input type="checkbox" data-action="toggleDone" data-task-id="${task.id}" /></td>
+                <td>
+                  <div class="task-name">${task.name}</div>
+                  <div class="task-group">${task.group} · ${task.llm}${task.blockedBy.length ? ` · needs ${task.blockedBy.join(", ")}` : ""}</div>
+                </td>
+                <td><strong>${taskScore(task.id)}</strong></td>
+                <td>${task.week}</td>
+                <td><input class="hour-input" type="number" min="0.25" step="0.25" value="${taskState.estimatedHours}" data-action="updateEstimate" data-task-id="${task.id}" /></td>
+                <td><input class="hour-input" type="number" min="0" step="0.25" value="${taskState.actualHours || 0}" data-action="updateActual" data-task-id="${task.id}" /></td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 function renderWeekProgress(activeWeekKey) {
@@ -505,38 +693,67 @@ function renderWeekProgress(activeWeekKey) {
 }
 
 function renderRewards(activeWeekKey = currentWeekKey()) {
-  const rewards = getUnlockedRewards(activeWeekKey);
-  const stats = getWeekStats(activeWeekKey);
+  const account = getRewardAccount(activeWeekKey);
+  const rewards = getRewardShopItems();
 
-  $("rewardsList").innerHTML = rewards.map((reward) => {
-    const stateLabel = reward.unlocked ? "Unlocked" : "Locked";
-    const neededCopy = reward.unlocked
-      ? "Reward available."
-      : `${reward.neededScore} more pts needed this week.`;
+  $("rewardsList").innerHTML = `
+    <section class="reward-shop-hero">
+      <div>
+        <span class="metric-label">Reward Balance</span>
+        <strong>${account.balance} pts</strong>
+        <p>${account.allTaskPoints} task pts + ${account.allBonusPoints} streak bonus - ${account.spentPoints} spent</p>
+      </div>
+      <div class="reward-shop-mini">
+        <span>Today: ${account.todayTaskPoints} pts</span>
+        <span>Bonus: +${account.todayBonusPoints}</span>
+      </div>
+    </section>
 
-    return `
-      <article class="reward-card ${reward.unlocked ? "reward-unlocked" : "reward-locked"}">
-        <div class="reward-card-icon" aria-hidden="true">${reward.icon}</div>
-        <div>
-          <div class="reward-card-topline">
-            <h3>${reward.label}</h3>
-            <span class="reward-state">${stateLabel}</span>
-          </div>
-          <p>${reward.description}</p>
-          <div class="reward-card-progress">
-            <div class="progress-track"><div class="progress-fill ${reward.unlocked ? "success" : "warning"}" data-progress="${reward.progress}"></div></div>
-            <span>${stats.weekEarned}/${reward.targetScore} pts</span>
-          </div>
-          <p class="reward-needed">${neededCopy}</p>
-        </div>
-      </article>
-    `;
-  }).join("");
+    <div class="reward-shop-grid">
+      ${rewards.map((reward) => {
+        const stateLabel = reward.affordable ? "Claimable" : "Locked";
+        const neededCopy = reward.affordable
+          ? "Enough points available."
+          : `Need ${reward.neededPoints} more pts.`;
+        const claimedCopy = reward.claimCount ? `Claimed ${reward.claimCount}×` : "Not claimed yet";
+
+        return `
+          <article class="shop-reward-card ${reward.affordable ? "shop-claimable" : "shop-locked"}">
+            <div class="reward-illustration" aria-hidden="true">
+              <span>${reward.icon}</span>
+            </div>
+            <div class="shop-reward-copy">
+              <div class="reward-card-topline">
+                <span class="reward-cost">${reward.cost} pts</span>
+                <span class="reward-state">${stateLabel}</span>
+              </div>
+              <h3>${reward.label}</h3>
+              <p>${reward.description}</p>
+              <div class="reward-card-progress">
+                <div class="progress-track"><div class="progress-fill ${reward.affordable ? "success" : "warning"}" data-progress="${reward.progress}"></div></div>
+                <span>${neededCopy}</span>
+              </div>
+              <p class="reward-needed">${claimedCopy}</p>
+              <button class="btn ${reward.affordable ? "btn-primary" : "btn-secondary"} reward-claim-btn" type="button" data-action="claimReward" data-reward-id="${reward.id}" ${reward.affordable ? "" : "disabled"}>
+                ${reward.affordable ? "Claim reward" : "Locked"}
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("")}
+    </div>
+  `;
 }
 
 function renderTable() {
   const weekFilter = $("weekFilter").value;
   const groupFilter = $("groupFilter").value;
+  const statusFilter = $("statusFilter").value;
+  const effortFilter = $("effortFilter").value;
+  const bandFilter = $("bandFilter").value;
+  const llmFilter = $("llmFilter").value;
+  const blockerFilter = $("blockerFilter").value;
+  const parallelFilter = $("parallelFilter").value;
   const tableWrap = document.querySelector(".table-wrap");
   tableWrap.classList.toggle("show-dims", showDimensions);
 
@@ -558,7 +775,26 @@ function renderTable() {
   `;
 
   const rows = TASKS.filter((task) => {
-    return (!weekFilter || task.week === weekFilter) && (!groupFilter || task.group === groupFilter);
+    const taskState = getTaskState(task.id);
+    const score = taskScore(task.id);
+    const band = scoreBand(score).label;
+    const estimatedHours = Number(taskState.estimatedHours || task.est || 0);
+
+    if (weekFilter && task.week !== weekFilter) return false;
+    if (groupFilter && task.group !== groupFilter) return false;
+    if (statusFilter === "done" && !taskState.done) return false;
+    if (statusFilter === "not-done" && taskState.done) return false;
+    if (effortFilter === "quick" && estimatedHours > 0.5) return false;
+    if (effortFilter === "medium" && (estimatedHours < 1 || estimatedHours > 2)) return false;
+    if (effortFilter === "heavy" && estimatedHours < 3) return false;
+    if (bandFilter && band !== bandFilter) return false;
+    if (llmFilter && task.llm !== llmFilter) return false;
+    if (blockerFilter === "has" && task.blockedBy.length === 0) return false;
+    if (blockerFilter === "none" && task.blockedBy.length > 0) return false;
+    if (parallelFilter === "parallel" && !task.parallel) return false;
+    if (parallelFilter === "solo" && task.parallel) return false;
+
+    return true;
   });
 
   $("taskBody").innerHTML = rows.map((task) => {
@@ -598,13 +834,21 @@ function renderAll() {
 }
 
 function toggleDone(taskId, isDone) {
-  const taskState = getTaskState(taskId);
-  taskState.done = isDone;
-  taskState.completedAt = isDone ? localDateISO() : null;
-
   const today = localDateISO();
+  const previousTodayScore = getDayScore(today);
+  const taskState = getTaskState(taskId);
+  const points = taskScore(taskId);
+
+  taskState.done = isDone;
+  taskState.completedAt = isDone ? today : null;
+
+  const newTodayScore = getDayScore(today);
 
   if (isDone) {
+    showCompletionToast(points);
+    if (previousTodayScore < 200 && newTodayScore >= 200) {
+      launchConfetti();
+    }
     if (!state.streak.includes(today)) state.streak.push(today);
   } else {
     const anotherTaskCompletedToday = TASKS.some((task) => {
@@ -779,8 +1023,9 @@ function bindEvents() {
     renderTable();
   });
 
-  $("weekFilter").addEventListener("change", renderTable);
-  $("groupFilter").addEventListener("change", renderTable);
+  ["weekFilter", "groupFilter", "statusFilter", "effortFilter", "bandFilter", "llmFilter", "blockerFilter", "parallelFilter"].forEach((filterId) => {
+    $(filterId).addEventListener("change", renderTable);
+  });
 
   document.querySelector(".tabs").addEventListener("click", (event) => {
     const button = event.target.closest("[data-tab]");
@@ -804,6 +1049,7 @@ function bindEvents() {
 
     const action = target.dataset.action;
     if (action === "cycleScore") cycleScore(target.dataset.taskId, target.dataset.dim);
+    if (action === "claimReward") claimReward(target.dataset.rewardId);
   });
 
   $("exportBtn").addEventListener("click", exportBackup);

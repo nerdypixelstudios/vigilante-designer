@@ -132,3 +132,37 @@ The tracker now uses score-weighted progress and dynamic weekly rewards.
   - 🔥 Overdrive Day: 300+ points
   - 👹 Monster Day: 330+ points
 - The highest reward remains Myra Window / roleplay fallback, unlocked when the current week is fully cleared.
+
+
+## Reward system update
+
+This version uses a reward-shop model:
+
+- Task points are awarded by completion date, not by the task's assigned planning week.
+- Completing a task from Week 3 today still contributes to today's reward score.
+- Reward Balance = completed task points + streak bonus points - spent reward points.
+- Streak bonus is awarded only for 200+ task-point days.
+- Bonus formula: streak day × 50, capped at 350 points/day.
+- Rewards are bought from the reward shop. They are not automatically unlocked.
+- Reward claims are saved in Firestore as `rewardClaims`.
+
+
+## Final 16-change implementation notes
+
+This version includes:
+1. Reward points count by completion date, not assigned task week.
+2. Reward shop model: earn points, spend points, claim rewards.
+3. Streak bonus: 200+ task points/day required.
+4. Confetti when crossing 200 task points in a day.
+5. Thumbs-up toast when marking a task done.
+6. Dashboard consolidated into Sprint Status + Reward Balance cards.
+7. Reward Balance shows balance, task points, streak bonus, spent points, and today qualification progress.
+8. Today’s Focus is now an editable mini-table with actual-hours input.
+9. Rewards page balance hero appears full-width above the shop.
+10. Reward cards are larger illustrated shop cards.
+11. Myra Window uses a girl/avatar icon.
+12. Reward claims subtract from spendable balance.
+13. Daily quality icons remain achievement markers.
+14. 200+ daily threshold is retained.
+15. All Tasks adds richer filters: status, effort, score band, LLM, blockers, parallel/solo.
+16. Buttons and badges use normalized font weight.

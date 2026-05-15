@@ -1,0 +1,364 @@
+/* ============================================================
+   modal.module.css — Shared modal backdrop and card styles
+   Used by PostDiagnosticChoiceModal and RemedialCreatedModal
+   ============================================================ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.card {
+  background: var(--background-card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 480px;
+  overflow: hidden;
+  animation: slideUp 0.25s ease;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+}
+
+/* Choice modal specifics */
+.choiceHeader {
+  background: var(--gradient-primary);
+  padding: 24px 24px 20px;
+  color: #ffffff;
+  position: relative;
+}
+
+.choicePaceBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.2);
+  font-family: var(--font-family);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.choiceTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: 6px;
+}
+
+.choiceSubtitle {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  opacity: 0.85;
+  line-height: var(--line-height-normal);
+}
+
+.choiceStats {
+  display: flex;
+  gap: 20px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.choiceStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.choiceStatValue {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-primary);
+}
+
+.choiceStatLabel {
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.choiceFirstActivity {
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.choiceFirstActivityLabel {
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 8px;
+}
+
+.choiceFirstActivityRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--color-slate-50);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.choiceFirstActivityName {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.choiceActions {
+  display: flex;
+  gap: 10px;
+  padding: 16px 24px;
+}
+
+.choiceBtnPrimary {
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background var(--transition-fast);
+}
+
+.choiceBtnPrimary:hover {
+  background: var(--color-primary-dark);
+}
+
+.choiceBtnSecondary {
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-medium);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.choiceBtnSecondary:hover {
+  border-color: var(--color-primary);
+  background: var(--color-blue-50);
+}
+
+/* Remedial modal specifics */
+.remedialHeader {
+  background: linear-gradient(135deg, #be123c 0%, #ef4444 100%);
+  padding: 22px 24px 18px;
+  color: #ffffff;
+  position: relative;
+}
+
+.remedialBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.2);
+  font-family: var(--font-family);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.remedialTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: 4px;
+}
+
+.remedialDesc {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+  line-height: var(--line-height-normal);
+}
+
+.remedialActivityRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.remedialActivityInfo {
+  flex: 1;
+}
+
+.remedialActivityName {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.remedialActivityMeta {
+  display: flex;
+  gap: 12px;
+}
+
+.remedialActivityMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.remedialBenefits {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.remedialBenefit {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: var(--color-red-50);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-red-dark);
+}
+
+.remedialActions {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.remedialStartBtn {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-red-500);
+  color: #ffffff;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background var(--transition-fast);
+}
+
+.remedialStartBtn:hover {
+  background: var(--color-red-dark);
+}
+
+.remedialDismissBtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.remedialDismissBtn:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .card {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    max-width: 100%;
+  }
+
+  .choiceActions {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,24 @@
+.ring {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px var(--primary-alpha-20);
+  border-radius: var(--radius-md);
+  animation: highlightPulse 0.35s ease-out;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes highlightPulse {
+  0% {
+    outline-color: transparent;
+    box-shadow: 0 0 0 0 var(--primary-alpha-20);
+  }
+  40% {
+    outline-color: var(--color-primary-light);
+    box-shadow: 0 0 0 10px var(--primary-alpha-10);
+  }
+  100% {
+    outline-color: var(--color-primary);
+    box-shadow: 0 0 0 6px var(--primary-alpha-20);
+  }
+}

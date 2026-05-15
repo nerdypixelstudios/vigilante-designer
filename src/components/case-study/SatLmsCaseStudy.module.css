@@ -1190,6 +1190,15 @@
   letter-spacing: 0;
 }
 
+.processDescriptor {
+  max-width: 36rem;
+  margin: 1rem 0 0;
+  font-family: var(--font-dm);
+  font-size: var(--text-body);
+  line-height: var(--leading-subpitch);
+  color: var(--color-ink-700);
+}
+
 .processTrailIntro h3,
 .processOutcomeBlock h3 {
   margin: 0;
@@ -1209,7 +1218,7 @@
 }
 
 .processSubline {
-  margin: 1rem 0 0;
+  margin: 0.75rem 0 0;
   font-family: var(--font-cabinet);
   font-size: var(--text-h3);
   font-weight: 800;
@@ -4564,7 +4573,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 4.75ch;
   gap: calc(1rem * 1.05);
-  align-items: center;
+  align-items: start;
   width: 100%;
   min-height: clamp(3.4rem, 5vw, 4.25rem);
   padding: calc(clamp(1rem, 2vw, 1.5rem) * 0.58) calc(clamp(1rem, 2vw, 1.5rem) * 0.78);
@@ -4636,7 +4645,7 @@
 
 .outcomePollOptionText {
   min-width: 0;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .outcomePollPercent {

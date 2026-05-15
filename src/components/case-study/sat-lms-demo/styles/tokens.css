@@ -1,0 +1,172 @@
+/*
+ * tokens.css
+ * ----------
+ * Design tokens copied from the LMS course-globals.css.
+ * These are the product's own color, spacing, typography, and shadow values.
+ * Do NOT merge these into the portfolio's token system — keep them scoped
+ * to the demo via the .sat-lms-demo root class in demo.module.css.
+ *
+ * Font loading: DemoShell.jsx injects the Google Fonts <link> at mount time.
+ * Fonts: Plus Jakarta Sans (headings) + Inter (body)
+ */
+
+.sat-lms-demo {
+  /* Primary Colors */
+  --color-primary: #006FEE;
+  --color-primary-dark: #0050B3;
+  --color-primary-light: #2088FF;
+  --color-primary-50: #eff6ff;
+
+  /* Blue */
+  --color-blue-50: #eff6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
+
+  /* Success (Green / PACE color) */
+  --color-success: #22C55E;
+  --color-success-dark: #16A34A;
+  --color-success-light: #4ADE80;
+  --color-success-50: #dcfce7;
+  --color-green-100: #D1FAE5;
+  --color-green-400: #4ADE80;
+  --color-green-500: #22C55E;
+  --color-green-600: #16A34A;
+  --color-green-700: #15803D;
+
+  /* Warning (Amber) */
+  --color-warning: #F59E0B;
+  --color-warning-dark: #D97706;
+  --color-warning-light: #FBBF24;
+  --color-amber-50: #FFFBEB;
+  --color-amber-100: #FEF3C7;
+  --color-amber-400: #FBBF24;
+  --color-amber-500: #F59E0B;
+  --color-amber-600: #D97706;
+  --color-amber-700: #B45309;
+
+  /* Red (Error / Remedial color) */
+  --color-red: #F31260;
+  --color-red-dark: #BE123C;
+  --color-red-light: #FF4D8D;
+  --color-red-50: #fee2e2;
+  --color-red-500: #ef4444;
+
+  /* Purple */
+  --color-purple: #8B5CF6;
+  --color-purple-dark: #7C3AED;
+  --color-purple-light: #A78BFA;
+  --color-purple-100: #EDE9FE;
+  --color-purple-400: #A78BFA;
+  --color-purple-500: #8B5CF6;
+  --color-purple-600: #7C3AED;
+  --color-purple-700: #6D28D9;
+
+  /* Cyan */
+  --color-cyan: #0EA5E9;
+  --color-cyan-dark: #0284C7;
+  --color-cyan-light: #38BDF8;
+  --color-cyan-100: #CFFAFE;
+  --color-cyan-500: #06B6D4;
+  --color-cyan-600: #0891B2;
+  --color-cyan-700: #0E7490;
+
+  /* Neutrals (Slate) */
+  --color-slate-50: #F8FAFC;
+  --color-slate-100: #F1F5F9;
+  --color-slate-200: #E2E8F0;
+  --color-slate-300: #CBD5E1;
+  --color-slate-400: #94A3B8;
+  --color-slate-500: #64748B;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1E293B;
+  --color-slate-900: #0F172A;
+
+  /* Semantic */
+  --text-primary: #11181C;
+  --text-secondary: #71717A;
+  --text-muted: #A1A1AA;
+  --text-tertiary: #9CA3AF;
+  --text-inverse: #FFFFFF;
+  --background: #FFFFFF;
+  --background-card: #FFFFFF;
+  --border: #E4E4E7;
+  --border-default: #E4E4E7;
+  --border-medium: #D1D5DB;
+
+  /* Alpha */
+  --overlay-light: rgba(0, 0, 0, 0.04);
+  --primary-alpha-10: rgba(0, 111, 238, 0.1);
+  --primary-alpha-20: rgba(0, 111, 238, 0.2);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(90deg, #006FEE 0%, #2088FF 100%);
+  --gradient-success: linear-gradient(90deg, #22C55E 0%, #16A34A 100%);
+  --gradient-warning: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+  --gradient-purple: linear-gradient(90deg, #8B5CF6 0%, #7C3AED 100%);
+  --gradient-red: linear-gradient(90deg, #F31260 0%, #FF4D8D 100%);
+  --gradient-cyan: linear-gradient(90deg, #0EA5E9 0%, #38BDF8 100%);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 48px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.15);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-dropdown: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-primary-sm: 0 2px 8px rgba(0, 111, 238, 0.3);
+  --shadow-primary-md: 0 4px 12px rgba(0, 111, 238, 0.4);
+  --shadow-success-sm: 0 4px 12px rgba(34, 197, 94, 0.25);
+  --shadow-success: 0 4px 12px rgba(34, 197, 94, 0.3);
+  --shadow-error-sm: 0 2px 4px rgba(220, 38, 38, 0.3);
+  --shadow-error: 0 4px 12px rgba(220, 38, 38, 0.3);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --font-size-2xs: 10px;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+}

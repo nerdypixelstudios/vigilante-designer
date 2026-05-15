@@ -1,0 +1,172 @@
+.shade {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--color-slate-900);
+  border-top: 1px solid var(--color-slate-700);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.left {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepLabel {
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-400);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.action {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: #ffffff;
+  line-height: var(--line-height-tight);
+  margin-bottom: 2px;
+}
+
+.why {
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-slate-400);
+  line-height: var(--line-height-normal);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.highlightBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-slate-600);
+  background: transparent;
+  color: var(--color-slate-300);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap;
+}
+
+.highlightBtn:hover {
+  border-color: var(--color-primary);
+  color: #ffffff;
+  background: var(--primary-alpha-10);
+}
+
+.highlightBtn svg {
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+/* Branch buttons — shown only on Step 6 */
+.branchGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.branchLabel {
+  font-family: var(--font-family);
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-500);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+.branchButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.btnGood {
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-success-dark);
+  color: #ffffff;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity var(--transition-fast);
+}
+
+.btnGood:hover {
+  opacity: 0.88;
+}
+
+.btnLow {
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-red-500);
+  color: #ffffff;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity var(--transition-fast);
+}
+
+.btnLow:hover {
+  opacity: 0.88;
+}
+
+/* Divider between highlight btn and branch group */
+.divider {
+  width: 1px;
+  height: 32px;
+  background: var(--color-slate-700);
+  flex-shrink: 0;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .shade {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+
+  .right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .branchButtons {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .branchGroup {
+    align-items: flex-start;
+  }
+}

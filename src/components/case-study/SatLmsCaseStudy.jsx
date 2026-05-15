@@ -83,14 +83,19 @@ const metrics = [
 
 const outcomePollOptions = [
   {
-    id: 'yes',
-    label: 'Yes, they should be prescribed a path.',
-    initialVotes: 15,
+    id: 'option-a',
+    label: 'Option A: Tell me exactly what to do next',
+    initialVotes: 10,
   },
   {
-    id: 'no',
-    label: 'No, they should not be.',
-    initialVotes: 5,
+    id: 'option-b',
+    label: "Option B: Show me the map, I'll navigate",
+    initialVotes: 6,
+  },
+  {
+    id: 'option-c',
+    label: 'Option C: Let me explore and figure it out',
+    initialVotes: 4,
   },
 ];
 
@@ -997,7 +1002,7 @@ function ApproachInteraction() {
               <div className={styles.approachThinkingRow}>
                 <p className={`${styles.caseStudyBrow} ${styles.caseStudyBrowGreen}`}>My approach</p>
                 <div className={styles.approachCopyColumn}>
-                  <h2 id="approach-heading" className={styles.approachHeading}>How I approached the problem?</h2>
+                  <h2 id="approach-heading" className={styles.approachHeading}>How I approached the problem</h2>
                   <p className={styles.approachQuestion}>
                     Once the problem was clear, I asked the question —
                     <br />
@@ -1261,6 +1266,9 @@ function DesignForgeProcessSection() {
             <h2 id="designforge-process-heading" className={styles.processHeading}>
               Built with <span className={styles.processHighlight}>DesignForge</span> in four weeks
             </h2>
+            <p className={styles.processDescriptor}>
+              DesignForge — my 6-phase AI + human methodology for shipping design and code together.
+            </p>
             <p className={styles.processSubline}>
               Not by brute force. Experience first, interface next, production last.
             </p>
@@ -1919,7 +1927,7 @@ function OutcomePoll() {
       <div className={styles.outcomePollHeader}>
         <div>
           <h3 id="outcome-poll-title">What do you think?</h3>
-          <p>Should students be given a prescribed path instead of being left to figure out what to do next on their own?</p>
+          <p>When you&apos;re learning something new, what works better for you?</p>
         </div>
       </div>
 
@@ -2063,7 +2071,7 @@ export default function SatLmsCaseStudy() {
           </>
         )}
         punchline="No browsing. No guessing. Just learning."
-        summary="It diagnoses each student's strengths and gaps, curates only the concepts they need, and turns the course into ready action items instead of another library to browse."
+        summary="The LMS diagnoses each student's strengths and gaps, curates only the concepts they need, and turns the course into a clear action plan — not another library to browse."
         metaItems={[
           { label: 'Principal Product Designer & Frontend Developer' },
           { label: 'Dec 2025 - Mar 2026' },
@@ -2090,8 +2098,8 @@ export default function SatLmsCaseStudy() {
               <StaggeredText
                 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950"
                 segments={[
-                  { text: 'I redesigned the LMS experience', className: 'box-decoration-clone bg-accent-green px-1 text-ink-950' },
-                  { text: 'as a behavior-driven system, replacing user-led navigation with guided progression and removing decision points across the learning flow.' },
+                  { text: 'Students had content.', className: 'box-decoration-clone bg-accent-green px-1 text-ink-950' },
+                  { text: 'What they lacked was a path built for them. I redesigned the LMS to prescribe the next step at every moment — making good learning behavior the default, not a willpower exercise.' },
                 ]}
               />
 
@@ -2234,7 +2242,7 @@ export default function SatLmsCaseStudy() {
             <Reveal>
               <div className={styles.decisionSummary}>
                 <p className={`${styles.decisionSummaryText} mx-auto max-w-4xl text-center font-cabinet text-3xl font-extrabold leading-tight md:text-case-study-statement`}>
-                  Together, these decisions made <span className={styles.decisionHighlight}>Good learning behavior the default</span>, not left to willpower.
+                  Together, these decisions made <span className={styles.decisionHighlight}>good learning behavior the default</span> — not something left to willpower.
                 </p>
               </div>
             </Reveal>

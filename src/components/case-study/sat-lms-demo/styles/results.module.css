@@ -1,0 +1,256 @@
+.wrapper {
+  padding: 32px 24px;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.card {
+  width: 100%;
+  background: var(--background-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.cardHeader {
+  padding: 28px 28px 20px;
+  text-align: center;
+}
+
+.scoreCircle {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  border: 3px solid;
+}
+
+.scoreCircle.good {
+  border-color: var(--color-success);
+  background: var(--color-success-50);
+}
+
+.scoreCircle.low {
+  border-color: var(--color-red-500);
+  background: var(--color-red-50);
+}
+
+.scoreValue {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1;
+}
+
+.scoreCircle.good .scoreValue { color: var(--color-success-dark); }
+.scoreCircle.low .scoreValue  { color: var(--color-red-dark); }
+
+.scoreLabel {
+  font-family: var(--font-family);
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.resultHeadline {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.resultMessage {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+.cardStats {
+  display: flex;
+  border-top: 1px solid var(--border);
+}
+
+.stat {
+  flex: 1;
+  padding: 16px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+
+.stat:last-child {
+  border-right: none;
+}
+
+.statValue {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.statLabel {
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Remedial notice strip */
+.remedialNotice {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--color-red-50);
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-lg);
+}
+
+.remedialNoticeIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: #fca5a5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-red-dark);
+  flex-shrink: 0;
+}
+
+.remedialNoticeText {
+  flex: 1;
+}
+
+.remedialNoticeTitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-red-dark);
+  margin-bottom: 2px;
+}
+
+.remedialNoticeBody {
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  color: var(--color-red-dark);
+  opacity: 0.8;
+}
+
+.remedialNoticeBtn {
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-red-500);
+  color: #ffffff;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.remedialNoticeBtn:hover {
+  opacity: 0.88;
+}
+
+/* Next activity row (good results) */
+.nextActivity {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--color-blue-50);
+  border: 1px solid var(--color-blue-100);
+  border-radius: var(--radius-lg);
+}
+
+.nextActivityInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.nextActivityLabel {
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.nextActivityName {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nextActivityMeta {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.nextActivityBtn {
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.nextActivityBtn:hover {
+  background: var(--color-primary-dark);
+}
+
+@media (max-width: 767px) {
+  .wrapper {
+    padding: 20px 16px;
+  }
+
+  .cardStats {
+    flex-direction: column;
+  }
+
+  .stat {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat:last-child {
+    border-bottom: none;
+  }
+}
