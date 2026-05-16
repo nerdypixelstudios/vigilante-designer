@@ -1,0 +1,263 @@
+.demo-app-header {
+  position: sticky;
+  top: 0;
+  z-index: 120;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.demo-app-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 72px;
+  padding: 0 var(--page-padding-x);
+}
+
+.demo-app-header__left,
+.demo-app-header__right,
+.demo-app-header__brand,
+.demo-app-header__platform-switcher,
+.demo-app-header__user-menu {
+  display: flex;
+  align-items: center;
+}
+
+.demo-app-header__left {
+  gap: 18px;
+  min-width: 0;
+}
+
+.demo-app-header__right {
+  gap: 10px;
+}
+
+.demo-app-header__brand {
+  flex: 0 0 auto;
+}
+
+.demo-app-header__brand-mark {
+  display: block;
+  width: 118px;
+  height: auto;
+}
+
+.demo-app-header__platform-switcher {
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid rgba(226, 232, 240, 0.96);
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.demo-app-header__platform-tab {
+  min-width: 84px;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #64748b;
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.demo-app-header__platform-tab--active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+  cursor: default;
+}
+
+.demo-app-header__nav-btn,
+.demo-app-header__user-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #475569;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.demo-app-header__nav-btn:hover,
+.demo-app-header__nav-btn.active,
+.demo-app-header__user-menu:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.demo-app-header__nav-btn svg {
+  color: #006fee;
+}
+
+.demo-app-header__menu-wrap {
+  position: relative;
+}
+
+.demo-app-header__chevron,
+.demo-app-header__user-chevron {
+  color: #94a3b8;
+  transition: transform 180ms ease;
+}
+
+.demo-app-header__chevron.open {
+  transform: rotate(180deg);
+}
+
+.demo-app-header__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(360px, calc(100vw - 32px));
+  padding: 12px;
+  border: 1px solid rgba(226, 232, 240, 0.96);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.16);
+}
+
+.demo-app-header__menu-head {
+  padding: 6px 8px 12px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.demo-app-header__menu-head h3 {
+  margin: 0;
+  color: #0f172a;
+  font-family: var(--font-family-heading);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.demo-app-header__menu-head p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.demo-app-header__menu-section {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+}
+
+.demo-app-header__menu-label {
+  padding: 0 8px;
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.demo-app-header__course-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  border-radius: 14px;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.demo-app-header__course-item:hover,
+.demo-app-header__course-item.current {
+  border-color: rgba(0, 111, 238, 0.22);
+  background: #f8fbff;
+  box-shadow: 0 8px 24px rgba(0, 111, 238, 0.08);
+}
+
+.demo-app-header__course-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.demo-app-header__course-name {
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.demo-app-header__course-progress {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.demo-app-header__course-chip {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #16a34a;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.demo-app-header__user-menu {
+  padding-inline: 10px;
+}
+
+.demo-app-header__avatar {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #006fee 0%, #3b82f6 100%);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(0, 111, 238, 0.16);
+}
+
+@media (max-width: 960px) {
+  .demo-app-header__inner {
+    min-height: 64px;
+  }
+
+  .demo-app-header__platform-switcher {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .demo-app-header__inner {
+    gap: 10px;
+    padding-inline: 14px;
+  }
+
+  .demo-app-header__brand-mark {
+    width: 98px;
+  }
+
+  .demo-app-header__nav-btn span {
+    display: none;
+  }
+
+  .demo-app-header__nav-btn,
+  .demo-app-header__user-menu {
+    padding: 10px;
+  }
+}

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   ExternalArrowIcon,
+  MotifCurlyArrow,
 } from '../icons/icons';
 import CaseStudyHero from './CaseStudyHero';
 import CaseStudyMetricStrip from './CaseStudyMetricStrip';
@@ -16,6 +17,7 @@ import lmsStyles from './SatLmsCaseStudy.module.css';
 import styles from './SparkPresenterCaseStudy.module.css';
 
 const liveActivityUrl = '';
+const highlightClassName = 'box-decoration-clone bg-accent-green px-1 text-ink-950';
 
 const caseStudyLinks = [
   { href: '#tldr', label: 'TL;DR' },
@@ -63,110 +65,116 @@ const metrics = [
 
 const painPoints = [
   {
-    actor: 'Designer / Instructional Designer',
+    actor: 'ID · Instructional Designer',
     initials: 'ID',
     title: 'Conversion was manual',
-    body: 'Each learning file had to be read, interpreted, broken into blocks, built into an activity, reviewed, revised, exported, and uploaded.',
+    body: 'I opened every file, read and understood the complete lesson, and interpreted it to build manually in [Articulate Rise](https://rise.com). One file. Three days.',
   },
   {
-    actor: 'SME / Course Architect',
+    actor: 'SM · Course Architect',
     initials: 'SM',
-    title: 'SME intent and design judgment lived separately',
-    body: 'The SME understood the learning intent. The designer understood presentation. The activity builder had to bridge both, creating room for interpretation drift.',
+    title: 'Intent lived in separate rooms',
+    body: 'I wrote the content knowing exactly how it should flow. By the time it came back built in Rise, the sequence had shifted. We reviewed and realigned — every time.',
   },
   {
-    actor: 'SME / Course Architect',
+    actor: 'RV · Course Architect',
     initials: 'RV',
-    title: 'Review cycles became part of production',
-    body: 'SME review was needed not only for correctness, but also to check whether the intended learning sequence survived conversion.',
+    title: 'Review became production',
+    body: 'I reviewed every activity not just for accuracy, but to check whether my intended learning sequence survived the conversion. That review round was baked into every production cycle.',
   },
   {
-    actor: 'Business / Operations',
+    actor: 'OP · Operations',
     initials: 'OP',
-    title: 'Maintenance stayed expensive',
-    body: 'If a source file changed later, the activity could not simply update itself. The package had to be rebuilt, reviewed, exported, and uploaded again.',
+    title: 'Every update was a rebuild',
+    body: 'When a source file changed, I updated it in Rise, exported it as an HTML package, replaced the production file manually, and re-added all tracking IDs by hand. Every time.',
   },
   {
-    actor: 'Product / Engineering',
+    actor: 'PE · Product & Engineering',
     initials: 'PE',
-    title: 'Tracking was constrained',
-    body: 'Because the presentation layer lived inside a third-party authoring workflow, custom product tracking was limited by what that layer allowed.',
+    title: 'Tracking was locked out',
+    body: 'I needed custom tracking on specific learner actions. Rise didn\'t support it. The presentation layer lived inside Rise — and we were limited to what Rise let us measure.',
   },
 ];
 
 const approachMachines = [
   {
     number: '01',
-    title: 'Intelligence',
+    title: 'The SME lens',
     question: 'What should the learner understand here?',
-    body: 'This machine had to preserve the instructional intent behind the source content: what matters, what comes first, what needs emphasis, and what the learner should take away.',
+    body: 'This machine had to preserve instructional intent — what matters, what comes first, what needs emphasis. The content already carried this intelligence. The system needed to read it.',
   },
   {
     number: '02',
-    title: 'Design Decision Making',
-    question: 'How should this moment be represented?',
-    body: 'This machine had to decide whether a piece of content should become an explanation, example, takeaway, table, formula, checkpoint, practice item, assessment, or summary.',
+    title: 'The designer\'s eye',
+    question: 'How should this moment be presented?',
+    body: 'This machine had to decide: is this an explanation, an example, a takeaway, a practice problem? The same call a designer makes manually — made automatically.',
   },
   {
     number: '03',
-    title: 'Engineering Scalability',
+    title: 'The engineer\'s spine',
     question: 'How does this become stable product input?',
-    body: 'This machine had to turn the selected presentation decisions into structured, valid, renderable data that the backend and frontend could reliably use.',
+    body: 'This machine had to turn presentation decisions into structured, valid, renderable data — something the backend could store and the frontend could reliably render.',
   },
 ];
 
 const decisions = [
   {
     number: '01',
-    title: 'Codify the manual workflow into system stages.',
-    aim: 'Remove repeated human interpretation from the conversion path.',
-    productDecision: 'I broke the manual workflow into extraction, navigation, validation, correction, final JSON creation, backend upload, and rendering.',
-    support: 'Each stage took over one repeatable decision that previously sat with a human operator.',
-    prevented: 'This prevented one giant black-box conversion where errors would be hard to trace.',
-    visualTitle: 'Manual work becomes accountable stages',
-    visualItems: ['Extract', 'Navigate', 'Validate', 'Correct', 'Render'],
+    title: 'Decision 01',
+    choice: 'We built a modular system, not a single monolith.',
+    situation: 'Every lesson had to move from raw prose to a structured output format the rendering engine could read — reliably, at scale, without manual oversight at every step.',
+    reasoning: [
+      'A single monolith is simpler: one input, one output, fewer parts to build. But when it fails, you can\'t tell where.',
+      'A modular system has more stages. Each depends on the previous — more to build, more to test. But each stage does exactly one thing. When it fails, you know which stage to fix. And when the system needs to grow, you add a stage without touching the ones that already work.',
+    ],
+    result: [
+      'We started with three stages: extract, store, render. Stages two and three worked. Stage one didn\'t — so we debugged it in isolation, split it into two, and added a Validator and Corrector around it. Three stages became six. None of the working stages changed.',
+      '<mark>That\'s the proof.</mark>',
+    ],
   },
   {
     number: '02',
-    title: 'Create a component grammar for learning content.',
-    aim: 'Give the system a fixed language for presenting different learning moments.',
-    productDecision: 'I defined approved learning blocks such as explanation, example, takeaway, table, formula, practice problem, assessment, result guide, and summary.',
-    support: 'The translator could map learning intent to known blocks instead of creating inconsistent one-off layouts.',
-    prevented: 'This prevented invented components, repeated layout rebuilds, and inconsistent student-facing presentation.',
-    tradeoff: 'The first component set was too rich, so we simplified the library until the activity felt coherent instead of visually noisy.',
-    visualTitle: 'One grammar, many lessons',
-    visualItems: ['Explanation', 'Example', 'Takeaway', 'Practice', 'Result guide'],
+    title: 'Decision 02',
+    choice: 'A fixed component vocabulary, not open-ended interpretation.',
+    situation: 'The system needed to decide how to present every moment in a lesson — whether a piece of content was an explanation, an example, a practice problem, a takeaway. Until now, a designer made that call manually for every lesson.',
+    reasoning: [
+      'If the system could invent any presentation approach, output would be unpredictable and impossible to test comprehensively. A fixed vocabulary means the system works within a defined set. Every lesson speaks the same visual language. Testing becomes finite.',
+      'We closed the vocabulary.',
+    ],
+    result: [
+      'The first version had 25 components — too many. Reviewing the output as learners, the switching felt overwhelming. We simplified the library. Because the vocabulary was fixed, removing a component was plug-and-play.',
+      '<mark>The fixed vocabulary became a lever: update one component, and every lesson that uses it updates with it. Automatically.</mark>',
+    ],
   },
   {
     number: '03',
-    title: 'Make JSON the contract between translation, backend, and renderer.',
-    aim: 'Create one structure every system layer could trust.',
-    productDecision: 'The translated output became structured JSON that the backend could store and the frontend renderer could read.',
-    support: 'The learning experience became data-driven, component-led, and easier to update.',
-    prevented: 'This prevented frontend/backend ambiguity, fragile manual exports, and rigid placeholder-like layouts.',
-    tradeoff: 'The structure had to stay strict enough for production but flexible enough for real learning sequences.',
-    visualTitle: 'A shared product contract',
-    visualItems: ['sourceId', 'section', 'tabs', 'components[]', 'metadata'],
+    title: 'Decision 03',
+    choice: 'JSON as the contract between the pipeline and the backend — not HTML.',
+    situation: 'The pipeline needed to hand its output to the backend for storage, and the backend to the renderer for display. HTML was the path of least resistance — it would have worked.',
+    reasoning: [
+      'HTML is a single chunk — no named parts, nothing addressable, nothing trackable. Store it, display it, and that\'s all you get.',
+      'JSON names everything. Every component, every field — addressable and trackable. And when both the pipeline and backend share the same expected format, the handoff becomes a contract.',
+      'We chose JSON.',
+    ],
+    result: [
+      'The backend stored structured data, not an HTML export. Every component was named, every learner interaction trackable — and the pipeline and backend held the same contract at every conversion.',
+      '<mark>HTML would have stored the lesson. JSON stored every moment inside it.</mark>',
+    ],
   },
   {
     number: '04',
-    title: 'Build a custom component-led renderer.',
-    aim: 'Make the presentation layer reusable instead of rebuilding activity screens manually.',
-    productDecision: 'The renderer reads the JSON, identifies component names, passes the required content to matching JSX components, and renders the activity.',
-    support: 'Students experience a learning interface that feels native to the e-GMAT ecosystem instead of a third-party embedded activity.',
-    prevented: 'This prevented disconnected learning experiences, repeated page builds, and product behavior trapped outside our system.',
-    visualTitle: 'JSON drives the interface',
-    visualItems: ['componentName', 'props', 'render map', 'student UI'],
-  },
-  {
-    number: '05',
-    title: 'Add quality gates instead of relying on blind automation.',
-    aim: 'Make speed safe enough for production.',
-    productDecision: 'The pipeline includes validation and correction stages so structure, required fields, and output quality can be checked before final upload.',
-    support: 'The system could move fast without letting malformed activities reach the learner.',
-    prevented: 'This prevented silent translation errors, broken rendering, and avoidable review cycles.',
-    visualTitle: 'Speed with a safety net',
-    visualItems: ['Required fields', 'Allowed types', 'Numbering', 'Output check'],
+    title: 'Decision 04',
+    choice: 'Structured fields where the component decides the sequence. Free-flow HTML where the learning content does.',
+    situation: 'For most components, the component\'s own structure defined the layout — a heading, a body, a visual. But some learning blocks contained mixed content where the author\'s sequence was the layout: text, then image, then more text — not because of component design, but because that was the order the learning demanded.',
+    reasoning: [
+      'Structured fields organise content by type — the component decides what goes where. When the learning sequence is more specific than the component\'s structure, typed fields break it. Images land in the image field, text in the text field — regardless of the order the author intended.',
+      'Free-flow HTML lets content define its own order. The trade-off: it can\'t be addressed field by field. For components where the author\'s sequence is the layout, that\'s the right trade.',
+      'The schema became a hybrid.',
+    ],
+    result: [
+      'Learning blocks that mixed text and images now rendered in the order the content was written, not the order the data model preferred.',
+      '<mark>The schema served the learning sequence, not data convenience.</mark>',
+    ],
   },
 ];
 
@@ -223,9 +231,9 @@ const processSteps = [
 ];
 
 const outcomePollOptions = [
-  { id: 'creation', label: 'Content creation is harder.', initialVotes: 18 },
-  { id: 'presentation', label: 'Content presentation is harder.', initialVotes: 41 },
-  { id: 'system', label: 'Both break unless the system is designed well.', initialVotes: 27 },
+  { id: 'expertise', label: 'Subject matter expertise — domain knowledge resists systematisation', initialVotes: 18 },
+  { id: 'judgment', label: 'Design judgment — presentation decisions depend on too many variables', initialVotes: 41 },
+  { id: 'contract', label: 'Neither — the hard part is the contract between them', initialVotes: 27 },
 ];
 
 function useInViewOnce({ threshold = 0.15, rootMargin = '0px 0px -60px 0px' } = {}) {
@@ -361,6 +369,122 @@ function MetricLabel({ metric }) {
   );
 }
 
+function renderInlineContent(text) {
+  if (!text) return null;
+
+  const pattern = /<mark>(.*?)<\/mark>|\[([^\]]+)\]\(([^)]+)\)/g;
+  const fragments = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      fragments.push(text.slice(lastIndex, match.index));
+    }
+
+    if (match[1] !== undefined) {
+      fragments.push(
+        <mark key={`mark-${match.index}`} className={highlightClassName}>
+          {match[1]}
+        </mark>,
+      );
+    } else {
+      fragments.push(
+        <a
+          key={`link-${match.index}`}
+          href={match[3]}
+          target="_blank"
+          rel="noreferrer"
+          className="underline decoration-1 underline-offset-4"
+        >
+          {match[2]}
+        </a>,
+      );
+    }
+
+    lastIndex = pattern.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    fragments.push(text.slice(lastIndex));
+  }
+
+  return fragments;
+}
+
+function RichText({ as: Tag = 'p', text, className = '', ...props }) {
+  return (
+    <Tag className={className} {...props}>
+      {renderInlineContent(text)}
+    </Tag>
+  );
+}
+
+function RichParagraphGroup({ paragraphs, className = '', paragraphClassName = '' }) {
+  return (
+    <div className={className}>
+      {paragraphs.map((paragraph) => (
+        <RichText
+          key={paragraph}
+          text={paragraph}
+          className={paragraphClassName}
+        />
+      ))}
+    </div>
+  );
+}
+
+function renderDecisionInlineContent(text) {
+  if (!text) return null;
+
+  const pattern = /<mark>(.*?)<\/mark>/g;
+  const fragments = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      fragments.push(text.slice(lastIndex, match.index));
+    }
+
+    fragments.push(
+      <strong key={`decision-mark-${match.index}`} className={styles.decisionStrong}>
+        {match[1]}
+      </strong>,
+    );
+
+    lastIndex = pattern.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    fragments.push(text.slice(lastIndex));
+  }
+
+  return fragments;
+}
+
+function DecisionRichText({ as: Tag = 'p', text, className = '' }) {
+  return (
+    <Tag className={className}>
+      {renderDecisionInlineContent(text)}
+    </Tag>
+  );
+}
+
+function DecisionParagraphGroup({ paragraphs, className = '', paragraphClassName = '' }) {
+  return (
+    <div className={className}>
+      {paragraphs.map((paragraph) => (
+        <DecisionRichText
+          key={paragraph}
+          text={paragraph}
+          className={paragraphClassName}
+        />
+      ))}
+    </div>
+  );
+}
+
 function HeroVideo() {
   return (
     <CaseStudyVideoFrame
@@ -379,39 +503,23 @@ function HeroVideo() {
 
 function SparkCenterGraphic() {
   return (
-    <div className={styles.sparkCenterGraphic} aria-label="S.P.A.R.K. combines SME intent, design grammar, and engineering scale into structured product output">
+    <div className={styles.sparkCenterGraphic} aria-label="S.P.A.R.K. combines a custom component grammar and an assembly pipeline to convert raw learning prose into production-ready activities">
       <div className={styles.sparkInputColumn}>
-        {['SME intent', 'Design grammar', 'Engineering scale'].map((item) => (
+        {['Raw learning prose', 'Custom component grammar', 'Assembly pipeline'].map((item) => (
           <span key={item}>{item}</span>
         ))}
       </div>
       <div className={styles.sparkCore}>
         <span>Center system</span>
         <strong>S.P.A.R.K. Content Presenter</strong>
-        <p>Codifies the conversion decisions that were previously manual.</p>
+        <p>Converts raw learning prose into production-ready activities.</p>
       </div>
       <div className={styles.sparkOutputColumn}>
-        {['Structured JSON', 'Reusable components', 'Trackable product behavior'].map((item) => (
+        {['Production-ready activities', 'Output consistency', 'Updates in minutes'].map((item) => (
           <span key={item}>{item}</span>
         ))}
       </div>
-      <p className={styles.sparkGraphicCaption}>Before S.P.A.R.K., these lived in separate hands. After S.P.A.R.K., they became one repeatable production system.</p>
-    </div>
-  );
-}
-
-function BottleneckDiagram() {
-  const steps = ['SME Markdown', 'Designer interpretation', 'Manual block picking', 'Rise activity build', 'SME review', 'Export + upload', 'Maintenance repeat'];
-
-  return (
-    <div className={styles.bottleneckDiagram} aria-label="Manual authoring bottleneck">
-      {steps.map((step, index) => (
-        <div className={`${styles.bottleneckStep} ${index >= 1 && index <= 3 ? styles.bottleneckStepHot : ''}`} key={step}>
-          <span>{String(index + 1).padStart(2, '0')}</span>
-          <strong>{step}</strong>
-        </div>
-      ))}
-      <p>Presentation decisions are trapped here.</p>
+      <p className={styles.sparkGraphicCaption}>A custom component grammar and an assembly pipeline turned raw learning prose into production-ready activities.</p>
     </div>
   );
 }
@@ -426,7 +534,7 @@ function PainPointGrid() {
             <p>{point.actor}</p>
             <h3>{point.title}</h3>
           </div>
-          <span>{point.body}</span>
+          <span>{renderInlineContent(point.body)}</span>
         </article>
       ))}
     </div>
@@ -446,61 +554,64 @@ function ApproachMachine({ machine }) {
   );
 }
 
-function DecisionVisual({ decision }) {
+function SparkDecisionVideoFrame() {
   return (
-    <div className={styles.decisionVisual}>
-      <div className={styles.decisionVisualChrome}>
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className={styles.decisionVisualBody}>
-        <p>{decision.visualTitle}</p>
-        <div className={styles.decisionVisualList}>
-          {decision.visualItems.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-      </div>
-    </div>
+    <CaseStudyVideoFrame
+      frameClassName={`${lmsStyles.decisionBrowser} ${lmsStyles.decisionVideoBrowser} ${styles.sparkDecisionVideoFrame}`}
+      mediaClassName={styles.sparkDecisionVideoReveal}
+      videoClassName={lmsStyles.decisionVideo}
+      ariaLabel="Placeholder for supporting decision video"
+      autoPlay={false}
+      loop
+      muted
+      playsInline
+      sources={[]}
+    />
   );
 }
 
 function SparkDecision({ decision }) {
   return (
-    <article className={styles.sparkDecision}>
-      <div>
-        <p className={lmsStyles.decisionNumber}>Decision {decision.number}</p>
-        <h3 className={`${lmsStyles.decisionTitle} font-cabinet text-3xl font-extrabold leading-tight md:text-5xl`}>
-          {decision.title}
-        </h3>
+    <article className={lmsStyles.tutorDecision}>
+      <div className="grid gap-6 md:grid-cols-12 md:items-start">
+        <p className={`${lmsStyles.decisionNumber} font-cabinet text-5xl font-extrabold leading-none md:col-span-1`}>{decision.number}</p>
+        <div className="md:col-span-11">
+          <h3 className={`${lmsStyles.decisionTitle} font-cabinet text-3xl font-extrabold leading-tight md:text-4xl`}>
+            {decision.choice}
+          </h3>
 
-        <div className={lmsStyles.decisionEvidenceTable}>
-          <div className={lmsStyles.decisionEvidenceRow}>
-            <p className={lmsStyles.decisionEvidenceLabel}>Decision aim</p>
-            <p className={lmsStyles.decisionEvidenceCopy}>{decision.aim}</p>
-          </div>
-          <div className={lmsStyles.decisionEvidenceRow}>
-            <p className={lmsStyles.decisionEvidenceLabel}>Product decision</p>
-            <p className={lmsStyles.decisionEvidenceCopy}>{decision.productDecision}</p>
-          </div>
-          <div className={lmsStyles.decisionEvidenceRow}>
-            <p className={lmsStyles.decisionEvidenceLabel}>UX / system support</p>
-            <p className={lmsStyles.decisionEvidenceCopy}>{decision.support}</p>
-          </div>
-          {decision.tradeoff && (
+          <div className={lmsStyles.decisionEvidenceTable}>
             <div className={lmsStyles.decisionEvidenceRow}>
-              <p className={lmsStyles.decisionEvidenceLabel}>Tradeoff handled</p>
-              <p className={lmsStyles.decisionEvidenceCopy}>{decision.tradeoff}</p>
+              <p className={lmsStyles.decisionEvidenceLabel}>The choice</p>
+              <p className={lmsStyles.decisionEvidenceCopy}>{decision.choice}</p>
             </div>
-          )}
-          <div className={lmsStyles.decisionEvidenceRow}>
-            <p className={lmsStyles.decisionEvidenceLabel}>What this prevented</p>
-            <p className={lmsStyles.decisionEvidenceCopy}>{decision.prevented}</p>
+            <div className={lmsStyles.decisionEvidenceRow}>
+              <p className={lmsStyles.decisionEvidenceLabel}>Situation</p>
+              <p className={lmsStyles.decisionEvidenceCopy}>{decision.situation}</p>
+            </div>
+            <div className={lmsStyles.decisionEvidenceRow}>
+              <p className={lmsStyles.decisionEvidenceLabel}>Reasoning</p>
+              <DecisionParagraphGroup
+                paragraphs={decision.reasoning}
+                className={`${lmsStyles.decisionEvidenceCopy} space-y-4`}
+                paragraphClassName="m-0"
+              />
+            </div>
+            <div className={lmsStyles.decisionEvidenceRow}>
+              <p className={lmsStyles.decisionEvidenceLabel}>Result</p>
+              <DecisionParagraphGroup
+                paragraphs={decision.result}
+                className={`${lmsStyles.decisionEvidenceCopy} space-y-4`}
+                paragraphClassName="m-0"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <DecisionVisual decision={decision} />
+
+      <div className="mt-10">
+        <SparkDecisionVideoFrame />
+      </div>
     </article>
   );
 }
@@ -580,8 +691,7 @@ function OutcomePoll() {
     <aside className={lmsStyles.outcomePoll} aria-labelledby="spark-poll-title">
       <div className={lmsStyles.outcomePollHeader}>
         <div>
-          <h3 id="spark-poll-title">What do you think?</h3>
-          <p>What do you think is harder to scale: content creation or content presentation?</p>
+          <h3 id="spark-poll-title">When automating a creative workflow, what&apos;s harder to encode — subject matter expertise or design judgment?</h3>
         </div>
       </div>
 
@@ -681,17 +791,15 @@ export default function SparkPresenterCaseStudy() {
         eyebrow="S.P.A.R.K. Content Presenter"
         title={(
           <>
-            Scale learning: <br />
-            turn unstructured content into <br />
-            structured, enjoyable learning experiences <br />
-            <span className="inline-block -rotate-1 bg-accent-yellow px-1">in hours, not days.</span>
+            Raw content to learning experience.
+            {' '}
+            <span className="inline-block -rotate-1 bg-accent-yellow px-1">Hours, not days.</span>
           </>
         )}
-        punchline="Structured learning content converted at scale."
-        summary="No manual authoring, no interpretation drift, just learning experiences ready to ship. SME learning content starts as a Markdown file. The system scans the source content and maps learning moments to actionable presentation blocks."
+        punchline="No rebuilding. No review cycles. Just scale."
+        summary={renderInlineContent('The system reads learning content as prose, decides how each moment should be presented, and outputs a production-ready activity — no manual authoring required.')}
         metaItems={[
-          { label: 'Principal Product Architect' },
-          { label: 'Frontend + System Ownership' },
+          { label: 'Principal Product Architect & Frontend Developer' },
           { label: 'December 2025' },
           {
             label: 'e-GMAT',
@@ -713,12 +821,10 @@ export default function SparkPresenterCaseStudy() {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <p className={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen} mb-5`}>TL;DR</p>
-            <StaggeredText
+            <RichText
+              as="h2"
+              text="I architected a scalable content processing system: <mark>a custom component grammar and an assembly pipeline</mark> that converts raw learning prose into production-ready activities."
               className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950"
-              segments={[
-                { text: 'I architected S.P.A.R.K. Content Presenter', className: 'box-decoration-clone bg-accent-green px-1 text-ink-950' },
-                { text: 'as a scalable content-presentation system: a custom component grammar and assembly-line pipeline that turns raw prose learning content into presentation-ready learning activities.' },
-              ]}
             />
 
             <div className="mt-12">
@@ -726,10 +832,11 @@ export default function SparkPresenterCaseStudy() {
             </div>
 
             <div className="mt-16 pt-4">
-              <p className={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen} mb-8`}>My Impact</p>
-              <h3 className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950">
-                The shift was immediate: lesson conversion became dramatically faster, output structure became more consistent, updates became lighter, and production reliability crossed a level where scale was no longer blocked by manual authoring.
-              </h3>
+              <RichText
+                as="h3"
+                text="The shift was immediate: <mark>one file in three days becomes 100 files in two hours</mark>, output consistency was built into the system, and updates that once required full rebuilds now took minutes."
+                className="font-cabinet text-case-study-statement font-extrabold leading-tight text-ink-950"
+              />
               <CaseStudyMetricStrip
                 metrics={metrics}
                 className="mx-auto mt-14 grid max-w-5xl gap-8 text-center md:grid-cols-3"
@@ -748,30 +855,30 @@ export default function SparkPresenterCaseStudy() {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <CaseStudySectionHeader
-              eyebrow="The Problem"
+              eyebrow="Problem"
               eyebrowClassName={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowOrange} mb-6`}
               renderHeading={() => (
                 <StaggeredText
                   id="problem-heading"
                   className="font-cabinet text-5xl font-extrabold leading-tight text-ink-950 md:text-6xl"
                   segments={[
-                    { text: 'Content creation scaled multi-fold.', breakAfter: true },
-                    { text: 'Learning-presentation conversion was still stuck in manual mode.', className: 'box-decoration-clone bg-surface-white px-1 text-ink-950' },
+                    { text: 'Content creation scaled fast.', breakAfter: true },
+                    { text: 'Content processing didn\'t.', className: styles.problemHeadingAccent },
                   ]}
                 />
               )}
-              copy="AI made it possible to create learning content much faster. But turning that raw prose into a structured, presentable, review-ready activity still depended on manual authoring. The bottleneck was no longer content creation. It was the effort required to convert content into a learning experience."
+              copy="AI made content creation fast. Converting that content into a presentable, review-ready activity still took days — and it still depended entirely on a third-party tool that wasn’t built for this."
               copyClassName="mt-10 max-w-3xl font-dm text-body leading-relaxed text-ink-800"
             />
 
             <PainPointGrid />
 
             <div className={styles.problemBridge}>
-              <BottleneckDiagram />
-              <p>
-                The problem was not content. The problem was not UI polish. The problem was that learning-presentation decisions were still trapped inside a manual workflow.
+              <p className={styles.approachCloser}>
+                The bottleneck wasn&apos;t content. It was that{' '}
+                <span className={styles.problemCloserHighlight}>every presentation decision was made by hand.</span>{' '}
+                That needed to become a system.
               </p>
-              <h3>The seed of the solution was clear: if the same presentation decisions were being made again and again, they should not stay trapped inside manual authoring. They needed to become a repeatable assembly line.</h3>
             </div>
           </Reveal>
         </div>
@@ -780,36 +887,40 @@ export default function SparkPresenterCaseStudy() {
       <section id="solution" aria-labelledby="approach-heading" className={`${styles.approachSection} ${lmsStyles.caseStudySection} px-6`}>
         <div className="mx-auto max-w-5xl">
           <Reveal>
-            <CaseStudySectionHeader
-              eyebrow="My Approach"
-              eyebrowClassName={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen} mb-6`}
-              renderHeading={() => (
-                <StaggeredText
-                  id="approach-heading"
-                  className="font-cabinet text-5xl font-extrabold leading-tight text-ink-950 md:text-6xl"
-                  segments={[
-                    { text: 'How I approached', breakAfter: true },
-                    { text: 'the problem', className: 'box-decoration-clone bg-accent-yellow px-1 text-ink-950' },
-                  ]}
-                />
-              )}
-              copy="Once the problem was clear, I looked at the manual workflow as a sequence of repeatable decisions."
-              copyClassName="mt-10 max-w-3xl font-dm text-body leading-relaxed text-ink-800"
-            />
-            <p className={styles.approachQuestion}>
-              Once the problem is clear I ask the question: if we were building an <span>assembly line for converting learning content into presentable activities</span>, what machines would it need?
+            <div className={lmsStyles.approachThinkingRow}>
+              <p className={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen}`}>My approach</p>
+              <div className={lmsStyles.approachCopyColumn}>
+                <h2 id="approach-heading" className={lmsStyles.approachHeading}>How I approached the problem</h2>
+                <p className={lmsStyles.approachQuestion}>
+                  Once the problem was clear, I asked:
+                  <br />
+                  if every presentation decision is already being made by hand,
+                  <br />
+                  <strong className={lmsStyles.approachQuestionHighlight}>what would it take to make those decisions automatic?</strong>
+                </p>
+              </div>
+            </div>
+            <p className="mt-10 max-w-3xl font-dm text-body leading-relaxed text-ink-800">
+              We mapped the manual workflow step by step. For each step, we wrote three things: the intent behind it, the success criteria, and the thinking that drove it. Then we turned those three into system intelligence.
             </p>
             <div className={styles.approachMachineGrid}>
               {approachMachines.map((machine) => (
                 <ApproachMachine key={machine.title} machine={machine} />
               ))}
             </div>
-            <p className={styles.approachProcessNote}>
-              For each machine, we considered the intent, success criteria, and decision logic that had to be embedded as intelligence into that machine. That is how the manual workflow started turning into product intelligence.
-            </p>
-            <p className={styles.approachCloser}>
-              We didn&apos;t need another design tool. We needed an assembly line with the intelligence of an SME, the judgment of a designer, and the thinking of an engineer.
-            </p>
+            <div className={lmsStyles.approachConclusionWrap}>
+              <div className={`${lmsStyles.approachConclusionArrow} ${lmsStyles.approachConclusionArrowTop}`} aria-hidden="true">
+                <MotifCurlyArrow />
+              </div>
+              <p className={lmsStyles.wordplayStatement}>
+                <span>We didn&apos;t need </span>
+                <span className={`${lmsStyles.wordplayRejected} ${styles.approachRejectedStatic}`}>another design tool.</span>
+                <span> We needed an assembly line with the intelligence of an SME, the judgment of a designer, and the thinking of an engineer.</span>
+              </p>
+              <div className={`${lmsStyles.approachConclusionArrow} ${lmsStyles.approachConclusionArrowBottom}`} aria-hidden="true">
+                <MotifCurlyArrow />
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -822,15 +933,14 @@ export default function SparkPresenterCaseStudy() {
         header={(
           <Reveal>
             <CaseStudySectionHeader
-              eyebrow="Key design decisions"
+              eyebrow="With the assembly-line lens on,"
               eyebrowClassName={`${lmsStyles.decisionKicker} ${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen} mb-5`}
               renderHeading={() => (
                 <StaggeredText
                   id="decisions-heading"
                   className={`${lmsStyles.decisionHeading} max-w-4xl font-cabinet text-4xl font-extrabold leading-tight md:text-6xl`}
                   segments={[
-                    { text: 'I made', breakAfter: false },
-                    { text: '5 decisions', className: lmsStyles.decisionHighlight },
+                    { text: 'I made 4 decisions', breakAfter: true },
                     { text: 'that turned manual conversion into a scalable product system.' },
                   ]}
                 />
@@ -842,15 +952,6 @@ export default function SparkPresenterCaseStudy() {
         renderDecision={(decision) => (
           <Reveal key={decision.number}>
             <SparkDecision decision={decision} />
-          </Reveal>
-        )}
-        summary={(
-          <Reveal>
-            <div className={lmsStyles.decisionSummary}>
-              <p className={`${lmsStyles.decisionSummaryText} mx-auto max-w-4xl text-center font-cabinet text-3xl font-extrabold leading-tight md:text-case-study-statement`}>
-                Together these decisions laid the foundations and made the <span className={lmsStyles.decisionHighlight}>scalable assembly line possible.</span>
-              </p>
-            </div>
           </Reveal>
         )}
       />
@@ -936,8 +1037,12 @@ export default function SparkPresenterCaseStudy() {
           <div className={lmsStyles.outcomeEditorial}>
             <div className={lmsStyles.outcomePanelCopy}>
               <p className={lmsStyles.outcomeEyebrow}>Outcome</p>
-              <h2>Manual authoring stopped being the bottleneck. Scalable production became the new default.</h2>
-              <p>S.P.A.R.K. changed how learning activities were produced, updated, and rendered. What used to depend on manual rebuilding could now move through a repeatable system with speed, consistency, and quality checks built in.</p>
+              <h2>Scalability at pace without manual cost.</h2>
+              <p>
+                The shift was immediate:{' '}
+                <strong className="font-extrabold text-ink-950">one file in three days becomes 100 files in two hours</strong>
+                , output consistency was built into the system, and updates that once required full rebuilds now took minutes.
+              </p>
             </div>
 
             <div className={lmsStyles.outcomeMetricsGrid}>
@@ -967,3 +1072,6 @@ export default function SparkPresenterCaseStudy() {
     </CaseStudyTemplate>
   );
 }
+
+
+

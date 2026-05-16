@@ -1,0 +1,159 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.48);
+  z-index: 60;
+}
+
+.modal {
+  width: min(100%, 42rem);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: var(--color-surface-white);
+  box-shadow: 0 1.6rem 4rem rgba(15, 23, 42, 0.22);
+}
+
+.header {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.5rem 1.5rem 1.25rem;
+  color: var(--color-surface-white);
+}
+
+.success .header {
+  background: linear-gradient(135deg, #14c96f, #11a75b);
+}
+
+.retry .header {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.iconWrap {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+}
+
+.headerCopy {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.badge {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  width: fit-content;
+  padding: 0.3rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.subtitle {
+  margin: 0;
+  max-width: 28rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.scoreRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.scoreCard,
+.detailCard {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--color-surface-ice) 30%, var(--color-surface-white));
+  border: 1px solid color-mix(in srgb, var(--color-ink-100) 75%, transparent);
+}
+
+.scoreLabel,
+.detailLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-500);
+}
+
+.scoreValue {
+  font-size: 2.4rem;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--color-ink-950);
+}
+
+.detailValue {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-ink-950);
+}
+
+.detailContext {
+  font-size: 0.9rem;
+  color: var(--color-ink-600);
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+  font-family: var(--font-dm);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primaryButton {
+  background: var(--color-ink-950);
+  color: var(--color-surface-white);
+}
+
+.secondaryButton {
+  background: color-mix(in srgb, var(--color-ink-100) 84%, var(--color-surface-white));
+  color: var(--color-ink-800);
+}
+
+@media (max-width: 40rem) {
+  .scoreRow {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}

@@ -1,48 +1,43 @@
 import { useState } from 'react';
-import CourseHeader from '../ui/CourseHeader';
-import DiagnosticCard from '../ui/DiagnosticCard';
-import ModuleBlock from '../ui/ModuleBlock';
+import CourseHomePage from './CourseHomePage';
 import PostDiagnosticChoiceModal from '../ui/PostDiagnosticChoiceModal';
-import { COURSE, DIAGNOSTIC, PACE, MODULES } from '../../data/mockCourse';
-import styles from '../../styles/demo.module.css';
+import { PACE, POST_DIAGNOSTIC_COURSE } from '../../data/mockCourse';
 
-export default function Step4PostDiagnosticChoice({ onNext }) {
+export default function Step4PostDiagnosticChoice({ onOpenActivity, goTo, lastVisitedActivityId }) {
   const [modalOpen, setModalOpen] = useState(true);
-  const modules = MODULES.filter((m) => m.activities.length > 0);
+  const [isPaceOn, setIsPaceOn] = useState(true);
 
   return (
     <div>
-      <CourseHeader courseName={COURSE.name} category={COURSE.category} />
-      <div className={styles.courseBody}>
-        <div className={styles.sectionLabel}>Your Learning Path</div>
-
-        <DiagnosticCard
-          status="completed"
-          config={DIAGNOSTIC.config}
-          results={DIAGNOSTIC.results}
-          onTakeDiagnostic={() => {}}
-        />
-
-        {modules.map((mod, idx) => (
-          <ModuleBlock
-            key={mod.id}
-            module={mod}
-            defaultExpanded={idx === 0}
-            onActivityClick={() => {}}
-          />
-        ))}
-      </div>
+      <CourseHomePage
+        courseData={POST_DIAGNOSTIC_COURSE}
+        onActivityClick={onOpenActivity}
+        isPaceOn={isPaceOn}
+        onPaceToggle={setIsPaceOn}
+        persistentLastVisitedId={lastVisitedActivityId}
+        onDiagnosticClick={() => {
+          setModalOpen(false);
+          goTo?.('diagnostic_results');
+        }}
+      />
 
       <PostDiagnosticChoiceModal
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onStartLearning={onNext}
-        onViewCourse={onNext}
+        onClose={() => {
+          setModalOpen(false);
+        }}
+        onStartLearning={() => {
+          setModalOpen(false);
+          onOpenActivity?.(PACE.firstActivity.id);
+        }}
+        onViewCourse={() => {
+          setModalOpen(false);
+          goTo?.('personalized_path');
+        }}
         hoursSaved={PACE.hoursSaved}
         activitiesSkipped={PACE.activitiesSkipped}
         totalActivities={PACE.totalActivities}
         firstActivity={PACE.firstActivity}
-        viewCourseId="demo-choice-view-course"
       />
     </div>
   );

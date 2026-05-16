@@ -1,14 +1,18 @@
-import { COURSE, QUIZ_RESULTS, REMEDIAL_ACTIVITY } from '../../data/mockCourse';
+import { COURSE, QUIZ_RESULTS, REMEDIAL_ACTIVITY, PACE } from '../../data/mockCourse';
 import CourseHeader from '../ui/CourseHeader';
 import { RemedialIcon } from '../icons/DemoIcons';
 import styles from '../../styles/results.module.css';
 
-export default function Step7bLowResults({ onNext }) {
+export default function Step7bLowResults({ onNext, onReturnToCourse }) {
   const { low } = QUIZ_RESULTS;
 
   return (
     <div>
-      <CourseHeader courseName={COURSE.name} category={COURSE.category} showBack />
+      <CourseHeader
+        courseName={COURSE.name}
+        category={COURSE.category}
+        onBack={() => onReturnToCourse?.(PACE.firstActivity.id)}
+      />
       <div id="demo-low-results" className={styles.wrapper}>
 
         {/* Score card */}
@@ -49,7 +53,7 @@ export default function Step7bLowResults({ onNext }) {
               Based on your mistakes in <strong>{REMEDIAL_ACTIVITY.motherActivityName}</strong> — {REMEDIAL_ACTIVITY.questionCount} questions focused on your exact gaps.
             </p>
           </div>
-          <button className={styles.remedialNoticeBtn} onClick={onNext}>
+          <button id="demo-low-results-remedial" className={styles.remedialNoticeBtn} onClick={onNext}>
             View Remedial
           </button>
         </div>

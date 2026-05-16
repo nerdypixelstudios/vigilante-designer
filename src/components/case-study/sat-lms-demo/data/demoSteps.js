@@ -1,122 +1,194 @@
-/**
- * demoSteps.js
- * ------------
- * The 9-step demo state machine. DemoShell reads this to drive the
- * guidance shade and step transitions.
- *
- * Fields per step:
- *   id         – unique string key
- *   step       – 1-based display number (branch steps share a number)
- *   label      – short screen label shown in guidance shade
- *   action     – what the user should do next
- *   why        – one line explaining why this step matters
- *   targetId   – DOM id of the element to highlight
- *   branch     – (optional) true = this step shows the two path-choice buttons
- *   isEnd      – (optional) true = this is a terminal step (no onNext arrow)
- */
-
-export const STEPS = [
-  {
+export const DEMO_STEPS = {
+  course_landing: {
     id: 'course_landing',
-    step: 1,
-    label: 'Course Page',
-    action: 'Click the Diagnostic Quiz button',
-    why: 'The system evaluates your level before prescribing anything.',
+    label: 'Take the diagnostic quiz',
+    detail: 'Open the diagnostic from the course home',
+    why: 'The system evaluates the learner before prescribing a path.',
     targetId: 'demo-diagnostic-card',
   },
-  {
+  diagnostic_instructions: {
+    id: 'diagnostic_instructions',
+    label: 'Start the diagnostic quiz',
+    detail: 'Review the instructions, then begin the assessment',
+    why: 'This sets expectations before the adaptive quiz begins.',
+    targetId: 'demo-diagnostic-start',
+  },
+  diagnostic_quiz: {
     id: 'diagnostic_quiz',
-    step: 2,
-    label: 'Diagnostic Quiz',
-    action: 'Answer all 5 questions and click Submit',
-    why: 'Your answers determine which activities you actually need.',
+    label: 'Submit the 5-question diagnostic',
+    detail: 'Answer the questions one by one and submit the diagnostic',
+    why: 'The answers determine what the learner can skip and what needs work.',
     targetId: 'demo-quiz-submit',
   },
-  {
+  diagnostic_results: {
     id: 'diagnostic_results',
-    step: 3,
-    label: 'Diagnostic Results',
-    action: "Click 'View Your Personalized Path'",
-    why: 'The system now knows what to skip and what to focus on.',
+    label: 'Review quiz results',
+    detail: 'Inspect the score and open the personalized path',
+    why: 'The result explains how PACE personalizes the course.',
     targetId: 'demo-results-cta',
   },
-  {
+  choice_modal: {
     id: 'choice_modal',
-    step: 4,
-    label: 'Your Options',
-    action: "Click 'View Course' to see your personalized path",
-    why: 'You choose whether to start now or review your path first.',
+    label: 'Open the personalized course',
+    detail: 'Use the recommendation modal to view the course path',
+    why: 'The learner can start immediately or inspect the prescribed path first.',
     targetId: 'demo-choice-view-course',
   },
-  {
+  personalized_path: {
     id: 'personalized_path',
-    step: 5,
-    label: 'Personalized Path',
-    action: 'Toggle the PACE Island on and off — then click the highlighted activity',
-    why: 'PACE Island controls whether personalized shading is active.',
+    label: 'Check the personalized course',
+    detail: 'Turn PACE off to see everything, then turn it on to see skipped content',
+    why: 'PACE reveals the exact course state the learner should follow next.',
     targetId: 'demo-pace-island',
   },
-  {
+  personalized_activity: {
+    id: 'personalized_activity',
+    label: 'Start the first prescribed activity',
+    detail: 'Open the immediate next activity from the personalized course',
+    why: 'The first prescribed lesson should match the course state and next-up rail.',
+    targetId: 'demo-personalized-activity',
+  },
+  activity_quiz: {
     id: 'activity_quiz',
-    step: 6,
-    label: 'Activity Quiz',
-    action: 'Answer freely — then choose which outcome to explore',
-    why: 'Every result feeds back into your personalized path.',
-    targetId: 'demo-quiz-submit',
-    branch: true,
+    label: 'Complete the learning activity quiz',
+    detail: 'Attempt the personalized activity and submit the quiz',
+    why: 'Activity performance decides whether the learner can continue or needs remedial practice.',
+    targetId: 'demo-activity-quiz-submit',
   },
-  {
-    id: 'good_results',
-    step: 7,
-    label: 'High Score Results',
-    action: "See your updated path — the system prescribes what's next",
-    why: 'High performance unlocks the next activity immediately.',
-    targetId: 'demo-good-results',
-    isEnd: true,
-  },
-  {
+  low_results: {
     id: 'low_results',
-    step: 7,
-    label: 'Low Score Results',
-    action: 'See what happens when you miss the threshold',
-    why: 'The system identifies the gap and acts immediately.',
-    targetId: 'demo-low-results',
+    label: 'Review the below-threshold result',
+    detail: 'See the low-score state and the remedial that was created',
+    why: 'The system turns a weak attempt into targeted follow-up work immediately.',
+    targetId: 'demo-low-results-remedial',
   },
-  {
+  remedial_modal: {
     id: 'remedial_modal',
-    step: 8,
-    label: 'Remedial Created',
-    action: "Read the notification — then click 'Start Remedial'",
-    why: 'A targeted practice session was created just for your mistakes.',
+    label: 'Start the remedial activity',
+    detail: 'Open the targeted remedial created from the low-score attempt',
+    why: 'The remedial is anchored to the exact concept gap surfaced in the activity.',
     targetId: 'demo-remedial-modal',
   },
-  {
+  remedial_activity: {
     id: 'remedial_activity',
-    step: 9,
-    label: 'Remedial Activity',
-    action: 'This is your remedial session — focused on your exact mistakes',
-    why: 'The system prescribes targeted practice, not the whole topic again.',
-    targetId: 'demo-remedial-activity',
-    isEnd: true,
+    label: 'Complete the remedial quiz',
+    detail: 'Work through the remedial questions one at a time',
+    why: 'The learner gets focused practice instead of repeating the whole lesson.',
+    targetId: 'demo-remedial-submit-perfect',
   },
-];
+  remedial_success: {
+    id: 'remedial_success',
+    label: 'See the positive remedial outcome',
+    detail: 'Preview the success state when the learner scores 100%',
+    why: 'A perfect remedial attempt closes the gap and unlocks the next activity.',
+    targetId: 'demo-remedial-success',
+  },
+  remedial_retry: {
+    id: 'remedial_retry',
+    label: 'See the less-than-perfect outcome',
+    detail: 'Preview the fallback state when the learner still misses the mark',
+    why: 'The learner is sent back to the course after reviewing what still needs work.',
+    targetId: 'demo-remedial-retry',
+  },
+  bad_behavior_warning: {
+    id: 'bad_behavior_warning',
+    label: 'See the advisory guardrail',
+    detail: 'Try a course activity before the diagnostic and trigger the advisory',
+    why: 'The system blocks the shortcut and nudges the learner back toward personalization first.',
+    targetId: 'demo-skip-diagnostic-alert',
+  },
+};
 
-/** Linear step order for non-branching path */
-export const STEP_IDS_LINEAR = [
-  'course_landing',
-  'diagnostic_quiz',
-  'diagnostic_results',
-  'choice_modal',
-  'personalized_path',
-  'activity_quiz',
-];
+export const DEMO_FLOWS = {
+  happy: {
+    id: 'happy',
+    title: 'User happy path',
+    description:
+      'Attempt the diagnostic quiz, review quiz results, let PACE personalize the course, and start learning in the recommended path.',
+    shortTitle: 'Happy path',
+    initialStepId: 'course_landing',
+    groups: [
+      {
+        id: 'happy-step-1',
+        badge: 'STEP 1',
+        title: 'User takes the Diagnostic Quiz',
+        description: "This evaluates the learner's current level.",
+        substeps: ['course_landing', 'diagnostic_instructions', 'diagnostic_quiz', 'diagnostic_results'],
+      },
+      {
+        id: 'happy-step-2',
+        badge: 'STEP 2',
+        title: 'Check the personalized course',
+        description: "PACE customizes the course according to the learner's level.",
+        substeps: ['choice_modal', 'personalized_path', 'personalized_activity'],
+      },
+    ],
+  },
+  reinforcement: {
+    id: 'reinforcement',
+    title: 'Reinforcement path',
+    description:
+      'Start from the personalized course, perform poorly in one concept, create a remedial activity, and review the remedial outcome.',
+    shortTitle: 'Reinforcement',
+    initialStepId: 'personalized_path',
+    groups: [
+      {
+        id: 'reinforcement-step-1',
+        badge: 'STEP 1',
+        title: 'Continue in the personalized path',
+        description: 'This flow assumes the diagnostic is already completed and PACE is on.',
+        substeps: ['personalized_path', 'activity_quiz'],
+      },
+      {
+        id: 'reinforcement-step-2',
+        badge: 'STEP 2',
+        title: 'Fix the gap with remedial practice',
+        description: 'A low score creates a targeted remedial linked to the mother activity.',
+        substeps: ['low_results', 'remedial_modal', 'remedial_activity'],
+      },
+      {
+        id: 'reinforcement-step-3',
+        badge: 'STEP 3',
+        title: 'Review the remedial outcome',
+        description: 'Preview both the perfect-score and less-than-perfect result models.',
+        substeps: ['remedial_success', 'remedial_retry'],
+      },
+    ],
+  },
+  bad_behavior: {
+    id: 'bad_behavior',
+    title: 'System against bad behaviours',
+    description:
+      'Try to open a course activity before personalizing and watch the advisory guardrail step in.',
+    shortTitle: 'Bad behaviours',
+    initialStepId: 'course_landing',
+    groups: [
+      {
+        id: 'bad-behavior-step-1',
+        badge: 'STEP 1',
+        title: 'Try to skip personalization',
+        description: 'The learner attempts to bypass the diagnostic and the system advises against it.',
+        substeps: ['course_landing', 'bad_behavior_warning'],
+      },
+    ],
+  },
+};
 
-/** Good-score branch continuation */
-export const STEP_IDS_GOOD = ['good_results'];
+export const FLOW_ORDER = ['happy', 'reinforcement', 'bad_behavior'];
 
-/** Low-score branch continuation */
-export const STEP_IDS_LOW = ['low_results', 'remedial_modal', 'remedial_activity'];
+export function getStep(stepId) {
+  return DEMO_STEPS[stepId] || DEMO_STEPS.course_landing;
+}
 
-export function getStep(id) {
-  return STEPS.find((s) => s.id === id) || STEPS[0];
+export function getFlow(flowId) {
+  return DEMO_FLOWS[flowId] || DEMO_FLOWS.happy;
+}
+
+export function getFlowStepIds(flowId) {
+  return getFlow(flowId).groups.flatMap((group) => group.substeps);
+}
+
+export function getStepPosition(flowId, stepId) {
+  const stepIds = getFlowStepIds(flowId);
+  return stepIds.indexOf(stepId);
 }

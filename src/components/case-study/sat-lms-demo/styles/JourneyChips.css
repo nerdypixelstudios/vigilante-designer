@@ -1,0 +1,87 @@
+/**
+ * JourneyChips Component Styles
+ * (demo copy — @container queries converted to @media)
+ */
+
+.journey-chips-container {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-full);
+  padding: 3px 4px;
+}
+
+.journey-chips-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.journey-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-heading);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: default;
+  line-height: 1;
+}
+
+.journey-chip.completed {
+  color: var(--color-slate-600);
+  font-weight: var(--font-weight-semibold);
+}
+
+.journey-chip.completed svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: #22C55E;
+}
+
+.journey-chip.current {
+  background: white;
+  color: var(--color-slate-800);
+  font-weight: var(--font-weight-bold);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.journey-chip.current svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.journey-chip.current .journey-chip-count {
+  color: var(--color-slate-500);
+}
+
+.journey-chip.not-started {
+  color: var(--color-slate-400);
+}
+
+.journey-chip.not-started .journey-chip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-slate-300);
+  flex-shrink: 0;
+}
+
+.journey-chip-count {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xs, 12px);
+  opacity: 0.85;
+}
+
+/* Responsive — MOBILE */
+@media (max-width: 767px) {
+  .journey-chip {
+    padding: 4px 10px;
+  }
+}

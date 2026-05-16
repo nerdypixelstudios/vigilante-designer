@@ -1,0 +1,297 @@
+{
+    "pageCode": "linear_equations",
+    "pageName": "Linear Equations",
+    "category": "MATH",
+    "totalContent": 28,
+    "completedContent": 0,
+    "totalEstimatedTimeMinutes": 1105,
+    "learningBlocks": [
+        {
+            "blockId": -1,
+            "blockName": "Next Up",
+            "blockType": "MODULE",
+            "displayOrder": 0,
+            "totalContent": 12,
+            "completedContent": 0,
+            "totalEstimatedTimeMinutes": 460,
+            "children": [],
+            "contentItems": [
+                { "contentId": 252, "contentType": "CONCEPT", "contentName": "Solution Type Fundamentals", "displayOrder": 1, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 244, "contentType": "CONCEPT", "contentName": "Special Solution Types - Contrasting Cases", "displayOrder": 2, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 236, "contentType": "CONCEPT", "contentName": "Creating Equations with Specific Solution Types", "displayOrder": 3, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 253, "contentType": "PROCESS_SKILL", "contentName": "Efficient Solving Techniques", "displayOrder": 4, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "PROCESS_SKILL", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 238, "contentType": "CONCEPT", "contentName": "Coefficient and Expression Interpretation", "displayOrder": 5, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 263, "contentType": "CONCEPT", "contentName": "Applying Coefficient Interpretation to SAT Problems", "displayOrder": 6, "estimatedDurationMinutes": 30, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 239, "contentType": "CONCEPT", "contentName": "Vertical Translation Rule", "displayOrder": 7, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 240, "contentType": "CONCEPT", "contentName": "Parallel and Perpendicular Slope Rules", "displayOrder": 8, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 241, "contentType": "CONCEPT", "contentName": "Building and Using Line Equations", "displayOrder": 9, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 256, "contentType": "CONCEPT", "contentName": "Elimination Extensions & Substitution", "displayOrder": 10, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 257, "contentType": "CONCEPT", "contentName": "Understanding System Solution Types", "displayOrder": 11, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                { "contentId": 259, "contentType": "CONCEPT", "contentName": "Rate-Time-Distance System Setup", "displayOrder": 12, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+            ]
+        },
+        {
+            "blockId": 62,
+            "blockName": "Module 1: Linear Equations in 1 Variable",
+            "blockType": "MODULE",
+            "displayOrder": 1,
+            "totalContent": 6,
+            "completedContent": 0,
+            "totalEstimatedTimeMinutes": 230,
+            "children": [
+                {
+                    "blockId": 63,
+                    "blockName": "Unit A: Solution Type Analysis",
+                    "blockType": "UNIT",
+                    "displayOrder": 1,
+                    "totalContent": 4,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 170,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 252, "contentType": "CONCEPT", "contentName": "Solution Type Fundamentals", "displayOrder": 1, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 244, "contentType": "CONCEPT", "contentName": "Special Solution Types - Contrasting Cases", "displayOrder": 2, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 236, "contentType": "CONCEPT", "contentName": "Creating Equations with Specific Solution Types", "displayOrder": 3, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 253, "contentType": "PROCESS_SKILL", "contentName": "Efficient Solving Techniques", "displayOrder": 4, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "PROCESS_SKILL", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 64,
+                    "blockName": "Unit B: Rational Equations",
+                    "blockType": "UNIT",
+                    "displayOrder": 2,
+                    "totalContent": 2,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 60,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 261, "contentType": "CONCEPT", "contentName": "Same Numerator, Different Denominator Pattern", "displayOrder": 1, "estimatedDurationMinutes": 25, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 262, "contentType": "CONCEPT", "contentName": "Applying the Same Numerator Pattern", "displayOrder": 2, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 65,
+                    "blockName": "Module 1 Mock",
+                    "blockType": "UNIT",
+                    "displayOrder": 99,
+                    "totalContent": 1,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 30,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 300, "contentType": "MQE", "contentName": "Module 1 Mock Assessment", "displayOrder": 1, "estimatedDurationMinutes": 30, "canAccess": true, "subType": "MQE", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                }
+            ],
+            "contentItems": []
+        },
+        {
+            "blockId": 66,
+            "blockName": "Module 2: Linear Equations in 2 Variables",
+            "blockType": "MODULE",
+            "displayOrder": 2,
+            "totalContent": 13,
+            "completedContent": 0,
+            "totalEstimatedTimeMinutes": 510,
+            "children": [
+                {
+                    "blockId": 67,
+                    "blockName": "Unit A: Coefficient Interpretation & Basic Line Concepts",
+                    "blockType": "UNIT",
+                    "displayOrder": 1,
+                    "totalContent": 3,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 90,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 238, "contentType": "CONCEPT", "contentName": "Coefficient and Expression Interpretation", "displayOrder": 1, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 263, "contentType": "CONCEPT", "contentName": "Applying Coefficient Interpretation to SAT Problems", "displayOrder": 2, "estimatedDurationMinutes": 30, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 264, "contentType": "PROCESS_SKILL", "contentName": "MRQ and DND Question Types Test", "displayOrder": 3, "estimatedDurationMinutes": 15, "canAccess": true, "subType": "PROCESS_SKILL", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 68,
+                    "blockName": "Unit B: Intercepts & Y-Intercept Calculations",
+                    "blockType": "UNIT",
+                    "displayOrder": 2,
+                    "totalContent": 3,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 125,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 254, "contentType": "CONCEPT", "contentName": "Intercept Definitions and Rules", "displayOrder": 1, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 245, "contentType": "CONCEPT", "contentName": "Slope-Intercept Form and Finding b", "displayOrder": 2, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 239, "contentType": "CONCEPT", "contentName": "Vertical Translation Rule", "displayOrder": 3, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 69,
+                    "blockName": "Unit C: Parallel & Perpendicular Lines",
+                    "blockType": "UNIT",
+                    "displayOrder": 3,
+                    "totalContent": 2,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 80,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 240, "contentType": "CONCEPT", "contentName": "Parallel and Perpendicular Slope Rules", "displayOrder": 1, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 246, "contentType": "CONCEPT", "contentName": "Vertical and Horizontal Lines - Special Cases", "displayOrder": 2, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 70,
+                    "blockName": "Unit D: Building Line Equations",
+                    "blockType": "UNIT",
+                    "displayOrder": 4,
+                    "totalContent": 3,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 125,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 241, "contentType": "CONCEPT", "contentName": "Building and Using Line Equations", "displayOrder": 1, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 255, "contentType": "CONCEPT", "contentName": "Slope Equality Method", "displayOrder": 2, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 247, "contentType": "CONCEPT", "contentName": "Advanced Techniques: Parameters and Systems", "displayOrder": 3, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 72,
+                    "blockName": "Module 2 Mock",
+                    "blockType": "UNIT",
+                    "displayOrder": 99,
+                    "totalContent": 1,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 30,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 301, "contentType": "MQE", "contentName": "Module 2 Mock Assessment", "displayOrder": 1, "estimatedDurationMinutes": 30, "canAccess": true, "subType": "MQE", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                }
+            ],
+            "contentItems": []
+        },
+        {
+            "blockId": 73,
+            "blockName": "Module 3: Systems of Linear Equations",
+            "blockType": "MODULE",
+            "displayOrder": 3,
+            "totalContent": 9,
+            "completedContent": 0,
+            "totalEstimatedTimeMinutes": 365,
+            "children": [
+                {
+                    "blockId": 74,
+                    "blockName": "Unit A: Solving Systems",
+                    "blockType": "UNIT",
+                    "displayOrder": 1,
+                    "totalContent": 2,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 80,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 248, "contentType": "CONCEPT", "contentName": "System Foundations & Basic Elimination", "displayOrder": 1, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 256, "contentType": "CONCEPT", "contentName": "Elimination Extensions & Substitution", "displayOrder": 2, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 75,
+                    "blockName": "Unit B: Solution Type Analysis",
+                    "blockType": "UNIT",
+                    "displayOrder": 2,
+                    "totalContent": 4,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 160,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 257, "contentType": "CONCEPT", "contentName": "Understanding System Solution Types", "displayOrder": 1, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 258, "contentType": "CONCEPT", "contentName": "The No Solution Condition", "displayOrder": 2, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 249, "contentType": "CONCEPT", "contentName": "The Contradiction Method", "displayOrder": 3, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 250, "contentType": "CONCEPT", "contentName": "Infinite Solutions and Parametric Representation", "displayOrder": 4, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 76,
+                    "blockName": "Unit C: System Word Problems",
+                    "blockType": "UNIT",
+                    "displayOrder": 3,
+                    "totalContent": 3,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 125,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 251, "contentType": "CONCEPT", "contentName": "Comparative Quantities and Two-Item Pricing", "displayOrder": 1, "estimatedDurationMinutes": 35, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 259, "contentType": "CONCEPT", "contentName": "Rate-Time-Distance System Setup", "displayOrder": 2, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "CONCEPT", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null },
+                        { "contentId": 260, "contentType": "UQE", "contentName": "Systems Unit Qualifying Exam", "displayOrder": 3, "estimatedDurationMinutes": 45, "canAccess": true, "subType": "UQE", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                },
+                {
+                    "blockId": 77,
+                    "blockName": "Module 3 Mock",
+                    "blockType": "UNIT",
+                    "displayOrder": 99,
+                    "totalContent": 1,
+                    "completedContent": 0,
+                    "totalEstimatedTimeMinutes": 30,
+                    "children": [],
+                    "contentItems": [
+                        { "contentId": 302, "contentType": "MQE", "contentName": "Module 3 Mock Assessment", "displayOrder": 1, "estimatedDurationMinutes": 30, "canAccess": true, "subType": "MQE", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+                    ]
+                }
+            ],
+            "contentItems": []
+        },
+        {
+            "blockId": 78,
+            "blockName": "Cementing Medium",
+            "blockType": "MODULE",
+            "displayOrder": 90,
+            "totalContent": 0,
+            "completedContent": 0,
+            "totalEstimatedTimeMinutes": 0,
+            "children": [],
+            "contentItems": []
+        },
+        {
+            "blockId": 79,
+            "blockName": "Cementing Hard",
+            "blockType": "MODULE",
+            "displayOrder": 91,
+            "totalContent": 0,
+            "completedContent": 0,
+            "totalEstimatedTimeMinutes": 0,
+            "children": [],
+            "contentItems": []
+        },
+        {
+            "blockId": 80,
+            "blockName": "Course Mock",
+            "blockType": "MODULE",
+            "displayOrder": 99,
+            "totalContent": 1,
+            "completedContent": 0,
+            "totalEstimatedTimeMinutes": 60,
+            "children": [],
+            "contentItems": [
+                { "contentId": 999, "contentType": "COURSE_MOCK", "contentName": "Linear Equations Course Mock Assessment", "displayOrder": 1, "estimatedDurationMinutes": 60, "canAccess": true, "subType": "COURSE_MOCK", "courseCode": "SAT-LINEQ-02", "progressStatus": "NOT_STARTED", "progressPercentage": 0, "grade": null, "bestScore": 0, "latestScore": 0, "timeSpentSeconds": 0, "remedialQuiz": null }
+            ]
+        }
+    ],
+    "diagnostic": {
+        "status": "not_attempted",
+        "progressStatus": "NOT_STARTED",
+        "estimated_duration_minutes": 10,
+        "estimatedDurationMinutes": 10,
+        "question_count": 5,
+        "progress": {
+            "questions_completed": 0,
+            "total_questions": 5,
+            "time_remaining_minutes": 10
+        },
+        "results": null
+    },
+    "pace": {
+        "toggle_state": false,
+        "hours_saved": 0,
+        "activities_remaining": 28,
+        "activities_shaded": []
+    }
+}

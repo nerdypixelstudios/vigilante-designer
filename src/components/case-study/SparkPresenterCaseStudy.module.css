@@ -839,6 +839,60 @@
   box-shadow: 0 1.25rem 4rem color-mix(in srgb, var(--color-ink-950) 9%, transparent);
 }
 
+.problemHeadingAccent {
+  color: var(--color-accent-orange);
+}
+
+.problemCloserHighlight {
+  color: #b42318;
+}
+
+.approachRejectedStatic {
+  color: var(--color-ink-300);
+  background-size: 100% 0.08em;
+}
+
+.decisionStrong {
+  font-weight: 800;
+  color: var(--color-surface-white);
+}
+
+.sparkDecisionVideoFrame {
+  overflow: hidden;
+  min-height: auto;
+  border: 1px solid var(--color-ink-100);
+  border-radius: 0.875rem;
+  background: var(--color-surface-white);
+  box-shadow: 0 1rem 3rem color-mix(in srgb, var(--color-ink-950) 9%, transparent);
+}
+
+.sparkDecisionVideoReveal {
+  position: relative;
+  aspect-ratio: 8 / 5;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--color-surface-light) 85%, var(--color-surface-white)), var(--color-surface-white));
+}
+
+.sparkDecisionVideoReveal::before {
+  content: "Supporting video placeholder";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: min(78%, 18rem);
+  padding: 0.9rem 1rem;
+  border: 1px dashed var(--color-ink-300);
+  border-radius: 0.875rem;
+  background: color-mix(in srgb, var(--color-surface-white) 92%, transparent);
+  color: var(--color-ink-500);
+  font-family: var(--font-dm);
+  font-size: var(--text-small);
+  font-weight: 800;
+  line-height: 1.1;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
 .sparkCore {
   border-radius: 9999px;
   background: var(--color-ink-950);

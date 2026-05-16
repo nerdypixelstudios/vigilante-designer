@@ -1,0 +1,1573 @@
+/**
+ * CurrentModuleCard Component Styles
+ * Module card with expandable units
+ */
+
+/* Learning Blocks Section */
+.blocks-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.block-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-xl);
+  overflow: visible; /* visible so "Last Visited" badge (absolute, top: -8px) isn't clipped on tablet/mobile */
+  backdrop-filter: blur(8px);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), filter var(--transition-normal);
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.1));
+  box-shadow: 0 8px 30px -8px rgba(0, 111, 238, 0.15);
+}
+
+/* Collapsed state - minimal shadow to de-emphasize */
+.block-card.collapsed {
+  background: rgba(255, 255, 255, 0.7);
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.04));
+  box-shadow: none;
+}
+
+.block-card.collapsed:hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+  box-shadow: 0 4px 12px rgba(0, 111, 238, 0.08);
+}
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-xl);
+  cursor: pointer;
+  background: linear-gradient(135deg, #EEF4FC 0%, #DDEAF8 100%);
+  border-radius: var(--radius-lg);
+  margin: var(--spacing-sm);
+  overflow: visible;
+  position: relative;
+}
+
+/* Collapsed state - white background, no margin to avoid box-in-box feel */
+.block-card.collapsed .block-header {
+  background: white;
+  margin: 0;
+  border-radius: var(--radius-xl);
+}
+
+.block-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.block-number {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--primary-alpha-10) 0%, var(--primary-alpha-20) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.block-card.collapsed .block-number {
+  background: linear-gradient(135deg, var(--primary-alpha-10) 0%, var(--primary-alpha-20) 100%);
+  color: var(--color-primary);
+}
+
+/* Block info container - two-line layout */
+.block-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.block-name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+}
+
+.block-card.collapsed .block-name {
+  color: var(--color-slate-900);
+}
+
+.block-stats {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--color-slate-500);
+  margin-top: 2px;
+}
+
+/* Block meta line - groups estimated time and AI descriptor on same line */
+.block-meta-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.block-meta-separator {
+  color: var(--color-slate-400);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ==========================================================================
+   PACE TIME DISPLAY - Module Header
+   Shows remaining/total time when PACE is ON with shaded activities
+   ========================================================================== */
+
+.module-time-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs, 12px);
+  color: var(--color-slate-400);
+}
+
+.module-time-display.pace-active {
+  color: #16a34a;
+}
+
+.module-time-display .pace-flash-icon {
+  font-size: var(--font-size-xs, 12px);
+}
+
+.module-time-display .pace-time-remaining {
+  font-weight: 600;
+}
+
+.module-time-display .pace-time-separator {
+  color: var(--color-slate-400);
+  font-weight: 400;
+}
+
+.module-time-display .pace-time-total {
+  color: var(--color-slate-400);
+  font-weight: 400;
+}
+
+/* Legacy estimated time class - kept for compatibility */
+.block-estimated-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-400);
+  margin-top: 2px;
+}
+
+.block-estimated-time svg {
+  flex-shrink: 0;
+}
+
+.block-card.collapsed .block-stats {
+  color: var(--color-slate-400);
+}
+
+.block-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* Progress count format: 1/3 */
+.block-progress-count {
+  display: flex;
+  align-items: baseline;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.block-progress-completed {
+  color: var(--color-primary);
+}
+
+.block-progress-separator,
+.block-progress-total {
+  color: var(--color-slate-400);
+}
+
+.block-progress-bar {
+  width: 80px;
+  height: 10px;
+  background: white;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+/* Collapsed state - bluish tint for unfilled area */
+.block-card.collapsed .block-progress-bar {
+  background: var(--primary-alpha-10);
+}
+
+.block-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-blue-500) 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease-out;
+}
+
+/* Donut chart progress indicator */
+.block-progress-donut-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.block-progress-donut {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.block-donut-bg {
+  stroke: var(--color-slate-200);
+}
+
+/* Expanded state - white track for better visibility against blue-tinted background */
+.block-card.expanded .block-donut-bg {
+  stroke: white;
+}
+
+.block-donut-progress {
+  stroke: var(--color-primary);
+  stroke-dashoffset: 0;
+  transition: stroke-dasharray 0.6s ease-out;
+}
+
+/* Block type specific donut colors */
+.block-card.block-type-cementing .block-donut-progress,
+.block-card.block-type-cementing-module .block-donut-progress {
+  stroke: var(--color-cyan-500);
+}
+
+.block-card.block-type-revision .block-donut-progress {
+  stroke: var(--color-orange-500);
+}
+
+.block-card.block-type-diagnostic .block-donut-progress {
+  stroke: var(--color-amber-500);
+}
+
+/* No progress state for donut */
+.block-progress-donut-container .block-donut-progress {
+  stroke: var(--color-primary);
+}
+
+.block-chevron {
+  color: var(--color-slate-700);
+  font-size: var(--font-size-lg);
+  transition: transform var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block-chevron svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--transition-normal);
+}
+
+.block-card.expanded .block-chevron svg {
+  transform: rotate(180deg);
+}
+
+.block-card.collapsed .block-chevron {
+  color: var(--color-slate-700);
+}
+
+.block-content {
+  padding: var(--spacing-xl);
+  position: relative;
+}
+
+/* Connecting line between donuts - aligned with module number center */
+.block-content::before {
+  content: '';
+  position: absolute;
+  left: 50px;
+  top: 49px;
+  bottom: 100px;
+  width: 1px;
+  background: var(--color-slate-100);
+  z-index: 0;
+}
+
+/* Module Direct Activities (when no units) */
+.module-direct-activities {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--spacing-md);
+}
+
+/* Hide connector line only when module has NO unit blocks (direct activities only) */
+.block-content:not(:has(.unit-block)):has(.module-direct-activities)::before {
+  display: none;
+}
+
+/* ==========================================================================
+   SPECIAL BLOCK TYPE STYLES
+   ========================================================================== */
+
+/* Block name row with badge */
+.block-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+/* "Last visited" badge next to current module name — matches activity line item badge */
+.block-last-visited-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: var(--color-success);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Type badge for blocks — dot separator + colored text */
+.block-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.block-type-badge::before {
+  content: "·";
+  font-size: var(--font-size-lg, 18px);
+  line-height: 1;
+  color: var(--color-slate-300);
+}
+
+.block-type-badge.learning {
+  color: var(--color-primary-600);
+}
+
+.block-type-badge.cementing {
+  color: var(--color-cyan-700);
+}
+
+.block-type-badge.assessment {
+  color: var(--color-purple-700);
+}
+
+.block-type-badge.module-mock {
+  color: var(--color-purple-700);
+}
+
+.block-type-badge.revision {
+  color: #EA580C;
+}
+
+/* Lock badge */
+.block-lock-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-slate-200);
+  color: var(--color-slate-600);
+}
+
+/* Locked status icon in header right */
+.block-locked-status {
+  color: var(--color-slate-400);
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   DIAGNOSTIC BLOCK STYLES (amber theme)
+   ========================================================================== */
+.block-card.block-type-diagnostic .block-header {
+  background: linear-gradient(135deg, #FEF7E6 0%, #FDF0D0 100%);
+}
+
+.block-card.block-type-diagnostic.collapsed .block-header {
+  background: white;
+}
+
+.block-card.block-type-diagnostic .block-number {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.25) 100%);
+  color: var(--color-amber-600);
+}
+
+.block-card.block-type-diagnostic .block-progress-fill {
+  background: linear-gradient(90deg, var(--color-amber-500) 0%, var(--color-amber-400) 100%);
+}
+
+.block-card.block-type-diagnostic .block-progress-completed {
+  color: var(--color-amber-600);
+}
+
+/* ==========================================================================
+   CEMENTING BLOCK STYLES (cyan theme)
+   ========================================================================== */
+.block-card.block-type-cementing .block-header,
+.block-card.block-type-cementing-module .block-header {
+  background: linear-gradient(135deg, #ECFEFF 0%, #D9FAFB 100%);
+}
+
+.block-card.block-type-cementing.collapsed .block-header,
+.block-card.block-type-cementing-module.collapsed .block-header {
+  background: white;
+}
+
+.block-card.block-type-cementing .block-number,
+.block-card.block-type-cementing-module .block-number {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0.25) 100%);
+  color: var(--color-cyan-600);
+}
+
+.block-card.block-type-cementing .block-progress-fill,
+.block-card.block-type-cementing-module .block-progress-fill {
+  background: linear-gradient(90deg, var(--color-cyan-500) 0%, var(--color-cyan-400) 100%);
+}
+
+.block-card.block-type-cementing .block-progress-completed,
+.block-card.block-type-cementing-module .block-progress-completed {
+  color: var(--color-cyan-600);
+}
+
+/* ==========================================================================
+   ASSESSMENT BLOCK STYLES (purple theme)
+   ========================================================================== */
+.block-card.block-type-assessment .block-header {
+  background: linear-gradient(135deg, #F3F0FE 0%, #E8E2FC 100%);
+}
+
+.block-card.block-type-assessment.collapsed .block-header {
+  background: white;
+}
+
+.block-card.block-type-assessment .block-number {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.25) 100%);
+  color: var(--color-purple-600);
+}
+
+.block-card.block-type-assessment .block-progress-fill {
+  background: linear-gradient(90deg, var(--color-purple-500) 0%, var(--color-purple-400) 100%);
+}
+
+.block-card.block-type-assessment .block-progress-completed {
+  color: var(--color-purple-600);
+}
+
+/* ==========================================================================
+   MODULE MOCK BLOCK STYLES (purple theme - same as course mock)
+   Covers both MOCK_MODULE (→ mock-module) and MODULE_MOCK (→ module-mock)
+   ========================================================================== */
+.block-card.block-type-module-mock .block-header,
+.block-card.block-type-mock-module .block-header {
+  background: linear-gradient(135deg, #F3F0FE 0%, #E8E2FC 100%);
+}
+
+.block-card.block-type-module-mock.collapsed .block-header,
+.block-card.block-type-mock-module.collapsed .block-header {
+  background: white;
+}
+
+.block-card.block-type-module-mock .block-number,
+.block-card.block-type-mock-module .block-number {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(139, 92, 246, 0.25) 100%);
+  color: var(--color-purple-600);
+}
+
+.block-card.block-type-module-mock .block-progress-fill,
+.block-card.block-type-mock-module .block-progress-fill {
+  background: linear-gradient(90deg, var(--color-purple-500) 0%, var(--color-purple-400) 100%);
+}
+
+/* Donut colors for assessment / module mock */
+.block-card.block-type-assessment .block-donut-progress,
+.block-card.block-type-module-mock .block-donut-progress,
+.block-card.block-type-mock-module .block-donut-progress {
+  stroke: var(--color-purple-500);
+}
+
+.block-card.block-type-module-mock .block-progress-completed,
+.block-card.block-type-mock-module .block-progress-completed {
+  color: var(--color-purple-600);
+}
+
+/* Module Mock CTA - purple gradient (same as course mock) */
+/* Covers MOCK_MODULE (→ mock-module) and MODULE_MOCK (→ module-mock) */
+.block-card.block-type-module-mock .block-single-cta,
+.block-card.block-type-mock-module .block-single-cta {
+  background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 50%, #6D28D9 100%);
+  box-shadow: var(--shadow-purple);
+  animation: ctaPulsePurple 2s ease-in-out infinite;
+}
+
+.block-card.block-type-module-mock .block-single-cta:hover,
+.block-card.block-type-mock-module .block-single-cta:hover {
+  animation: none;
+  box-shadow: var(--shadow-purple-md);
+}
+
+/* ==========================================================================
+   REVISION BLOCK STYLES (orange theme)
+   ========================================================================== */
+.block-card.block-type-revision .block-header {
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+}
+
+.block-card.block-type-revision.collapsed .block-header {
+  background: white;
+}
+
+.block-card.block-type-revision .block-number {
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.15) 0%, rgba(234, 88, 12, 0.25) 100%);
+  color: #EA580C;
+}
+
+.block-card.block-type-revision .block-progress-fill {
+  background: linear-gradient(90deg, var(--color-orange-500) 0%, var(--color-orange-400) 100%);
+}
+
+.block-card.block-type-revision .block-progress-completed {
+  color: #EA580C;
+}
+
+/* ==========================================================================
+   LOCKED BLOCK STYLES
+   ========================================================================== */
+.block-card.locked {
+  opacity: 0.7;
+}
+
+.block-card.locked .block-header {
+  cursor: not-allowed;
+  background: var(--color-slate-100);
+}
+
+.block-card.locked.collapsed .block-header {
+  background: var(--color-slate-50);
+}
+
+.block-card.locked .block-number {
+  background: var(--color-slate-200);
+  color: var(--color-slate-500);
+}
+
+.block-card.locked .block-name {
+  color: var(--color-slate-500);
+}
+
+.block-card.locked .block-chevron {
+  opacity: 0.4;
+}
+
+/* Single-activity locked cards (Course Mock) - show normally with lock indicator */
+.block-card.single-activity.locked {
+  opacity: 1;
+  /* Match collapsed state shadow */
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.04));
+  box-shadow: none;
+}
+
+.block-card.single-activity.locked .block-header {
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.block-card.single-activity.locked .block-number {
+  background: var(--gradient-purple);
+}
+
+/* Force icon to be white (stroke only for outline icons) */
+.block-card.single-activity.locked .block-number svg {
+  color: white !important;
+  stroke: white !important;
+}
+
+.block-card.single-activity.locked .block-number svg path {
+  stroke: white !important;
+}
+
+.block-card.single-activity.locked .block-name {
+  color: var(--color-slate-900);
+}
+
+/* Hide lock badge from header-left for single-activity locked */
+.block-card.single-activity.locked .block-lock-badge {
+  display: none;
+}
+
+/* Locked status on the right side for single-activity */
+.block-single-locked-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.block-single-locked-text {
+  font-size: var(--font-size-xs);
+  color: #DC2626;
+  font-weight: var(--font-weight-medium);
+}
+
+.block-single-locked-status svg {
+  color: var(--color-slate-400);
+}
+
+/* ==========================================================================
+   SINGLE-ACTIVITY MODULE STYLES (Diagnostic, Course Mock)
+   ========================================================================== */
+.block-card.single-activity {
+  cursor: pointer;
+}
+
+.block-card.single-activity .block-header {
+  cursor: pointer;
+}
+
+.block-single-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.block-score {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.block-attempt-status {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.block-attempt-status.completed {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16A34A;
+}
+
+.block-attempt-status.not-attempted {
+  background: var(--color-slate-100);
+  color: var(--color-slate-500);
+}
+
+/* Single activity display - score, grade, time, status (matching ActivityLineItem) */
+.block-single-score {
+  min-width: 36px;
+  text-align: right;
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-400);
+  margin-right: var(--spacing-md);
+}
+
+.block-single-time {
+  min-width: 40px;
+  text-align: right;
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-400);
+  font-variant-numeric: tabular-nums;
+  margin-left: var(--spacing-md);
+  margin-right: var(--spacing-md);
+}
+
+.block-single-status-icon {
+  display: flex;
+  align-items: center;
+  color: var(--color-slate-500);
+}
+
+.block-single-status-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Single activity CTA button - gradient style with animation matching ActivityCard */
+.block-single-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  overflow: hidden;
+  background: linear-gradient(135deg, #60A5FA 0%, var(--color-primary) 50%, #1D4ED8 100%);
+  color: white;
+  box-shadow: var(--shadow-primary-glow);
+  animation: ctaPulseBlue 2s ease-in-out infinite;
+}
+
+.block-single-cta:hover {
+  transform: translateY(-1px);
+  animation: none;
+  box-shadow: var(--shadow-primary-lg);
+}
+
+/* Shimmer effect on CTA */
+.block-single-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: buttonShimmerCta 2.5s ease-in-out infinite;
+}
+
+.block-single-cta:hover::after {
+  animation: none;
+}
+
+@keyframes ctaPulseBlue {
+  0%, 100% { box-shadow: 0 4px 12px rgba(0, 111, 238, 0.3); }
+  50% { box-shadow: 0 4px 20px rgba(0, 111, 238, 0.5), 0 0 30px rgba(0, 111, 238, 0.2); }
+}
+
+@keyframes buttonShimmerCta {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+/* Diagnostic CTA - amber/orange gradient (diagnostic theme) */
+.block-card.block-type-diagnostic .block-single-cta {
+  background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 50%, #D97706 100%);
+  box-shadow: var(--shadow-warning);
+  animation: ctaPulseAmber 2s ease-in-out infinite;
+}
+
+.block-card.block-type-diagnostic .block-single-cta:hover {
+  animation: none;
+  box-shadow: var(--shadow-warning-md);
+}
+
+@keyframes ctaPulseAmber {
+  0%, 100% { box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); }
+  50% { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5), 0 0 30px rgba(245, 158, 11, 0.2); }
+}
+
+/* Assessment CTA - text link style (matches Diagnostic "Review" link) */
+.block-single-text-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-purple-600);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all var(--transition-fast);
+}
+
+.block-single-text-cta:hover {
+  color: var(--color-purple-700);
+}
+
+.block-single-text-cta:focus-visible {
+  outline: 2px solid var(--color-purple-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.block-single-text-cta svg {
+  transition: transform var(--transition-fast);
+}
+
+.block-single-text-cta:hover svg {
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   CEMENTING MODULE STYLES (L20 Accuracy + Activity Count)
+   ========================================================================== */
+.block-cementing-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* Separator between L20 and activity count */
+.block-cementing-separator {
+  color: var(--color-slate-300);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-lg, 18px);
+}
+
+/* L20 Accuracy Section - horizontal layout, all items aligned */
+.block-l20-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.block-l20-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-600);
+  white-space: nowrap;
+}
+
+/* L20 chart icon - hidden on desktop by default */
+.block-l20-chart-icon {
+  display: none;
+  color: #16A34A; /* Green to match cementing theme */
+  flex-shrink: 0;
+}
+
+.block-l20-info-icon {
+  color: var(--color-slate-400);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.block-l20-info-icon:hover {
+  color: var(--color-slate-600);
+}
+
+/* Bar container with target label above */
+.block-l20-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  position: relative;
+}
+
+/* Target label positioned above the bar, aligned with marker */
+.block-l20-target-label {
+  font-size: var(--font-size-2xs, 10px);
+  color: #DC2626;
+  font-weight: var(--font-weight-bold);
+  position: absolute;
+  top: -14px;
+  transform: translateX(-50%);
+}
+
+.block-l20-bar {
+  position: relative;
+  width: 80px;
+  height: 8px;
+  background: var(--color-slate-200);
+  border-radius: var(--radius-full);
+  overflow: visible;
+}
+
+.block-l20-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #16A34A 0%, #22C55E 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+.block-l20-target-marker {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 14px;
+  background: #DC2626;
+  border-radius: 1px;
+  transform: translateX(-50%);
+}
+
+/* Student's achieved accuracy - green, bold, same size as activity count */
+.block-l20-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: #16A34A;
+  min-width: 36px;
+  text-align: left;
+}
+
+.block-l20-value.met {
+  color: #16A34A;
+}
+
+/* ==========================================================================
+   NO PROGRESS STYLES (0/X)
+   ========================================================================== */
+.block-progress-count.no-progress .block-progress-completed,
+.block-progress-count.no-progress .block-progress-separator,
+.block-progress-count.no-progress .block-progress-total {
+  color: var(--color-slate-400);
+}
+
+.block-progress-bar.no-progress {
+  background: var(--color-slate-200);
+}
+
+.block-card.collapsed .block-progress-bar.no-progress {
+  background: var(--color-slate-200);
+}
+
+/* ==========================================================================
+   AI-GENERATED CONTENT STYLES (REVISION blocks)
+   ========================================================================== */
+
+/* AI descriptor - inline with estimated time, matching TimeBadge font size */
+.block-ai-descriptor {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--color-slate-500);
+  font-style: italic;
+}
+
+/* "X skipped activities hidden" inline note in block-meta-line */
+.skipped-hidden-note-inline {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: #b45309;
+}
+
+/* AI-generated shimmer animation (only for NOT_STARTED REVISION blocks) */
+.block-card.ai-generated-shimmer {
+  position: relative;
+}
+
+.block-card.ai-generated-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 25%,
+    rgba(6, 182, 212, 0.6) 38%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(6, 182, 212, 0.6) 62%,
+    transparent 75%,
+    transparent 100%
+  );
+  background-size: 300% 100%;
+  animation: blockShimmerBorder 10s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes blockShimmerBorder {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ==========================================================================
+   CURRENT MODULE SHIMMER (collapsed state indicator)
+   ========================================================================== */
+.block-card.current-module-shimmer {
+  position: relative;
+}
+
+.block-card.current-module-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  padding: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 30%,
+    rgba(34, 197, 94, 0.5) 42%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(34, 197, 94, 0.5) 58%,
+    transparent 70%,
+    transparent 100%
+  );
+  background-size: 300% 100%;
+  animation: currentModuleShimmer 8s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes currentModuleShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ==========================================================================
+   MODULE COMPLETION STATE STYLES (green theme)
+   Applied when a module is fully completed (100% progress)
+   ========================================================================== */
+.block-card.module-completed .block-donut-progress {
+  stroke: var(--color-green-500);
+}
+
+.block-card.module-completed .block-progress-completed {
+  color: var(--color-green-600);
+}
+
+.block-card.module-completed.expanded .block-header {
+  background: linear-gradient(135deg, #ECFDF5 0%, #D9F9E8 100%);
+}
+
+.block-card.module-completed.collapsed .block-header {
+  background: linear-gradient(135deg, rgba(236, 253, 245, 0.5) 0%, rgba(217, 249, 232, 0.3) 100%);
+}
+
+.block-card.module-completed .block-number {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.25) 100%);
+  color: var(--color-green-600);
+}
+
+.block-card.module-completed .block-type-badge {
+  background: var(--color-green-100);
+  color: var(--color-green-700);
+}
+
+.block-card.module-completed .block-progress-fill {
+  background: linear-gradient(90deg, var(--color-green-500) 0%, var(--color-green-400) 100%);
+}
+
+/* Single-activity completed modules (Course Mock, Module Mock) */
+.block-card.module-completed.single-activity .block-header {
+  background: linear-gradient(135deg, #ECFDF5 0%, #D9F9E8 100%);
+}
+
+/* Hide mobile disclaimer on desktop by default */
+.block-mobile-disclaimer {
+  display: none;
+}
+
+/* Disclaimer icon styling */
+.block-disclaimer-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+/* ==========================================================================
+   CEMENTING MODULE STATUS STYLES (header + donut theme by outcome)
+   ========================================================================== */
+
+/* Cementing PASSED: green header theme (overrides turquoise + module-completed) */
+.block-card.cementing-passed .block-header {
+  background: linear-gradient(135deg, #ECFDF5 0%, #D9F9E8 100%);
+}
+
+.block-card.cementing-passed.collapsed .block-header {
+  background: linear-gradient(135deg, #F3FDF8 0%, #EAF8F0 100%);
+}
+
+.block-card.cementing-passed .block-number {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.25) 100%);
+  color: var(--color-green-600);
+}
+
+.block-card.cementing-passed .block-type-badge {
+  background: var(--color-green-100);
+  color: var(--color-green-700);
+}
+
+.block-card.cementing-passed .block-donut-progress {
+  stroke: var(--color-green-500);
+}
+
+.block-card.cementing-passed .block-progress-completed {
+  color: var(--color-green-600);
+}
+
+/* Cementing FAILED: red header theme
+   Uses double class (.block-card.cementing-failed) to override module-completed green.
+   Cementing pass/fail status takes priority over generic completion state. */
+.block-card.cementing-failed .block-header,
+.block-card.cementing-failed.module-completed .block-header,
+.block-card.cementing-failed.module-completed.expanded .block-header {
+  background: linear-gradient(135deg, #FEF2F2 0%, #FECACA 100%);
+}
+
+.block-card.cementing-failed.collapsed .block-header,
+.block-card.cementing-failed.module-completed.collapsed .block-header {
+  background: linear-gradient(135deg, #FEF5F5 0%, #FDE8E8 100%);
+}
+
+.block-card.cementing-failed .block-number,
+.block-card.cementing-failed.module-completed .block-number {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.12) 0%, rgba(220, 38, 38, 0.2) 100%);
+  color: #DC2626;
+}
+
+.block-card.cementing-failed .block-type-badge,
+.block-card.cementing-failed.module-completed .block-type-badge {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.block-card.cementing-failed .block-donut-progress,
+.block-card.cementing-failed.module-completed .block-donut-progress {
+  stroke: #DC2626;
+}
+
+.block-card.cementing-failed .block-progress-completed,
+.block-card.cementing-failed.module-completed .block-progress-completed {
+  color: #DC2626;
+}
+
+
+/* Cementing quiz list container */
+.cementing-quiz-list {
+  padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl);
+}
+
+/* Hide the default connector line for cementing quiz lists */
+.cementing-quiz-list::before {
+  display: none !important;
+}
+
+/* Individual quiz with its remedial children */
+.cementing-quiz-with-remedial {
+  display: flex;
+  flex-direction: column;
+}
+
+/* PACE skip info message at top of expanded content */
+.cementing-pace-info {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: rgba(34, 197, 94, 0.08);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-green-700);
+  line-height: 1.5;
+}
+
+.cementing-pace-info svg {
+  flex-shrink: 0;
+  color: var(--color-green-500);
+  margin-top: 1px;
+}
+
+/* Reduce top padding for pace-shaded module content */
+.block-card.module-pace-shaded .block-content {
+  padding-top: var(--spacing-sm);
+}
+
+/* ==========================================================================
+   PACE-SKIPPED CEMENTING MODULE (shaded treatment)
+   Matches individual activity shaded pattern: faded, strikethrough, skipped badge
+   ========================================================================== */
+
+/* Base opacity matches activity row shaded state (0.30) */
+.block-card.module-pace-shaded {
+  opacity: 0.30;
+}
+
+.block-card.module-pace-shaded:hover {
+  opacity: 0.45;
+}
+
+/* Strikethrough on module name — matches .activity-line-name.struck */
+.block-card.module-pace-shaded .block-name {
+  text-decoration: line-through;
+  text-decoration-color: #94a3b8;
+  text-decoration-thickness: 1px;
+  color: #64748b;
+}
+
+/* Mute the block number icon — matches .activity-line-type-icon shaded */
+.block-card.module-pace-shaded .block-number {
+  opacity: 0.3;
+}
+
+/* Mute the type badge */
+.block-card.module-pace-shaded .block-type-badge {
+  opacity: 0.3;
+}
+
+/* Mute + strikethrough on the time line — matches .time-badge-shaded */
+.block-card.module-pace-shaded .block-meta-line {
+  opacity: 0.8;
+  text-decoration: line-through;
+  text-decoration-color: #94a3b8;
+  color: #94a3b8;
+}
+
+/* Skipped badge in the header right area (reuses .skipped-badge from ActivityLineItem.css) */
+.block-cementing-status--pace-skipped {
+  gap: var(--spacing-sm);
+}
+
+.block-cementing-status--pace-skipped .skipped-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.15);
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.block-cementing-status--pace-skipped .skipped-badge__icon {
+  font-size: var(--font-size-xs, 12px);
+}
+
+/* Dashed checkmark icon color */
+.block-cementing-status--pace-skipped svg {
+  color: #94a3b8;
+}
+
+/* Header stays faded + desaturated in both collapsed and expanded */
+.block-card.module-pace-shaded .block-header {
+  opacity: 0.67;
+  filter: saturate(0.3);
+}
+
+/* When expanded, bump card opacity so content is readable */
+.block-card.module-pace-shaded.expanded {
+  opacity: 0.45;
+}
+
+/* ==========================================================================
+   PACE SHADED MODULE ANIMATIONS (when PACE turns ON)
+   Matches ActivityLineItem animation: green shimmer sweep + strikethrough draw
+   ========================================================================== */
+
+/* Module card needs relative positioning for the ::before pseudo-element */
+.block-card.module-pace-animate-in {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Green shimmer sweep across the module card */
+.block-card.module-pace-animate-in::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2), transparent);
+  animation: paceModuleWhoosh 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+@keyframes paceModuleWhoosh {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* During animation: hide native strikethrough, show animated one */
+.block-card.module-pace-animate-in .block-name {
+  text-decoration: none;
+  position: relative;
+}
+
+/* Animated strikethrough line on module name */
+.block-card.module-pace-animate-in .block-name::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 1px;
+  width: 0;
+  background: #94a3b8;
+  animation: paceModuleStrikethrough 0.4s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes paceModuleStrikethrough {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* Reduced motion - disable animations */
+@media (prefers-reduced-motion: reduce) {
+  .block-card.module-pace-animate-in::before,
+  .block-card.module-pace-animate-in .block-name::after {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 767px)
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  /* ===== GENERAL SPACING ===== */
+
+  /* Remove padding from block content container on mobile */
+  .block-content {
+    padding: 0;
+  }
+
+  /* Padding on direct activities (cementing items) to match unit activities */
+  .module-direct-activities {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  /* Hide connector line between units on mobile */
+  .block-content::before {
+    display: none;
+  }
+
+  /* Reduced padding for module header - still breathable */
+  .block-header {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-lg); /* Gap between left and right cells to prevent touching */
+  }
+
+  /* Tighter gap between block number and info */
+  .block-header-left {
+    gap: var(--spacing-md);
+    flex: 1; /* Take remaining space */
+    min-width: 0; /* Allow flex item to shrink below content size */
+  }
+
+  /* Right cell - auto width on mobile to give module names more space */
+  .block-header-right {
+    width: auto;
+    flex-shrink: 0;
+    justify-content: flex-end;
+  }
+
+  /* ===== BADGES & ICONS ===== */
+  /* Move "Last Visited" badge to top-right corner (same as tablet) */
+  .block-last-visited-badge {
+    position: absolute;
+    top: -8px;
+    right: 12px;
+  }
+
+  /* Hide semantic type badges on mobile */
+  .block-type-badge {
+    display: none;
+  }
+
+  /* Block number - 30px size, prevent shrinking */
+  .block-number {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  /* Module name - scale down to font-size-lg */
+
+
+  /* ===== PROGRESS INDICATORS ===== */
+  /* Hide donut chart on mobile, keep fraction */
+  .block-progress-donut {
+    display: none;
+  }
+
+  /* Progress count stays visible - use font-size-sm for uniformity */
+
+
+  /* Hide score, show only grade for single activities */
+  .block-single-score {
+    display: none;
+  }
+
+  /* Hide time spent for single-activity modules on mobile */
+  .block-single-time {
+    display: none;
+  }
+
+  /* Hide status icon when grade is present for single-activity modules */
+  .block-single-status:has(.grade-medal) .block-single-status-icon {
+    display: none;
+  }
+
+  /* Hide locked text on mobile - show toast on click instead */
+  .block-single-locked-text {
+    display: none;
+  }
+
+  /* ===== L20 ACCURACY (CEMENTING) ===== */
+  /* Hide entire L20 section on mobile - info shown in footnote instead */
+  .block-l20-section {
+    display: none;
+  }
+
+  /* Hide L20/activity-count separator on mobile */
+  .block-cementing-separator {
+    display: none;
+  }
+
+  /* Hide pass/fail tracker from header on mobile — shown in footnote instead */
+  .block-cementing-status .cementing-tracker {
+    display: none;
+  }
+
+  /* Cementing status - just show activity count */
+  .block-cementing-status {
+    gap: var(--spacing-sm);
+  }
+
+  /* ===== DISCLAIMER TEXT ===== */
+  /* Show disclaimer for mobile - sits right below header */
+  .block-mobile-disclaimer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+    font-size: var(--font-size-xs, 12px);
+    color: var(--color-slate-500);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.4;
+    border-bottom: 1px solid var(--color-slate-200);
+  }
+
+  /* Disclaimer text on left */
+  .block-disclaimer-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Tracker in footnote — takes available space */
+  .block-disclaimer-tracker {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* L20 value on right - emphatic green styling (matches header L20) */
+  .block-disclaimer-value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    color: #16A34A;
+    flex-shrink: 0;
+  }
+
+  /* ===== CEMENTING MODULE ===== */
+  /* Tighter padding on quiz list for mobile */
+  .cementing-quiz-list {
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+  }
+
+  /* PACE info - smaller text, tighter spacing */
+  .cementing-pace-info {
+    padding: var(--spacing-sm) var(--spacing-md);
+    gap: 6px;
+  }
+
+  /* Toast for locked single-activity modules on mobile */
+  .block-locked-toast {
+    position: absolute;
+    bottom: var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: rgba(30, 41, 59, 0.95);
+    color: white;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-strong);
+    animation: toastFadeIn 0.2s ease-out;
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  .block-locked-toast svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  @keyframes toastFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+
+  /* "X skipped activities hidden" — wrap to its own line on mobile */
+  .block-meta-line {
+    flex-wrap: wrap;
+  }
+
+  .skipped-hidden-note-inline {
+    flex-basis: 100%;
+  }
+
+  /* Hide the dot separator before the skipped note */
+  .block-meta-separator:has(+ .skipped-hidden-note-inline) {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN - TABLET (768px - 1023px)
+   ========================================================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Hide semantic type badges on tablet (Diagnostic, Cementing, Course Mock, etc.) */
+  .block-type-badge {
+    display: none;
+  }
+
+  /* Tighter gap on right side for tablet */
+  .block-header-right {
+    gap: var(--spacing-sm);
+  }
+
+  /* Move "Last Visited" badge to top-right corner of module header */
+  .block-last-visited-badge {
+    position: absolute;
+    top: -8px;
+    right: 12px;
+  }
+}

@@ -3,7 +3,7 @@ import { ChevronDownIcon } from '../icons/DemoIcons';
 import ActivityRow from './ActivityRow';
 import styles from '../../styles/demo.module.css';
 
-export default function ModuleBlock({ module, onActivityClick, highlightId, defaultExpanded = false, paceOn = true }) {
+export default function ModuleBlock({ module, onActivityClick, onShadedClick, highlightId, defaultExpanded = false, paceOn = true }) {
   const [expanded, setExpanded] = useState(defaultExpanded);
 
   return (
@@ -31,6 +31,7 @@ export default function ModuleBlock({ module, onActivityClick, highlightId, defa
               key={activity.id}
               activity={activity}
               onClick={onActivityClick}
+              onShadedClick={onShadedClick}
               highlightId={highlightId}
               paceOn={paceOn}
             />

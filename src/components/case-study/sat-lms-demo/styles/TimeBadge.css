@@ -1,0 +1,33 @@
+/**
+ * TimeBadge Component Styles
+ */
+
+.time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  background: none;
+  color: var(--color-slate-400);
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.time-badge:hover { color: var(--color-slate-600); }
+.time-badge:hover svg { color: var(--color-primary); }
+.time-badge svg { flex-shrink: 0; transition: color 0.15s ease; }
+.time-badge-text { font-weight: var(--font-weight-medium); }
+
+.time-badge-xs { font-size: var(--font-size-2xs, 10px); gap: 3px; }
+.time-badge-sm { font-size: var(--font-size-xs, 12px); gap: 4px; }
+.time-badge-md { font-size: var(--font-size-xs, 12px); gap: 5px; }
+
+.time-badge-concept { color: var(--color-primary); }
+.time-badge-skill { color: #D97706; }
+.time-badge-uqe { color: #16A34A; }
+.time-badge-module-mock { color: #7C3AED; }
+.time-badge-remedial { color: #DC2626; }
+.time-badge-revision { color: #0891B2; }
+.time-badge-cementing { color: #16A34A; }

@@ -1,0 +1,356 @@
+.screen {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.pageHeader,
+.metricsRow,
+.impactCard,
+.bucketCard,
+.actionCard {
+  background: var(--background-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.pageHeader {
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.pageEyebrow,
+.bucketEyebrow {
+  margin: 0 0 6px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+}
+
+.pageTitle {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: 34px;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+.pageSubtitle {
+  margin: 10px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+}
+
+.pageGrade {
+  flex-shrink: 0;
+}
+
+.metricsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.8fr;
+  overflow: hidden;
+}
+
+.metricCard {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.metricCard:first-child {
+  border-right: 1px solid var(--color-slate-100);
+}
+
+.metricLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.metricGauge {
+  width: 100%;
+}
+
+.metricSubtext {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.summaryCard {
+  position: relative;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fafefb;
+}
+
+.summaryCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #86efac;
+}
+
+.summaryBadge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(0, 111, 238, 0.08);
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.summaryHeadline {
+  margin-top: 14px;
+  font-size: var(--font-size-h3);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  line-height: 1.25;
+}
+
+.summaryBody {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.impactGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.impactCard {
+  padding: 18px 20px;
+}
+
+.impactLabel {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.impactValue {
+  display: block;
+  margin-top: 10px;
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+}
+
+.bucketGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.bucketCard {
+  overflow: hidden;
+}
+
+.bucketHeader {
+  padding: 20px 22px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--color-slate-100);
+}
+
+.bucketTitle {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 20px;
+  font-family: var(--font-family-heading);
+}
+
+.bucketCount {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--color-slate-100);
+  color: var(--color-slate-600);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.bucketList {
+  padding: 18px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bucketItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--color-slate-50);
+}
+
+.itemTag,
+.itemTagSuccess {
+  min-width: 44px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.itemTag {
+  background: rgba(233, 68, 68, 0.12);
+  color: var(--color-red);
+}
+
+.itemTagSuccess {
+  background: rgba(23, 201, 100, 0.14);
+  color: var(--color-success);
+}
+
+.itemTopic {
+  display: block;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.itemNote {
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+}
+
+.actionCard {
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.actionTitle {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: 22px;
+  color: var(--text-primary);
+}
+
+.actionText {
+  margin: 10px 0 0;
+  max-width: 58ch;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.cta {
+  width: 100%;
+  min-width: 320px;
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+}
+
+@media (max-width: 1023px) {
+  .pageHeader,
+  .actionCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .metricsRow {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .summaryCard {
+    grid-column: 1 / -1;
+  }
+
+  .impactGrid,
+  .bucketGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .screen {
+    padding: 16px;
+  }
+
+  .pageHeader,
+  .metricCard,
+  .summaryCard,
+  .impactCard,
+  .bucketHeader,
+  .bucketList,
+  .actionCard {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .pageTitle {
+    font-size: 28px;
+  }
+
+  .metricsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .metricCard:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--color-slate-100);
+  }
+}

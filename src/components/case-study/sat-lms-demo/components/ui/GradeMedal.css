@@ -1,0 +1,65 @@
+.grade-medal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.grade-medal-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.grade-medal-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.grade-medal-label {
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+.grade-medal-letter {
+  color: white;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.grade-medal--xs { width: 22px; height: 22px; }
+.grade-medal--xs .grade-medal-label { display: none; }
+.grade-medal--xs .grade-medal-letter { font-size: 9px; }
+
+.grade-medal--sm { width: 32px; height: 32px; }
+.grade-medal--sm .grade-medal-label { display: none; }
+.grade-medal--sm .grade-medal-letter { font-size: 13px; }
+
+.grade-medal--md { width: 50px; height: 50px; }
+.grade-medal--md .grade-medal-label { font-size: 8px; margin-bottom: 1px; }
+.grade-medal--md .grade-medal-letter { font-size: 20px; }
+
+.grade-medal--lg { width: 80px; height: 80px; }
+.grade-medal--lg .grade-medal-label { font-size: 10px; margin-bottom: 2px; }
+.grade-medal--lg .grade-medal-letter { font-size: 34px; }
+
+.grade-medal--xl { width: 110px; height: 110px; }
+.grade-medal--xl .grade-medal-label { font-size: 12px; margin-bottom: 4px; }
+.grade-medal--xl .grade-medal-letter { font-size: 48px; }
+
+.grade-medal { transition: transform 0.2s ease; }
+.grade-medal:hover { transform: scale(1.05); }
+
+.grade-medal--white .grade-medal-label { color: var(--text-primary); opacity: 0.8; }
+.grade-medal--white .grade-medal-letter { color: #F31260; }
+.grade-medal--white.grade-medal--a .grade-medal-letter { color: #22C55E; }
+.grade-medal--white.grade-medal--b .grade-medal-letter { color: #F5A524; }
+.grade-medal--white.grade-medal--c .grade-medal-letter { color: #F31260; }

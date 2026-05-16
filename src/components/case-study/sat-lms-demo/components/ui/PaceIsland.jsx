@@ -1,52 +1,80 @@
-import { PaceLogoGreen, FocusViewIcon, FullViewIcon } from '../icons/DemoIcons';
-import styles from '../../styles/pace.module.css';
+import { FocusViewIcon, FullViewIcon, PaceLogoGreen } from '../icons/DemoIcons';
 
-export default function PaceIsland({ isOn, onToggle, viewMode, onViewModeChange, id }) {
+const PaceIsland = ({
+  isOn = true,
+  onToggle,
+  isVisible = true,
+  paceAnimating = false,
+  viewMode = 'focused',
+  onViewModeChange,
+  showPaceToggle = true,
+  id,
+}) => {
+  const handleToggleClick = () => onToggle?.(!isOn);
+
+  const handleViewChange = (newMode) => {
+    if (newMode !== viewMode) onViewModeChange?.(newMode);
+  };
+
   return (
-    <div className={styles.paceIslandWrapper}>
-      <div
-        id={id}
-        className={`${styles.paceIsland} ${isOn ? styles.on : ''}`}
-      >
-        {/* PACE Logo */}
-        <div className={styles.paceIslandLogo}>
-          <PaceLogoGreen width={40} />
-        </div>
+    <div
+      id={id}
+      className={[
+        'pace-island',
+        isVisible ? 'pace-island--visible' : '',
+        showPaceToggle && isOn ? 'pace-island--on' : 'pace-island--off',
+        paceAnimating ? 'pace-island--whoosh' : '',
+        !showPaceToggle ? 'pace-island--view-only' : '',
+      ].filter(Boolean).join(' ')}
+    >
+      <div className="pace-island__content">
+        {showPaceToggle && (
+          <>
+            <div className="pace-island__logo">
+              <PaceLogoGreen width={44} className="pace-island__logo-icon" />
+            </div>
+            <button
+              className={`pace-island__toggle ${isOn ? 'pace-island__toggle--on' : ''}`}
+              onClick={handleToggleClick}
+              aria-pressed={isOn}
+              aria-label={`PACE is ${isOn ? 'on' : 'off'}. Click to turn ${isOn ? 'off' : 'on'}.`}
+            >
+              <div className="pace-island__toggle-knob" />
+            </button>
+            <div className="pace-island__divider" />
+          </>
+        )}
 
-        {/* Toggle */}
-        <button
-          className={`${styles.paceToggle} ${isOn ? styles.on : ''}`}
-          onClick={() => onToggle?.(!isOn)}
-          aria-pressed={isOn}
-          aria-label={`PACE is ${isOn ? 'on' : 'off'}. Click to toggle.`}
-        >
-          <div className={styles.paceToggleKnob} />
-        </button>
-
-        <span className={styles.paceToggleLabel}>{isOn ? 'ON' : 'OFF'}</span>
-
-        <div className={styles.paceIslandDivider} />
-
-        {/* View mode switcher */}
-        <div className={styles.viewModeGroup}>
-          <button
-            className={`${styles.viewModeBtn} ${viewMode === 'focused' ? styles.active : ''}`}
-            onClick={() => onViewModeChange?.('focused')}
-            title="Focused view"
-            aria-label="Focused view"
-          >
-            <FocusViewIcon size={14} />
-          </button>
-          <button
-            className={`${styles.viewModeBtn} ${viewMode === 'full' ? styles.active : ''}`}
-            onClick={() => onViewModeChange?.('full')}
-            title="Full view"
-            aria-label="Full view"
-          >
-            <FullViewIcon size={14} />
-          </button>
+        <div className="pace-island__view-section">
+          {!showPaceToggle && (
+            <span className="pace-island__view-label">
+              {viewMode === 'focused' ? 'Focus' : 'Full'}
+            </span>
+          )}
+          <div className="pace-island__view-switcher">
+            <button
+              className={`pace-island__view-btn ${viewMode === 'focused' ? 'pace-island__view-btn--active' : ''}`}
+              onClick={() => handleViewChange('focused')}
+              title="Focus View"
+              aria-label="Switch to Focus View"
+              aria-pressed={viewMode === 'focused'}
+            >
+              <FocusViewIcon size={16} />
+            </button>
+            <button
+              className={`pace-island__view-btn ${viewMode === 'full' ? 'pace-island__view-btn--active' : ''}`}
+              onClick={() => handleViewChange('full')}
+              title="Full View"
+              aria-label="Switch to Full View"
+              aria-pressed={viewMode === 'full'}
+            >
+              <FullViewIcon size={16} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default PaceIsland;

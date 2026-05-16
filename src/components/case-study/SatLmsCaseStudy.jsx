@@ -39,6 +39,7 @@ const caseStudyLinks = [
   { href: '#tldr', label: 'TL;DR' },
   { href: '#problem', label: 'Problem' },
   { href: '#solution', label: 'Solution' },
+  { href: '#flow', label: 'Product Demo' },
   { href: '#outcome', label: 'Outcome' },
 ];
 

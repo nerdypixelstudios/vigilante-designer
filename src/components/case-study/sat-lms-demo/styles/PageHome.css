@@ -1,0 +1,3065 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Urbanist:wght@400;600;700&display=swap');
+@import './tokens.css';
+
+/* ==========================================================================
+   VIEW TRANSITION ANIMATIONS
+   ========================================================================== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.view-animate {
+  animation: fadeUp 0.4s ease-out;
+}
+
+.page-home {
+  min-height: 100vh;
+  background: var(--color-slate-50);
+  font-family: var(--font-family);
+  color: var(--color-slate-800);
+}
+
+.sat-lms-demo__scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.45) transparent;
+}
+
+.sat-lms-demo__scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sat-lms-demo__scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sat-lms-demo__scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(100, 116, 139, 0.42);
+}
+
+.sat-lms-demo__scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.56);
+}
+
+/* Secondary Navigation - Sibling Courses */
+.secondary-nav {
+  background: var(--color-slate-50);
+  border-bottom: 1px solid rgba(0, 111, 238, 0.06);
+  position: sticky;
+  top: var(--header-top-offset, 72px);
+  z-index: 90;
+  transition: transform 0.3s ease, opacity 0.3s ease, top 0.3s ease;
+}
+
+/* Hide secondary nav on scroll down */
+.secondary-nav.nav-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.secondary-nav-container {
+  /* End-to-end with matching side margins as hero banner */
+  padding: 0 var(--page-padding-x);
+  position: relative;
+  /* max-width: var(--max-content-width); */
+  margin: 0 auto;
+}
+
+/* Scroll Fade & Arrows */
+.scroll-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.scroll-fade-left {
+  left: var(--page-padding-x);
+  background: linear-gradient(to right, var(--color-slate-50) 0%, var(--color-slate-50) 30%, transparent 100%);
+  justify-content: flex-start;
+  padding-left: 0;
+}
+
+.scroll-fade-right {
+  right: var(--page-padding-x);
+  background: linear-gradient(to left, var(--color-slate-50) 0%, var(--color-slate-50) 30%, transparent 100%);
+  justify-content: flex-end;
+  padding-right: 0;
+}
+
+.scroll-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-slate-500);
+  box-shadow: var(--shadow-subtle);
+  transition: all var(--transition-fast);
+  pointer-events: auto;
+}
+
+.scroll-arrow:hover {
+  background: white;
+  border-color: rgba(0, 111, 238, 0.2);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-primary-subtle);
+}
+
+.secondary-nav-tabs {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 12px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.secondary-nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.secondary-nav-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 8px;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-500);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-subtle);
+}
+
+.secondary-nav-tab:hover {
+  background: white;
+  border-color: rgba(0, 111, 238, 0.15);
+  color: var(--color-slate-700);
+  box-shadow: var(--shadow-primary-subtle);
+}
+
+.secondary-nav-tab.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-blue-500) 100%);
+  border-color: transparent;
+  color: white;
+  box-shadow: var(--shadow-primary-glow);
+}
+
+.secondary-nav-tab .tab-label {
+  font-weight: inherit;
+}
+
+.secondary-nav-tab.active .tab-label {
+  font-weight: var(--font-weight-semibold);
+  color: white;
+}
+
+.tab-progress-chip {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 111, 238, 0.1);
+  color: var(--color-primary);
+}
+
+.secondary-nav-tab.active .tab-progress-chip {
+  background: white;
+  color: var(--color-primary);
+}
+
+/* ========================================
+   COMPLETED COURSE TAB STATES (100% Progress)
+   Uses green theme instead of blue
+   ======================================== */
+
+/* Progress chip green theme for completed courses (non-active) */
+.secondary-nav-tab.completed .tab-progress-chip {
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--color-success-dark);
+}
+
+/* Completed course tab - hover state (non-active) */
+.secondary-nav-tab.completed:hover {
+  border-color: rgba(34, 197, 94, 0.2);
+  box-shadow: var(--shadow-success-sm);
+}
+
+/* Active + Completed: Green gradient instead of blue */
+.secondary-nav-tab.active.completed {
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
+  box-shadow: var(--shadow-success);
+}
+
+/* Active + Completed: Progress chip styling */
+.secondary-nav-tab.active.completed .tab-progress-chip {
+  background: white;
+  color: var(--color-success-dark);
+}
+
+/* ========================================
+   PACE INDICATOR - Sibling Switcher
+   ======================================== */
+/* PACE-enabled course tab */
+.secondary-nav-tab.has-pace {
+  /* Subtle indicator - optional styling */
+}
+
+/* Progress chip with PACE icon */
+.tab-progress-chip.pace-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Lightning bolt icon in progress chip */
+.tab-pace-icon {
+  flex-shrink: 0;
+}
+
+/* PACE icon color - amber/orange */
+.tab-progress-chip .tab-pace-icon {
+  color: #F59E0B;
+}
+
+/* Active tab: PACE icon should be visible against white chip */
+.secondary-nav-tab.active .tab-progress-chip .tab-pace-icon {
+  color: #F59E0B;
+}
+
+/* ========================================
+   CONFETTI ANIMATION - Course Completion
+   ======================================== */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: -20px;
+  opacity: 0;
+  animation: confetti-fall 4s ease-out forwards;
+}
+
+.confetti-piece:nth-child(odd) {
+  border-radius: 50%;
+}
+
+.confetti-piece:nth-child(even) {
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   COURSE HERO BANNER - Edge-to-edge style
+   ======================================== */
+.course-hero-wrapper {
+  padding: 0;
+  position: relative;
+}
+
+.course-hero-banner {
+  position: relative;
+  padding: var(--spacing-2xl) 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* Subtle overlay for depth and visual interest */
+.course-hero-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Pattern overlay - positioned bottom-right, contained within banner */
+.course-hero-banner::after {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  right: var(--page-padding-x);
+  width: 180px;
+  height: 180px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* Default pattern - Full view book icon */
+.course-hero-banner::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='%23ffffff'%3E%3Cpath d='m22.922 1.7a3.017 3.017 0 0 0 -2.516-.636l-4.122 1a4 4 0 0 0 -3.284 3.936v14.8l-1 .181-1-.181v-14.8a3.979 3.979 0 0 0 -3.227-3.923l-4.237-1.028a3 3 0 0 0 -3.536 2.951v16.834l12 2.183 12-2.183v-16.834a2.992 2.992 0 0 0 -1.078-2.3z'/%3E%3C/svg%3E");
+}
+
+/* Focus mode pattern - Filled star icon */
+.course-hero-banner.focus-mode::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='%23ffffff'%3E%3Cpath d='M1.327,12.4,4.887,15,3.535,19.187A3.178,3.178,0,0,0,4.719,22.8a3.177,3.177,0,0,0,3.8-.019L12,20.219l3.482,2.559a3.227,3.227,0,0,0,4.983-3.591L19.113,15l3.56-2.6a3.227,3.227,0,0,0-1.9-5.832H16.4L15.073,2.432a3.227,3.227,0,0,0-6.146,0L7.6,6.568H3.231a3.227,3.227,0,0,0-1.9,5.832Z'/%3E%3C/svg%3E");
+}
+
+.course-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+  /* Constrained content within edge-to-edge banner */
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding-x);
+}
+
+.course-hero-left {
+  flex: 1;
+}
+
+.course-hero-category {
+  display: inline-block;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: var(--spacing-md);
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(4px);
+}
+
+.course-hero-title {
+  font-size: var(--font-size-3xl, 32px);
+  font-weight: var(--font-weight-bold);
+  color: white;
+  margin: 0 0 var(--spacing-md) 0;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Course Completion Section - for 100% completed courses */
+.course-hero-completion-section {
+  margin-top: var(--spacing-md);
+}
+
+.course-hero-completion-status {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.course-hero-next-course {
+  margin-top: var(--spacing-md);
+}
+
+.next-course-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ==========================================
+   COURSE COMPLETE CTA SECTION
+   End-of-page celebration card for completed courses
+   ========================================== */
+.course-complete-cta-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid var(--color-slate-200);
+}
+
+.course-complete-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06) 0%, rgba(22, 163, 74, 0.02) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  border-radius: var(--radius-2xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle gradient overlay for depth */
+.course-complete-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #22C55E 0%, #16A34A 50%, #22C55E 100%);
+}
+
+/* Completion Status Side (used in vertical layout) */
+.completion-status-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.completion-badge-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(22, 163, 74, 0.08) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.completion-badge-icon {
+  color: #22C55E;
+}
+
+.completion-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.completion-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-success-dark);
+  margin: 0;
+}
+
+.completion-subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-600);
+  margin: 0;
+}
+
+/* Divider */
+.completion-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-slate-200);
+  margin: var(--spacing-lg) 0;
+}
+
+/* Next Course Side (vertical layout) */
+.next-course-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background: white;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-xl);
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-card-hover);
+}
+
+.next-course-label-chip {
+  display: inline-flex;
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  color: white;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.5px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.next-course-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.next-course-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-900);
+}
+
+.next-course-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-500);
+}
+
+.next-course-start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  box-shadow: var(--shadow-success-md);
+  transition: all var(--transition-fast);
+  width: 100%;
+  justify-content: center;
+}
+
+.next-course-start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-success-lg);
+}
+
+/* All Courses Complete */
+.all-courses-complete-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: var(--radius-xl);
+}
+
+.star-badge {
+  color: #F59E0B;
+  filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.3));
+}
+
+.all-complete-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.all-complete-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: #D97706;
+}
+
+.all-complete-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-500);
+}
+
+/* Mobile responsive */
+@media (max-width: 767px) {
+  .course-complete-card {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .completion-badge-circle {
+    width: 64px;
+    height: 64px;
+  }
+
+
+
+  .next-course-side {
+    max-width: 100%;
+  }
+}
+
+/* Estimated time - two-line layout (line 2 below title) */
+.course-hero-estimated-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: var(--spacing-lg);
+}
+
+.course-hero-estimated-time svg {
+  flex-shrink: 0;
+}
+
+/* Full view mode: darker text for estimated time */
+.course-hero-banner.full-view-mode .course-hero-estimated-time {
+  color: var(--color-slate-500);
+}
+
+.course-hero-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.course-hero-progress-bar {
+  width: 180px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.course-hero-progress-fill {
+  height: 100%;
+  background: white;
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease-out;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.course-hero-progress-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.course-hero-progress-text {
+  font-size: var(--font-size-sm, 14px);
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: var(--font-weight-medium);
+}
+
+.course-hero-dot-separator {
+  color: var(--color-slate-400);
+  font-size: var(--font-size-base, 16px);
+  line-height: 1;
+  user-select: none;
+}
+
+/* View Course Stats toggle button - text-only style */
+.course-hero-stats-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.course-hero-stats-toggle:hover {
+  color: var(--color-primary-dark, #0051a8);
+}
+
+.course-hero-stats-toggle.expanded {
+  color: var(--color-primary-dark, #0051a8);
+}
+
+.course-hero-stats-toggle svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  transition: transform var(--transition-fast);
+}
+
+.course-hero-stats-toggle.expanded svg {
+  transform: rotate(180deg);
+}
+
+/* Hide stats toggle on tablet/mobile - compact journey track not shown */
+@media (max-width: 1023px) {
+  .course-hero-stats-toggle {
+    display: none;
+  }
+}
+
+/* Stage Chip - themed colors */
+.course-hero-stage-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+/* Focused view - white/transparent chips */
+.course-hero-banner.focus-mode .course-hero-stage-chip {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(4px);
+}
+
+/* Stage color themes - used in full view */
+.course-hero-stage-chip.stage-diagnostic {
+  background: rgba(245, 158, 11, 0.15);
+  color: #B45309;
+}
+
+.course-hero-stage-chip.stage-learning {
+  background: rgba(0, 111, 238, 0.12);
+  color: var(--color-primary);
+}
+
+.course-hero-stage-chip.stage-cementing {
+  background: rgba(22, 163, 74, 0.12);
+  color: #16A34A;
+}
+
+.course-hero-stage-chip.stage-final {
+  background: rgba(139, 92, 246, 0.12);
+  color: #7C3AED;
+}
+
+.course-hero-stage-chip.stage-revision {
+  background: rgba(6, 182, 212, 0.12);
+  color: #0891B2;
+}
+
+.course-hero-stage-chip.stage-completed {
+  background: rgba(34, 197, 94, 0.15);
+  color: #16A34A;
+}
+
+.course-hero-right {
+  flex-shrink: 0;
+}
+
+/* View Toggle - Prominent style for hero banner */
+.course-hero-banner .view-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 5px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dropdown);
+}
+
+.course-hero-banner .view-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 20px;
+  font-weight: var(--font-weight-semibold);
+}
+
+.course-hero-banner .view-toggle-btn svg {
+  flex-shrink: 0;
+}
+
+.course-hero-banner .view-toggle-btn:hover:not(.active) {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.course-hero-banner .view-toggle-btn.active {
+  background: white;
+  color: var(--color-slate-800);
+  box-shadow: var(--shadow-strong);
+}
+
+.course-hero-banner .view-toggle-btn.active svg {
+  color: var(--color-primary);
+}
+
+/* ========================================
+   FULL VIEW MODE - Light blue theme
+   ======================================== */
+.course-hero-banner.full-view-mode {
+  background: #d8eafc;
+  box-shadow: none;
+}
+
+.course-hero-banner.full-view-mode::before {
+  background: none;
+}
+
+.course-hero-banner.full-view-mode::after {
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='%2364748b'%3E%3Cpath d='m22.922 1.7a3.017 3.017 0 0 0 -2.516-.636l-4.122 1a4 4 0 0 0 -3.284 3.936v14.8l-1 .181-1-.181v-14.8a3.979 3.979 0 0 0 -3.227-3.923l-4.237-1.028a3 3 0 0 0 -3.536 2.951v16.834l12 2.183 12-2.183v-16.834a2.992 2.992 0 0 0 -1.078-2.3z'/%3E%3C/svg%3E");
+}
+
+.course-hero-banner.full-view-mode .course-hero-category {
+  color: var(--color-slate-600);
+  background: rgba(100, 116, 139, 0.12);
+  backdrop-filter: none;
+}
+
+.course-hero-banner.full-view-mode .course-hero-title {
+  color: var(--color-slate-900);
+  text-shadow: none;
+}
+
+.course-hero-banner.full-view-mode .course-hero-progress-bar {
+  /* Hide progress bar in full view on desktop - compact journey track provides visual progress */
+  display: none;
+}
+
+/* Tablet/mobile adjustments for full view mode */
+@media (max-width: 1023px) {
+  /* Show progress bar since compact journey track is hidden */
+  .course-hero-banner.full-view-mode .course-hero-progress-bar {
+    display: block;
+  }
+}
+
+.course-hero-banner.full-view-mode .course-hero-progress-fill {
+  background: var(--color-primary);
+  box-shadow: 0 0 8px rgba(0, 111, 238, 0.3);
+}
+
+.course-hero-banner.full-view-mode .course-hero-progress-text {
+  color: var(--color-slate-600);
+}
+
+.course-hero-banner.full-view-mode .view-toggle {
+  background: white;
+  backdrop-filter: none;
+  border: 1px solid rgba(100, 116, 139, 0.15);
+  box-shadow: var(--shadow-subtle);
+}
+
+.course-hero-banner.full-view-mode .view-toggle-btn {
+  color: var(--color-slate-600);
+}
+
+.course-hero-banner.full-view-mode .view-toggle-btn:hover:not(.active) {
+  color: var(--color-slate-800);
+  background: rgba(100, 116, 139, 0.08);
+}
+
+.course-hero-banner.full-view-mode .view-toggle-btn.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-blue-500) 100%);
+  color: white;
+  box-shadow: var(--shadow-primary-sm);
+}
+
+.course-hero-banner.full-view-mode .view-toggle-btn.active svg {
+  color: white;
+}
+
+/* ========================================
+   COURSE COMPLETED STATE - Green Theme
+   Applies to both focused and full view modes
+   ======================================== */
+
+/* Full View Mode - Completed Course: Light green background */
+.course-hero-banner.full-view-mode.course-completed {
+  background: #dcfce7; /* --color-success-50 equivalent */
+}
+
+.course-hero-banner.full-view-mode.course-completed .course-hero-category {
+  color: var(--color-success-dark);
+  background: rgba(34, 197, 94, 0.15);
+}
+
+/* Full View Mode - Completed: View toggle active button green */
+.course-hero-banner.full-view-mode.course-completed .view-toggle-btn.active {
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
+  box-shadow: var(--shadow-success-sm);
+}
+
+/* Focus Mode - Completed: Active toggle button has green icon */
+.course-hero-banner.focus-mode.course-completed .view-toggle-btn.active svg {
+  color: var(--color-success-dark);
+}
+
+/* Focus Mode - Completed: Trophy icon pattern instead of default */
+.course-hero-banner.course-completed::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath fill-rule='evenodd' d='M5.166 2.621v.858c-1.035.148-2.059.33-3.071.543a.75.75 0 0 0-.584.859 6.753 6.753 0 0 0 6.138 5.6 6.73 6.73 0 0 0 2.743 1.346A6.707 6.707 0 0 1 9.279 15H8.54c-1.036 0-1.875.84-1.875 1.875V19.5h-.75a2.25 2.25 0 0 0-2.25 2.25c0 .414.336.75.75.75h15a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-2.25-2.25h-.75v-2.625c0-1.036-.84-1.875-1.875-1.875h-.739a6.706 6.706 0 0 1-1.112-3.173 6.73 6.73 0 0 0 2.743-1.347 6.753 6.753 0 0 0 6.139-5.6.75.75 0 0 0-.585-.858 47.077 47.077 0 0 0-3.07-.543V2.62a.75.75 0 0 0-.658-.744 49.22 49.22 0 0 0-6.093-.377c-2.063 0-4.096.128-6.093.377a.75.75 0 0 0-.657.744Zm0 2.629c0 1.196.312 2.32.857 3.294A5.266 5.266 0 0 1 3.16 5.337a45.6 45.6 0 0 1 2.006-.343v.256Zm13.5 0v-.256c.674.1 1.343.214 2.006.343a5.265 5.265 0 0 1-2.863 3.207 6.72 6.72 0 0 0 .857-3.294Z' clip-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* ========================================
+   EXPANDABLE STATS PANEL (Full View Only)
+   ======================================== */
+
+/* Hero wrapper adjustments for stats */
+.course-hero-wrapper.with-stats-bar {
+  padding-bottom: 0;
+  transition: filter 0.3s ease;
+}
+
+.course-hero-wrapper.with-stats-bar.stats-expanded {
+  /* No shadow in expanded state */
+}
+
+/* Stats Toggle Bar - Full width white box bar */
+.stats-toggle-bar-wrapper {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 32px var(--page-padding-x) 0;
+}
+
+.stats-toggle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: 16px 24px;
+  background: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-subtle);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.stats-toggle-bar:hover {
+  background: var(--color-slate-50);
+  color: var(--color-slate-700);
+}
+
+.stats-toggle-bar.expanded {
+  background: var(--color-primary);
+  color: white;
+}
+
+.stats-toggle-bar.expanded:hover {
+  background: var(--color-primary-dark);
+}
+
+.stats-toggle-bar svg {
+  flex-shrink: 0;
+}
+
+/* Expandable Stats Panel Container */
+.stats-panel-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  background: white;
+}
+
+.stats-panel-container.expanded {
+  max-height: 400px;
+}
+
+.stats-panel-content {
+  /* Constrained content within edge-to-edge panel */
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--page-padding-x);
+}
+
+/* Course Journey Track in Hero - Full View */
+.journey-track-hero-wrapper {
+  position: relative;
+  z-index: 20;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--page-padding-x) var(--spacing-lg);
+}
+
+.journey-track-hero-wrapper .course-journey-track {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-dropdown);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Stats inside journey track - override some defaults */
+.journey-track-hero-wrapper .stats-cards-grid {
+  margin-top: 0;
+}
+
+.journey-track-hero-wrapper .stats-fresh-message {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Compact Journey Track Wrapper - Full View Simplified */
+.compact-journey-track-wrapper {
+  position: relative;
+  z-index: 20;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  margin-top: var(--spacing-lg);
+  padding: 0 var(--page-padding-x) var(--spacing-lg);
+}
+
+/* ========================================
+   STATS DASHBOARD - UNIFORM DESIGN SYSTEM
+   ========================================
+
+   Typography Scale:
+   - Card headers: 11px, uppercase, semibold, slate-400
+   - Primary values: 20px, bold, slate-800
+   - Secondary labels: 13px, medium, slate-500
+
+   Spacing:
+   - Card padding: 20px (--spacing-xl)
+   - Internal gaps: 12px (--spacing-md)
+   - List item gaps: 10px (--spacing-sm)
+
+   Heights:
+   - All cards: 140px min-height
+   ======================================== */
+
+/* Stats Cards Grid - Equal width tiles */
+.stats-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+  background: white;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-slate-200);
+  overflow: hidden;
+}
+
+/* Fresh State - Grayed out stats with message */
+.stats-fresh-message {
+  text-align: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+}
+
+.stats-fresh-text {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-500);
+  font-style: italic;
+}
+
+/* Grayed out tiles in fresh state */
+.stats-cards-grid.fresh-state {
+  opacity: 0.5;
+  filter: grayscale(0.6);
+  pointer-events: none;
+}
+
+/* Base Stat Card - Section inside unified grid */
+/* Override CourseDashboard.css .stat-card styles */
+.stats-cards-grid .stat-card {
+  position: relative;
+  border-radius: 0;
+  padding: var(--spacing-xl);
+  background: transparent;
+  border: none;
+  border-right: 1px dashed var(--color-slate-200);
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+  transition: none;
+}
+
+.stats-cards-grid .stat-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.stats-cards-grid .stat-card:last-child {
+  border-right: none;
+}
+
+/* Uniform Card Header - Centered */
+.stat-card-label {
+  display: block;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-400);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.stat-card-subtitle {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-400);
+  text-align: center;
+  margin-top: calc(-1 * var(--spacing-sm));
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ========================================
+   PROMINENT VALUE - 20px Bold
+   Used for: percentage, grade counts, time values
+   ======================================== */
+.stat-prominent-value {
+  font-size: var(--font-size-xl, 20px);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-800);
+  line-height: 1.2;
+}
+
+/* Uniform Secondary Label */
+.stat-secondary-label {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-500);
+}
+
+/* ========================================
+   Module Progress Card
+   ======================================== */
+.stat-card-progress-modules {
+  /* Inherits from .stat-card */
+}
+
+.stat-card-body {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  flex: 1;
+}
+
+/* Donut Chart - Bigger & Thicker */
+.progress-donut {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+
+.donut-chart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.donut-bg {
+  fill: none;
+  stroke: rgba(34, 197, 94, 0.15);
+  stroke-width: 12;
+}
+
+.donut-fill {
+  fill: none;
+  stroke: #22C55E;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.6s ease;
+}
+
+/* Protruding circle at end of progress arc */
+.donut-end-circle {
+  fill: #22C55E;
+  stroke: white;
+  stroke-width: 3;
+}
+
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Tile 1: Percentage - 20px Bold */
+.donut-percentage {
+  font-size: var(--font-size-xl, 20px);
+  font-weight: bold;
+  color: var(--color-slate-800);
+}
+
+/* Modules List */
+.modules-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.stat-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.list-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.list-icon.completed {
+  color: #22C55E;
+}
+
+.list-icon.in-progress {
+  color: var(--color-primary);
+}
+
+.list-icon.not-started {
+  color: var(--color-slate-300);
+}
+
+.stat-fraction {
+  font-size: var(--font-size-base, 16px);
+  font-weight: bold;
+  color: var(--color-slate-700);
+  min-width: 36px;
+}
+
+.stat-list-label {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-500);
+}
+
+/* ========================================
+   Performance Card
+   ======================================== */
+.stat-card-performance {
+  /* Inherits from .stat-card */
+}
+
+.stat-grades {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-3xl);
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.grade-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+}
+
+/* Tile 2: Grade Counts - 20px Bold */
+.grade-count {
+  font-size: var(--font-size-xl, 20px);
+  font-weight: bold;
+  color: var(--color-slate-800);
+}
+
+/* ========================================
+   Time Investment Card
+   ======================================== */
+.stat-card-time {
+  /* Inherits from .stat-card */
+}
+
+.stat-time-rows {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  row-gap: var(--spacing-md);
+  column-gap: var(--spacing-xl);
+  align-items: center;
+  flex: 1;
+}
+
+.time-row {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+  align-items: center;
+}
+
+.time-row-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+}
+
+.time-row-value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-800);
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* PACE TIME SAVINGS highlighted band */
+.time-row-pace-savings {
+  background: var(--color-success-50);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-xs) var(--spacing-md);
+  margin: 0 calc(-1 * var(--spacing-md));
+}
+
+.time-row-pace-savings .time-row-label,
+.time-row-pace-savings .time-row-value {
+  color: var(--color-success-dark);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Pace logo inline with text */
+.time-row-pace-logo {
+  vertical-align: middle;
+  color: var(--color-slate-600);
+}
+
+.time-row-pace-savings .time-row-pace-logo {
+  color: var(--color-success-dark);
+}
+
+
+/* Responsive Stats Panel */
+@media (max-width: 900px) {
+  .stats-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-panel-content {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .stat-card-body {
+    justify-content: center;
+  }
+
+  .stat-grades {
+    justify-content: space-around;
+  }
+}
+
+/* PACE progress footnote */
+.pace-progress-footnote {
+  font-size: var(--font-size-xs);
+  color: var(--color-slate-400);
+  font-style: italic;
+  text-align: right;
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-md) 0;
+}
+
+/* ==========================================
+   Search and Filter Bar - Box Design Language
+   ========================================== */
+
+/* Filter bar — now only contains collapsible filter chips */
+.activity-search-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xs) 0 0 0;
+}
+
+/* Search box base styles */
+.activity-search-box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-slate-200);
+  transition: all var(--transition-fast);
+}
+
+/* Compact search box — fixed width in header row */
+.search-box-compact {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.search-box-compact .activity-search-input {
+  padding: 8px 12px;
+  font-size: var(--font-size-xs, 12px);
+}
+
+.search-box-compact .search-action-btn {
+  width: 32px;
+  height: 32px;
+  margin: 3px;
+  border-radius: var(--radius-md);
+}
+
+.activity-search-box:focus-within {
+  border-color: var(--color-primary);
+}
+
+.activity-search-input {
+  flex: 1;
+  padding: 16px 20px;
+  border: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm, 14px);
+  color: var(--color-slate-800);
+  background: transparent;
+}
+
+.activity-search-input:focus {
+  outline: none;
+}
+
+.activity-search-input::placeholder {
+  color: var(--color-slate-400);
+}
+
+/* Search/Clear action button */
+.search-action-btn {
+  width: 44px;
+  height: 44px;
+  margin: 4px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.search-action-btn:hover {
+  background: var(--color-primary-dark);
+}
+
+.search-action-btn.clear {
+  background: var(--color-slate-200);
+  color: var(--color-slate-600);
+}
+
+.search-action-btn.clear:hover {
+  background: var(--color-slate-300);
+  color: var(--color-slate-800);
+}
+
+/* Header controls — right side of header row */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Mobile search icon trigger — hidden on desktop */
+.search-icon-trigger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  background: white;
+  color: var(--color-slate-600);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.search-icon-trigger:hover,
+.search-icon-trigger.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+/* Mobile expanded search row — below controls */
+.mobile-search-expanded {
+  display: none;
+  width: 100%;
+}
+
+.mobile-search-expanded .activity-search-box {
+  width: 100%;
+}
+
+.mobile-search-expanded .activity-search-input {
+  padding: 10px 14px;
+  font-size: var(--font-size-sm, 14px);
+}
+
+/* Filter toggle button — visible on all breakpoints */
+.filter-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: white;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  white-space: nowrap;
+}
+
+.filter-toggle-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.filter-toggle-btn:hover {
+  background: var(--color-slate-50);
+  border-color: var(--color-slate-300);
+}
+
+.filter-toggle-btn.active {
+  border-color: var(--color-primary);
+  background: #eff6ff;
+  color: var(--color-primary);
+}
+
+/* Filter count badge */
+.filter-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  padding: 0 5px;
+  border: 2px solid white;
+}
+
+/* Filter Dropdown */
+.filter-dropdown-wrapper {
+  position: relative;
+}
+
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 340px;
+  background: white;
+  border: 1px solid var(--color-slate-150, var(--color-slate-200));
+  border-radius: var(--radius-xl);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  z-index: 100;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: filterDropdownIn 0.15s ease-out;
+}
+
+@keyframes filterDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filter-dropdown-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-dropdown-label {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-400);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 2px;
+}
+
+.filter-dropdown-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-pill {
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-slate-100, #f1f5f9);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.filter-pill:hover {
+  background: var(--color-slate-200, #e2e8f0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.filter-pill.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 1px 4px rgba(59, 130, 246, 0.3);
+}
+
+.filter-pill.active:hover {
+  filter: brightness(1.05);
+}
+
+.filter-dropdown-footer {
+  padding-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-match-count {
+  font-size: var(--font-size-xs, 12px);
+  color: var(--color-slate-400);
+}
+
+.filter-match-count strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+.filter-clear-btn {
+  padding: 4px 0;
+  border: none;
+  background: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.filter-clear-btn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Hide Skipped toggle — shown when PACE is ON in full view toolbar */
+.hide-skipped-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: white;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.hide-skipped-toggle svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.hide-skipped-toggle:hover {
+  background: var(--color-slate-50);
+  border-color: var(--color-slate-300);
+}
+
+.hide-skipped-toggle.active {
+  border-color: #f59e0b;
+  background: #fffbeb;
+  color: #b45309;
+}
+
+/* Multi-state expand button — used on all breakpoints */
+/* Expand mode segmented control */
+.expand-mode-switcher {
+  display: flex;
+  align-items: center;
+  background: var(--color-slate-100);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  border: 1px solid var(--color-slate-200);
+  flex-shrink: 0;
+}
+
+.expand-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-500);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.expand-mode-btn svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.expand-mode-btn:hover:not(.expand-mode-btn--active) {
+  color: var(--color-slate-700);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.expand-mode-btn--active {
+  background: white;
+  color: var(--color-slate-900);
+  box-shadow: var(--shadow-sm);
+  cursor: default;
+}
+
+/* Expand mode dropdown — hidden on desktop, shown on tablet */
+.expand-mode-dropdown-wrapper {
+  display: none;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.expand-mode-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: white;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-700);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.expand-mode-dropdown-btn:hover,
+.expand-mode-dropdown-btn.active {
+  background: var(--color-slate-50);
+  border-color: var(--color-slate-300);
+}
+
+.expand-mode-dropdown-btn svg:last-child {
+  margin-left: 2px;
+  color: var(--color-slate-400);
+  transition: transform var(--transition-fast);
+}
+
+.expand-mode-dropdown-btn.active svg:last-child {
+  transform: rotate(180deg);
+}
+
+.expand-mode-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 160px;
+  background: white;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  z-index: 90;
+  padding: 4px;
+}
+
+.expand-mode-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-slate-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.expand-mode-dropdown-item:hover {
+  background: var(--color-slate-50);
+  color: var(--color-slate-900);
+}
+
+.expand-mode-dropdown-item.active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.filter-label {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-500);
+  flex-shrink: 0;
+}
+
+/* Filter buttons with icons - flex to fill space */
+.type-filter-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-lg);
+  background: white;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.type-filter-btn svg {
+  flex-shrink: 0;
+}
+
+.type-filter-btn:hover {
+  border-color: var(--color-slate-300);
+  background: var(--color-slate-50);
+}
+
+/* Active state - default (All Types) */
+.type-filter-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* Type-specific active colors */
+.type-filter-btn.concept.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.type-filter-btn.skill.active {
+  background: #D97706;
+  border-color: #D97706;
+}
+
+.type-filter-btn.uqe.active {
+  background: #16A34A;
+  border-color: #16A34A;
+}
+
+.type-filter-btn.mock.active {
+  background: #D97706;
+  border-color: #D97706;
+}
+
+.type-filter-btn.remedial.active {
+  background: #DC2626;
+  border-color: #DC2626;
+}
+
+.type-filter-btn.cementing.active {
+  background: #0891B2;
+  border-color: #0891B2;
+}
+
+.type-filter-btn.revision.active {
+  background: #EA580C;
+  border-color: #EA580C;
+}
+
+/* Responsive Search/Filter - Mobile */
+@media (max-width: 767px) {
+  .activity-search-filter-bar {
+    gap: var(--spacing-md);
+  }
+
+  .activity-search-input {
+    padding: 14px 16px;
+  }
+
+  .search-action-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .activity-type-filters {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  .filter-label {
+    width: 100%;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .type-filter-btn {
+    flex: 0 1 auto;
+    padding: 10px 14px;
+  }
+}
+
+/* ==========================================
+   Page Layout - Content Push for Profile Pane
+   ========================================== */
+
+.page-layout {
+  display: flex;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+.page-main-area {
+  flex: 1;
+  min-width: 0;
+  transition: all 0.3s ease;
+}
+
+
+/* Main Content */
+.page-home-content {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--page-padding-x) 60px;
+}
+
+/* Full view: no overlap with hero banner */
+.page-home-content.full-view-mode {
+  margin-top: 0;
+}
+
+@media (max-width: 1023px) {
+  /* Hide old journey track wrapper on mobile/tablet */
+  .journey-track-hero-wrapper {
+    display: none;
+  }
+
+  /* Compact journey track - hide on mobile (progress bar is sufficient) */
+  .compact-journey-track-wrapper {
+    display: none;
+  }
+
+  /* Full view: hide journey chips, dot separators, and stats toggle on tablet/mobile
+     — just show simple progress bar like focused view */
+  .course-hero-banner.full-view-mode .course-hero-dot-separator,
+  .course-hero-banner.full-view-mode .journey-chips-container,
+  .course-hero-banner.full-view-mode .course-hero-stats-toggle {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   NO-PACE-PANEL STATE
+   When diagnostic is NOT completed, the PACE panel is not visible.
+   Remove the overlap styling so the DiagnosticBox doesn't overlap the hero banner.
+   ========================================================================== */
+
+/* Hero banner: reduce bottom padding when PACE panel is not visible */
+.course-hero-banner.no-pace-panel {
+  padding-bottom: var(--spacing-2xl);
+}
+
+/* Page content: remove negative margin (no overlap) when PACE panel is not visible */
+.page-home-content.no-pace-panel {
+  margin-top: 0;
+}
+
+/* Mobile: also apply no-overlap rules */
+@media (max-width: 767px) {
+  .course-hero-banner.no-pace-panel {
+    padding-bottom: var(--spacing-2xl);
+  }
+
+  .page-home-content.no-pace-panel {
+    margin-top: 0;
+  }
+
+  /* Full view mode with no-pace-panel */
+  .page-home-content.full-view-mode.no-pace-panel {
+    margin-top: 0;
+  }
+}
+
+/* Tablet: also apply no-overlap rules */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .course-hero-banner.no-pace-panel {
+    padding-bottom: var(--spacing-2xl);
+  }
+
+  .page-home-content.no-pace-panel {
+    margin-top: 0;
+  }
+
+  .page-home-content.full-view-mode.no-pace-panel {
+    margin-top: 0;
+  }
+}
+
+/* View Toggle */
+.view-toggle {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+}
+
+.view-toggle-btn {
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm, 14px);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-slate-500);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.view-toggle-btn:hover:not(.active) {
+  color: var(--color-slate-700);
+}
+
+.view-toggle-btn.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-blue-500) 100%);
+  color: white;
+  box-shadow: var(--shadow-primary-sm);
+}
+
+/* Full View Section */
+.full-view-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  animation: fadeUp 0.4s ease-out;
+}
+
+.full-view-modules {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* Remove DiagnosticBox's own margin in full view — parent gap handles spacing */
+.full-view-modules > .diagnostic-box {
+  margin-bottom: 0;
+}
+
+/* Staggered animation for module cards */
+.full-view-modules > *:nth-child(1) { animation: fadeUp 0.4s ease-out 0.05s both; }
+.full-view-modules > *:nth-child(2) { animation: fadeUp 0.4s ease-out 0.1s both; }
+.full-view-modules > *:nth-child(3) { animation: fadeUp 0.4s ease-out 0.15s both; }
+.full-view-modules > *:nth-child(4) { animation: fadeUp 0.4s ease-out 0.2s both; }
+.full-view-modules > *:nth-child(5) { animation: fadeUp 0.4s ease-out 0.25s both; }
+.full-view-modules > *:nth-child(6) { animation: fadeUp 0.4s ease-out 0.3s both; }
+.full-view-modules > *:nth-child(7) { animation: fadeUp 0.4s ease-out 0.35s both; }
+.full-view-modules > *:nth-child(8) { animation: fadeUp 0.4s ease-out 0.4s both; }
+.full-view-modules > *:nth-child(n+9) { animation: fadeUp 0.4s ease-out 0.45s both; }
+
+/* Block section separators — left-aligned label + line */
+.block-section-separator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) 0;
+}
+
+.block-section-label {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-slate-400);
+  white-space: nowrap;
+}
+
+.block-section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--color-slate-200);
+}
+
+/* ==========================================================================
+   DEV/TEST CODE - START: Remove these styles when backend is ready
+   ========================================================================== */
+/* Floating Dev Panel - Collapsible */
+.dev-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.dev-panel-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.85);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-xl);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.dev-panel-toggle:hover {
+  background: rgba(0, 0, 0, 0.95);
+  transform: scale(1.05);
+}
+
+.dev-panel.expanded .dev-panel-toggle {
+  background: var(--color-primary);
+}
+
+.dev-panel-content {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dev-panel.expanded .dev-panel-content {
+  display: flex;
+}
+
+.dev-panel-header {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 4px;
+  font-family: var(--font-family);
+}
+
+.dev-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dev-toggle-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.dev-toggle-text {
+  color: white;
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family);
+}
+/* ==========================================================================
+   DEV/TEST CODE - END
+   ========================================================================== */
+
+.activity-row.highlighted {
+  padding: var(--spacing-lg) var(--spacing-lg);
+  border-radius: var(--radius-xl);
+  background: var(--gradient-primary-subtle);
+}
+
+/* Units */
+.unit-container {
+  margin-bottom: var(--spacing-lg);
+}
+
+.unit-status-icon {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+}
+
+.unit-status-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.unit-activity-row {
+  display: flex;
+  align-items: center;
+  padding: 10px var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.unit-activity-row:hover {
+  background: var(--overlay-light);
+}
+
+.unit-activity-row.next-activity {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--gradient-primary-subtle);
+  margin: var(--spacing-xs) 0;
+}
+
+.unit-activity-icon {
+  font-size: var(--font-size-sm);
+  margin-right: var(--spacing-md);
+  font-weight: var(--font-weight-semibold);
+  display: flex;
+  align-items: center;
+}
+
+.unit-activity-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.unit-activity-name {
+  flex: 1;
+  font-size: var(--font-size-sm);
+}
+
+.unit-activity-type {
+  font-size: var(--font-size-xs);
+  margin-right: 20px;
+}
+
+.unit-activity-score {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* Loading & Error States */
+.page-home-loading,
+.page-home-error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--color-slate-50) 0%, #EEF2FF 100%);
+}
+
+.loading-spinner {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.error-box {
+  background: var(--background);
+  padding: 40px;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.error-icon {
+  font-size: var(--font-size-h1, 40px);
+  display: block;
+  margin-bottom: var(--spacing-lg);
+}
+
+.error-icon svg {
+  width: 48px;
+  height: 48px;
+  color: var(--color-warning);
+}
+
+.error-box h1 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+  margin-bottom: var(--spacing-sm);
+}
+
+.error-box p {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-500);
+}
+
+/* ========================================
+   ACTIVITY LISTING SECTION
+   ======================================== */
+
+.activity-listing-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-xl);
+  border-top: 1px solid var(--color-slate-200);
+}
+
+/* Activity Listing Header - Similar to Next Up */
+.activity-listing-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-2xl);
+}
+
+/* Section headers — sticky */
+.full-view-section .activity-listing-header,
+.activity-listing-section .activity-listing-header {
+  margin-bottom: 0;
+  position: sticky;
+  top: var(--header-top-offset, 72px);
+  z-index: 80;
+  background: var(--color-slate-50);
+  padding: var(--spacing-md) 0;
+  transition: all var(--transition-fast), top 0.3s ease;
+}
+
+/* Stuck state — edge-to-edge glass fill + hide secondary info */
+.activity-listing-header.is-stuck {
+  margin-left: calc(-1 * var(--page-padding-x));
+  margin-right: calc(-1 * var(--page-padding-x));
+  padding-left: var(--page-padding-x);
+  padding-right: var(--page-padding-x);
+  width: calc(100% + 2 * var(--page-padding-x));
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.activity-listing-header.is-stuck .activity-listing-title {
+  font-size: var(--font-size-lg);
+}
+
+.activity-listing-header.is-stuck .activity-listing-descriptor {
+  display: none;
+}
+
+.activity-listing-header.is-stuck .personalized-badge {
+  display: none;
+}
+
+.activity-listing-title-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.activity-listing-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-blue-500) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-primary-glow);
+  color: var(--text-inverse);
+}
+
+.activity-listing-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.activity-listing-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.activity-listing-title {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-900);
+}
+
+.activity-listing-descriptor {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-500);
+  font-weight: var(--font-weight-normal);
+}
+
+
+.activity-listing-actions {
+  display: flex;
+  align-items: center;
+}
+
+.show-all-modules-btn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.show-all-modules-btn:hover {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-primary-glow);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN - MOBILE (max-width: 767px)
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  /* ===== HERO HEADER - MOBILE ===== */
+
+  /* Compact hero: reduce vertical padding, hide decorative icons */
+  .course-hero-banner {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .course-hero-banner::after {
+    display: none;
+  }
+
+  /* Stack title and progress vertically */
+  .course-hero-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+
+  .course-hero-left {
+    width: 100%;
+  }
+
+  /* Show HeroPaceIsland on mobile - important control for learning path */
+  .course-hero-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+  }
+
+  /* Truncate title to 1 line on mobile */
+  .course-hero-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-2xl, 24px);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* Smaller category chip on mobile */
+  .course-hero-category {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* ===== FOCUSED VIEW HEADER - MOBILE ===== */
+
+  /* Focused mode: stack vertically with reordering */
+  .course-hero-banner.focus-mode .course-hero-content {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  /* Place pace island after all hero-left children in focus mode */
+  .course-hero-banner.focus-mode .course-hero-right {
+    order: 4;
+  }
+
+  /* Break out children of course-hero-left so we can reorder them */
+  .course-hero-banner.focus-mode .course-hero-left {
+    display: contents;
+  }
+
+  /* Order: Category (1), Title (2), Completion/Progress (3) */
+  .course-hero-banner.focus-mode .course-hero-category {
+    order: 1;
+    width: fit-content;
+  }
+  .course-hero-banner.focus-mode .course-hero-title { order: 2; }
+  .course-hero-banner.focus-mode .course-hero-completion-section { order: 3; }
+  .course-hero-banner.focus-mode .course-hero-progress { order: 3; }
+
+  /* Completion section responsive styling */
+  .course-hero-completion-section {
+    margin-top: var(--spacing-sm);
+  }
+
+  .course-hero-completion-status {
+    font-size: var(--font-size-sm, 14px);
+  }
+
+  .next-course-cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Focused mode: Percentage first, then progress bar filling remaining space */
+  .course-hero-banner.focus-mode .course-hero-progress {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .course-hero-banner.focus-mode .course-hero-progress-row {
+    order: -1;
+  }
+
+  .course-hero-banner.focus-mode .course-hero-progress-bar {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .course-hero-banner.focus-mode .course-hero-progress-text {
+    font-size: var(--font-size-xs, 12px);
+    white-space: nowrap;
+  }
+
+  /* Stage chip styling on mobile - inline with text, with dot separator */
+  .course-hero-banner.focus-mode .course-hero-stage-chip {
+    font-size: var(--font-size-xs, 12px);
+    padding: 3px 10px;
+    position: relative;
+    margin-left: var(--spacing-lg); /* Space for the dot separator */
+  }
+
+  /* Add dot separator before stage chip on mobile - positioned outside the chip */
+  .course-hero-banner.focus-mode .course-hero-stage-chip::before {
+    content: '·';
+    position: absolute;
+    left: -14px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-base, 16px);
+  }
+
+  /* ===== FULL VIEW HERO - match focused view layout ===== */
+  /* Break out children for consistent spacing (matches focus mode) */
+  .course-hero-banner.full-view-mode .course-hero-left {
+    display: contents;
+  }
+
+  .course-hero-banner.full-view-mode .course-hero-category {
+    order: 1;
+    width: fit-content;
+  }
+  .course-hero-banner.full-view-mode .course-hero-title { order: 2; }
+  .course-hero-banner.full-view-mode .course-hero-progress { order: 3; }
+  .course-hero-banner.full-view-mode .course-hero-right { order: 4; }
+
+  .course-hero-banner.full-view-mode .course-hero-progress {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .course-hero-banner.full-view-mode .course-hero-progress-row {
+    order: -1;
+  }
+
+  .course-hero-banner.full-view-mode .course-hero-progress-bar {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .course-hero-banner.full-view-mode .course-hero-progress-text {
+    font-size: var(--font-size-xs, 12px);
+    white-space: nowrap;
+  }
+
+  /* ===== FULL VIEW SECTION - MOBILE ===== */
+
+  /* Spacing between module cards on mobile */
+  .full-view-modules {
+    gap: var(--spacing-xl);
+  }
+
+  .full-view-section {
+    gap: var(--spacing-sm); /* Tighter spacing between header/controls and module list */
+  }
+
+  /* ===== ALL MODULES HEADER - MOBILE ===== */
+
+  /* Prevent icon from shrinking */
+  .activity-listing-icon {
+    flex-shrink: 0;
+  }
+
+  /* Single-row header: title left, icon buttons right */
+  .full-view-section .activity-listing-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+  }
+
+  /* Hide subtitle — saves a full row */
+  .full-view-section .activity-listing-descriptor {
+    display: none;
+  }
+
+  /* Controls row: single line, no wrapping, tight gaps */
+  .full-view-section .header-controls {
+    flex-wrap: nowrap;
+    gap: var(--spacing-xs);
+    flex-shrink: 0;
+  }
+
+  /* Hide text labels on toolbar buttons — icon only on mobile */
+  .full-view-section .filter-toggle-btn > span:not(.filter-badge),
+  .full-view-section .hide-skipped-toggle > span,
+  .full-view-section .expand-mode-dropdown-btn > span {
+    display: none;
+  }
+
+  /* Tighten button padding for icon-only state */
+  .full-view-section .filter-toggle-btn,
+  .full-view-section .hide-skipped-toggle {
+    padding: 8px 10px;
+  }
+
+  .full-view-section .expand-mode-dropdown-btn {
+    padding: 6px 10px;
+  }
+
+  /* Hide desktop search box, show icon trigger on mobile */
+  .full-view-section .header-controls .search-desktop {
+    display: none;
+  }
+
+  .search-icon-trigger {
+    display: flex;
+  }
+
+  /* Show mobile expanded search row */
+  .mobile-search-expanded {
+    display: block;
+  }
+
+  /* Disable sticky section header in focus view (Current Module) on mobile */
+  .activity-listing-section .activity-listing-header {
+    position: static;
+  }
+
+  /* Hide "Show All Modules" button on mobile (in Current Module section) */
+  .show-all-modules-btn {
+    display: none;
+  }
+
+  /* Swap segmented control for dropdown on mobile */
+  .expand-mode-switcher {
+    display: none;
+  }
+
+  .expand-mode-dropdown-wrapper {
+    display: block;
+  }
+
+  /* Sticky state: horizontal, compact — hide search + descriptor */
+  .full-view-section .activity-listing-header.is-stuck {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  .full-view-section .activity-listing-header.is-stuck .search-box-compact {
+    display: none;
+  }
+
+  .full-view-section .activity-listing-header.is-stuck .activity-listing-descriptor {
+    display: none;
+  }
+
+  /* Hide "All Modules" title text in sticky state so controls fit in one row */
+  .full-view-section .activity-listing-header.is-stuck .activity-listing-title {
+    display: none;
+  }
+
+  /* ===== COLLAPSIBLE FILTER CHIPS - MOBILE ===== */
+
+  /* Always hide filter label on mobile */
+  .filter-label {
+    display: none;
+  }
+
+  /* Hide icons in filter buttons on mobile */
+  .type-filter-btn svg {
+    display: none;
+  }
+
+  /* Filter chips wrap on mobile */
+  .activity-type-filters {
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+  }
+
+  /* ===== CURRENT ONLY STATE - HIDE NON-CURRENT MODULES ===== */
+
+  /* When mobileExpandState is 2 (current only), hide non-current modules via data attribute or class */
+  /* This will be handled by adding a class to module cards based on state */
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN - TABLET (768px - 1023px)
+   ========================================================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* ===== FOCUSED VIEW HERO - PROGRESS BLOCK ===== */
+
+  /* Focused mode: Progress section stacked layout */
+  .course-hero-banner.focus-mode .course-hero-progress {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  /* Progress row: percentage · modules · badge - all inline */
+  .course-hero-banner.focus-mode .course-hero-progress-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+
+  /* Stage chip styling - inline with text, with dot separator */
+  .course-hero-banner.focus-mode .course-hero-stage-chip {
+    position: relative;
+    margin-left: var(--spacing-lg);
+  }
+
+  /* Add dot separator before stage chip */
+  .course-hero-banner.focus-mode .course-hero-stage-chip::before {
+    content: '·';
+    position: absolute;
+    left: -14px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-base, 16px);
+  }
+
+  /* ===== FULL VIEW HERO - PROGRESS BLOCK ===== */
+  /* Match focused view layout: bar on top, text below */
+
+  .course-hero-banner.full-view-mode .course-hero-progress {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+
+  /* ===== FULL VIEW - ALL MODULES HEADER ===== */
+
+  /* Stack header vertically: title on top, controls on bottom */
+  .full-view-section .activity-listing-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+  }
+
+  /* Consistent spacing between header, resume tile, and modules */
+  .full-view-section {
+    gap: var(--spacing-xl);
+  }
+
+  /* Controls row: search grows to fill, others stay compact */
+  .full-view-section .header-controls {
+    flex-wrap: wrap;
+  }
+
+  .full-view-section .header-controls .search-box-compact {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Sticky state: revert to horizontal layout */
+  .full-view-section .activity-listing-header.is-stuck {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  /* Hide search bar when sticky on tablet */
+  .full-view-section .activity-listing-header.is-stuck .search-box-compact {
+    display: none;
+  }
+
+  /* Swap segmented control for dropdown on tablet */
+  .expand-mode-switcher {
+    display: none;
+  }
+
+  .expand-mode-dropdown-wrapper {
+    display: block;
+  }
+}
+
+/* ==========================================================================
+   PACE - PERSONALIZED BADGE
+   ========================================================================== */
+
+/* Personalized Badge - Shows when PACE is ON */
+.activity-listing-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Personalized to you badge - green outline with green text */
+.personalized-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  background: none;
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-full);
+  color: var(--color-success);
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+}
+
+.personalized-badge svg {
+  flex-shrink: 0;
+}
+
+/* Hide personalized badge on mobile */
+@media (max-width: 767px) {
+  .personalized-badge {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   SIMPLIFICATION CHANGES - February 2026
+   To revert: Delete all CSS blocks starting with "SIMPLIFICATION:"
+   See: LS instructions/X. Course home - revert checkpoint/REVERT-INSTRUCTIONS.md
+   ========================================================================== */
+
+/* SIMPLIFICATION: Hide section badge in hero banner */
+.course-hero-banner .course-hero-category {
+  display: none !important;
+}
+
+/* SIMPLIFICATION: Hide secondary nav globally */
+.secondary-nav {
+  display: none;
+}
+
+/* SIMPLIFICATION: Hide PACE row in journey track (full view) */
+.journey-pace-row {
+  display: none !important;
+}
+
+/* SIMPLIFICATION: Add top margin to diagnostic box */
+.diagnostic-box {
+  margin-top: var(--spacing-xl);
+}
+
+.pace-toggle-toast {
+  position: fixed;
+  top: 92px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 320px;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  animation: pace-toggle-toast-slide-down 0.3s ease;
+}
+
+@keyframes pace-toggle-toast-slide-down {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.pace-toggle-toast--exiting {
+  animation: pace-toggle-toast-fade-up 0.2s ease forwards;
+}
+
+@keyframes pace-toggle-toast-fade-up {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-8px);
+  }
+}
+
+.pace-toggle-toast__icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pace-toggle-toast--on .pace-toggle-toast__icon {
+  background: color-mix(in srgb, var(--color-success) 15%, transparent);
+  color: var(--color-success-dark);
+}
+
+.pace-toggle-toast--off .pace-toggle-toast__icon {
+  background: color-mix(in srgb, var(--color-slate-500) 15%, transparent);
+  color: var(--color-slate-500);
+}
+
+.pace-toggle-toast__message {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  color: var(--color-slate-700);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+
+.pace-toggle-toast__time-saved {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-success-dark);
+  font-weight: var(--font-weight-semibold);
+}
+
+.pace-toggle-toast__time-saved::before {
+  content: '·';
+  color: var(--color-slate-400);
+  margin-right: var(--spacing-xs);
+}
+
+.pace-toggle-toast__progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  animation: pace-toggle-toast-countdown linear forwards;
+}
+
+.pace-toggle-toast--on .pace-toggle-toast__progress {
+  background: var(--color-success);
+}
+
+.pace-toggle-toast--off .pace-toggle-toast__progress {
+  background: var(--color-slate-400);
+}
+
+@keyframes pace-toggle-toast-countdown {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+@media (max-width: 767px) {
+  .pace-toggle-toast {
+    top: 84px;
+    width: calc(100vw - 24px);
+    min-width: unset;
+    max-width: calc(100vw - 24px);
+    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-sm);
+  }
+}

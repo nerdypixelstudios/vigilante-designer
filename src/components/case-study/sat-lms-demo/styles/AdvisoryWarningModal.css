@@ -1,0 +1,509 @@
+/**
+ * AdvisoryWarningModal Styles
+ *
+ * Generic advisory/warning modal — theme-able via CSS custom properties.
+ * Desktop-first responsive design matching PC8/PC10 shell style.
+ *
+ * Themes: amber (default), blue, green, red
+ * Class prefix: awm-
+ */
+
+/* =============================================
+   THEME PRESETS (CSS custom properties)
+   ============================================= */
+
+/* Amber — default (matches PC10 / cementing warnings) */
+.awm-modal {
+  --awm-header-from: var(--color-amber-50);
+  --awm-header-to: var(--color-amber-100);
+  --awm-icon-from: var(--color-warning);
+  --awm-icon-to: var(--color-amber-600);
+  --awm-accent: var(--color-warning);
+  --awm-accent-dark: var(--color-amber-600);
+  --awm-icon-shadow: var(--shadow-warning-lg);
+  --awm-btn-shadow: var(--shadow-warning-md);
+  --awm-btn-shadow-hover: var(--shadow-warning-lg);
+}
+
+/* Blue */
+.awm--blue {
+  --awm-header-from: var(--color-blue-50);
+  --awm-header-to: var(--color-primary-50);
+  --awm-icon-from: var(--color-blue-500);
+  --awm-icon-to: var(--color-blue-600);
+  --awm-accent: var(--color-blue-500);
+  --awm-accent-dark: var(--color-blue-600);
+  --awm-icon-shadow: 0 6px 20px rgba(59, 130, 246, 0.45);
+  --awm-btn-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+  --awm-btn-shadow-hover: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+/* Green */
+.awm--green {
+  --awm-header-from: var(--color-success-50);
+  --awm-header-to: var(--color-green-100);
+  --awm-icon-from: var(--color-green-500);
+  --awm-icon-to: var(--color-green-600);
+  --awm-accent: var(--color-green-500);
+  --awm-accent-dark: var(--color-green-600);
+  --awm-icon-shadow: 0 6px 20px rgba(34, 197, 94, 0.45);
+  --awm-btn-shadow: 0 6px 16px rgba(34, 197, 94, 0.35);
+  --awm-btn-shadow-hover: 0 6px 20px rgba(34, 197, 94, 0.5);
+}
+
+/* Red */
+.awm--red {
+  --awm-header-from: var(--color-red-50);
+  --awm-header-to: var(--color-red-50);
+  --awm-icon-from: var(--color-red-500);
+  --awm-icon-to: var(--color-red-dark);
+  --awm-accent: var(--color-red-500);
+  --awm-accent-dark: var(--color-red-dark);
+  --awm-icon-shadow: var(--shadow-error-md);
+  --awm-btn-shadow: var(--shadow-error-md);
+  --awm-btn-shadow-hover: 0 6px 20px rgba(220, 38, 38, 0.5);
+}
+
+/* =============================================
+   BACKDROP
+   ============================================= */
+
+.awm-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-xl);
+  animation: awmFadeIn var(--transition-normal) ease-out;
+}
+
+@keyframes awmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =============================================
+   MODAL CONTAINER
+   ============================================= */
+
+.awm-modal {
+  position: relative;
+  background: var(--background);
+  border-radius: var(--radius-xl);
+  max-width: 600px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: awmSlideUp var(--transition-normal) ease-out;
+  overflow: visible;
+}
+
+@keyframes awmSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   CLOSE BUTTON — Protruding Style (matching PC8)
+   ============================================= */
+
+.awm-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: var(--background);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-slate-400);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+
+.awm-close:hover {
+  background: var(--background);
+  color: var(--color-slate-600);
+  transform: scale(1.05);
+}
+
+.awm-close:focus-visible {
+  outline: 2px solid var(--awm-accent);
+  outline-offset: 2px;
+}
+
+/* =============================================
+   HEADER — Theme-driven gradient
+   ============================================= */
+
+.awm-header {
+  background: linear-gradient(150deg, var(--awm-header-from) 0%, var(--awm-header-to) 100%);
+  padding: var(--spacing-3xl) var(--spacing-3xl) var(--spacing-2xl);
+  text-align: center;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  position: relative;
+}
+
+.awm-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, var(--awm-icon-from) 0%, var(--awm-icon-to) 100%);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  color: var(--text-inverse);
+  box-shadow: var(--awm-icon-shadow);
+}
+
+.awm-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-800);
+  line-height: var(--line-height-tight);
+  margin: 0 0 var(--spacing-xs) 0;
+  letter-spacing: -0.02em;
+}
+
+.awm-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  margin: 0;
+}
+
+/* =============================================
+   CONTENT
+   ============================================= */
+
+.awm-content {
+  padding: var(--spacing-2xl) var(--spacing-3xl);
+  display: flex;
+  justify-content: center;
+}
+
+.awm-content-inner {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Body text helper classes (used by parent in JSX body prop) */
+.awm-body {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-600);
+  text-align: center;
+  margin: 0 0 var(--spacing-xl) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.awm-body strong {
+  color: var(--color-slate-800);
+}
+
+.awm-highlight-danger {
+  color: var(--color-red-500) !important;
+}
+
+/* =============================================
+   PROGRESS CARD
+   ============================================= */
+
+.awm-progress-card {
+  background: var(--color-slate-50);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.awm-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.awm-progress-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-500);
+}
+
+.awm-progress-count {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-700);
+}
+
+.awm-progress-count--danger {
+  color: var(--color-red-500);
+}
+
+/* Progress Bar */
+.awm-progress-bar {
+  height: 8px;
+  background: var(--color-slate-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.awm-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-success) 0%, var(--color-success) 100%);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal) ease-out;
+}
+
+.awm-progress-fill--danger {
+  background: linear-gradient(90deg, var(--color-red-500) 0%, var(--color-red-dark));
+}
+
+/* Progress Hint */
+.awm-progress-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-700);
+}
+
+.awm-progress-hint svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--awm-accent);
+}
+
+.awm-progress-hint strong {
+  color: var(--awm-accent-dark);
+  font-weight: var(--font-weight-bold);
+}
+
+/* =============================================
+   ACTIONS — Equal width buttons
+   ============================================= */
+
+.awm-actions {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xl) var(--spacing-3xl) var(--spacing-3xl);
+  background: var(--color-slate-50);
+  border-top: 1px solid var(--color-slate-100);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+.awm-actions-inner {
+  display: grid;
+  grid-template-columns: minmax(auto, 1fr) minmax(auto, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.awm-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.awm-btn--primary {
+  background: linear-gradient(135deg, var(--awm-accent) 0%, var(--awm-accent-dark) 100%);
+  color: var(--text-inverse);
+  box-shadow: var(--awm-btn-shadow);
+}
+
+.awm-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--awm-btn-shadow-hover);
+}
+
+.awm-btn--primary:focus-visible {
+  outline: 2px solid var(--awm-accent);
+  outline-offset: 2px;
+}
+
+.awm-btn--secondary {
+  background: var(--background);
+  color: var(--color-slate-700);
+  border: 1px solid var(--color-slate-200);
+}
+
+.awm-btn--secondary:hover {
+  background: var(--color-slate-50);
+  border-color: var(--color-slate-300);
+}
+
+.awm-btn--secondary:focus-visible {
+  outline: 2px solid var(--color-slate-400);
+  outline-offset: 2px;
+}
+
+/* =============================================
+   TABLET (768px – 1023px)
+   Constrained width, compact padding, close inside
+   ============================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .awm-modal {
+    max-width: 500px;
+  }
+
+  .awm-close {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .awm-header {
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-xl);
+    padding-top: var(--spacing-3xl);
+  }
+
+  .awm-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .awm-content {
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+
+  .awm-actions {
+    padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-2xl);
+  }
+}
+
+/* =============================================
+   MOBILE (max-width: 767px)
+   ============================================= */
+
+@media (max-width: 767px) {
+  .awm-backdrop {
+    padding: var(--spacing-xl);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .awm-modal {
+    max-width: calc(100% - var(--spacing-lg));
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: var(--radius-xl);
+    margin: var(--spacing-sm);
+  }
+
+  .awm-close {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .awm-header {
+    padding: var(--spacing-3xl) var(--spacing-xl) var(--spacing-2xl);
+    text-align: center;
+  }
+
+  .awm-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .awm-icon-wrapper svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .awm-title {
+    font-size: var(--font-size-h4);
+  }
+
+  .awm-content {
+    padding: var(--spacing-xl);
+  }
+
+
+
+  .awm-progress-card {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+
+
+  .awm-actions {
+    padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  .awm-actions-inner {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .awm-btn {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .awm-btn--secondary {
+    order: -1;
+  }
+}
+
+/* =============================================
+   REDUCED MOTION
+   ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .awm-backdrop {
+    animation: none;
+  }
+
+  .awm-modal {
+    animation: none;
+  }
+
+  .awm-progress-fill {
+    transition: none;
+  }
+
+  .awm-btn--primary:hover {
+    transform: none;
+  }
+
+  .awm-close:hover {
+    transform: none;
+  }
+}

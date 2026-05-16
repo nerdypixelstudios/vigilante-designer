@@ -1,6 +1,6 @@
 /**
  * sat-lms-interactive-demo
- * Entry point — import SatLmsDemo into your portfolio host.
+ * Entry point - import SatLmsDemo into your portfolio host.
  *
  * Usage:
  *   import { SatLmsDemo } from './sat-lms-interactive-demo';

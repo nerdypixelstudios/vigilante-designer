@@ -238,6 +238,224 @@
   border-radius: var(--radius-full);
 }
 
+/* ---- Activity skeleton page ---- */
+.activitySkeletonPage {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.activitySkeletonHero {
+  padding: 28px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #f8fbff 0%, #eef6ff 100%);
+  border: 1px solid rgba(191, 219, 254, 0.8);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.08);
+}
+
+.activitySkeletonEyebrow {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+.activitySkeletonTitleRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.activitySkeletonIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #006fee 0%, #3b82f6 100%);
+  color: white;
+  flex-shrink: 0;
+}
+
+.activitySkeletonTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 32px;
+  line-height: 1.05;
+}
+
+.activitySkeletonMeta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.activitySkeletonMessage {
+  margin: 16px 0 0;
+  max-width: 780px;
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.activitySkeletonCanvas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+  gap: 20px;
+}
+
+.activitySkeletonColumn,
+.activitySkeletonPanel {
+  min-width: 0;
+}
+
+.activitySkeletonPanel {
+  height: 100%;
+  padding: 24px;
+  border-radius: 24px;
+  background: white;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.activitySkeletonPanelTitle {
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.activitySkeletonRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.activitySkeletonBlockTall,
+.activitySkeletonBlock,
+.activitySkeletonBlockWide,
+.activitySkeletonQuestion,
+.activitySkeletonOption {
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+}
+
+.activitySkeletonBlockTall {
+  height: 220px;
+  margin-bottom: 14px;
+}
+
+.activitySkeletonBlock {
+  height: 120px;
+}
+
+.activitySkeletonBlockWide {
+  height: 140px;
+  margin-top: 14px;
+}
+
+.activitySkeletonQuestion {
+  height: 130px;
+  margin-bottom: 16px;
+}
+
+.activitySkeletonOption {
+  height: 62px;
+  margin-bottom: 12px;
+}
+
+.activitySkeletonFooter {
+  padding-top: 8px;
+}
+
+.activitySkeletonHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #0369a1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.activitySkeletonActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.activitySkeletonBackBtn,
+.activitySkeletonContinueBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.activitySkeletonBackBtn {
+  background: white;
+  color: #334155;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.activitySkeletonContinueBtn {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  color: white;
+  pointer-events: none;
+  opacity: 0.82;
+}
+
+@media (max-width: 900px) {
+  .activitySkeletonCanvas {
+    grid-template-columns: 1fr;
+  }
+
+  .activitySkeletonTitle {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .activitySkeletonPage {
+    padding: 24px 16px 32px;
+  }
+
+  .activitySkeletonHero,
+  .activitySkeletonPanel {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .activitySkeletonTitleRow,
+  .activitySkeletonActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .activitySkeletonRow {
+    grid-template-columns: 1fr;
+  }
+}
+
 .shadedBadge {
   font-family: var(--font-family);
   font-size: 10px;

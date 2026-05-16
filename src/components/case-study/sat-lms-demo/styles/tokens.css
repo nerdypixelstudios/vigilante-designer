@@ -119,6 +119,10 @@
   --spacing-2xl: 32px;
   --spacing-3xl: 48px;
 
+  /* Layout */
+  --max-content-width: 100%;
+  --page-padding-x: 48px;
+
   /* Border Radius */
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -136,12 +140,21 @@
   --shadow-dropdown: 0 4px 16px rgba(0, 0, 0, 0.1);
   --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-medium: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-strong: 0 2px 8px rgba(0, 0, 0, 0.15);
   --shadow-primary-sm: 0 2px 8px rgba(0, 111, 238, 0.3);
   --shadow-primary-md: 0 4px 12px rgba(0, 111, 238, 0.4);
+  --shadow-primary-lg: 0 6px 16px rgba(0, 111, 238, 0.4);
   --shadow-success-sm: 0 4px 12px rgba(34, 197, 94, 0.25);
   --shadow-success: 0 4px 12px rgba(34, 197, 94, 0.3);
+  --shadow-success-md: 0 4px 14px rgba(34, 197, 94, 0.4);
+  --shadow-success-lg: 0 6px 20px rgba(34, 197, 94, 0.5);
+  --shadow-warning: 0 4px 12px rgba(245, 158, 11, 0.3);
+  --shadow-warning-md: 0 6px 16px rgba(245, 158, 11, 0.4);
   --shadow-error-sm: 0 2px 4px rgba(220, 38, 38, 0.3);
   --shadow-error: 0 4px 12px rgba(220, 38, 38, 0.3);
+  --shadow-error-md: 0 4px 14px rgba(220, 38, 38, 0.4);
+  --shadow-purple: 0 4px 12px rgba(124, 58, 237, 0.3);
+  --shadow-purple-md: 0 6px 16px rgba(124, 58, 237, 0.4);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -149,6 +162,7 @@
 
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-family-heading: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --font-size-2xs: 10px;
@@ -159,6 +173,10 @@
   --font-size-xl: 20px;
   --font-size-2xl: 24px;
   --font-size-3xl: 32px;
+  --font-size-display-48: 48px;
+  --font-size-display-60: 60px;
+  --font-size-h3: 28px;
+  --font-size-h4: 22px;
 
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -169,4 +187,16 @@
   --line-height-tight: 1.25;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.7;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sat-lms-demo {
+    --page-padding-x: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sat-lms-demo {
+    --page-padding-x: 16px;
+  }
 }

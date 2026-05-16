@@ -44,26 +44,26 @@ const projects = [
     slug: 'spark-presenter',
     name: 'S.P.A.R.K. Presenter',
     funName: 'S.P.A.R.K. Presenter',
-    headline: 'How I built a modular presenter system to scale lesson production',
+    headline: 'How I built an assembly line for learning content — and made manual production obsolete',
     tags: [
-      { label: 'Learning tool' },
-      { label: 'Live', tone: 'active' },
+      { label: 'PRODUCT ARCHITECTURE' },
+      { label: 'LIVE', tone: 'active' },
     ],
     metrics: [
       {
-        value: '1.0x',
-        label: 'structure for many lessons',
+        value: '100 files processed in 2 hours',
+        label: '',
       },
       {
-        value: '95.0x',
-        label: 'automated accuracy target',
+        value: '95%+ automated accuracy',
+        label: '',
       },
     ],
-    summary: 'I turned structured learning content into reusable presentation files, so one lesson system could produce many modules without rebuilding each one.',
+    summary: 'I designed a component grammar and an automated pipeline that reads raw learning prose, maps it to structured presentation blocks, and outputs production-ready activities at scale.',
     quote: {
-      text: 'A reusable system that turns structured lesson content into presentation-ready modules without rebuilding the same format again and again.',
-      person: 'System proof',
-      role: 'Content production workflow',
+      text: '[Pending — Payal, Principal Course Architect]',
+      person: '[Name]',
+      role: '[Role] · e-GMAT',
       image: null,
     },
     funSticker: 'One system. Many lessons.',
@@ -132,16 +132,16 @@ const projects = [
 ];
 
 function AnimatedMetric({ value, isActive }) {
+  const numericMetric = /^(\d+(?:\.\d+)?)x$/.exec(value);
   const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
-    const target = Number.parseFloat(value);
-
-    if (!isActive || Number.isNaN(target)) {
+    if (!isActive || !numericMetric) {
       setDisplayValue(value);
       return undefined;
     }
 
+    const target = Number.parseFloat(numericMetric[1]);
     let frameId;
     const duration = 900;
     const startTime = performance.now();
@@ -160,7 +160,7 @@ function AnimatedMetric({ value, isActive }) {
     frameId = requestAnimationFrame(tick);
 
     return () => cancelAnimationFrame(frameId);
-  }, [isActive, value]);
+  }, [isActive, numericMetric, value]);
 
   return <>{displayValue}</>;
 }
@@ -295,11 +295,11 @@ function ProjectCard({ project, isFunMode }) {
               </p>
               <div className={styles.editorialMetrics}>
                 {project.metrics.map(metric => (
-                  <span key={metric.label} className={styles.editorialMetric}>
+                  <span key={`${metric.value}-${metric.label}`} className={styles.editorialMetric}>
                     <strong className="font-cabinet font-extrabold">
                       <AnimatedMetric value={metric.value} isActive={hasEntered} />
                     </strong>
-                    <span className="font-dm">{metric.label}</span>
+                    {metric.label ? <span className="font-dm">{metric.label}</span> : null}
                   </span>
                 ))}
               </div>

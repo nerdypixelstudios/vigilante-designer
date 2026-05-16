@@ -48,7 +48,7 @@ function gradeClass(grade) {
   return styles.gradeD;
 }
 
-export default function ActivityRow({ activity, onClick, highlightId, paceOn = true }) {
+export default function ActivityRow({ activity, onClick, onShadedClick, highlightId, paceOn = true }) {
   const effectivelyShaded = paceOn && activity.shaded;
 
   const rowClass = [
@@ -59,14 +59,22 @@ export default function ActivityRow({ activity, onClick, highlightId, paceOn = t
 
   const id = activity.id === highlightId ? highlightId : undefined;
 
+  const handleClick = (e) => {
+    if (effectivelyShaded) {
+      onShadedClick?.(e.currentTarget);
+    } else {
+      onClick?.(activity);
+    }
+  };
+
   return (
     <div
       id={id}
       className={rowClass}
-      onClick={() => !effectivelyShaded && onClick?.(activity)}
+      onClick={handleClick}
       role="button"
-      tabIndex={effectivelyShaded ? -1 : 0}
-      onKeyDown={(e) => e.key === 'Enter' && !effectivelyShaded && onClick?.(activity)}
+      tabIndex={0}
+      onKeyDown={(e) => e.key === 'Enter' && handleClick(e)}
     >
       <div className={styles.activityStatusIcon}>
         <StatusIcon status={activity.status} shaded={effectivelyShaded} />

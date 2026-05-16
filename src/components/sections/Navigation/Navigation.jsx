@@ -88,6 +88,7 @@ export default function Navigation({
       <div className={styles.navStack}>
         <div
           ref={islandRef}
+          data-nav-island
           className={`${styles.island} ${isFunMode ? styles.islandFun : styles.islandNormal}`}
         >
           <div className={styles.navInner}>

@@ -1,0 +1,499 @@
+/* Modal Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.modal {
+  width: 100%;
+  height: 100%;
+  background: white;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  overflow: hidden;
+  border-radius: 16px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  max-width: 784px;
+  max-height: 600px;
+}
+
+/* Header Section */
+.headerSection {
+  align-self: stretch;
+  padding: 30px 40px;
+  position: relative;
+  background: var(--colors-base-success, #17c964);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  min-height: 220px;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerCheck {
+  color: white;
+}
+
+/* Check Icon Styles */
+.checkIconContainer {
+  width: 76.8px;
+  height: 76.8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.checkIconBackground {
+  width: 72px;
+  height: 72px;
+  position: absolute;
+  left: 2.4px;
+  top: 2.4px;
+  background: linear-gradient(146deg, white 0%, rgba(255, 255, 255, 0.25) 100%);
+  box-shadow: 0px 1.2px 2.4px -1.2px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+}
+
+.checkIcon {
+  width: 34.29px;
+  height: 24.44px;
+  position: absolute;
+  left: 21.25px;
+  top: 26.52px;
+}
+
+/* Typography */
+.title {
+  text-align: center;
+  color: white;
+  font-size: 36px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  line-height: 40px;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.subtitle {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  color: var(--colors-base-primary-foreground, white);
+  font-size: 18px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  line-height: 28px;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+/* Body Section */
+.bodySection {
+  align-self: stretch;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.buildingTitle {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  color: var(--colors-base-default-foreground, black);
+  font-size: 36px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  line-height: 46.8px;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.buildingSubtitle {
+  width: 100%;
+  text-align: center;
+  color: var(--colors-base-default-500, #71717a);
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.loadingContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+}
+
+.loadingPlaceholder {
+  align-self: stretch;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.loadingItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+  width: 100%;
+  max-width: 300px;
+}
+
+.loadingIndicator {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.greyCircle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #d1d5db;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  animation: showCircle 0.3s ease-out forwards,
+    loadingPulse 1.5s ease-in-out infinite 0.3s,
+    completeStep 0.3s ease-out forwards 0.7s;
+}
+
+.checkIcon {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: showCheck 0.3s ease-out forwards 1s;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.loadingText {
+  color: #6c757d;
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loadingPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+@keyframes completeStep {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes showCircle {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes showCheck {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.spacer {
+  width: 100%;
+  height: 48px;
+}
+
+/* Completed Body Section */
+.completedBodySection {
+  align-self: stretch;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+}
+
+.completedMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.completedTitle {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.targetEmoji {
+  color: var(--colors-base-default-foreground, black);
+  font-size: 42px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  line-height: 46.80px;
+  word-wrap: break-word;
+}
+
+.completedTitleText {
+  color: var(--colors-base-default-foreground, black);
+  font-size: 36px;
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  line-height: 46.80px;
+  word-wrap: break-word;
+}
+
+.redirectMessage {
+  width: 100%;
+  height: 28px;
+  position: relative;
+  text-align: center;
+}
+
+.redirectText {
+  color: var(--colors-base-default-500, #71717A);
+  font-size: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+.countdown {
+  color: var(--colors-base-success, #17C964);
+  font-size: 20px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+@keyframes hideLoadingSection {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes showCompletedSection {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .modal {
+    max-width: 600px;
+    max-height: 520px;
+  }
+
+  .headerSection {
+    padding: 24px 32px;
+    min-height: 180px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .bodySection {
+    padding: 28px 32px;
+    gap: 28px;
+  }
+
+  .buildingTitle {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  .completedBodySection {
+    padding: 40px 32px;
+    gap: 28px;
+  }
+
+  .completedTitleText {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  .targetEmoji {
+    font-size: 36px;
+    line-height: 40px;
+  }
+}
+
+/* Mobile (max 767px) */
+@media (max-width: 767px) {
+  .modal {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .headerSection {
+    padding: 20px 20px;
+    min-height: 150px;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .bodySection {
+    padding: 24px 20px;
+    gap: 24px;
+  }
+
+  .buildingTitle {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .buildingSubtitle {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .loadingPlaceholder {
+    height: auto;
+  }
+
+  .spacer {
+    height: 24px;
+  }
+
+  .completedBodySection {
+    padding: 32px 20px;
+    gap: 24px;
+  }
+
+  .completedTitleText {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .targetEmoji {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .redirectMessage {
+    height: auto;
+  }
+}

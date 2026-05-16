@@ -1,14 +1,18 @@
-import { COURSE, QUIZ_RESULTS } from '../../data/mockCourse';
+import { COURSE, QUIZ_RESULTS, PACE } from '../../data/mockCourse';
 import CourseHeader from '../ui/CourseHeader';
 import { CheckCircleIcon, ArrowRightIcon, ClockIcon } from '../icons/DemoIcons';
 import styles from '../../styles/results.module.css';
 
-export default function Step7aGoodResults({ onDemoComplete }) {
+export default function Step7aGoodResults({ onDemoComplete, onReturnToCourse }) {
   const { good } = QUIZ_RESULTS;
 
   return (
     <div>
-      <CourseHeader courseName={COURSE.name} category={COURSE.category} showBack />
+      <CourseHeader
+        courseName={COURSE.name}
+        category={COURSE.category}
+        onBack={() => onReturnToCourse?.(PACE.nextActivity.id)}
+      />
       <div id="demo-good-results" className={styles.wrapper}>
 
         {/* Score card */}

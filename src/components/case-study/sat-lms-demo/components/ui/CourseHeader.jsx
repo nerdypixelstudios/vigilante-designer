@@ -8,7 +8,7 @@ export default function CourseHeader({ courseName, category, onBack }) {
         <>
           <button className={styles.courseHeaderBack} onClick={onBack}>
             <ChevronLeftIcon size={14} />
-            Courses
+            Back to Course
           </button>
           <div className={styles.courseHeaderDivider} />
         </>

@@ -1,99 +1,147 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import {
-  CloseIcon, ClipboardDocumentListIcon, ClockIcon,
-  CheckIcon, RemedialIcon, ArrowRightIcon,
+  CloseIcon,
+  ClipboardDocumentListIcon,
+  ClockIcon,
+  CheckIcon,
+  RemedialIcon,
+  ArrowRightIcon,
 } from '../icons/DemoIcons';
-import styles from '../../styles/modal.module.css';
 
-export default function RemedialCreatedModal({
+const RemedialCreatedModal = ({
   isOpen,
   motherActivityName,
   mistakeCount,
   questionCount,
   estimatedTimeMinutes,
+  remedialActivityId,
   onStartRemedial,
   onClose,
-  id,
-}) {
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Escape' && isOpen) onClose?.();
+}) => {
+  const modalRef = useRef(null);
+  const startButtonRef = useRef(null);
+
+  const formatMistakes = (count) => {
+    if (count === 1) return '1 mistake';
+    return `${count} mistakes`;
+  };
+
+  const handleKeyDown = useCallback((event) => {
+    if (event.key === 'Escape' && isOpen) onClose?.();
   }, [isOpen, onClose]);
 
+  const handleBackdropClick = (event) => {
+    if (event.target === event.currentTarget) onClose?.();
+  };
+
+  const handleStartRemedial = () => {
+    onStartRemedial?.(remedialActivityId);
+  };
+
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      setTimeout(() => { startButtonRef.current?.focus(); }, 100);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen, handleKeyDown]);
 
   if (!isOpen) return null;
 
-  const mistakeText = mistakeCount === 1 ? '1 mistake' : `${mistakeCount} mistakes`;
-
   return (
-    <div className={styles.backdrop} onClick={(e) => e.target === e.currentTarget && onClose?.()}>
-      <div id={id} className={styles.card} role="dialog" aria-modal="true">
-        <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
-          <CloseIcon size={14} />
+    <div
+      className="remedial-created-modal-backdrop"
+      onClick={handleBackdropClick}
+      role="presentation"
+    >
+      <div
+        ref={modalRef}
+        className="remedial-created-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="remedial-created-modal-title"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          className="remedial-created-modal-close"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          <CloseIcon size={18} />
         </button>
 
-        {/* Header */}
-        <div className={styles.remedialHeader}>
-          <div className={styles.remedialBadge}>
-            <RemedialIcon size={10} />
-            Targeted Practice
+        <div className="remedial-created-modal-header">
+          <div className="remedial-created-modal-badge">
+            <span className="remedial-created-modal-badge-dot" />
+            Remedial Activity Created
           </div>
-          <h2 className={styles.remedialTitle}>Plug your gaps before moving on</h2>
-          <p className={styles.remedialDesc}>
-            Based on your {mistakeText} in {motherActivityName}, we've created a focused practice session.
-          </p>
+          <h2 id="remedial-created-modal-title" className="remedial-created-modal-title">
+            Plug your gaps before moving on
+          </h2>
         </div>
 
-        {/* Activity row */}
-        <div className={styles.remedialActivityRow}>
-          <div style={{
-            width: 36, height: 36, borderRadius: '8px',
-            background: '#fef2f2', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', color: 'var(--color-red-500)', flexShrink: 0
-          }}>
-            <RemedialIcon size={16} />
-          </div>
-          <div className={styles.remedialActivityInfo}>
-            <div className={styles.remedialActivityName}>{motherActivityName}</div>
-            <div className={styles.remedialActivityMeta}>
-              <span className={styles.remedialActivityMetaItem}>
-                <ClipboardDocumentListIcon size={11} />
-                {questionCount} questions
+        <div className="remedial-created-modal-content">
+          <p className="remedial-created-modal-description">
+            Based on your{' '}
+            <strong className="remedial-created-modal-highlight">
+              {formatMistakes(mistakeCount)}
+            </strong>{' '}
+            in this quiz, we&apos;ve prepared a targeted practice to fix these gaps right away.
+          </p>
+
+          <div className="remedial-created-modal-activity-preview">
+            <div className="remedial-created-modal-activity-preview__info">
+              <span className="remedial-created-modal-rem-badge">
+                <RemedialIcon size={12} />
+                <span>REM.</span>
               </span>
-              <span className={styles.remedialActivityMetaItem}>
-                <ClockIcon size={11} />
-                ~{estimatedTimeMinutes} min
+              <span className="remedial-created-modal-activity-preview__name">
+                {motherActivityName}
+              </span>
+            </div>
+            <div className="remedial-created-modal-activity-preview__meta">
+              <span className="remedial-created-modal-activity-preview__stat">
+                <ClipboardDocumentListIcon size={14} />
+                {questionCount} Qs
+              </span>
+              <span className="remedial-created-modal-activity-preview__stat">
+                <ClockIcon size={14} />
+                {estimatedTimeMinutes} min
               </span>
             </div>
           </div>
-        </div>
 
-        {/* Benefits */}
-        <div className={styles.remedialBenefits}>
-          <div className={styles.remedialBenefit}>
-            <CheckIcon size={12} style={{ color: 'var(--color-red-dark)' }} />
-            Targeted practice
+          <div className="remedial-created-modal-benefits">
+            <div className="remedial-created-modal-benefit-item">
+              <span className="remedial-created-modal-benefit-check">
+                <CheckIcon size={12} />
+              </span>
+              <span>Targeted practice</span>
+            </div>
+            <div className="remedial-created-modal-benefit-item">
+              <span className="remedial-created-modal-benefit-check">
+                <CheckIcon size={12} />
+              </span>
+              <span>Fresh in memory</span>
+            </div>
           </div>
-          <div className={styles.remedialBenefit}>
-            <CheckIcon size={12} style={{ color: 'var(--color-red-dark)' }} />
-            Fresh in memory
-          </div>
-        </div>
 
-        {/* Actions */}
-        <div className={styles.remedialActions}>
-          <button className={styles.remedialStartBtn} onClick={onStartRemedial}>
-            Start Remedial
-            <ArrowRightIcon size={16} />
-          </button>
-          <button className={styles.remedialDismissBtn} onClick={onClose}>
-            I'll do this later
+          <button
+            ref={startButtonRef}
+            className="remedial-created-modal-button"
+            onClick={handleStartRemedial}
+          >
+            <span className="remedial-created-modal-button-text">Start Remedial</span>
+            <ArrowRightIcon size={20} className="remedial-created-modal-button-arrow" />
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default RemedialCreatedModal;

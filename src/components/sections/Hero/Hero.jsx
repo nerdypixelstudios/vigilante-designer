@@ -37,6 +37,26 @@ export default function Hero() {
         '--portrait-fade-bg': 'var(--color-accent-yellow)',
       };
 
+  const handleDesignForgeClick = (event) => {
+    if (typeof window === 'undefined') return;
+
+    const target = document.getElementById('designforge');
+
+    if (!target) return;
+
+    event.preventDefault();
+
+    const navBottom = document.querySelector('[data-nav-island]')?.getBoundingClientRect().bottom ?? 0;
+    const scrollOffset = navBottom + 16;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - scrollOffset;
+
+    window.history.replaceState(null, '', '#designforge');
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <section id="hero" className={`${bg} ${styles.hero}`} style={iconVars}>
       <div className={styles.heroInner}>
@@ -52,15 +72,17 @@ export default function Hero() {
             </>
           ) : (
             <>
-              <p className={`font-dm text-ink-800 ${styles.kicker}`}>
-                Hi, I am <strong className={styles.kickerBold}>Lohith!</strong>
-              </p>
-              <h1 className={`font-cabinet font-extrabold text-ink-950 ${styles.h1Normal}`}>
-                Product Designer
-              </h1>
-              <p className={`font-dm text-ink-950 ${styles.roleStrip}`}>
-                seasoned in <strong className={styles.roleStripBold}>end-to-end web design.</strong>
-              </p>
+              <div className={styles.headlineStack}>
+                <p className={`font-dm text-ink-800 ${styles.kicker}`}>
+                  Hi, I am <strong className={styles.kickerBold}>Lohith!</strong>
+                </p>
+                <h1 className={`font-cabinet font-extrabold text-ink-950 ${styles.h1Normal}`}>
+                  Product Designer
+                </h1>
+                <p className={`font-dm text-ink-950 ${styles.roleStrip}`}>
+                  seasoned in <strong className={styles.roleStripBold}>end-to-end web design.</strong>
+                </p>
+              </div>
               <Image
                 src="/images/hero/hero-experience-sticker.svg"
                 alt="7 plus years of design at scale"
@@ -88,9 +110,9 @@ export default function Hero() {
                 <br />
                 <br />
                 Built with{' '}
-                <a href="/case-studies/designforge" className={styles.designForgeLink}>
+                <a href="#designforge" className={styles.designForgeLink} onClick={handleDesignForgeClick}>
                   DesignForge
-                  <span className={styles.designForgeArrow} aria-hidden="true">{'\u2197'}</span>
+                  <span className={styles.designForgeArrow} aria-hidden="true">{'\u2193'}</span>
                 </a>
                 {' '} - a 6-phase AI + human methodology.
               </p>
@@ -140,16 +162,18 @@ export default function Hero() {
 
           <div className={styles.zoneRight}>
             <div className={styles.workBlock}>
-              {isFunMode ? (
-                <span className={`font-dm font-extrabold ${styles.recentWorkLabel}`}>
-                  Recent Cases
-                </span>
-              ) : (
-                <span className={`font-dm font-bold ${styles.recentWorkTilted}`}>
-                  <span className={styles.recentWorkLabelText}>Recent work</span>
-                  <SmallArrow className={styles.recentWorkArrow} />
-                </span>
-              )}
+              <div className={styles.workBlockIntro}>
+                {isFunMode ? (
+                  <span className={`font-dm font-extrabold ${styles.recentWorkLabel}`}>
+                    Recent Cases
+                  </span>
+                ) : (
+                  <span className={`font-dm font-bold ${styles.recentWorkTilted}`}>
+                    <span className={styles.recentWorkLabelText}>Recent work</span>
+                    <SmallArrow className={styles.recentWorkArrow} />
+                  </span>
+                )}
+              </div>
               <ul className={styles.roleList}>
                 {projects.map(project => (
                   <li key={project.num} className={styles.roleItem}>

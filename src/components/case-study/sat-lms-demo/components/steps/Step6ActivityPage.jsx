@@ -1,33 +1,36 @@
 import CourseHeader from '../ui/CourseHeader';
-import ActivityHeroCard from '../ui/ActivityHeroCard';
-import ConceptBlock from '../ui/ConceptBlock';
-import QuizShell from '../ui/QuizShell';
+import SequentialQuizScreen, { DEFAULT_PRACTICE_SIDEBAR } from '../ui/SequentialQuizScreen';
 import { COURSE, DEMO_ACTIVITY } from '../../data/mockCourse';
 import { ACTIVITY_QUESTIONS } from '../../data/mockActivityQuiz';
 
-export default function Step6ActivityPage({ onNext }) {
+export default function Step6ActivityPage({
+  selectedActivity,
+  onNext,
+  onReturnToCourse,
+}) {
+  const activity = selectedActivity || DEMO_ACTIVITY;
+  const activityId = activity?.contentId || activity?.id || DEMO_ACTIVITY.id;
+
   return (
     <div>
-      <CourseHeader courseName={COURSE.name} category={COURSE.category} showBack />
-
-      <ActivityHeroCard
-        title={DEMO_ACTIVITY.heroTitle}
-        badge={DEMO_ACTIVITY.heroBadge}
-        durationMinutes={DEMO_ACTIVITY.durationMinutes}
-        isRemedial={false}
+      <CourseHeader
+        courseName={COURSE.name}
+        category={COURSE.category}
+        onBack={() => onReturnToCourse?.(activityId)}
       />
 
-      <ConceptBlock
-        label="Key Concept"
-        text={DEMO_ACTIVITY.conceptSummary}
-        formula="ax + b = c"
-      />
-
-      <QuizShell
-        title="Practice Quiz"
+      <SequentialQuizScreen
         questions={ACTIVITY_QUESTIONS}
-        submitId="demo-quiz-submit"
-        onSubmit={() => {}}
+        quizTitle={activity?.contentName || activity?.name || DEMO_ACTIVITY.name}
+        section="PACE"
+        subtitle="Personalized activity quiz"
+        sidebarTitle="Mastery Check"
+        sidebarItems={DEFAULT_PRACTICE_SIDEBAR}
+        helperLabel="How this works"
+        helperText="This quiz checks whether the learner can continue forward or needs targeted reinforcement."
+        onBack={() => onReturnToCourse?.(activityId)}
+        onSubmit={onNext}
+        submitId="demo-activity-quiz-submit"
       />
     </div>
   );

@@ -1,0 +1,573 @@
+/**
+ * SkipDiagnosticAlert Styles (PC6)
+ *
+ * Modal shown when student clicks any activity before taking diagnostic
+ * Matches PC8 (PaceOnboardingOverlay) shell styling
+ *
+ * Desktop-first responsive design.
+ */
+
+/* =============================================
+   BACKDROP
+   ============================================= */
+
+.sda-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-xl);
+  animation: sdaFadeIn var(--transition-normal) ease-out;
+}
+
+@keyframes sdaFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =============================================
+   MODAL CONTAINER - Matching PC8 style
+   ============================================= */
+
+.sda-modal {
+  position: relative;
+  background: var(--background);
+  border-radius: var(--radius-xl);
+  max-width: 720px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  animation: sdaSlideUp var(--transition-normal) ease-out;
+  overflow: visible;
+}
+
+@keyframes sdaSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================================
+   CLOSE BUTTON - Protruding Style (matching PC8)
+   ============================================= */
+
+.sda-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: var(--background);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-slate-400);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+
+.sda-close:hover {
+  background: var(--background);
+  color: var(--color-slate-600);
+  transform: scale(1.05);
+}
+
+.sda-close:focus-visible {
+  outline: 2px solid var(--color-warning);
+  outline-offset: 2px;
+}
+
+/* =============================================
+   HEADER - Amber gradient for caution/warning
+   ============================================= */
+
+.sda-header {
+  background: linear-gradient(150deg, var(--color-warning-50, #FFFBEB) 0%, var(--color-warning-100, #FEF3C7) 100%);
+  padding: var(--spacing-3xl) var(--spacing-3xl) var(--spacing-3xl);
+  text-align: center;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  position: relative;
+}
+
+.sda-icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background: var(--background);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  box-shadow: var(--shadow-md);
+}
+
+.sda-icon-wrapper svg {
+  color: var(--color-warning);
+}
+
+.sda-sparkle {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  color: var(--color-warning);
+  filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.4));
+}
+
+.sda-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-slate-800);
+  line-height: var(--line-height-tight);
+  margin: 0 0 var(--spacing-sm) 0;
+  letter-spacing: -0.02em;
+}
+
+.sda-subtitle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-slate-600);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.sda-subtitle svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-red);
+}
+
+/* Time chip - positioned on border */
+.sda-chip {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: linear-gradient(135deg, var(--color-warning) 0%, var(--color-warning-600, #D97706) 100%);
+  color: var(--text-inverse);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+  z-index: 5;
+}
+
+/* =============================================
+   CONTENT
+   ============================================= */
+
+.sda-content {
+  padding: var(--spacing-3xl) var(--spacing-3xl) var(--spacing-2xl);
+  display: flex;
+  justify-content: center;
+}
+
+.sda-content-inner {
+  max-width: 480px;
+  width: 100%;
+}
+
+.sda-context {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-700);
+  text-align: center;
+  margin: 0 0 var(--spacing-xl) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Benefits section */
+.sda-benefits {
+  margin-top: var(--spacing-md);
+}
+
+.sda-benefits-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-slate-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-md);
+}
+
+.sda-benefits-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.sda-benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-slate-50);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.sda-benefit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-success);
+  color: var(--text-inverse);
+  flex-shrink: 0;
+}
+
+.sda-benefit-text {
+  font-size: var(--font-size-base);
+  color: var(--color-slate-700);
+}
+
+/* Highlighted benefit with whoosh animation */
+.sda-benefit--highlight {
+  background: linear-gradient(135deg, var(--color-success-50, #F0FDF4) 0%, var(--color-success-100, #DCFCE7) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.sda-benefit--highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 197, 94, 0.15),
+    transparent
+  );
+  animation: sdaWhooshGlow 5s ease-in-out infinite;
+}
+
+@keyframes sdaWhooshGlow {
+  0% {
+    left: -100%;
+  }
+  15% {
+    left: 150%;
+  }
+  100% {
+    left: 150%;
+  }
+}
+
+/* Subtle pulse for highlight row */
+.sda-benefit--highlight {
+  animation: sdaPulseScale 5s ease-in-out infinite;
+}
+
+@keyframes sdaPulseScale {
+  0% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.02);
+  }
+  15% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =============================================
+   ACTIONS - Equal width buttons (matching PC8)
+   ============================================= */
+
+.sda-actions {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xl) var(--spacing-3xl) var(--spacing-3xl);
+  background: var(--color-slate-50);
+  border-top: 1px solid var(--color-slate-100);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+.sda-actions-inner {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-lg);
+  max-width: 480px;
+  width: 100%;
+}
+
+.sda-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sda-btn--primary {
+  background: linear-gradient(135deg, var(--color-warning) 0%, var(--color-warning-600, #D97706) 100%);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-md);
+}
+
+.sda-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.sda-btn--primary:focus-visible {
+  outline: 2px solid var(--color-warning);
+  outline-offset: 2px;
+}
+
+.sda-btn--secondary {
+  background: var(--background);
+  color: var(--color-slate-700);
+  border: 1px solid var(--color-slate-200);
+}
+
+.sda-btn--secondary:hover {
+  background: var(--color-slate-50);
+  border-color: var(--color-slate-300);
+}
+
+.sda-btn--secondary:focus-visible {
+  outline: 2px solid var(--color-slate-400);
+  outline-offset: 2px;
+}
+
+/* =============================================
+   TABLET (768px – 1023px)
+   Constrained width, compact padding
+   ============================================= */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sda-modal {
+    max-width: 540px;
+  }
+
+  .sda-close {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .sda-header {
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-xl);
+    padding-top: var(--spacing-3xl);
+  }
+
+  .sda-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sda-content {
+    padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .sda-actions {
+    padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  .sda-actions-inner {
+    max-width: 100%;
+  }
+}
+
+/* =============================================
+   MOBILE (max-width: 767px)
+   Same layout as desktop, vertically centered
+   ============================================= */
+
+@media (max-width: 767px) {
+  .sda-backdrop {
+    /* Increased padding to accommodate protruding close button */
+    padding: var(--spacing-xl);
+    /* Keep centered vertically like desktop */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sda-modal {
+    max-width: calc(100% - var(--spacing-lg));
+    max-height: 90vh;
+    overflow-y: auto;
+    /* Keep rounded corners all around */
+    border-radius: var(--radius-xl);
+    /* Ensure close button isn't clipped */
+    margin: var(--spacing-sm);
+  }
+
+  .sda-close {
+    /* Move close button inside modal bounds on mobile to prevent clipping */
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 32px;
+    height: 32px;
+    /* Slightly different styling inside modal */
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .sda-header {
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-2xl);
+    /* Extra padding-top to account for close button inside */
+    padding-top: var(--spacing-3xl);
+    /* Keep centered like desktop */
+    text-align: center;
+  }
+
+  .sda-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .sda-icon-wrapper svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .sda-sparkle {
+    top: -4px;
+    right: -4px;
+  }
+
+  .sda-sparkle svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .sda-title {
+    font-size: var(--font-size-h4);
+  }
+
+  .sda-subtitle {
+    /* Keep centered like desktop */
+    justify-content: center;
+    /* Ensure proper alignment on mobile */
+    align-items: flex-start;
+    text-align: center;
+  }
+
+  .sda-subtitle svg {
+    margin-top: 1px;
+  }
+
+  .sda-chip {
+    /* Keep centered like desktop */
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+
+  .sda-content {
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-xl);
+  }
+
+  .sda-content-inner {
+    max-width: 100%;
+  }
+
+  .sda-context {
+    /* Keep centered like desktop */
+    text-align: center;
+  }
+
+  .sda-benefit {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .sda-benefit-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+
+
+  .sda-actions {
+    padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  .sda-actions-inner {
+    flex-direction: column-reverse;
+    gap: var(--spacing-md);
+    max-width: 100%;
+  }
+
+  .sda-btn {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+}
+
+/* =============================================
+   REDUCED MOTION
+   ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .sda-backdrop {
+    animation: none;
+  }
+
+  .sda-modal {
+    animation: none;
+  }
+
+  .sda-benefit--highlight::before {
+    animation: none;
+  }
+
+  .sda-benefit--highlight {
+    animation: none;
+  }
+
+  .sda-btn--primary:hover {
+    transform: none;
+  }
+
+  .sda-close:hover {
+    transform: none;
+  }
+}
