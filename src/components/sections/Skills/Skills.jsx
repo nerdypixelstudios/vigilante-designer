@@ -19,7 +19,6 @@ const clusters = [
       { name: 'Front-end engineering', level: 'expert' },
       { name: 'Python', level: 'expert' },
       { name: 'Selenium', level: 'expert' },
-      { name: 'Product development', level: 'expert' },
       { name: 'SQL', level: 'learning' },
       { name: 'API Integration', level: 'learning' },
     ],
@@ -33,7 +32,10 @@ const clusters = [
     y: '33%',
     tools: [
       { name: 'Webflow', level: 'expert' },
-      { name: 'Framer', level: 'expert' },
+      { name: 'Lovable', level: 'expert' },
+      { name: 'Unbounce', level: 'expert' },
+      { name: 'Figma', level: 'expert' },
+      { name: 'Adobe XD', level: 'expert' },
       { name: 'HTML/CSS', level: 'expert' },
       { name: 'React', level: 'learning' },
     ],
@@ -49,6 +51,7 @@ const clusters = [
       { name: 'Claude Code', level: 'expert' },
       { name: 'Claude.ai', level: 'expert' },
       { name: 'Figma AI', level: 'expert' },
+      { name: 'OpenAI Codex', level: 'expert' },
       { name: 'Lovable', level: 'learning' },
       { name: 'Replit', level: 'learning' },
     ],
@@ -64,6 +67,7 @@ const clusters = [
       { name: 'Photoshop', level: 'expert' },
       { name: 'Illustrator', level: 'expert' },
       { name: 'Canva', level: 'expert' },
+      { name: 'Figma', level: 'expert' },
       { name: 'Premiere Pro', level: 'learning' },
       { name: 'Camtasia', level: 'expert' },
     ],
@@ -78,6 +82,8 @@ const clusters = [
     tools: [
       { name: 'Storyline 360', level: 'expert' },
       { name: 'Rise 360', level: 'expert' },
+      { name: 'Microsoft PowerPoint', level: 'expert' },
+      { name: 'Adobe Connect', level: 'expert' },
     ],
   },
 ];
@@ -88,7 +94,6 @@ const toolPositions = {
   'Front-end engineering': { x: '11%', y: '57%' },
   Python: { x: '24%', y: '63%' },
   Selenium: { x: '34%', y: '15%' },
-  'Product development': { x: '51%', y: '26%' },
   SQL: { x: '43%', y: '38%' },
   'API Integration': { x: '51%', y: '49%' },
   Photoshop: { x: '38%', y: '61%' },
@@ -97,23 +102,28 @@ const toolPositions = {
   Lovable: { x: '49%', y: '94%' },
   'Claude Code': { x: '70%', y: '88%' },
   'Claude.ai': { x: '72%', y: '73%' },
+  'OpenAI Codex': { x: '63%', y: '82%' },
   'HTML/CSS': { x: '60%', y: '17%' },
   Webflow: { x: '79%', y: '20%' },
-  Framer: { x: '80%', y: '35%' },
+  Unbounce: { x: '82%', y: '44%' },
   React: { x: '76%', y: '49%' },
   Illustrator: { x: '16%', y: '75%' },
   'Premiere Pro': { x: '34%', y: '75%' },
   Canva: { x: '18%', y: '86%' },
   Camtasia: { x: '29%', y: '86%' },
   'Storyline 360': { x: '88%', y: '62%' },
-  'Rise 360': { x: '88%', y: '85%' },
+  'Rise 360': { x: '88%', y: '74%' },
+  'Microsoft PowerPoint': { x: '94%', y: '80%' },
+  'Adobe Connect': { x: '94%', y: '90%' },
 };
 
 const extraToolRelationships = {
   Photoshop: ['product-ux', 'marketing', 'web-dev'],
   'Figma AI': ['product-ux', 'ai-stack'],
-  Lovable: ['product-ux', 'ai-stack'],
+  Lovable: ['product-ux', 'ai-stack', 'web-dev'],
   Replit: ['product-ux', 'ai-stack'],
+  Figma: ['product-ux', 'web-dev', 'marketing'],
+  'Adobe XD': ['product-ux', 'web-dev'],
 };
 
 const toolToneClasses = {
@@ -809,7 +819,7 @@ export default function Skills() {
                 Precision and Creativity
               </p>
               <h2 className={`font-cabinet font-extrabold ${headlineColor} ${styles.h2Normal}`}>
-                The Full Toolkit!
+                The Full <span className={styles.scriptKeyword}>Toolkit!</span>
               </h2>
               <p className={`font-dm text-body text-ink-700 ${styles.headlineDesc}`}>
                 Five disciplines I work across, and the kit that earns its place under each. Hover a circle — the rest will follow.

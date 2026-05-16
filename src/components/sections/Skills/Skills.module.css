@@ -42,6 +42,14 @@
   letter-spacing: 0;
 }
 
+.scriptKeyword {
+  font-family: var(--font-caveat);
+  font-weight: 700;
+  color: var(--color-fun-accent-red);
+  font-size: 1.25em;
+  line-height: inherit;
+}
+
 .h2Fun {
   font-size: clamp(1.5rem, 3vw, 2.25rem);
 }
