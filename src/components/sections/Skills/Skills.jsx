@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { useTheme } from '../../shared/ThemeContext';
 import arcData from '../../../content/skills-arcs.json';
@@ -82,7 +83,7 @@ const clusters = [
     tools: [
       { name: 'Storyline 360', level: 'expert' },
       { name: 'Rise 360', level: 'expert' },
-      { name: 'Microsoft PowerPoint', level: 'expert' },
+      { name: 'PowerPoint', level: 'expert' },
       { name: 'Adobe Connect', level: 'expert' },
     ],
   },
@@ -113,7 +114,7 @@ const toolPositions = {
   Camtasia: { x: '29%', y: '86%' },
   'Storyline 360': { x: '88%', y: '62%' },
   'Rise 360': { x: '88%', y: '74%' },
-  'Microsoft PowerPoint': { x: '94%', y: '80%' },
+  PowerPoint: { x: '94%', y: '80%' },
   'Adobe Connect': { x: '94%', y: '90%' },
 };
 
@@ -132,6 +133,43 @@ const toolToneClasses = {
   'ai-stack': styles.toolActiveAiStack,
   marketing: styles.toolActiveMarketing,
   instructional: styles.toolActiveInstructional,
+};
+
+const toolLogos = {
+  Figma: { sources: ['/images/skills/skills-figma.svg'] },
+  'Adobe XD': { sources: ['/images/skills/skills-adobe-xd.svg'] },
+  'Front-end engineering': { sources: ['/images/skills/skills-frontend-engineering.svg'] },
+  Python: { sources: ['/images/skills/skills-python.svg'] },
+  Selenium: { sources: ['/images/skills/skills-selenium.svg'] },
+  SQL: { sources: ['/images/skills/skills-sql.svg'] },
+  'API Integration': { sources: ['/images/skills/skills-api-integration.svg'] },
+  Webflow: { sources: ['/images/skills/skills-webflow.svg'] },
+  Lovable: { sources: ['/images/skills/skills-lovable.svg'] },
+  Unbounce: { sources: ['/images/skills/skills-unbounce.svg'] },
+  'HTML/CSS': {
+    sources: [
+      '/images/skills/skills-html5.svg',
+      '/images/skills/skills-css3.svg',
+    ],
+    plateClassName: styles.toolLogoPlateDual,
+    boxClassName: styles.toolLogoBoxDual,
+    imageClassName: styles.toolLogoImageDual,
+  },
+  React: { sources: ['/images/skills/skills-react.svg'] },
+  'Claude Code': { sources: ['/images/skills/skills-claude-code.svg'] },
+  'Claude.ai': { sources: ['/images/skills/skills-claude-ai.svg'] },
+  'Figma AI': { sources: ['/images/skills/skills-figma-ai.svg'] },
+  'OpenAI Codex': { sources: ['/images/skills/skills-openai-codex.svg'] },
+  Replit: { sources: ['/images/skills/skills-replit.svg'] },
+  Photoshop: { sources: ['/images/skills/skills-photoshop.svg'] },
+  Illustrator: { sources: ['/images/skills/skills-illustrator.svg'] },
+  Canva: { sources: ['/images/skills/skills-canva.svg'] },
+  'Premiere Pro': { sources: ['/images/skills/skills-premiere-pro.svg'] },
+  Camtasia: { sources: ['/images/skills/skills-camtasia.png'] },
+  'Storyline 360': { sources: ['/images/skills/skills-storyline-360.png'] },
+  'Rise 360': { sources: ['/images/skills/skills-rise-360.png'] },
+  PowerPoint: { sources: ['/images/skills/skills-microsoft-powerpoint.svg'] },
+  'Adobe Connect': { sources: ['/images/skills/skills-adobe-connect.png'] },
 };
 
 const uniqueTools = clusters.reduce((tools, cluster) => {
@@ -167,6 +205,34 @@ const tools = Object.entries(uniqueTools).map(([name, tool]) => ({
   ...tool,
   ...(toolPositions[name] || {}),
 }));
+
+function ToolLogo({ toolName }) {
+  const config = toolLogos[toolName];
+  if (!config) return null;
+
+  const plateClassName = config.plateClassName || '';
+  const boxClassName = config.boxClassName || '';
+  const imageClassName = config.imageClassName || '';
+
+  return (
+    <span className={`${styles.toolLogoPlate} ${plateClassName}`} aria-hidden="true">
+      <span className={`${styles.toolLogoBox} ${boxClassName}`}>
+        {config.sources.map((src, index) => (
+          <span key={`${toolName}-${src}`} className={styles.toolLogoImageWrap}>
+            <Image
+              src={src}
+              alt=""
+              fill
+              unoptimized
+              sizes={config.sources.length > 1 ? '14px' : '24px'}
+              className={`${styles.toolLogoImage} ${imageClassName} ${index > 0 ? styles.toolLogoImageSecondary : ''}`}
+            />
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
 
 // Owning cluster for each tool — used to anchor its resting pile under the
 // skill circle it primarily belongs to, regardless of extra hover relationships.
@@ -595,6 +661,7 @@ const ToolPill = function ToolPill({ tool, activeSkill, pillRef }) {
       style={{ '--tool-x': tool.x, '--tool-y': tool.y }}
       aria-label={`${label}, ${tool.level === 'expert' ? 'expert' : 'learning'}`}
     >
+      <ToolLogo toolName={tool.name} />
       <span className={styles.toolName}>{displayName}</span>
     </button>
   );
@@ -708,6 +775,7 @@ function MindMap() {
           <div className={styles.mobileToolList}>
             {cluster.tools.map(tool => (
               <span key={tool.name} className={styles.mobileToolPill}>
+                <ToolLogo toolName={tool.name} />
                 <span>{toolPositions[tool.name]?.label || tool.name}{tool.level === 'learning' ? '*' : ''}</span>
               </span>
             ))}

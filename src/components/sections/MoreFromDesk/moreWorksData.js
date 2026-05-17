@@ -277,7 +277,7 @@ export const moreWorkLanes = [
         title: 'Encubate',
         tag: 'Campaign identity',
         note: 'A campaign system shaped across message, look, and launch collateral.',
-        actionType: 'image-modal',
+        actionType: 'internal-route',
         details: {
           eyebrow: 'Visual Systems',
           title: 'Encubate',
@@ -295,7 +295,7 @@ export const moreWorkLanes = [
         title: 'Logo Design',
         tag: 'Brand marks',
         note: 'Identity explorations for brands, initiatives, and internal products.',
-        actionType: 'image-modal',
+        actionType: 'internal-route',
         details: {
           eyebrow: 'Visual Systems',
           title: 'Logo Design',
@@ -313,7 +313,7 @@ export const moreWorkLanes = [
         title: 'YouTube Growth System',
         tag: 'Video design ops',
         note: 'Thumbnail, shorts, community, and publishing systems for consistency.',
-        actionType: 'image-modal',
+        actionType: 'internal-route',
         details: {
           eyebrow: 'Visual Systems',
           title: 'YouTube Growth System',
@@ -331,7 +331,7 @@ export const moreWorkLanes = [
         title: 'Student Success Creatives',
         tag: 'Story collateral',
         note: 'Visual systems for turning outcomes into credible proof.',
-        actionType: 'image-modal',
+        actionType: 'internal-route',
         details: {
           eyebrow: 'Visual Systems',
           title: 'Student Success Creatives',
@@ -349,7 +349,7 @@ export const moreWorkLanes = [
         title: 'Webinar Campaigns',
         tag: 'Conversion collateral',
         note: 'Event visuals, promotion assets, and funnel-support creatives.',
-        actionType: 'image-modal',
+        actionType: 'internal-route',
         details: {
           eyebrow: 'Visual Systems',
           title: 'Webinar Campaigns',
@@ -367,7 +367,7 @@ export const moreWorkLanes = [
         title: 'Social Creatives',
         tag: 'Attention design',
         note: 'Fast-turnaround assets built for scanning, recall, and action.',
-        actionType: 'image-modal',
+        actionType: 'internal-route',
         details: {
           eyebrow: 'Visual Systems',
           title: 'Social Creatives',

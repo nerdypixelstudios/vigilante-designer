@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Cylinder top ellipse -->
+  <ellipse cx="32" cy="14" rx="22" ry="7" fill="#3B82F6"/>
+  <!-- Cylinder body -->
+  <rect x="10" y="14" width="44" height="28" fill="#2563EB"/>
+  <!-- Cylinder bottom ellipse -->
+  <ellipse cx="32" cy="42" rx="22" ry="7" fill="#1D4ED8"/>
+  <!-- Top shine ellipse -->
+  <ellipse cx="32" cy="14" rx="22" ry="7" fill="none" stroke="#60A5FA" stroke-width="1.5" opacity="0.5"/>
+  <!-- Middle stripe -->
+  <ellipse cx="32" cy="26" rx="22" ry="7" fill="none" stroke="#3B82F6" stroke-width="1" opacity="0.4"/>
+</svg>

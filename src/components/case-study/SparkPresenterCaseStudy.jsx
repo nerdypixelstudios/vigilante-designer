@@ -178,55 +178,206 @@ const decisions = [
   },
 ];
 
-const processSteps = [
+const buildTimelineSteps = [
   {
     number: '01',
+    icon: 'map',
+    iconTone: 'mint',
     title: 'Map the manual workflow',
-    body: 'We documented how learning content was manually converted into presentable activities.',
-    artifact: 'Workflow map',
-    prevented: 'Automating the wrong thing or treating the problem as UI polish.',
+    description: 'Every step of the existing process documented \u2014 who did it, why, and what a good outcome looked like. That map defined exactly what the system had to replicate.',
   },
   {
     number: '02',
-    title: 'Define the component grammar',
-    body: 'I identified the recurring learning blocks needed to express e-GMAT learning content.',
-    artifact: 'Component ledger',
-    prevented: 'The translator inventing components or producing inconsistent presentation formats.',
+    icon: 'proof',
+    iconTone: 'coral',
+    stat: '5 files',
+    title: 'Proof of concept',
+    description: 'Five complete content files converted end-to-end inside Claude Desktop \u2014 each as a full artifact, iterated within the conversation until the output was right. The goal wasn\'t perfect output. It was proof that automated conversion was possible at all.',
   },
   {
     number: '03',
-    title: 'Shape the JSON structure',
-    body: 'We defined the output structure needed by the backend and frontend renderer.',
-    artifact: 'Backend-ready JSON contract',
-    prevented: 'Translation output that looked good in isolation but could not render reliably.',
+    icon: 'blocks',
+    iconTone: 'sky',
+    stat: '20 files',
+    title: 'Identify every learning block',
+    description: 'With proof established, 20 files were run through the same process to surface every recurring learning block type. By the end, the full vocabulary of the system was known.',
   },
   {
     number: '04',
-    title: 'Build the translation intelligence',
-    body: 'I worked with the Principal Course Architect to encode SME intent and design decision-making into the conversion path.',
-    artifact: 'Public-safe translation logic',
-    prevented: 'A human designer repeatedly deciding how each piece of content should be represented.',
+    icon: 'design',
+    iconTone: 'lavender',
+    title: 'Design the learning blocks',
+    description: 'Each block from the lexicon was designed \u2014 its intent, when to use it, how it should render, and what distinguished it from adjacent block types. The designer\'s judgment, encoded as structured rules.',
   },
   {
     number: '05',
-    title: 'Build the component library and renderer',
-    body: 'I designed and coded the frontend components and integrated the renderer that maps JSON to UI.',
-    artifact: 'Component library + renderer',
-    prevented: 'Rebuilding custom screens for every new lesson.',
+    icon: 'logic',
+    iconTone: 'amber',
+    title: 'Build translation intelligence',
+    description: 'The most knowledge-intensive step in the manual workflow \u2014 deciding how to present each moment \u2014 encoded into the extractor. The component lexicon became its decision guide.',
   },
   {
     number: '06',
-    title: 'Test with real learning files',
-    body: 'We ran real Markdown files through the pipeline and reviewed the output as students would experience it.',
-    artifact: 'Tested activity outputs',
-    prevented: 'Technically correct output that felt cognitively overwhelming or fragmented.',
+    icon: 'validate',
+    iconTone: 'sage',
+    title: 'Build the validator',
+    description: 'The SME\'s review criteria documented and automated. The validator compared converted output against the source file, flagging missing content, broken sequences, and intent drift.',
   },
   {
     number: '07',
-    title: 'Add validation and correction checks',
-    body: 'We added quality gates to catch malformed structures and edge cases.',
-    artifact: 'Validator and corrector stages',
-    prevented: 'Speed becoming risky when converting many files in batches.',
+    icon: 'correct',
+    iconTone: 'rose',
+    title: 'Build the corrector',
+    description: 'Validator errors fed directly into the corrector. What could be resolved without human input, was. The pipeline could now self-correct before output reached the backend.',
+  },
+  {
+    number: '08',
+    icon: 'render',
+    iconTone: 'violet',
+    stat: '4 versions',
+    title: 'Build the renderer',
+    description: 'Four versions built before the output was right. Each refined how the JSON contract translated into a learning experience the student would actually encounter.',
+  },
+  {
+    number: '09',
+    icon: 'scale',
+    iconTone: 'green',
+    stat: '100+ files',
+    title: 'Test at scale',
+    description: 'One hundred-plus files run through the complete pipeline. Issues surfaced, inputs refined, edge cases handled. The system hardened before it was trusted in production.',
+  },
+];
+
+const beforePipelineSteps = [
+  {
+    id: 'write',
+    label: 'Write',
+    description: 'Prose content authored by SME',
+    iconType: 'avatar',
+    iconSrc: '/images/case-studies/spark/build/sme.png',
+    top: '69%',
+    left: '7%',
+    rotate: '2deg',
+    width: '82%',
+  },
+  {
+    id: 'extract',
+    label: 'Extract',
+    description: 'Content built manually in Articulate Rise',
+    iconType: 'avatar',
+    iconSrc: '/images/case-studies/spark/build/designer.png',
+    top: '53%',
+    left: '11%',
+    rotate: '-2deg',
+    width: '82%',
+  },
+  {
+    id: 'validate',
+    label: 'Validate',
+    description: 'Learning intent reviewed by SME',
+    iconType: 'avatar',
+    iconSrc: '/images/case-studies/spark/build/sme.png',
+    top: '37%',
+    left: '6%',
+    rotate: '2deg',
+    width: '82%',
+  },
+  {
+    id: 'correct',
+    label: 'Correct',
+    description: 'Fixes implemented back in Rise',
+    iconType: 'avatar',
+    iconSrc: '/images/case-studies/spark/build/designer.png',
+    top: '21%',
+    left: '10%',
+    rotate: '-2deg',
+    width: '82%',
+  },
+  {
+    id: 'deploy',
+    label: 'Deploy',
+    description: 'Tracking added, activity linked by operations',
+    iconType: 'avatar',
+    iconSrc: '/images/case-studies/spark/build/operations.png',
+    top: '6%',
+    left: '8%',
+    rotate: '2deg',
+    width: '82%',
+  },
+];
+
+const sparkPipelineSteps = [
+  {
+    id: 'renderer',
+    label: 'Renderer',
+    description: 'JSON stored, rendered natively',
+    iconType: 'glyph',
+    iconSrc: '/images/case-studies/spark/build/render.svg',
+    top: '10%',
+    left: '8%',
+    rotate: '0.8deg',
+    width: '80%',
+  },
+  {
+    id: 'corrector',
+    label: 'Corrector',
+    description: 'Resolves errors in the JSON',
+    iconType: 'glyph',
+    iconSrc: '/images/case-studies/spark/build/correct.svg',
+    top: '30%',
+    left: '6%',
+    rotate: '-1.4deg',
+    width: '83%',
+  },
+  {
+    id: 'validator',
+    label: 'Validator',
+    description: 'Checks output. Flags errors.',
+    iconType: 'glyph',
+    iconSrc: '/images/case-studies/spark/build/validate.svg',
+    top: '50%',
+    left: '10%',
+    rotate: '1.4deg',
+    width: '78%',
+  },
+  {
+    id: 'extractor',
+    label: 'Extractor',
+    description: 'Reads prose, maps to learning blocks',
+    iconType: 'glyph',
+    iconSrc: '/images/case-studies/spark/build/extract.svg',
+    top: '70%',
+    left: '8%',
+    rotate: '-1deg',
+    width: '84%',
+  },
+  {
+    id: 'write',
+    label: 'Write',
+    description: 'Prose content authored by SME',
+    iconType: 'avatar',
+    iconSrc: '/images/case-studies/spark/build/sme.png',
+    top: '90%',
+    left: '10%',
+    rotate: '-1.5deg',
+    width: '76%',
+    outside: true,
+    dashed: true,
+  },
+];
+
+const buildCloserMilestones = [
+  {
+    value: '5 files',
+    description: 'used for Proof of concept',
+  },
+  {
+    value: '20 files',
+    description: 'used for Component lexicon',
+  },
+  {
+    value: '100+ files',
+    description: 'Final testing',
   },
 ];
 
@@ -262,6 +413,27 @@ function useInViewOnce({ threshold = 0.15, rootMargin = '0px 0px -60px 0px' } = 
   }, [isVisible, rootMargin, threshold]);
 
   return { ref, isVisible };
+}
+
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updatePreference);
+      return () => mediaQuery.removeEventListener('change', updatePreference);
+    }
+
+    mediaQuery.addListener(updatePreference);
+    return () => mediaQuery.removeListener(updatePreference);
+  }, []);
+
+  return prefersReducedMotion;
 }
 
 function Reveal({ children, className = '' }) {
@@ -616,29 +788,446 @@ function SparkDecision({ decision }) {
   );
 }
 
-function PipelineGraphic({ variant = 'horizontal' }) {
-  const steps = ['Source MD', 'Extractor', 'Navigator', 'Validator', 'Corrector', 'Final JSON', 'Renderer', 'Activity'];
+function BuildTimelineStepIcon({ icon }) {
+  const commonProps = {
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: '1.8',
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
+    'aria-hidden': 'true',
+  };
 
+  switch (icon) {
+    case 'map':
+      return (
+        <svg {...commonProps}>
+          <path d="M4 6.5 9 4l6 2.5L20 4v13.5L15 20l-6-2.5L4 20Z" />
+          <path d="M9 4v13.5M15 6.5V20" />
+        </svg>
+      );
+    case 'proof':
+      return (
+        <svg {...commonProps}>
+          <path d="M10 4h4M11 4v5l-5 8a2 2 0 0 0 1.7 3h8.6A2 2 0 0 0 18 17l-5-8V4" />
+          <path d="M9 14h6" />
+        </svg>
+      );
+    case 'blocks':
+      return (
+        <svg {...commonProps}>
+          <rect x="4" y="4" width="6" height="6" rx="1.2" />
+          <rect x="14" y="4" width="6" height="6" rx="1.2" />
+          <rect x="4" y="14" width="6" height="6" rx="1.2" />
+          <rect x="14" y="14" width="6" height="6" rx="1.2" />
+        </svg>
+      );
+    case 'design':
+      return (
+        <svg {...commonProps}>
+          <path d="m7 17 10-10 3 3-10 10H7Z" />
+          <path d="m14 6 4 4" />
+          <path d="M7 17v3h3" />
+        </svg>
+      );
+    case 'logic':
+      return (
+        <svg {...commonProps}>
+          <circle cx="6.5" cy="7" r="2" />
+          <circle cx="17.5" cy="7" r="2" />
+          <circle cx="12" cy="17" r="2" />
+          <path d="M8.4 8.1 10.8 10M15.6 8.1 13.2 10M12 12v3" />
+        </svg>
+      );
+    case 'validate':
+      return (
+        <svg {...commonProps}>
+          <path d="M12 3 5.5 5.5v5.7c0 4 2.6 6.9 6.5 9.3 3.9-2.4 6.5-5.3 6.5-9.3V5.5Z" />
+          <path d="m9.4 11.9 1.8 1.9 3.4-3.8" />
+        </svg>
+      );
+    case 'correct':
+      return (
+        <svg {...commonProps}>
+          <path d="m8 16 8-8M10 7H6v4M18 13v5h-5" />
+          <path d="m9 15-3 3M15 9l3-3" />
+        </svg>
+      );
+    case 'render':
+      return (
+        <svg {...commonProps}>
+          <rect x="4" y="5" width="16" height="11" rx="2" />
+          <path d="M8 19h8M12 16v3" />
+          <path d="M7.5 9.5h9M7.5 12.5h5" />
+        </svg>
+      );
+    case 'scale':
+      return (
+        <svg {...commonProps}>
+          <path d="M4 18h16" />
+          <path d="M7 18V9M12 18V6M17 18v-4" />
+          <path d="m5.8 10.2 3-3 2.5 2.5 5-5" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
+function BuildTimelineIntro() {
   return (
-    <div className={`${styles.pipelineGraphic} ${variant === 'vertical' ? styles.pipelineGraphicVertical : ''}`} aria-label="Public-safe S.P.A.R.K. pipeline">
-      {steps.map((step) => (
-        <span key={step}>{step}</span>
-      ))}
+    <div className={styles.buildTimelineIntro}>
+      <CaseStudySectionHeader
+        eyebrow="Build Process"
+        eyebrowClassName={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen} mb-6`}
+        renderHeading={() => <BuildProcessHeading />}
+        copy="The work was less about designing a single learning activity and more about building a reliable production path. Each stage produced an output that made the next stage possible."
+        copyClassName="mt-10 max-w-3xl font-dm text-body leading-relaxed text-ink-800"
+      />
     </div>
   );
 }
 
-function ProcessStep({ step }) {
+function BuildTimelineCard({ step, isActive = false }) {
   return (
-    <article className={styles.processStep}>
-      <div className={styles.processStepCopy}>
-        <span>{step.number}</span>
-        <h3>{step.title}</h3>
-        <p>{step.body}</p>
-        <p><strong>Artifact:</strong> {step.artifact}</p>
-        <p><strong>Prevented:</strong> {step.prevented}</p>
+    <article className={`${styles.buildTimelineCard} ${isActive ? styles.buildTimelineCardActive : ''}`}>
+      {step.stat ? <span className={styles.buildTimelineCardRibbon}>{step.stat}</span> : null}
+
+      <div className={styles.buildTimelineCardBody}>
+        <span className={`${styles.buildTimelineCardIcon} ${styles[`buildTimelineCardIcon${step.iconTone}`]}`}>
+          <BuildTimelineStepIcon icon={step.icon} />
+        </span>
+        <h3 className={styles.buildTimelineCardTitle}>{step.title}</h3>
+        <p className={styles.buildTimelineCardDescription}>{step.description}</p>
       </div>
     </article>
+  );
+}
+
+function BuildProcessHeading() {
+  return (
+    <h2 id="build-heading" className={styles.buildProcessHeading}>
+      The build process produced
+      <br />
+      <span className={styles.buildProcessHeadingHighlight}>a system, not just a screen.</span>
+    </h2>
+  );
+}
+
+function BuildCloserArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function BuildTimelineSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const wrapperRef = useRef(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [cardDirection, setCardDirection] = useState('next');
+  const lastStepRef = useRef(0);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      const wrapperNode = wrapperRef.current;
+
+      if (wrapperNode) {
+        wrapperNode.style.height = 'auto';
+      }
+
+      setActiveStep(0);
+      setCardDirection('next');
+      lastStepRef.current = 0;
+      return undefined;
+    }
+
+    const wrapperNode = wrapperRef.current;
+
+    if (!wrapperNode) {
+      return undefined;
+    }
+
+    let frameId = 0;
+    let resizeTimeoutId;
+    const totalSteps = buildTimelineSteps.length;
+
+    const clampProgress = value => Math.min(Math.max(value, 0), 1);
+
+    const updateTimeline = () => {
+      frameId = 0;
+
+      const availableScroll = Math.max(wrapperNode.offsetHeight - window.innerHeight, 1);
+      const wrapperTop = wrapperNode.getBoundingClientRect().top + window.scrollY;
+      const rawProgress = (window.scrollY - wrapperTop) / availableScroll;
+      const nextProgress = clampProgress(rawProgress);
+      const nextActiveStep = Math.max(0, Math.min(totalSteps - 1, Math.round(nextProgress * (totalSteps - 1))));
+
+      if (nextActiveStep !== lastStepRef.current) {
+        setCardDirection(nextActiveStep > lastStepRef.current ? 'next' : 'prev');
+        lastStepRef.current = nextActiveStep;
+        setActiveStep(nextActiveStep);
+      }
+    };
+
+    const measureTimeline = () => {
+      const stepTravel = Math.max(window.innerHeight * 0.72, 440);
+      wrapperNode.style.height = `${window.innerHeight + (stepTravel * (totalSteps - 1))}px`;
+      updateTimeline();
+    };
+
+    const requestTimelineUpdate = () => {
+      if (!frameId) {
+        frameId = window.requestAnimationFrame(updateTimeline);
+      }
+    };
+
+    const handleResize = () => {
+      window.clearTimeout(resizeTimeoutId);
+      resizeTimeoutId = window.setTimeout(measureTimeline, 120);
+    };
+
+    measureTimeline();
+    window.addEventListener('scroll', requestTimelineUpdate, { passive: true });
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
+
+      window.clearTimeout(resizeTimeoutId);
+      window.removeEventListener('scroll', requestTimelineUpdate);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [prefersReducedMotion]);
+
+  if (prefersReducedMotion) {
+    return (
+      <div className={styles.buildTimelineReduced}>
+        <div className={styles.buildTimelineStack}>
+          {buildTimelineSteps.map((step) => (
+            <BuildTimelineCard key={step.number} step={step} isActive />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  const activeStepData = buildTimelineSteps[activeStep];
+
+  return (
+    <div ref={wrapperRef} className={styles.buildTimelineWrapper} role="region" aria-label="Build process timeline.">
+      <div className={styles.buildTimelineSticky}>
+        <div className={styles.buildTimelineTrack} aria-hidden="true">
+          <span className={styles.buildTimelineTrackLine} />
+          <div className={styles.buildTimelineMarkers}>
+            {buildTimelineSteps.map((step, index) => (
+              <span
+                key={step.number}
+                className={[
+                  styles.buildTimelineMarker,
+                  index === activeStep ? styles.buildTimelineMarkerActive : '',
+                  index < activeStep ? styles.buildTimelineMarkerPassed : '',
+                ].filter(Boolean).join(' ')}
+              >
+                <span className={styles.buildTimelineMarkerOrb}>{step.number}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.buildTimelineViewport}>
+          <div
+            key={activeStepData.number}
+            className={[
+              styles.buildTimelineCardMotion,
+              cardDirection === 'prev' ? styles.buildTimelineCardMotionPrev : styles.buildTimelineCardMotionNext,
+            ].join(' ')}
+          >
+            <BuildTimelineCard step={activeStepData} isActive />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PipelineStepIcon({ step }) {
+  return (
+    <span className={styles.pipelineStepIconWrap} aria-hidden="true">
+      <img src={step.iconSrc} alt="" className={styles.pipelineStepIcon} />
+    </span>
+  );
+}
+
+function PipelinePill({ step, className = '', isVisible, style = {} }) {
+  const pillClassName = [styles.pipelinePill, className, isVisible ? styles.pipelinePillVisible : '']
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <div
+      className={pillClassName}
+      style={style}
+    >
+      <div className={styles.pipelinePillChip}>
+        <PipelineStepIcon step={step} />
+        <span className={styles.pipelinePillLabel}>{step.label}</span>
+      </div>
+      <span className={styles.pipelinePillDescription}>{step.description}</span>
+    </div>
+  );
+}
+
+function BeforePipelineBoard({ isVisible = false }) {
+  return (
+    <article className={styles.pipelineBoard}>
+      <div className={styles.pipelineBoardCopy}>
+        <h3>Before</h3>
+        <p>Every step is manual</p>
+      </div>
+
+      <div className={styles.pipelineBoardMetricWrap}>
+        <p className={styles.pipelineBoardMetric}>3 days {'\u00B7'} 1 file</p>
+      </div>
+
+      <div className={`${styles.pipelineBoardCanvas} ${styles.pipelineBoardCanvasBefore}`}>
+        <div className={styles.pipelineManualStack}>
+          {beforePipelineSteps.slice().reverse().map((step, index) => (
+            <PipelinePill
+              key={step.id}
+              step={step}
+              isVisible={isVisible}
+              className={[
+                styles.pipelinePillManual,
+                index % 2 === 1 ? styles.pipelinePillManualAlt : '',
+              ].filter(Boolean).join(' ')}
+              style={{
+                '--pipeline-pill-rotation': step.rotate,
+                '--pipeline-pill-duration': '9800ms',
+                '--pipeline-pill-delay': `${index * 780}ms`,
+                top: step.top,
+                left: step.left,
+                width: step.width,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function SparkPipelineBoard({ isVisible = false }) {
+  const groupedSteps = sparkPipelineSteps.filter((step) => !step.outside);
+  const externalStep = sparkPipelineSteps.find((step) => step.outside);
+
+  return (
+    <article className={styles.pipelineBoard}>
+      <div className={styles.pipelineBoardCopy}>
+        <h3>The S.P.A.R.K. assembly line</h3>
+        <p>All the manual effort automated</p>
+      </div>
+
+      <div className={styles.pipelineBoardMetricWrap}>
+        <p className={styles.pipelineBoardMetric}>2 hours {'\u00B7'} 100 files</p>
+        <img
+          src="/images/case-studies/spark/build/underline.svg"
+          alt=""
+          aria-hidden="true"
+          className={styles.pipelineBoardUnderline}
+        />
+      </div>
+
+      <div className={`${styles.pipelineBoardCanvas} ${styles.pipelineBoardCanvasSpark}`}>
+        <div className={styles.pipelineSparkStage}>
+          <div className={styles.pipelineSparkCore}>
+            {groupedSteps.map((step, index) => (
+              <PipelinePill
+                key={step.id}
+                step={step}
+                isVisible={isVisible}
+                className={styles.pipelinePillGrouped}
+                style={{
+                  '--pipeline-pill-rotation': index % 2 === 0 ? '0.9deg' : '-0.9deg',
+                  '--pipeline-pill-duration': '3400ms',
+                  '--pipeline-pill-delay': `${index * 220}ms`,
+                }}
+              />
+            ))}
+          </div>
+
+          {externalStep ? (
+            <PipelinePill
+              step={externalStep}
+              isVisible={isVisible}
+              className={`${styles.pipelinePillSparkWrite} ${styles.pipelinePillDashed}`}
+              style={{
+                '--pipeline-pill-rotation': '-2deg',
+                '--pipeline-pill-duration': '3400ms',
+                '--pipeline-pill-delay': `${groupedSteps.length * 220}ms`,
+              }}
+            />
+          ) : null}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function BuildPipelineComparison() {
+  const { ref, isVisible } = useInViewOnce({ threshold: 0.2, rootMargin: '0px 0px -80px 0px' });
+
+  return (
+    <div ref={ref} className={styles.pipelineComparisonSection}>
+      <div className={styles.pipelineComparisonGrid}>
+        <BeforePipelineBoard isVisible={isVisible} />
+        <SparkPipelineBoard isVisible={isVisible} />
+      </div>
+    </div>
+  );
+}
+
+function BuildProcessCloser() {
+  return (
+    <div className={styles.buildProcessCloser}>
+      <div className={styles.buildProcessCloserLead}>
+        <h3 className={styles.buildProcessCloserHeading}>Not just built.</h3>
+        <p className={styles.buildProcessCloserText}>Iterated, tested, and hardened at scale.</p>
+      </div>
+
+      <div className={styles.buildProcessCloserCard}>
+        <div className={styles.buildProcessCloserStats}>
+          {buildCloserMilestones.map((item) => (
+            <div key={item.value} className={styles.buildProcessCloserStatGroup}>
+              <div className={styles.buildProcessCloserStat}>
+                <strong>{item.value}</strong>
+                <span>{item.description}</span>
+              </div>
+              {item.value !== buildCloserMilestones[buildCloserMilestones.length - 1].value ? (
+                <span className={styles.buildProcessCloserArrow} aria-hidden="true">
+                  <BuildCloserArrowIcon />
+                </span>
+              ) : null}
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.buildProcessCloserFoot}>
+          <span className={styles.buildProcessCloserIconWrap} aria-hidden="true">
+            <img src="/images/case-studies/spark/build/correct.svg" alt="" className={styles.buildProcessCloserIcon} />
+          </span>
+          <p>
+            <strong>4 complete</strong>
+            <span>iterations done for the renderer</span>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -957,50 +1546,19 @@ export default function SparkPresenterCaseStudy() {
       />
 
       <ProcessTrail id="build" labelledBy="build-heading" className={styles.buildProcessSection}>
-        <div className="mx-auto max-w-5xl">
-          <Reveal>
-            <CaseStudySectionHeader
-              eyebrow="Build Process"
-              eyebrowClassName={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen} mb-6`}
-              renderHeading={() => (
-                <StaggeredText
-                  id="build-heading"
-                  className="font-cabinet text-5xl font-extrabold leading-tight text-ink-950 md:text-6xl"
-                  segments={[
-                    { text: 'The build process produced', breakAfter: true },
-                    { text: 'a system, not just a screen.', className: 'box-decoration-clone bg-accent-green px-1 text-ink-950' },
-                  ]}
-                />
-              )}
-              copy="The work was less about designing a single learning activity and more about building a reliable production path. Each stage produced an artifact that made the next stage possible."
-              copyClassName="mt-10 max-w-3xl font-dm text-body leading-relaxed text-ink-800"
-            />
-            <div className={styles.buildProcessGrid}>
-              <div className={styles.processStepList}>
-                {processSteps.map((step) => (
-                  <ProcessStep key={step.number} step={step} />
-                ))}
-              </div>
-              <PipelineGraphic variant="vertical" />
-            </div>
-            <div className={styles.whyWorkedBlock}>
-              <div>
-                <p className={`${lmsStyles.caseStudyBrow} ${lmsStyles.caseStudyBrowGreen}`}>Why this worked</p>
-                <h3>It did not depend on one giant leap from Markdown to UI.</h3>
-              </div>
-              <div className={styles.whyWorkedItems}>
-                {[
-                  'The component grammar constrained presentation choices.',
-                  'The JSON contract made output renderable.',
-                  'Validation and correction protected production quality.',
-                  'Real-file testing exposed cognitive-load problems early.',
-                  'The renderer made updates reusable across activities.',
-                ].map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </div>
-            </div>
-          </Reveal>
+        <div className={styles.buildProcessShell}>
+          <BuildTimelineIntro />
+          <BuildTimelineSection />
+
+          <div className="mx-auto max-w-5xl">
+            <Reveal>
+              <BuildPipelineComparison />
+            </Reveal>
+
+            <Reveal>
+              <BuildProcessCloser />
+            </Reveal>
+          </div>
         </div>
       </ProcessTrail>
 
