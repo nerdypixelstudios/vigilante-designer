@@ -4946,24 +4946,27 @@
 
 .nextCaseMediaSurface {
   position: relative;
-  display: grid;
-  grid-template-columns: var(--next-card-preview-rail) minmax(0, 1fr) minmax(0, 0.72fr);
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-  gap: var(--next-card-preview-gap);
+  display: block;
   width: 100%;
-  aspect-ratio: 1200 / 340;
-  padding: var(--next-card-preview-padding);
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: var(--next-card-media-radius);
-  background:
-    radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent-lavender) 72%, transparent), transparent 42%),
-    linear-gradient(135deg, var(--color-surface-lilac), var(--color-accent-lavender));
+  background: linear-gradient(135deg, var(--color-surface-lilac), var(--color-accent-lavender));
   transition: transform 0.2s ease;
 }
 
 .nextCasePreview:hover .nextCaseMediaSurface,
 .nextCasePreview:focus-visible .nextCaseMediaSurface {
   transform: scale(1.015);
+}
+
+.nextCasePosterImage,
+.nextCasePreviewVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .nextCaseRibbon {

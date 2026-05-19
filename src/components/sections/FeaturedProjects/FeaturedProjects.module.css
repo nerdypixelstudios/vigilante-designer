@@ -337,6 +337,13 @@
   gap: 0.2rem;
 }
 
+.editorialLinkedInLink {
+  display: inline-flex;
+  line-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
 .editorialLinkedInIcon {
   width: 0.95rem;
   height: 0.95rem;

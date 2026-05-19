@@ -44,30 +44,35 @@ const projects = [
     slug: 'spark-presenter',
     name: 'S.P.A.R.K. Presenter',
     funName: 'S.P.A.R.K. Presenter',
-    headline: 'How I built an assembly line for learning content — and made manual production obsolete',
+    headline: 'How I built an assembly line for learning content - and made manual production obsolete',
     tags: [
       { label: 'PRODUCT ARCHITECTURE' },
       { label: 'LIVE', tone: 'active' },
     ],
     metrics: [
       {
-        value: '100 files processed in 2 hours',
-        label: '',
+        value: '100',
+        label: 'files processed in 2 hours',
       },
       {
-        value: '95%+ automated accuracy',
-        label: '',
+        value: '95%+',
+        label: 'automated accuracy',
       },
     ],
-    summary: 'I designed a component grammar and an automated pipeline that reads raw learning prose, maps it to structured presentation blocks, and outputs production-ready activities at scale.',
+    summary: 'I built a component system and automation pipeline that turns raw course content into production-ready learning experiences in minutes.',
     quote: {
-      text: '[Pending — Payal, Principal Course Architect]',
-      person: '[Name]',
-      role: '[Role] · e-GMAT',
-      image: null,
+      text: 'Knowing how long course builds usually take, seeing a full course come together in just minutes was genuinely astonishing.',
+      person: 'Rashmi Vaidya',
+      role: 'Former GMAT Strategy Expert, e-GMAT',
+      image: '/images/testimonials/testimonial-rashmi-portrait.webp',
+      linkedinUrl: 'https://www.linkedin.com/in/rashmi-vaidya-26b8a935/',
     },
     funSticker: 'One system. Many lessons.',
-    media: null,
+    media: {
+      poster: '/images/work/work-spark-presenter-preview-thumbnail.webp',
+      webm: '/videos/work/work-spark-presenter-preview.webm',
+      mp4: '/videos/work/work-spark-presenter-preview.mp4',
+    },
   },
   {
     id: 'egmat-website',
@@ -131,17 +136,41 @@ const projects = [
   },
 ];
 
+function parseAnimatedMetric(value) {
+  const patterns = [
+    { regex: /^(\d+(?:\.\d+)?)x$/, suffix: 'x' },
+    { regex: /^(\d+(?:\.\d+)?)(%\+?)$/, suffixFromMatch: true },
+    { regex: /^(\d+(?:\.\d+)?)$/, suffix: '' },
+  ];
+
+  for (const pattern of patterns) {
+    const match = pattern.regex.exec(value);
+
+    if (match) {
+      const numericValue = match[1];
+
+      return {
+        target: Number.parseFloat(numericValue),
+        decimals: numericValue.includes('.') ? numericValue.split('.')[1].length : 0,
+        suffix: pattern.suffixFromMatch ? match[2] : pattern.suffix,
+      };
+    }
+  }
+
+  return null;
+}
+
 function AnimatedMetric({ value, isActive }) {
-  const numericMetric = /^(\d+(?:\.\d+)?)x$/.exec(value);
   const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
-    if (!isActive || !numericMetric) {
+    const parsedMetric = parseAnimatedMetric(value);
+
+    if (!isActive || !parsedMetric) {
       setDisplayValue(value);
       return undefined;
     }
 
-    const target = Number.parseFloat(numericMetric[1]);
     let frameId;
     const duration = 900;
     const startTime = performance.now();
@@ -149,18 +178,24 @@ function AnimatedMetric({ value, isActive }) {
     const tick = now => {
       const progress = Math.min((now - startTime) / duration, 1);
       const eased = 1 - ((1 - progress) ** 3);
-      setDisplayValue(`${(target * eased).toFixed(1)}x`);
+      const animatedValue = parsedMetric.target * eased;
+      const formattedValue = parsedMetric.decimals > 0
+        ? animatedValue.toFixed(parsedMetric.decimals)
+        : Math.round(animatedValue).toString();
+
+      setDisplayValue(`${formattedValue}${parsedMetric.suffix}`);
 
       if (progress < 1) {
         frameId = requestAnimationFrame(tick);
       }
     };
 
-    setDisplayValue('0.0x');
+    const initialValue = parsedMetric.decimals > 0 ? `0.${'0'.repeat(parsedMetric.decimals)}` : '0';
+    setDisplayValue(`${initialValue}${parsedMetric.suffix}`);
     frameId = requestAnimationFrame(tick);
 
     return () => cancelAnimationFrame(frameId);
-  }, [isActive, numericMetric, value]);
+  }, [isActive, value]);
 
   return <>{displayValue}</>;
 }
@@ -172,6 +207,7 @@ function ProjectCard({ project, isFunMode }) {
   const [hasEntered, setHasEntered] = useState(false);
   const [playsByDefault, setPlaysByDefault] = useState(false);
   const href = project.slug.startsWith('#') ? project.slug : `/case-studies/${project.slug}`;
+  const hasPoster = Boolean(project.media?.poster);
   const hasVideo = Boolean(project.media?.mp4);
   const shouldPlayVideo = hasVideo && (isActive || playsByDefault);
 
@@ -231,7 +267,7 @@ function ProjectCard({ project, isFunMode }) {
           {project.media?.webm && <source src={project.media.webm} type="video/webm" />}
           <source src={project.media.mp4} type="video/mp4" />
         </video>
-      ) : hasVideo ? (
+      ) : hasPoster ? (
         <Image
           src={project.media.poster}
           alt=""
@@ -327,7 +363,19 @@ function ProjectCard({ project, isFunMode }) {
                   </span>
                 )}
                 <span className={styles.editorialPersonDetails}>
-                  <SharedLinkedInIcon className={styles.editorialLinkedInIcon} />
+                  {project.quote.linkedinUrl ? (
+                    <a
+                      href={project.quote.linkedinUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${project.quote.person} LinkedIn profile`}
+                      className={styles.editorialLinkedInLink}
+                    >
+                      <SharedLinkedInIcon className={styles.editorialLinkedInIcon} />
+                    </a>
+                  ) : (
+                    <SharedLinkedInIcon className={styles.editorialLinkedInIcon} />
+                  )}
                   <strong className="font-cabinet font-extrabold">{project.quote.person}</strong>
                   <small className="font-dm">{project.quote.role}</small>
                 </span>
@@ -338,7 +386,7 @@ function ProjectCard({ project, isFunMode }) {
       </div>
 
       <span className={`${styles.hoverCue} font-dm font-extrabold`} aria-hidden="true">
-        View in detail <span>👀</span>
+        View in detail <span>{'\uD83D\uDC40'}</span>
       </span>
     </Link>
   );

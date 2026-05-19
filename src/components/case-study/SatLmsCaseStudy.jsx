@@ -2027,6 +2027,29 @@ function StakeholderQuoteCard({ quote }) {
 }
 
 function NextCaseStudyPreview() {
+  const videoRef = useRef(null);
+  const [isActive, setIsActive] = useState(false);
+  const [playsByDefault, setPlaysByDefault] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: none), (pointer: coarse)');
+    const syncPlayMode = () => setPlaysByDefault(mediaQuery.matches);
+
+    syncPlayMode();
+    mediaQuery.addEventListener('change', syncPlayMode);
+
+    return () => mediaQuery.removeEventListener('change', syncPlayMode);
+  }, []);
+
+  const shouldPlayVideo = isActive || playsByDefault;
+
+  useEffect(() => {
+    if (!videoRef.current || !shouldPlayVideo) return;
+
+    videoRef.current.currentTime = 0;
+    videoRef.current.play().catch(() => {});
+  }, [shouldPlayVideo]);
+
   const handlePointerMove = event => {
     const bounds = event.currentTarget.getBoundingClientRect();
     event.currentTarget.style.setProperty('--next-cursor-x', `${event.clientX - bounds.left}px`);
@@ -2034,23 +2057,49 @@ function NextCaseStudyPreview() {
   };
 
   return (
-    <a className={styles.nextCasePreview} href="/case-studies/spark-presenter" onMouseMove={handlePointerMove}>
+    <a
+      className={styles.nextCasePreview}
+      href="/case-studies/spark-presenter"
+      onMouseMove={handlePointerMove}
+      onMouseEnter={() => setIsActive(true)}
+      onMouseLeave={() => setIsActive(false)}
+      onFocus={() => setIsActive(true)}
+      onBlur={() => setIsActive(false)}
+    >
       <span className={styles.nextCaseMediaFrame}>
         <span className={styles.nextCaseRibbon} aria-hidden="true">
           1 structure / many lessons
         </span>
         <span className={styles.nextCaseMediaSurface} aria-hidden="true">
-          <span className={styles.nextCasePreviewRail} />
-          <span className={styles.nextCasePreviewPanel} />
-          <span className={styles.nextCasePreviewPanelSmall} />
-          <span className={styles.nextCasePreviewLineLong} />
-          <span className={styles.nextCasePreviewLineShort} />
+          {shouldPlayVideo ? (
+            <video
+              ref={videoRef}
+              className={styles.nextCasePreviewVideo}
+              muted
+              loop
+              playsInline
+              autoPlay
+              preload="metadata"
+            >
+              <source src="/videos/work/work-spark-presenter-preview.webm" type="video/webm" />
+              <source src="/videos/work/work-spark-presenter-preview.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            <Image
+              src="/images/work/work-spark-presenter-preview-thumbnail.webp"
+              alt=""
+              fill
+              unoptimized
+              sizes="(min-width: 768px) 25rem, 100vw"
+              className={styles.nextCasePosterImage}
+            />
+          )}
         </span>
       </span>
       <span className={styles.nextCaseCopy}>
-        <span className={styles.nextCaseTitle}>S.P.A.R.K. Presenter: How I built a modular presenter system to scale lesson production</span>
+        <span className={styles.nextCaseTitle}>How I built an assembly line for learning content - and made manual production obsolete</span>
         <span className={styles.nextCaseSummary}>
-          I turned structured learning content into reusable presentation files, so one lesson system could produce many modules without rebuilding each one.
+          I built a component system and automation pipeline that turns raw course content into production-ready learning experiences in minutes.
         </span>
       </span>
       <span className={styles.nextCaseHoverCue} aria-hidden="true">
